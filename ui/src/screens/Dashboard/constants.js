@@ -1,0 +1,1 @@
+export const DASHBOARD_SLICE_NAME = 'dashboard';
