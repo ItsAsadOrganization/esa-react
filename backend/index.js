@@ -104,6 +104,8 @@ let connect = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync({ force: false })
+        await createDefaultUser()
+        await createDefaultClasses()
     } catch (err) {
         console.log(err)
     }
@@ -175,8 +177,7 @@ let createDefaultClasses = async () => {
 app.listen(PORT, (req, res, next) => {
     connectToRedisStore(req, res, next)
     connect()
-    createDefaultUser()
-    createDefaultClasses()
+
 })
 
 app.use("/api", router)

@@ -7,7 +7,9 @@ const Students = sequelize.define("students", {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         unique: true,
-        primaryKey: true
+        primaryKey: true,
+        allowNull:false,
+        initialAutoIncrement: 1000
     },
     name: {
         type: DataTypes.STRING,
@@ -39,7 +41,7 @@ const Students = sequelize.define("students", {
         type: DataTypes.TEXT("long"),
     }
 }, {
-    initialAutoIncrement: 10000,
+   
     paranoid: true,
 })
 

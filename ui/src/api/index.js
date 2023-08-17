@@ -7,7 +7,7 @@ import {
   API_ROUTE_VOUCHERS,
 } from "./constants";
 
-import { post, get } from "./utils";
+import { post, get, put } from "./utils";
 
 export const loginUserApi = (username, password) => {
   return get(API_ROUTE_LOGIN, {}, { username, password });
@@ -38,4 +38,8 @@ export const getStudentById = ({ class_id }) => {
 
 export const postVoucherApi = ({date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId}) => {
   return post(API_ROUTE_VOUCHER, { date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId }, {});
+};
+
+export const putVoucherApi = ({id, date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId}) => {
+  return put(API_ROUTE_VOUCHER, { date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId }, {id});
 };

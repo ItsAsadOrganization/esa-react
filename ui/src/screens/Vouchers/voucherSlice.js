@@ -41,29 +41,23 @@ const voucherSlice = createSlice({
         drawerOpen: false,
         drawerUser: null,
         dialogOpen: false,
-        voucher: {
-            id: null,
-            is_paid: false,
-            payment_mode: ""
-        }
     },
     reducers: {
         handleChangeDrawerOpen: (state, action) => { state.drawerOpen = action.payload },
         handleChangeDrawerUser: (state, action) => { state.drawerUser = action.payload },
         handleChangeVoucherModalOpen: (state, action) => { state.dialogOpen = action.payload },
-        handleChangeVoucherID: (state, action) => { state.id = action.payload },
-        handleChangeVoucherPaid: (state, action) => { state.voucher.is_paid = action.payload },
-        handleChangeVoucherPaymentMode: (state, action) => { state.voucher.payment_mode = action.payload },
+        handleChangeVoucherPaid: (state, action) => { state.drawerUser.is_paid = action.payload },
+        handleChangeVoucherPaymentMode: (state, action) => { state.drawerUser.payment_mode = action.payload },
     },
     extraReducers: builder => {
         builder.addCase(vouchersRequested.fulfilled, (state, action) => {
-            state.vouchersList = action.payload.data.voucher
+            state.vouchersList = action.payload.data.voucher.map(v => ({...v,voucher_id: `EGC-${v.classId}${v.studentId}`}))
         })
         builder.addCase(classesRequested.fulfilled, (state, action) => {
             state.classes = action.payload.data.classes
         })
         builder.addCase(studentsRequested.fulfilled, (state, action) => {
-            state.students = action.payload.data.studentz
+            state.students = action.payload.data.students
         })
     }
 })
@@ -82,6 +76,5 @@ export const getStudentsList = state => state.voucher.students
 export const getClassesList = state => state.voucher.classes
 export const getDrawerOpen = state => state.voucher.drawerOpen
 export const getDrawerUSer = state => state.voucher.drawerUser
-export const getVoucher = state => state.voucher.voucher
 export const getDialogOpen = state => state.voucher.dialogOpen
 export default voucherSlice.reducer

@@ -1,4 +1,5 @@
 export const TABLE_HEADS = [
+    { name: "Voucher Id" },
     { name: "Student Name" },
     { name: "Class" },
     { name: "Date Issued" },
