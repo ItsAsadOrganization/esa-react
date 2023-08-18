@@ -38,6 +38,30 @@ services:
     ports:
       - 8081:8081
     
+  ui:
+    build: D:\esa\ui\
+    ports:
+      - "3501:3000"
+    volumes:
+      - D:\esa\ui\src:/app/src
+    environment:
+      - WDS_SOCKET_PORT=0
+    depends_on:
+      - engine
+    
+
+  engine:
+    build: D:\esa\backend\
+    ports:
+      - "3502:3500"
+    volumes:
+      - D:\esa\backend\:/app
+    environment:
+      - WDS_SOCKET_PORT=0
+    depends_on:
+      - db
+   
+   
 volumes:
   postgres-db-volume:
   cache:

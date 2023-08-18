@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3500/api";
+export const BASE_URL = "http://localhost:3502/api";
 
 export const API_ROUTE_LOGIN = `${BASE_URL}/login`;
 export const API_ROUTE_CLASSES = `${BASE_URL}/classes`;
