@@ -27,6 +27,9 @@ const SetupVoucher = () => {
 
     React.useEffect(() => {
         dispatch(classesRequested()).unwrap()
+        return () => {
+            dispatch(handleResetSlice())
+        }
     }, [])
 
     React.useEffect(() => {
@@ -36,6 +39,7 @@ const SetupVoucher = () => {
     }, [voucher.classId])
     return (
         <Container maxWidth="xl">
+            {console.log({voucher})}
             <AppBreadCrumbs pageTitle={"Setup Voucher"} paths={BREADCRUMBS} />
             <Grid container maxWidth="xl" sx={{
                 p: 2,

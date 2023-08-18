@@ -88,17 +88,41 @@ let connectToRedisStore = async (req, res, next) => {
 
 
 
-Classes.hasOne(Students)
-Students.belongsTo(Classes)
+Classes.hasOne(Students, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Students.belongsTo(Classes, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
 
-Classes.hasMany(Voucher)
-Voucher.belongsTo(Classes)
+Classes.hasMany(Voucher, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Voucher.belongsTo(Classes, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
 
-Students.hasMany(Voucher)
-Voucher.belongsTo(Students)
+Students.hasMany(Voucher, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Voucher.belongsTo(Students, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
 
-Users.hasMany(Logging)
-Logging.belongsTo(Users)
+Users.hasMany(Logging, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Logging.belongsTo(Users, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
 
 let connect = async () => {
     try {

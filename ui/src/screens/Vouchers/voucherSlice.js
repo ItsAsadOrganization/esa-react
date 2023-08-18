@@ -51,7 +51,7 @@ const voucherSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(vouchersRequested.fulfilled, (state, action) => {
-            state.vouchersList = action.payload.data.voucher.map(v => ({...v,voucher_id: `EGC-${v.classId}${v.studentId}`}))
+            state.vouchersList = action.payload.data.voucher.map(v => ({...v,voucher_id: `EGC-${v.classId}${v.studentId}${v.id}`}))
         })
         builder.addCase(classesRequested.fulfilled, (state, action) => {
             state.classes = action.payload.data.classes

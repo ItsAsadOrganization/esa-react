@@ -131,7 +131,41 @@ const Layout = (props) => {
                             justifyContent: "space-between",
                             flexGrow: 1
                         }}>
-                            <List component="nav" sx={{ flex: 1 }}>
+                            <List component="nav"
+                                sx={{
+
+                                    '&& .Mui-selected, && .Mui-selected:hover': {
+                                        background: "none",
+                                        '&, & .MuiListItemIcon-root': {
+                                            color: theme.palette.action.active,
+                                        },
+                                        '&, & .MuiListItemText-root .MuiListItemText-primary': {
+                                            color: theme.palette.action.active,
+                                        },
+                                    },
+                                    '& .MuiListItemButton-root:hover': {
+                                        transition: ".3s all ease_in-out",
+                                        bgcolor: 'none',
+                                        background: "none",
+                                        '&, & .MuiListItemIcon-root': {
+                                            color: theme.palette.customFontColor.light,
+
+                                        },
+                                        '&, & .MuiListItemText-root .MuiListItemText-primary': {
+                                            color: theme.palette.customFontColor.light,
+                                        },
+                                    },
+                                    "& .MuiListItemButton-root": {
+                                        transition: ".3s all ease_in-out",
+                                        "&, & .MuiListItemText-root .MuiListItemText-primary": {
+                                            color: theme.palette.customFontColor.main,
+                                        },
+                                        "&, & .MuiListItemIcon-root": {
+                                            color: theme.palette.customFontColor.main,
+                                        }
+                                    }
+
+                                }}>
                                 {APP_ROUTES.filter(route => route.showInNav).map(route => route.roles.includes(userRole) ? (
 
                                     <ListItemButton
@@ -166,17 +200,49 @@ const Layout = (props) => {
                                 {/* {secondaryListItems} */}
                             </List>
                             <List component="nav" sx={{
-                                color: "red"
+                                color: theme.palette.error.main,
+                                '&& .Mui-selected, && .Mui-selected:hover': {
+                                    background: "none",
+                                    '&, & .MuiListItemIcon-root': {
+                                        color: theme.palette.action.active,
+                                    },
+                                    '&, & .MuiListItemText-root .MuiListItemText-primary': {
+                                        color: theme.palette.action.active,
+                                    },
+                                },
+                                '& .MuiListItemButton-root:hover': {
+                                    transition: ".3s all ease_in-out",
+                                    bgcolor: 'none',
+                                    background: "none",
+                                    '&, & .MuiListItemIcon-root': {
+                                        color: theme.palette.customFontColor.light,
+
+                                    },
+                                    '&, & .MuiListItemText-root .MuiListItemText-primary': {
+                                        color: theme.palette.customFontColor.light,
+                                    },
+                                },
+                                "& .MuiListItemButton-root": {
+                                    transition: ".3s all ease_in-out",
+                                    "&, & .MuiListItemText-root .MuiListItemText-primary": {
+                                        color: theme.palette.customFontColor.main,
+                                    },
+                                    "&, & .MuiListItemIcon-root": {
+                                        color: theme.palette.customFontColor.main,
+                                    }
+                                }
+
                             }}>
                                 <ListItemButton
                                     disableRipple
-
+                                    onClick={() => {
+                                        dispatch(handleLogout());
+                                    }}
                                 >
                                     <ListItemIcon sx={{
                                         minWidth: "30px",
                                     }}> <Icons.AccountCircleOutlined sx={{
                                         fontSize: "1.25rem",
-                                        color: "red"
                                     }} /> </ListItemIcon>
 
                                     {open && <ListItemText
@@ -195,6 +261,10 @@ const Layout = (props) => {
             <Box
                 component="main"
                 sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.mainBackground.main
+                            : theme.palette.background.default,
                     flexGrow: 1,
                     height: '100vh',
                     overflow: 'auto',
@@ -218,6 +288,7 @@ const Layout = (props) => {
                             aria-label="open drawer"
                             onClick={toggleDrawer}
                             sx={{
+                                color: theme.palette.customFontColor.main,
                                 marginRight: 2,
                             }}
                         >
@@ -228,38 +299,6 @@ const Layout = (props) => {
                         }}>
 
                         </Box>
-                    </Box>
-
-                    <Box>
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 1 }}>
-                            <Icons.AccountCircleOutlined sx={{
-                            }} />
-                        </IconButton>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                            <MenuItem onClick={() => { dispatch(handleLogout()); handleCloseUserMenu(); }}>
-                                <Typography textAlign="center">Logout</Typography>
-                            </MenuItem>
-                        </Menu>
                     </Box>
                 </Toolbar>}
                 <Navigation />

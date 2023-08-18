@@ -7,6 +7,7 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PrintIcon from '@mui/icons-material/Print';
+import SchoolIcon from '@mui/icons-material/School';
 
 export default {
   Dashboard: DashboardIcon,
@@ -17,5 +18,6 @@ export default {
   BorderColor: BorderColorIcon,
   Delete: DeleteIcon,
   ReceiptLong: ReceiptLongIcon,
-  Print: PrintIcon
+  Print: PrintIcon,
+  School: SchoolIcon
 };

@@ -65,6 +65,17 @@ class StudentsManager {
             next(err)
         }
     }
+
+    static async delete(id, next) {
+        try {
+            const std = await Repository.removeRecord(id)
+            if(std){
+                throw new SUCCESS({ message: "User Deleted" })
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = StudentsManager

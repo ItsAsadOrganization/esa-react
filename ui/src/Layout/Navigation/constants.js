@@ -34,7 +34,7 @@ export const APP_ROUTES = [
     },
     {
         label: ROUTES.students,
-        icon: Icons.Dashboard,
+        icon: Icons.School,
         redirectPath: "/",
         url: `/${ROUTES.students}`,
         isProtected: true,
@@ -45,7 +45,7 @@ export const APP_ROUTES = [
     },
     {
         label: ROUTES.vouchers,
-        icon: Icons.Dashboard,
+        icon: Icons.ReceiptLong,
         redirectPath: "/",
         url: `/${ROUTES.vouchers}`,
         isProtected: true,

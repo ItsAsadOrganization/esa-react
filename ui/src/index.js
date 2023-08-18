@@ -11,8 +11,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./index.css"
+import { darkTheme } from './common/theme';
 
-const theme = createTheme();
+const theme = createTheme(darkTheme);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

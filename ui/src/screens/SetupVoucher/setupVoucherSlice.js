@@ -65,16 +65,17 @@ const setupVoucherSlice = createSlice({
             state.voucher.config.sub_total = parseFloat(state.voucher.config.total_amount) - ((parseFloat(action.payload) / 100) * parseFloat(state.voucher.config.total_amount))
         },
         handleResetSlice: (state) => {
-            state.voucher = {
-                studentId: "",
-                classId: "",
-                date_issued: "",
-                date_expiry: "",
-                is_paid: false,
-                payment_mode: "",
-                config: {},
-            }
-            state.classList = []
+            state.voucher.studentId = ""
+            state.voucher.classId = ""
+            state.voucher.date_issued = ""
+            state.voucher.date_expiry = ""
+            state.voucher.is_paid = false
+            state.voucher.payment_mode = ""
+            state.voucher.config.fee_details = []
+            state.voucher.config.total_amount = 0
+            state.voucher.config.discount = 0
+            state.voucher.config.sub_total = 0
+                state.classList = []
             state.studentsList = []
         }
     },

@@ -8,51 +8,98 @@ import { Controller, useForm } from 'react-hook-form'
 import { useTheme } from "@emotion/react"
 import React from "react"
 import { openErrorToast, openSuccessToast } from "../../common/toast"
-import { getAllClasses, getAllStudents, postStudent } from "../../api"
+import { postStudent, updateStudent, deleteStudentApi } from "../../api"
 import InputMask from "react-input-mask";
+import { useSelector, useDispatch } from "react-redux"
+import {
+    getStudentId,
+    getStudentName,
+    getStudentFatherName,
+    getStudentEmailAddress,
+    getStudentPhone1,
+    getStudentPhone2,
+    getStudentPhone3,
+    getStudentAddress,
+    getStudentAvatar,
+    getStudentClassId,
+    getStudentModalOpen,
+    getStudenstList,
+    classesRequested,
+    studentsListRequested,
+    handleResetSlice,
+    handleChangeStudentModalOpen,
+    handleChangeStudentClassId,
+    handleChangeStudentId,
+    handleChangeStudentName,
+    handleChangeStudentFatherName,
+    handleChangeStudentEmailAddress,
+    handleChangeStudentPhone1,
+    handleChangeStudentPhone2,
+    handleChangeStudentPhone3,
+    handleChangeStudentAddress,
+    handleChangeStudentAvatar,
+    getClassList,
+    handleResetStudentModal
+} from "./studentSlice"
+import NothingFound from "../../components/NothingFound"
 
 
 const Students = () => {
     const { control, clearErrors, reset, setValue, handleSubmit, formState: { errors } } = useForm()
     const theme = useTheme()
 
-    const [classes, setClasses] = React.useState([])
-    const [studentsList, setStudentsList] = React.useState([])
-    const [base64image, setBase64image] = React.useState(null)
+    // const [classes, setClasses] = React.useState([])
+    // const [studentsList, setStudentsList] = React.useState([])
+    // const [base64image, setBase64image] = React.useState(null)
 
-    const [modalOpen, setModalOpen] = React.useState(false)
+    // const [modalOpen, setModalOpen] = React.useState(false)
 
-    const laodAllClasses = async () => {
-        try {
-            const classes = await getAllClasses()
-            setClasses(classes.data.classes)
-        } catch (err) {
-            openErrorToast(err)
-        }
-    }
 
-    const loadStudents = async () => {
-        try {
-            const students = await getAllStudents()
-            setStudentsList(students.data.students)
-        } catch (err) {
-            openErrorToast(err)
-        }
-    }
+    const id = useSelector(getStudentId)
+    const name = useSelector(getStudentName)
+    const father_name = useSelector(getStudentFatherName)
+    const email_address = useSelector(getStudentEmailAddress)
+    const phone_1 = useSelector(getStudentPhone1)
+    const phone_2 = useSelector(getStudentPhone2)
+    const phone_3 = useSelector(getStudentPhone3)
+    const address = useSelector(getStudentAddress)
+    const avatar = useSelector(getStudentAvatar)
+    const classId = useSelector(getStudentClassId)
+    const modalOpen = useSelector(getStudentModalOpen)
+    const studentsList = useSelector(getStudenstList)
+    const classes = useSelector(getClassList)
+    const dispatch = useDispatch()
+
+
+    React.useEffect(() => {
+        setValue("name", name)
+        setValue("father_name", father_name)
+        setValue("email_address", email_address)
+        setValue("phone_1", phone_1)
+        setValue("phone_2", phone_2)
+        setValue("phone_3", phone_3)
+        setValue("address", address)
+        setValue("avatar", avatar)
+        setValue("classId", classId)
+    }, [setValue, id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId])
 
     const handleChange2Base64 = (e) => {
         const file = e.target.files[0]
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            setBase64image(reader.result)
+            // setBase64image(reader.result)
+            dispatch(handleChangeStudentAvatar(reader.result))
             // cb(reader.result)
         };
     }
     React.useEffect(() => {
-        laodAllClasses()
-        loadStudents()
-        return () => laodAllClasses()
+
+        dispatch(classesRequested()).unwrap()
+        dispatch(studentsListRequested()).unwrap()
+        return () => {
+            dispatch(handleResetSlice())
+        }
     }, [])
 
 
@@ -62,21 +109,41 @@ const Students = () => {
             variant: "contained",
             action: (student) => {
                 console.log("clicked on challan", student.id)
-             },
+            },
             icon: Icons.ReceiptLong,
             color: "warning"
         },
         {
             label: "Edit",
             variant: "contained",
-            action: (student) => { },
+            action: (student) => {
+                dispatch(handleChangeStudentModalOpen(true))
+                dispatch(handleChangeStudentId(student.id))
+                dispatch(handleChangeStudentName(student.name))
+                dispatch(handleChangeStudentFatherName(student.father_name))
+                dispatch(handleChangeStudentEmailAddress(student.email_address))
+                dispatch(handleChangeStudentPhone1(student.phone_1))
+                dispatch(handleChangeStudentPhone2(student.phone_2))
+                dispatch(handleChangeStudentPhone3(student.phone_3))
+                dispatch(handleChangeStudentAddress(student.address))
+                dispatch(handleChangeStudentAvatar(student.avatar))
+                dispatch(handleChangeStudentClassId(student.classId))
+            },
             icon: Icons.BorderColor,
             color: "primary"
         },
         {
             label: "Delete",
             variant: "contained",
-            action: (student) => { },
+            action: async (student) => {
+                try {
+                    await deleteStudentApi({ id: student.id })
+                    dispatch(studentsListRequested()).unwrap()
+                    openSuccessToast("Record Deleted")
+                } catch (err) {
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
             icon: Icons.Delete,
             color: "error"
         }
@@ -88,11 +155,12 @@ const Students = () => {
                 <Grid item xs={!2} md={12} sx={{
                     p: 2,
                     boxShadow: theme => theme.shadows[5],
+                    background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    <ExplicitTable columns={TABLE_HEADS} tableSize="small">
-                        {studentsList.length > 0 ?
-                            studentsList.map(student => (
+                    {studentsList.length > 0 ?
+                        <ExplicitTable columns={TABLE_HEADS} tableSize="small">
+                            {studentsList.map(student => (
                                 <StyledTableRow key={student.id}>
                                     <StyledTableCell><Avatar src={student.avatar} /></StyledTableCell>
                                     <StyledTableCell>{student.name}</StyledTableCell>
@@ -108,14 +176,17 @@ const Students = () => {
                                         ))}
                                     </StyledTableCell>
                                 </StyledTableRow>
-                            ))
-                            : "Nothin here"}
-                    </ExplicitTable>
+                            ))}
+                        </ExplicitTable>
+
+                        : <NothingFound pageIcon={{
+                            icon: Icons.School
+                        }} pageTitle="Student" action={() => dispatch(handleChangeStudentModalOpen(true))} />}
                 </Grid>
             </Grid>
 
             <Tooltip placement="top" title="Add New Student">
-                <Fab color="primary" onClick={() => setModalOpen(!modalOpen)} sx={{
+                <Fab color="primary" onClick={() => dispatch(handleChangeStudentModalOpen(true))} sx={{
                     position: "absolute",
                     right: 50,
                     bottom: 50
@@ -127,9 +198,10 @@ const Students = () => {
 
             <Dialog dailogOpen={modalOpen} clickAwayListener={false} size={"md"} hasCloseIcon={true} title="Student"
                 handleClose={() => {
-                    setModalOpen(!modalOpen)
+                    dispatch(handleChangeStudentModalOpen(false))
                     clearErrors()
                     reset()
+                    dispatch(handleResetStudentModal())
                 }}
 
                 actionsButtonArray={[
@@ -139,22 +211,14 @@ const Students = () => {
                         variant: "contained",
                         action: handleSubmit(async (data) => {
                             try {
-                                await postStudent({
-                                    name: data.name,
-                                    father_name: data.father_name,
-                                    email_address: data.email_address,
-                                    phone_1: data.phone_1,
-                                    phone_2: data.phone_2,
-                                    phone_3: data.phone_3,
-                                    address: data.address,
-                                    avatar: base64image,
-                                    classId: data.classId
-                                })
+                                id === null ? await postStudent({ name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId }) :
+                                    await updateStudent({ id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId })
                                 openSuccessToast("Record Added Successfully")
-                                setModalOpen(!modalOpen)
+                                dispatch(handleChangeStudentModalOpen(false))
+                                dispatch(handleResetStudentModal())
                                 reset()
                                 clearErrors()
-                                loadStudents()
+                                dispatch(studentsListRequested()).unwrap()
                             } catch (err) {
                                 openErrorToast(err)
                             }
@@ -168,7 +232,6 @@ const Students = () => {
                     <Grid item xs={12} md={12} sx={{
                         mb: 2,
                     }}>
-                        {console.log({ classes })}
                         <Controller
                             control={control}
                             name="classId"
@@ -185,8 +248,9 @@ const Students = () => {
                                         error={errors.classId && !errors.classId.touched && !errors.classId.dirty}
                                         helperText={errors.classId && errors.classId.message}
                                         label="Class"
-                                        value={field.value || ""} onChange={e => {
+                                        value={classId || ""} onChange={e => {
                                             field.onChange(e)
+                                            dispatch(handleChangeStudentClassId(e.target.value))
                                         }}>
                                         <MenuItem value={""}>{"Please select"}</MenuItem>
                                         {classes.length > 0 ?
@@ -221,8 +285,11 @@ const Students = () => {
                             render={({ field }) => (
                                 <TextField
                                     error={errors.name && !errors.name.touched && !errors.name.dirty}
-                                    value={field.value}
-                                    onChange={e => field.onChange(e)}
+                                    value={name}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentName(e.target.value))
+                                    }}
                                     size="small"
                                     label="Full Name"
                                     fullWidth
@@ -251,8 +318,11 @@ const Students = () => {
                                 <TextField
                                     error={errors.father_name && !errors.father_name.touched && !errors.father_name.dirty}
                                     helperText={errors.father_name && errors.father_name.message}
-                                    value={field.value}
-                                    onChange={e => field.onChange(e)}
+                                    value={father_name}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentFatherName(e.target.value))
+                                    }}
                                     size="small"
                                     label="Father Name"
                                     fullWidth
@@ -283,8 +353,11 @@ const Students = () => {
                             render={({ field }) => (
                                 <TextField
                                     error={errors.email_address && !errors.email_address.touched && !errors.email_address.dirty}
-                                    value={field.value}
-                                    onChange={e => field.onChange(e)}
+                                    value={email_address}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentEmailAddress(e.target.value))
+                                    }}
                                     size="small"
                                     label="Email Address"
                                     fullWidth
@@ -322,9 +395,10 @@ const Students = () => {
                                 <TextField
                                     error={errors.phone_1 && !errors.phone_1.touched && !errors.phone_1.dirty}
                                     helperText={errors.phone_1 && errors.phone_1.message}
-                                    value={field.value}
+                                    value={phone_1}
                                     onChange={e => {
                                         field.onChange(e)
+                                        dispatch(handleChangeStudentPhone1(e.target.value))
                                     }
                                     }
                                     size="small"
@@ -349,8 +423,11 @@ const Students = () => {
                             render={({ field }) => (
                                 <TextField
                                     error={errors.phone_2 && !errors.phone_2.touched && !errors.phone_2.dirty}
-                                    value={field.value}
-                                    onChange={e => field.onChange(e)}
+                                    value={phone_2}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentPhone2(e.target.value))
+                                    }}
                                     size="small"
                                     label="Home Contact"
                                     fullWidth
@@ -373,8 +450,11 @@ const Students = () => {
                                 <TextField
                                     error={errors.phone_3 && !errors.phone_3.touched && !errors.phone_3.dirty}
                                     helperText={errors.phone_3 && errors.phone_3.message}
-                                    value={field.value}
-                                    onChange={e => field.onChange(e)}
+                                    value={phone_3}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentPhone3(e.target.value))
+                                    }}
                                     size="small"
                                     label="Emergency Contact"
                                     fullWidth
@@ -404,8 +484,11 @@ const Students = () => {
                                     multiline
                                     rows={2}
                                     error={errors.address && !errors.address.touched && !errors.address.dirty}
-                                    value={field.value}
-                                    onChange={e => field.onChange(e)}
+                                    value={address}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentAddress(e.target.value))
+                                    }}
                                     size="small"
                                     label="Address"
                                     fullWidth
@@ -422,7 +505,7 @@ const Students = () => {
                             pl: 1
                         }
                     }}>
-                        {base64image ?
+                        {avatar ?
                             <Box sx={{
                                 width: "100%",
                                 height: "240px",
@@ -435,7 +518,7 @@ const Students = () => {
                                 alignItems: "center",
                                 justifyContent: "center"
                             }}>
-                                <img src={base64image} style={{
+                                <img src={avatar} style={{
                                     width: 200,
                                     height: 200
                                 }} />

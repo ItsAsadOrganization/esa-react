@@ -15,6 +15,7 @@ import { HANDLE_LOGOUT } from '../screens/Login/constants';
 import { REDUX_PERSIST_KEY, PERSIST_STORAGE_ITEM_KEY} from '../common/constants';
 import setupVoucherReducer from '../screens/SetupVoucher/setupVoucherSlice';
 import voucherReducer from '../screens/Vouchers/voucherSlice';
+import studentReducer from '../screens/Students/studentSlice';
 
 const persistConfig = {
     key: REDUX_PERSIST_KEY,
@@ -27,7 +28,8 @@ const appReducer = combineReducers({
     dashboard: dashboardReducer,
     common: commonReducer,
     setupVoucher: setupVoucherReducer,
-    voucher: voucherReducer
+    voucher: voucherReducer,
+    student: studentReducer
 });
 
 const rootReducer = (state, action) => {

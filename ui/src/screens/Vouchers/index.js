@@ -12,6 +12,10 @@ import PreviewVoucher from "../PreviewVoucher"
 import Dialog from "../../components/Dialog"
 import { openErrorToast, openSuccessToast } from "../../common/toast"
 import { putVoucherApi } from "../../api"
+import EasyPaisaIcon from './media/easypaisa.png'
+import JazzCashIcon from './media/jazzcash.png'
+import BankIcon from './media/bank.png'
+import NothingFound from "../../components/NothingFound"
 
 const Vouchers = () => {
     const navigate = useNavigate()
@@ -59,16 +63,31 @@ const Vouchers = () => {
         {
             label: "Delete",
             variant: "contained",
-            action: (student) => { },
+            action: async (student) => {
+                try {
+                    console.log("in delte")
+                    // await deleteStudentApi(student.id)
+                    // dispatch(studentsRequested()).unwrap()
+                    // openSuccessToast("Record Deleted")
+                } catch (err) {
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
             icon: Icons.Delete,
             color: "error"
         }
     ]
 
     React.useEffect(() => {
-        dispatch(vouchersRequested()).unwrap()
         dispatch(studentsRequested()).unwrap()
         dispatch(classesRequested()).unwrap()
+        dispatch(vouchersRequested()).unwrap()
+
+        return () => {
+            dispatch(studentsRequested()).unwrap()
+            dispatch(classesRequested()).unwrap()
+            dispatch(vouchersRequested()).unwrap()
+        }
     }, [])
 
     return (
@@ -78,20 +97,52 @@ const Vouchers = () => {
                 <Grid item xs={!2} md={12} sx={{
                     p: 2,
                     boxShadow: theme => theme.shadows[5],
+                    background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    {console.log({vouchersList})}
-                    <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
-                        {vouchersList.length > 0 ?
-                            vouchersList.map(v => (
+                    {console.log({ vouchersList })}
+
+                    {vouchersList.length > 0 ?
+                        <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
+                            {vouchersList.map(v => (
                                 <StyledTableRow key={v.id}>
-                                    <StyledTableCell>{v.voucher_id}</StyledTableCell>
-                                    <StyledTableCell>{studentsList.find(std => std.id === v.studentId).name}</StyledTableCell>
-                                    <StyledTableCell>{classList.find(c => c.id=== v.classId).name}</StyledTableCell>
-                                    <StyledTableCell>{v.date_issued}</StyledTableCell>
-                                    <StyledTableCell>{v.date_expiry}</StyledTableCell>
-                                    <StyledTableCell>{v.is_paid ? <Chip label="Paid" color="success" size="small" sx={{ px: 2 }} /> : <Chip label="UnPaid" color="error" size="small" sx={{ px: 2 }} />}</StyledTableCell>
-                                    <StyledTableCell>{v.payment_mode}</StyledTableCell>
+                                    <StyledTableCell >{v.voucher_id}</StyledTableCell>
+                                    <StyledTableCell >{studentsList.find(std => std.id === v.studentId).name}</StyledTableCell>
+                                    <StyledTableCell >{classList.find(c => c.id === v.classId).name}</StyledTableCell>
+                                    <StyledTableCell >{v.date_issued}</StyledTableCell>
+                                    <StyledTableCell >{v.date_expiry}</StyledTableCell>
+                                    <StyledTableCell >{v.is_paid ? <Chip label="Paid" color="success" size="small" sx={{ px: 2 }} /> : <Chip label="UnPaid" color="error" size="small" sx={{ px: 2 }} />}</StyledTableCell>
+                                    <StyledTableCell sx={{ fontWeight: 700, textAlign: "center" }}>{v.payment_mode ?
+
+                                        v.payment_mode === "easypaisa" ? <Box sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            gap: 1
+                                        }}>
+                                            <img src={EasyPaisaIcon} style={{
+                                                height: 25,
+                                            }} /> {v.payment_mode.charAt(0).toUpperCase() + v.payment_mode.slice(1)}</Box>
+                                            : v.payment_mode === "jazzcash" ? <Box sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                gap: 1
+                                            }}>
+                                                <img src={JazzCashIcon} style={{
+                                                    height: 20
+                                                }} /> {v.payment_mode.charAt(0).toUpperCase() + v.payment_mode.slice(1)}</Box> : v.payment_mode === "bank" ? <Box sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    gap: 1
+                                                }}>
+                                                    <img src={BankIcon} style={{
+                                                        height: 20
+                                                    }} /> {v.payment_mode.charAt(0).toUpperCase() + v.payment_mode.slice(1)} Transfer</Box> : ""
+
+
+                                        : ""}</StyledTableCell>
                                     <StyledTableCell>
                                         {tableActionButtons.map(btn => (
                                             <IconButton color={btn.color} onClick={() => btn.action(v)}>
@@ -100,9 +151,12 @@ const Vouchers = () => {
                                         ))}
                                     </StyledTableCell>
                                 </StyledTableRow>
-                            ))
-                            : "Nothing here"}
-                    </ExplicitTable>
+                            ))}
+                        </ExplicitTable>
+
+                        : <NothingFound pageIcon={{
+                            icon: Icons.ReceiptLong
+                        }} pageTitle="Voucher" action={() => navigate(`/${ROUTES.setupVoucher}`)} />}
                 </Grid>
             </Grid>
 
@@ -179,6 +233,11 @@ const Vouchers = () => {
             }
 
             <Dialog dailogOpen={dialogOpen} hasCloseIcon={true} clickAwayListener={false} size={"md"} title="Update Voucher Payment"
+                handleClose={() => {
+                    dispatch(handleChangeVoucherModalOpen(false))
+                    dispatch(handleChangeVoucherPaid(false))
+                    dispatch(handleChangeVoucherPaymentMode(""))
+                }}
                 actionsButtonArray={[
                     {
                         label: "Done",

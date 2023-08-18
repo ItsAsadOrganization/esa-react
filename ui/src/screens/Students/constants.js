@@ -14,3 +14,8 @@ export const BREADCRUMBS = [
         path: `/students`
     },
 ]
+
+
+export const STUDENTS_SLICE = 'studentSlice'
+export const STUDENTS_LIST_REQUESTED = `${STUDENTS_SLICE}/studentsRequested`
+export const CLASSES_LIST_REQUESTED = `${STUDENTS_SLICE}/classesRequested`

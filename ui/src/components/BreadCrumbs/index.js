@@ -58,6 +58,7 @@ const AppBreadCrumbs = ({ pageTitle, paths }) => {
                                 {i === 0 ? <c.icon sx={{
                                     width: 18,
                                     height: 18,
+                                    color: theme.palette.customFontColor.main,
                                 }} /> : c.name}
                             </Link>
                         </Box>

@@ -225,7 +225,7 @@ const PreviewVoucher = ({ drawerUser }) => {
                         fontSize: 14,
                         fontWeight: "bold"
                     }}>
-                        {drawerUser.date_issued}
+                        {drawerUser.date_expiry}
                     </Typography>
                 </Grid>
 

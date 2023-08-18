@@ -46,4 +46,14 @@ studentsRouter.put("/student", (req, res, next) => {
 })
 
 
+studentsRouter.delete("/student", (req, res, next) => {
+    try {
+        const id = req.query.id
+        Manager.delete(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
+
 module.exports = studentsRouter

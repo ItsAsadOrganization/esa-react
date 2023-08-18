@@ -1,5 +1,6 @@
 const { Op } = require("sequelize")
 const Students = require("../../models/students")
+const Voucher = require("../../models/voucher")
 
 class StudentsRepository {
     static async getAllStudents() {
@@ -15,6 +16,28 @@ class StudentsRepository {
     static async getStudentById(id) {
         const studnets = await Students.findByPk(id)
         return studnets
+    }
+
+    static async removeRecord(id) {
+        const students = await Voucher.findAll({
+            where: {
+                studentId: {
+                    [Op.eq]: id
+                }
+            }
+        }).then(async (Instances) => {
+            Instances.forEach((instance) => {
+                instance.destroy()
+            })
+            return await Students.destroy({
+                where: {
+                    id: {
+                        [Op.eq]: id
+                    }
+                },
+            })
+        })
+        return students
     }
 
     static async getStudentByClass(id) {
