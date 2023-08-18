@@ -1,23 +1,65 @@
 import { useState } from "react";
-import { TextField, Button, Grid } from "@mui/material";
+import { TextField, Button, Grid, Box, Typography, IconButton } from "@mui/material";
 import { loginRequested } from "./loginSlice";
 import { useDispatch } from 'react-redux';
+import Logo from "./logo.jpg"
+import { useTheme } from "@emotion/react";
+import Icons from "../../common/icons";
 const Login = () => {
     const [userName, setUserName] = useState('admin@admin.com');
     const [password, setPassword] = useState('P@ssw0rd123*');
     const dispatch = useDispatch();
+    const [showPass, setShowPass] = useState(false)
+
+    const theme = useTheme()
     return (
-        <Grid container spacing={1}>
-            <Grid item xs={12}>
-                <TextField type='text' fullWidth placeholder="User Name" value={userName} onChange={(e) => setUserName(e.target.value)} />
-            </Grid>
-            <Grid item xs={12}>
-                <TextField type='password' fullWidth placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </Grid>
-            <Grid item xs={12}>
-                <Button fullWidth variant="contained" onClick={async () => { await dispatch(loginRequested({ username: userName, password })); }}>Login</Button>
-            </Grid>
-        </Grid>
+        <Box sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100vh",
+        }}>
+            <Box sx={{
+                p: 3,
+                py: 5,
+                boxShadow: theme.shadows[10],
+                background: theme.palette.background.paper,
+                [theme.breakpoints.up("sm")]: {
+                    width: 350
+                }
+            }}>
+                <Grid container>
+                    <Grid item xs={12} sx={{
+                        textAlign: "center",
+                        mb: 2
+                    }}>
+                        <img src={Logo} style={{ width: 150, borderRadius: "50%", boxShadow: theme.shadows[16] }} alt={"logo"} />
+                    </Grid>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
+                        <Typography sx={{
+                            color: theme.palette.action.active,
+                            fontSize: 32,
+                            textAlign: "center"
+                        }}>Login</Typography>
+                    </Grid>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
+                        <TextField type='text' size="small" fullWidth placeholder="User Name" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                    </Grid>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
+                        <TextField type={!showPass ? 'password' : "text"} size="small" fullWidth placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}
+                            InputProps={{
+                                endAdornment: <IconButton onClick={() => setShowPass(!showPass)}>
+                                    {!showPass ? <Icons.Visibility /> : <Icons.VisibilityOff />}
+                                </IconButton>
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
+                        <Button fullWidth variant="contained" size="small" onClick={async () => { await dispatch(loginRequested({ username: userName, password })); }}>Login</Button>
+                    </Grid>
+                </Grid>
+            </Box>
+        </Box>
     );
 }
 

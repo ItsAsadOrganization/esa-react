@@ -8,6 +8,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PrintIcon from '@mui/icons-material/Print';
 import SchoolIcon from '@mui/icons-material/School';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default {
   Dashboard: DashboardIcon,
@@ -19,5 +21,7 @@ export default {
   Delete: DeleteIcon,
   ReceiptLong: ReceiptLongIcon,
   Print: PrintIcon,
-  School: SchoolIcon
+  School: SchoolIcon,
+  Visibility: VisibilityIcon,
+  VisibilityOff: VisibilityOffIcon
 };

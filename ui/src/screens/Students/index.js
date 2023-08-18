@@ -104,15 +104,15 @@ const Students = () => {
 
 
     const tableActionButtons = [
-        {
-            label: "Challans",
-            variant: "contained",
-            action: (student) => {
-                console.log("clicked on challan", student.id)
-            },
-            icon: Icons.ReceiptLong,
-            color: "warning"
-        },
+        // {
+        //     label: "Challans",
+        //     variant: "contained",
+        //     action: (student) => {
+        //         console.log("clicked on challan", student.id)
+        //     },
+        //     icon: Icons.ReceiptLong,
+        //     color: "warning"
+        // },
         {
             label: "Edit",
             variant: "contained",

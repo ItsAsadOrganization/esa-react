@@ -8,7 +8,7 @@ const Students = sequelize.define("students", {
         autoIncrement: true,
         unique: true,
         primaryKey: true,
-        allowNull:false,
+        allowNull: false,
         initialAutoIncrement: 1000
     },
     name: {
@@ -41,7 +41,7 @@ const Students = sequelize.define("students", {
         type: DataTypes.TEXT("long"),
     }
 }, {
-   
+    initialAutoIncrement: 1000,
     paranoid: true,
 })
 
