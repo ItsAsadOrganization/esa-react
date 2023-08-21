@@ -48,11 +48,11 @@ services:
       - egc
     
   ui:
-    build: D:\esa\ui\
+    build: ${UI_DIR}
     ports:
       - "3501:3000"
     volumes:
-      - D:\esa\ui\src:/app/src
+      - ${UI_DIR}src:/app/src
     environment:
       - WDS_SOCKET_PORT=0
     depends_on:
@@ -68,7 +68,7 @@ services:
     ports:
       - "3502:3500"
     volumes:
-      - D:\esa\backend\:/app
+      - ${BACKEND_DIR}:/app
     environment:
       NODE_ENV: development
       PORT: 3500
@@ -80,7 +80,7 @@ services:
       DB_PORT: 3306
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      LOG_PATH: D:\esa\backend\logs\
+      LOG_PATH: ${LOGS_PATH}
       APP_SECRET: E-n!c@h%o^r&e*S(t)a_r+G_r)o(u*p&O^f%C$o@l!l~e.g,e>s<
     depends_on:
       - redis
