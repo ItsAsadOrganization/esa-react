@@ -43,7 +43,7 @@ services:
       HTTP_USER: root
       HTTP_PASSWORD: root
     ports:
-      - 8081:8081
+      - 3503:8081
     networks:
       - egc
     
@@ -62,9 +62,7 @@ services:
     
 
   engine:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: ${BACKEND_DIR}
     ports:
       - "3502:3500"
     volumes:

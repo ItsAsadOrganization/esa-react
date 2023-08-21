@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Logo from "./logo.jpg"
 import { useTheme } from "@emotion/react";
 import Icons from "../../common/icons";
+import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice";
 const Login = () => {
     // admin@admin.com
     // P@ssw0rd123*
@@ -57,7 +58,12 @@ const Login = () => {
                         />
                     </Grid>
                     <Grid item xs={12} sx={{ mb: 2 }}>
-                        <Button fullWidth variant="contained" size="small" onClick={async () => { await dispatch(loginRequested({ username: userName, password })); }}>Login</Button>
+                        <Button fullWidth variant="contained" size="small" onClick={async () => {
+                            dispatch(handleAddLoading())
+                            await dispatch(loginRequested({ username: userName, password }));
+                            dispatch(handleRemoveLoading())
+
+                        }}>Login</Button>
                     </Grid>
                 </Grid>
             </Box>

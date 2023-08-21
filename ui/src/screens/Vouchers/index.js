@@ -16,6 +16,7 @@ import EasyPaisaIcon from './media/easypaisa.png'
 import JazzCashIcon from './media/jazzcash.png'
 import BankIcon from './media/bank.png'
 import NothingFound from "../../components/NothingFound"
+import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 
 const Vouchers = () => {
     const navigate = useNavigate()
@@ -79,9 +80,11 @@ const Vouchers = () => {
     ]
 
     React.useEffect(() => {
+        dispatch(handleAddLoading())
         dispatch(studentsRequested()).unwrap()
         dispatch(classesRequested()).unwrap()
         dispatch(vouchersRequested()).unwrap()
+        dispatch(handleRemoveLoading())
 
         return () => {
             dispatch(studentsRequested()).unwrap()
@@ -234,9 +237,11 @@ const Vouchers = () => {
 
             <Dialog dailogOpen={dialogOpen} hasCloseIcon={true} clickAwayListener={false} size={"md"} title="Update Voucher Payment"
                 handleClose={() => {
+                    dispatch(handleAddLoading())
                     dispatch(handleChangeVoucherModalOpen(false))
                     dispatch(handleChangeVoucherPaid(false))
                     dispatch(handleChangeVoucherPaymentMode(""))
+                    dispatch(handleRemoveLoading())
                 }}
                 actionsButtonArray={[
                     {
@@ -245,6 +250,7 @@ const Vouchers = () => {
                         variant: "contained",
                         action: async () => {
                             try {
+                                dispatch(handleAddLoading())
                                 await putVoucherApi({
                                     id: drawerUser.id,
                                     date_issued: drawerUser.date_issued,
@@ -257,8 +263,10 @@ const Vouchers = () => {
                                 dispatch(handleChangeVoucherModalOpen(false))
                                 dispatch(vouchersRequested()).unwrap()
                                 openSuccessToast("Record Updated")
+                                dispatch(handleRemoveLoading())
                             } catch (err) {
                                 openErrorToast(err)
+                                dispatch(handleRemoveLoading())
                             }
                         },
                         size: "small"

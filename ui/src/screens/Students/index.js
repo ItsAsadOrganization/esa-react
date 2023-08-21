@@ -44,6 +44,7 @@ import {
 import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
 import { ROLES } from "../../Layout/Navigation/constants"
+import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 
 
 const Students = () => {
@@ -98,9 +99,10 @@ const Students = () => {
         };
     }
     React.useEffect(() => {
-
+        dispatch(handleAddLoading())
         dispatch(classesRequested()).unwrap()
         dispatch(studentsListRequested()).unwrap()
+        dispatch(handleRemoveLoading())
         return () => {
             dispatch(handleResetSlice())
         }
@@ -203,10 +205,12 @@ const Students = () => {
 
             <Dialog dailogOpen={modalOpen} clickAwayListener={false} size={"md"} hasCloseIcon={true} title="Student"
                 handleClose={() => {
+                    dispatch(handleAddLoading())
                     dispatch(handleChangeStudentModalOpen(false))
                     clearErrors()
                     reset()
                     dispatch(handleResetStudentModal())
+                    dispatch(handleRemoveLoading())
                 }}
 
                 actionsButtonArray={[
@@ -216,6 +220,7 @@ const Students = () => {
                         variant: "contained",
                         action: handleSubmit(async (data) => {
                             try {
+                                dispatch(handleAddLoading())
                                 id === null ? await postStudent({ name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId }) :
                                     await updateStudent({ id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId })
                                 openSuccessToast("Record Added Successfully")
@@ -224,8 +229,10 @@ const Students = () => {
                                 reset()
                                 clearErrors()
                                 dispatch(studentsListRequested()).unwrap()
+                                dispatch(handleRemoveLoading())
                             } catch (err) {
                                 openErrorToast(err)
+                                dispatch(handleRemoveLoading())
                             }
                         }),
                         size: "small"

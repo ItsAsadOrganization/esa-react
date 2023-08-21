@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import { useNavigate } from "react-router"
 import { ROUTES } from "../../Layout/Navigation/constants"
+import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 
 const SetupVoucher = () => {
     const dispatch = useDispatch()
@@ -26,7 +27,9 @@ const SetupVoucher = () => {
     const navigate = useNavigate()
 
     React.useEffect(() => {
+        dispatch(handleAddLoading())
         dispatch(classesRequested()).unwrap()
+        dispatch(handleRemoveLoading())
         return () => {
             dispatch(handleResetSlice())
         }
@@ -34,12 +37,13 @@ const SetupVoucher = () => {
 
     React.useEffect(() => {
         if (voucher.classId) {
+            dispatch(handleAddLoading())
             dispatch(studentByClassesRequested({ class_id: voucher.classId })).unwrap()
+            dispatch(handleRemoveLoading())
         }
     }, [voucher.classId])
     return (
         <Container maxWidth="xl">
-            {console.log({voucher})}
             <AppBreadCrumbs pageTitle={"Setup Voucher"} paths={BREADCRUMBS} />
             <Grid container maxWidth="xl" sx={{
                 p: 2,
@@ -109,6 +113,7 @@ const SetupVoucher = () => {
                             </StyledTableCell>
                             <StyledTableCell>
                                 <Button variant="contained" size="small" onClick={e => {
+                                    dispatch(handleAddLoading())
                                     dispatch(handleChangeConfigFeeDetails({
                                         operation: "add",
                                         fee_details: fee
@@ -118,6 +123,7 @@ const SetupVoucher = () => {
                                         fee_amount: "",
                                         fee_description: "",
                                     })
+                                    dispatch(handleRemoveLoading())
                                 }}>
                                     <Icons.Add />
                                 </Button>
@@ -130,11 +136,15 @@ const SetupVoucher = () => {
                                     <StyledTableCell>{f.fee_amount}</StyledTableCell>
                                     <StyledTableCell>{f.fee_description}</StyledTableCell>
                                     <StyledTableCell>
-                                        <Button variant="contained" color="error" size="small" onClick={e =>
+                                        <Button variant="contained" color="error" size="small" onClick={e => {
+                                            dispatch(handleAddLoading())
                                             dispatch(handleChangeConfigFeeDetails({
                                                 operation: "delete",
                                                 index: i
-                                            }))}> <Icons.Delete /></Button>
+                                            }))
+                                            dispatch(handleRemoveLoading())
+                                        }
+                                        }> <Icons.Delete /></Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))
@@ -172,13 +182,16 @@ const SetupVoucher = () => {
                 <Grid item xs={!2} md={12} sx={{ mb: 2 }}>
                     <Button variant="contained" size="small" onClick={async e => {
                         try {
-                            const response = await postVoucherApi({...voucher})
+                            dispatch(handleAddLoading())
+                            const response = await postVoucherApi({ ...voucher })
                             openSuccessToast("Voucher Added")
                             dispatch(handleResetSlice())
+                            dispatch(handleRemoveLoading())
                             navigate(`/${ROUTES.vouchers}`)
-
+                            
                         } catch (err) {
                             openErrorToast(err)
+                            dispatch(handleRemoveLoading())
                         }
                     }}>
                         Save

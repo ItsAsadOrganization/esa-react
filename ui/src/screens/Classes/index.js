@@ -2,7 +2,7 @@ import { Chip, Container, Fab, Grid, IconButton, TextField, Tooltip } from "@mui
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS, TABLE_HEADS, TABLE_HEADS_SA } from "./constants"
 import { useDispatch, useSelector } from "react-redux"
-import { classesRequested, getClass, getClassList, getClassModelOpen, handleChangeClassId, handleChangeClassModalOpen, handleChangeClassName, handleResetClassModal } from "./classSlice"
+import { classesRequested, getClass, getClassList, getClassModelOpen, handleChangeClassId, handleChangeClassModalOpen, handleChangeClassName, handleResetClassModal, handleResetClassSlice } from "./classSlice"
 import { getUserRole } from "../Login/loginSlice"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import NothingFound from "../../components/NothingFound"
@@ -13,6 +13,7 @@ import Dialog from "../../components/Dialog"
 import { Controller, useForm } from "react-hook-form"
 import React from "react"
 import { deleteClassesApi, postClassesApi, putClassesApi } from "../../api"
+import { getLoadings, handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 
 const Classes = () => {
 
@@ -22,6 +23,7 @@ const Classes = () => {
     const classModalOpen = useSelector(getClassModelOpen)
     const { handleSubmit, control, clearErrors, reset, formState: { errors }, setValue } = useForm()
     const dispatch = useDispatch()
+    const loading = useSelector(getLoadings)
 
     React.useEffect(() => {
         setValue("name", classes.name)
@@ -33,9 +35,11 @@ const Classes = () => {
             label: "Edit",
             variant: "contained",
             action: (_class) => {
+                dispatch(handleAddLoading())
                 dispatch(handleChangeClassName(_class.name))
                 dispatch(handleChangeClassId(_class.id))
                 dispatch(handleChangeClassModalOpen(true))
+                dispatch(handleRemoveLoading())
             },
             icon: Icons.BorderColor,
             color: "primary"
@@ -45,11 +49,14 @@ const Classes = () => {
             variant: "contained",
             action: async (_class) => {
                 try {
+                    dispatch(handleAddLoading())
                     await deleteClassesApi({ id: _class.id })
                     openSuccessToast("Record Deleted")
                     dispatch(classesRequested()).unwrap()
+                    dispatch(handleRemoveLoading())
                 } catch (err) {
                     openErrorToast(err.message ? err.message : err)
+                    dispatch(handleRemoveLoading())
                 }
             },
             icon: Icons.Delete,
@@ -59,7 +66,13 @@ const Classes = () => {
 
 
     React.useEffect(() => {
+        dispatch(handleAddLoading())
         dispatch(classesRequested()).unwrap()
+        dispatch(handleRemoveLoading())
+
+        return () => {
+            dispatch(handleResetClassSlice())
+        }
     }, [])
 
     return (
@@ -121,6 +134,7 @@ const Classes = () => {
                         variant: "contained",
                         action: handleSubmit(async (data) => {
                             try {
+                                dispatch(handleAddLoading())
                                 const resposne = classes.id === null ? await postClassesApi({ name: classes.name }) :
                                     await putClassesApi({ id: classes.id, name: classes.name })
                                 openSuccessToast("Class Added")
@@ -128,8 +142,10 @@ const Classes = () => {
                                 reset()
                                 dispatch(handleResetClassModal())
                                 dispatch(classesRequested()).unwrap()
+                                dispatch(handleRemoveLoading())
                             } catch (err) {
                                 openErrorToast(err.message ? err.message : err)
+                                dispatch(handleRemoveLoading())
                             }
                         }),
                         size: "small"

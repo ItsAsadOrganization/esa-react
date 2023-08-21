@@ -25,7 +25,7 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useTheme } from '@emotion/react';
-import { Tooltip } from '@mui/material';
+import { Backdrop, CircularProgress, Tooltip } from '@mui/material';
 
 const settings = [];
 const drawerWidth = 240;
@@ -302,6 +302,13 @@ const Layout = (props) => {
                     </Box>
                 </Toolbar>}
                 <Navigation />
+                 <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loadings > 0}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+
             </Box>
             {/* <ProgressBar progressBarOpen={loadings > 0} /> */}
         </Box >

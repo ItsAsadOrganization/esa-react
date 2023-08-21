@@ -7,26 +7,26 @@ import { LOADING_KEYS, DEFAULT_TOAST_ERROR, COMMON_SLICE_NAME } from './constant
 const commonSlice = createSlice({
     name: COMMON_SLICE_NAME,
     initialState: {
-        loadings: [],
+        loadings: 0,
         errors: [],
     },
     reducers: {
+        handleAddLoading: (state, action) => {
+            state.loadings++
+        },
+        handleRemoveLoading: (state, action) => {
+            state.loadings--
+        }
     },
     extraReducers: {
-        [loginRequested.pending]: (state) => {
-            state.loadings.push(LOADING_KEYS.LOGIN_REQUESTED);
-        },
-        [loginRequested.fulfilled]: (state, first) => {
-            state.loadings = state.loadings.filter(loading => loading !== LOADING_KEYS.LOGIN_REQUESTED);
-        },
-        [loginRequested.rejected]: (state, data) => {
-            openErrorToast(typeof(data.error.message) === 'string' ? data.error.message : DEFAULT_TOAST_ERROR);
-            state.loadings = state.loadings.filter(loading => loading !== LOADING_KEYS.LOGIN_REQUESTED);
-        },
+
     },
 });
 
-export const { } = commonSlice.actions;
+export const {
+    handleAddLoading,
+    handleRemoveLoading
+} = commonSlice.actions;
 
 export const getLoadings = (state) => state.common.loadings;
 
