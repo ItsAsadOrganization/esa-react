@@ -4,7 +4,10 @@ const Repository = require("./repository")
 class StudentsManager {
     static async getAllStudents(session, next) {
         try {
-            const students = await Repository.getAllStudents()
+            const sessionData = session.user
+            const paranoid = sessionData.role === "superadmin" ? false : true
+            console.log("\n\n\n", { paranoid })
+            const students = await Repository.getAllStudents(paranoid)
             if (!students) {
                 throw new SUCCESS({ students: [] })
             } else {

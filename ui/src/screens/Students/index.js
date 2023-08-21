@@ -1,6 +1,6 @@
-import { Avatar, Box, Container, Fab, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Tooltip, Typography } from "@mui/material"
+import { Avatar, Box, Chip, Container, Fab, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Tooltip, Typography } from "@mui/material"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
-import { BREADCRUMBS, TABLE_HEADS } from "./constants"
+import { BREADCRUMBS, TABLE_HEADS, TABLE_HEADS_SA } from "./constants"
 import Icons from "../../common/icons"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import Dialog from "../../components/Dialog"
@@ -42,6 +42,8 @@ import {
     handleResetStudentModal
 } from "./studentSlice"
 import NothingFound from "../../components/NothingFound"
+import { getUserRole } from "../Login/loginSlice"
+import { ROLES } from "../../Layout/Navigation/constants"
 
 
 const Students = () => {
@@ -68,6 +70,8 @@ const Students = () => {
     const modalOpen = useSelector(getStudentModalOpen)
     const studentsList = useSelector(getStudenstList)
     const classes = useSelector(getClassList)
+    const userRole = useSelector(getUserRole)
+
     const dispatch = useDispatch()
 
 
@@ -159,15 +163,16 @@ const Students = () => {
                     mb: 1
                 }}>
                     {studentsList.length > 0 ?
-                        <ExplicitTable columns={TABLE_HEADS} tableSize="small">
+                        <ExplicitTable columns={userRole === ROLES.superadmin ? TABLE_HEADS_SA : TABLE_HEADS} tableSize="small">
                             {studentsList.map(student => (
                                 <StyledTableRow key={student.id}>
+                                    {console.log({ student })}
                                     <StyledTableCell><Avatar src={student.avatar} /></StyledTableCell>
                                     <StyledTableCell>{student.name}</StyledTableCell>
                                     <StyledTableCell>{student.father_name}</StyledTableCell>
                                     <StyledTableCell>{student.phone_1}</StyledTableCell>
-                                    {/* <StyledTableCell>{student.phone_2}</StyledTableCell> */}
                                     <StyledTableCell>{student.address}</StyledTableCell>
+                                    {userRole === ROLES.superadmin ? <StyledTableCell>{student.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
                                     <StyledTableCell>
                                         {tableActionButtons.map(btn => (
                                             <IconButton color={btn.color} onClick={() => btn.action(student)}>

@@ -21,8 +21,8 @@ class VouchersRepository {
         return voucher
     }
 
-    static async getAllVouchers(id) {
-        const voucher = await Voucher.findAll()
+    static async getAllVouchers(paranoid) {
+        const voucher = await Voucher.findAll({ paranoid: paranoid })
         return voucher
     }
 

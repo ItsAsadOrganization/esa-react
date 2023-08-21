@@ -28,8 +28,8 @@ const PORT = process.env.PORT || 3500
 
 const redisClient = redis.createClient({
     // url: "redis://reids:6379"
-    socket:{
-        host:"redis",
+    socket: {
+        host: "redis",
         port: 6379,
         connectTimeout: 9999
     },
@@ -61,6 +61,8 @@ app.use(async (req, res, next) => {
                 const sessionKey = `sess:${Buffer.from(req.headers.authorization, 'base64').toString('ascii')}`
                 const ttl = await redisClient.ttl(sessionKey)
                 if (ttl > 0) {
+                    const sessionData = await redisClient.get(sessionKey)
+                    req.session.user = JSON.parse(sessionData, null, 2)
                     req.session.touch();
                     next()
                 } else {
@@ -74,7 +76,7 @@ app.use(async (req, res, next) => {
         }
     } catch (err) {
         next(err)
-    }
+            }
 })
 
 let connectToRedisStore = async (req, res, next) => {
@@ -144,28 +146,52 @@ let connect = async () => {
 
 let createDefaultUser = async () => {
     try {
-        const [user, created] = await Users.findOrCreate({
-            where: { name: "admin" },
-            defaults: {
+
+        const users = [
+            {
                 name: "admin",
                 email: "admin@admin.com",
                 password: "P@ssw0rd123*",
                 role: "admin"
+            },
+            {
+                name: "superadmin",
+                email: "superadmin@egc.edu.pk",
+                password: "SuperAdmin@123,.",
+                role: "superadmin"
             }
-        })
+        ]
 
-        if (user) {
-            // logger.info("User Already exists")
-            console.log("Users Exists")
-        }
-        if (created) {
-            // logger.info("User Created")
-            console.log("User created")
-        }
+
+        users.forEach(async usr => {
+            Users.findOrCreate({
+                where: { name: usr.name },
+                defaults: {
+                    name: usr.name,
+                    email: usr.email,
+                    password: usr.password,
+                    role: usr.role
+                }
+            }).then(([user, created]) => {
+                console.log('User:', user.name, 'Created:', created);
+            })
+                .catch(error => {
+                    console.error('Error creating or finding user:', error);
+                });
+        });
+
+        // const i = await Users.bulkCreate(users, {
+        //     updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
+        //     upsert: false, // Perform an update or create operation
+        // })
+        // if (i) {
+        //     console.log("User added")
+        // }
     } catch (err) {
         console.log(err)
     }
 }
+
 
 let createDefaultClasses = async () => {
 
@@ -186,20 +212,20 @@ let createDefaultClasses = async () => {
                 defaults: user, // Provide the attributes to create if the record doesn't exist
             })
                 .then(([user, created]) => {
-                    console.log('User:', user.name, 'Created:', created);
+                    console.log('Classes:', user.name, 'Created:', created);
                 })
                 .catch(error => {
                     console.error('Error creating or finding user:', error);
                 });
         });
 
-        const i = await Classes.bulkCreate(classes, {
-            updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
-            upsert: false, // Perform an update or create operation
-        })
-        if (i) {
-            console.log("Classes added")
-        }
+        // const i = await Classes.bulkCreate(classes, {
+        //     updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
+        //     upsert: false, // Perform an update or create operation
+        // })
+        // if (i) {
+        //     console.log("Classes added")
+        // }
     } catch (err) {
         console.log(err)
     }
@@ -235,7 +261,7 @@ app.use(async (err, req, res, next) => {
             statusCode: err.statusCode,
             response: { ..._err }
         },
-        userId: sessionData.userid
+        userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
     })
     res.status(err.statusCode).json({ ..._err })
 })

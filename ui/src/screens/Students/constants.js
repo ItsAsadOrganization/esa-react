@@ -7,6 +7,18 @@ export const TABLE_HEADS = [
     { name: "" },
 ]
 
+
+
+export const TABLE_HEADS_SA = [
+    { name: "Avatar" },
+    { name: "Name" },
+    { name: "Father Name" },
+    { name: "Emergency Contact" },
+    { name: "Address" },
+    { name: "Status" },
+    { name: "" },
+]
+
 export const BREADCRUMBS = [
     {
         name: "Students",

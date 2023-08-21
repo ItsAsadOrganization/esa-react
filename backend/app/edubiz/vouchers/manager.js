@@ -57,9 +57,11 @@ class VoucherManager {
         }
     }
 
-    static async getVouchers(next) {
+    static async getVouchers(session, next) {
         try {
-            const voucher = await Repository.getAllVouchers()
+            const sessionData = session.user
+            const paranoid = sessionData.role === "superadmin" ? false : true
+            const voucher = await Repository.getAllVouchers(paranoid)
             if (!voucher) {
                 throw new SUCCESS({ voucher: [] })
             } else {
@@ -78,7 +80,7 @@ class VoucherManager {
             const dir = path.join(path.resolve('./'), "common", "sample.html")
 
 
-               ; (async () => {
+                ; (async () => {
 
                     // Create a browser instance
                     const browser = await puppeteer.launch();

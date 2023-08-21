@@ -1,20 +1,19 @@
 version: '3.8'
 services:
   db:
-    image: postgres:14.1-alpine
+    image: mysql:5.7
     restart: always
     environment:
-      POSTGRES_USER: edubiz
-      POSTGRES_PASSWORD: edubiz
-      POSTGRES_DB: edubiz
+      MYSQL_DATABASE: 'edubiz'
+      MYSQL_USER: 'edubiz'
+      MYSQL_PASSWORD: 'edubiz'
+      MYSQL_ROOT_PASSWORD: 'admin@123'
     ports:
-      - '5431:5432'
+      - '3504:3306'
+    expose:
+      - '3306'
     volumes:
-      - postgres-db-volume:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "edubiz"]
-      interval: 5s
-      retries: 5
+      - mysql-db-volume:/var/lib/mysql
     networks:
       - egc
 
@@ -77,8 +76,8 @@ services:
       DB_USER: edubiz
       DB_PASS: edubiz
       DB_HOST: db
-      DB_DIALECT: postgres
-      DB_PORT: 5432
+      DB_DIALECT: mysql
+      DB_PORT: 3306
       REDIS_HOST: redis
       REDIS_PORT: 6379
       LOG_PATH: D:\esa\backend\logs\
@@ -92,7 +91,7 @@ services:
    
    
 volumes:
-  postgres-db-volume:
+  mysql-db-volume:
   redis:
 
 networks:

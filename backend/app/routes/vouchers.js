@@ -22,7 +22,8 @@ voucherRouter.get("/voucher", (req, res, next) => {
 
 voucherRouter.get("/vouchers", (req, res, next) => {
     try {
-        Manager.getVouchers(next)
+        const session = req.session
+        Manager.getVouchers(session, next)
     } catch (err) {
         next(err)
     }

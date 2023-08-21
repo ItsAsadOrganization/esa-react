@@ -17,7 +17,7 @@ export const ROUTES = {
 
 export const ROLES = {
     admin: 'admin',
-    ai: 'ai'
+    superadmin: 'superadmin'
 };
 
 export const APP_ROUTES = [
@@ -28,7 +28,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.dashboard}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.ai],
+        roles: [ROLES.admin, ROLES.superadmin],
         screen: Dashboard,
         showInNav: true,
     },
@@ -39,7 +39,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.students}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.ai],
+        roles: [ROLES.admin, ROLES.superadmin],
         screen: Students,
         showInNav: true,
     },
@@ -50,7 +50,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.vouchers}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.ai],
+        roles: [ROLES.admin, ROLES.superadmin],
         screen: Vouchers,
         showInNav: true,
     },
@@ -61,7 +61,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.setupVoucher}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.ai],
+        roles: [ROLES.admin, ROLES.superadmin],
         screen: SetupVoucher,
         showInNav: false,
     },
@@ -72,7 +72,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.previewVoucher}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.ai],
+        roles: [ROLES.admin, ROLES.superadmin],
         screen: PreviewVoucher,
         showInNav: false,
     },

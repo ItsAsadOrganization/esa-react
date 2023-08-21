@@ -3,8 +3,10 @@ const Students = require("../../models/students")
 const Voucher = require("../../models/voucher")
 
 class StudentsRepository {
-    static async getAllStudents() {
-        const studnets = await Students.findAll()
+    static async getAllStudents(paranoid) {
+        const studnets = await Students.findAll({
+            paranoid: paranoid
+        })
         return studnets
     }
 
@@ -26,9 +28,12 @@ class StudentsRepository {
                 }
             }
         }).then(async (Instances) => {
-            Instances.forEach((instance) => {
-                instance.destroy()
-            })
+            console.log("\n\n\n\n", { Instances })
+            if (Instances.length > 0) {
+                Instances.forEach((instance) => {
+                    instance.destroy()
+                })
+            }
             return await Students.destroy({
                 where: {
                     id: {
