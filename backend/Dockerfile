@@ -6,10 +6,10 @@ WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install nodemon -g
+RUN npm install pm2@latest -g
 
 RUN npm install --silent
 
 COPY . .
 
-CMD [ "nodemon" ]
+CMD [ "pm2", "start", "index.js" ]
