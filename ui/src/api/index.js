@@ -1,4 +1,5 @@
 import {
+  API_ROUTE_CLASS,
   API_ROUTE_CLASSES,
   API_ROUTE_LOGIN,
   API_ROUTE_STUDENT,
@@ -50,6 +51,18 @@ export const putVoucherApi = ({ id, date_issued, date_expiry, config, payment_mo
   return put(API_ROUTE_VOUCHER, { date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId }, { id });
 };
 
-export const deleteStudentApi = ({ id}) => {
-  return del(API_ROUTE_STUDENT, {  }, { id });
+export const deleteStudentApi = ({ id }) => {
+  return del(API_ROUTE_STUDENT, {}, { id });
+};
+
+export const postClassesApi = ({ name }) => {
+  return post(API_ROUTE_CLASS, { name }, {});
+};
+
+export const deleteClassesApi = ({ id }) => {
+  return del(API_ROUTE_CLASS, {}, { id });
+};
+
+export const putClassesApi = ({ id, name }) => {
+  return put(API_ROUTE_CLASS, { name }, { id });
 };

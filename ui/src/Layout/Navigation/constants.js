@@ -1,4 +1,5 @@
 import Icons from '../../common/icons';
+import Classes from '../../screens/Classes';
 import Dashboard from '../../screens/Dashboard';
 import PreviewVoucher from '../../screens/PreviewVoucher';
 import SetupVoucher from '../../screens/SetupVoucher';
@@ -12,7 +13,8 @@ export const ROUTES = {
     students: "students",
     vouchers: "vouchers",
     setupVoucher: "setup-voucher",
-    previewVoucher: "view-voucher"
+    previewVoucher: "view-voucher",
+    classes: "class"
 };
 
 export const ROLES = {
@@ -52,6 +54,17 @@ export const APP_ROUTES = [
         permission: ROUTES.dashboard,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: Vouchers,
+        showInNav: true,
+    },
+    {
+        label: ROUTES.classes,
+        icon: Icons.ReceiptLong,
+        redirectPath: "/",
+        url: `/${ROUTES.classes}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Classes,
         showInNav: true,
     },
     {

@@ -76,7 +76,7 @@ app.use(async (req, res, next) => {
         }
     } catch (err) {
         next(err)
-            }
+    }
 })
 
 let connectToRedisStore = async (req, res, next) => {
@@ -261,7 +261,7 @@ app.use(async (err, req, res, next) => {
             statusCode: err.statusCode,
             response: { ..._err }
         },
-        userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
+        // userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
     })
     res.status(err.statusCode).json({ ..._err })
 })
