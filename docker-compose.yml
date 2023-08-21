@@ -15,28 +15,38 @@ services:
       test: ["CMD", "pg_isready", "-U", "edubiz"]
       interval: 5s
       retries: 5
+    networks:
+      - egc
 
-  cache:
-    image: redis:6.2-alpine
-    restart: always
+  redis:
+    image: redis
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-    volumes: 
-      - cache:/data
+      - 6389:6379
+    volumes:
+      - redis:/data
+    restart: always
+    entrypoint: redis-server --appendonly yes
+    networks:
+      - egc
       
   redis-commander:
     image: rediscommander/redis-commander:latest
     restart: always
     environment:
-      REDIS_HOSTS: cache
-      REDIS_HOST: cache
-      REDIS_PORT: cache:6379
+      REDIS_HOSTS: redis
+      REDIS_HOST: redis
+      REDIS_PORT: redis:6379
       REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
       HTTP_USER: root
       HTTP_PASSWORD: root
     ports:
       - 8081:8081
+    networks:
+      - egc
     
   ui:
     build: D:\esa\ui\
@@ -48,20 +58,42 @@ services:
       - WDS_SOCKET_PORT=0
     depends_on:
       - engine
+    networks:
+      - egc
     
 
   engine:
-    build: D:\esa\backend\
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "3502:3500"
     volumes:
       - D:\esa\backend\:/app
     environment:
-      - WDS_SOCKET_PORT=0
+      NODE_ENV: development
+      PORT: 3500
+      DB_NAME: edubiz
+      DB_USER: edubiz
+      DB_PASS: edubiz
+      DB_HOST: db
+      DB_DIALECT: postgres
+      DB_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      LOG_PATH: D:\esa\backend\logs\
+      APP_SECRET: E-n!c@h%o^r&e*S(t)a_r+G_r)o(u*p&O^f%C$o@l!l~e.g,e>s<
     depends_on:
-      - db
+      - redis
+    links:
+      - redis
+    networks:
+      - egc
    
    
 volumes:
   postgres-db-volume:
-  cache:
+  redis:
+
+networks:
+  egc:

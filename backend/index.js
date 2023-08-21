@@ -27,10 +27,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const PORT = process.env.PORT || 3500
 
 const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD
-})
+    // url: "redis://reids:6379"
+    socket:{
+        host:"redis",
+        port: 6379,
+        connectTimeout: 9999
+    },
+});
+
 redisStore = new RedisStore({
     client: redisClient,
 });
@@ -76,12 +80,14 @@ app.use(async (req, res, next) => {
 let connectToRedisStore = async (req, res, next) => {
     try {
         // logger.info("Trying to connect to Redis")
+        console.log("Trying to connect")
         await redisClient.connect()
+        console.log("Conncted")
         // logger.info("Redis Connectin Successful")
 
         // logger.info("Redis store initialized")
     } catch (err) {
-        console.log(err)
+        console.log(">>>>>>>>>>>>>>>>> ", err)
         // logger.error("error connectibg redis ", err)
     }
 }
@@ -187,13 +193,13 @@ let createDefaultClasses = async () => {
                 });
         });
 
-        // const i = await Classes.bulkCreate(classes, {
-        //     updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
-        //     upsert: false, // Perform an update or create operation
-        // })
-        // if (i) {
-        //     connect.log("Classes added")
-        // }
+        const i = await Classes.bulkCreate(classes, {
+            updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
+            upsert: false, // Perform an update or create operation
+        })
+        if (i) {
+            console.log("Classes added")
+        }
     } catch (err) {
         console.log(err)
     }

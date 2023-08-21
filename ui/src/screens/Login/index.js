@@ -6,8 +6,10 @@ import Logo from "./logo.jpg"
 import { useTheme } from "@emotion/react";
 import Icons from "../../common/icons";
 const Login = () => {
-    const [userName, setUserName] = useState('admin@admin.com');
-    const [password, setPassword] = useState('P@ssw0rd123*');
+    // admin@admin.com
+    // P@ssw0rd123*
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const [showPass, setShowPass] = useState(false)
 
