@@ -45,6 +45,7 @@ import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
 import { ROLES } from "../../Layout/Navigation/constants"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
+import { BASE_URL } from "../../api/constants"
 
 
 const Students = () => {
@@ -53,7 +54,7 @@ const Students = () => {
 
     // const [classes, setClasses] = React.useState([])
     // const [studentsList, setStudentsList] = React.useState([])
-    // const [base64image, setBase64image] = React.useState(null)
+    const [base64image, setBase64image] = React.useState(null)
 
     // const [modalOpen, setModalOpen] = React.useState(false)
 
@@ -91,16 +92,14 @@ const Students = () => {
     const handleChange2Base64 = (e) => {
         try {
             const file = e.target.files[0]
-            console.log({ file })
-
-            if (file.size > 10000) {
+            if (file.size > 1000000) {
                 throw new Error("Please upload a file smaller than 50 KB");
             }
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function () {
-                // setBase64image(reader.result)
-                dispatch(handleChangeStudentAvatar(reader.result))
+                setBase64image(reader.result)
+                dispatch(handleChangeStudentAvatar(file))
                 // cb(reader.result)
             };
         } catch (err) {
@@ -177,8 +176,8 @@ const Students = () => {
                         <ExplicitTable columns={userRole === ROLES.superadmin ? TABLE_HEADS_SA : TABLE_HEADS} tableSize="small">
                             {studentsList.map(student => (
                                 <StyledTableRow key={student.id}>
-                                    {console.log({ student })}
-                                    <StyledTableCell><Avatar src={student.avatar} /></StyledTableCell>
+                                    {console.log({ "ssss": `${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar })}
+                                    <StyledTableCell><Avatar src={`${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar} /></StyledTableCell>
                                     <StyledTableCell>{student.name}</StyledTableCell>
                                     <StyledTableCell>{student.father_name}</StyledTableCell>
                                     <StyledTableCell>{student.phone_1}</StyledTableCell>
@@ -218,6 +217,7 @@ const Students = () => {
                     dispatch(handleChangeStudentModalOpen(false))
                     clearErrors()
                     reset()
+                    setBase64image(null)
                     dispatch(handleResetStudentModal())
                     dispatch(handleRemoveLoading())
                 }}
@@ -229,14 +229,28 @@ const Students = () => {
                         variant: "contained",
                         action: handleSubmit(async (data) => {
                             try {
+                                let formData = new FormData()
+                                formData.append("name", name)
+                                formData.append("father_name", father_name)
+                                formData.append("email_address", email_address)
+                                formData.append("phone_1", phone_1)
+                                formData.append("phone_2", phone_2)
+                                formData.append("phone_3", phone_3)
+                                formData.append("address", address)
+                                formData.append("avatar", avatar)
+                                formData.append("classId", classId)
+
+
+
                                 dispatch(handleAddLoading())
-                                id === null ? await postStudent({ name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId }) :
-                                    await updateStudent({ id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId })
+                                id === null ? await postStudent(formData) :
+                                    await updateStudent(formData, id)
                                 openSuccessToast("Record Added Successfully")
                                 dispatch(handleChangeStudentModalOpen(false))
                                 dispatch(handleResetStudentModal())
                                 reset()
                                 clearErrors()
+                                setBase64image(null)
                                 dispatch(studentsListRequested()).unwrap()
                                 dispatch(handleRemoveLoading())
                             } catch (err) {
@@ -526,7 +540,7 @@ const Students = () => {
                             pl: 1
                         }
                     }}>
-                        {avatar ?
+                        {base64image ?
                             <Box sx={{
                                 width: "100%",
                                 height: "240px",
@@ -539,7 +553,7 @@ const Students = () => {
                                 alignItems: "center",
                                 justifyContent: "center"
                             }}>
-                                <img src={avatar} style={{
+                                <img src={base64image} style={{
                                     width: 200,
                                     height: 200
                                 }} />

@@ -27,16 +27,18 @@ export const getAllVouchers = () => {
   return get(API_ROUTE_VOUCHERS, {}, {});
 };
 
-export const postStudent = ({
-  name, father_name, email_address, phone_1, phone_2, phone_3, avatar, address = "Encore Star Group Of Colleges", classId
-}) => {
-  return post(API_ROUTE_STUDENT, { name, father_name, email_address, phone_1, phone_2, phone_3, avatar, address, classId }, {});
+export const postStudent = (formData) => {
+  return post(API_ROUTE_STUDENT, formData, {}, {
+    "Content-Type": "multipart/form-data",
+    "Accept": "multipart/form-data",
+  });
 };
 
-export const updateStudent = ({
-  id, name, father_name, email_address, phone_1, phone_2, phone_3, avatar, address = "Encore Star Group Of Colleges", classId
-}) => {
-  return put(API_ROUTE_STUDENT, { name, father_name, email_address, phone_1, phone_2, phone_3, avatar, address, classId }, { id });
+export const updateStudent = (formData, id) => {
+  return put(API_ROUTE_STUDENT, formData, { id }, {
+    "Content-Type": "multipart/form-data",
+    "Accept": "multipart/form-data",
+  });
 };
 
 export const getStudentById = ({ class_id }) => {

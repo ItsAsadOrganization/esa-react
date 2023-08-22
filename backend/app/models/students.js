@@ -15,7 +15,7 @@ const Students = sequelize.define("students", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    father_name: {
+        father_name: {
         type: DataTypes.STRING,
         allowNull: false,
     },

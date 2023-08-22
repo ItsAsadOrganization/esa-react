@@ -36,7 +36,7 @@ const studentSlice = createSlice({
             address: "",
             avatar: "",
             classId: null,
-        },
+                    },
         studentModalOpen: false
     },
     reducers: {
@@ -50,7 +50,6 @@ const studentSlice = createSlice({
         handleChangeStudentAddress: (state, action) => { state.student.address = action.payload },
         handleChangeStudentAvatar: (state, action) => { state.student.avatar = action.payload },
         handleChangeStudentClassId: (state, action) => {
-            console.log(action.payload)
             state.student.classId = action.payload
         },
         handleChangeStudentModalOpen: (state, action) => {
@@ -69,7 +68,7 @@ const studentSlice = createSlice({
             state.student.address = ""
             state.student.avatar = ""
             state.student.classId = null
-        },
+                    },
         handleResetSlice: (state) => {
             state.studentModalOpen = false
             state.student.id = null
@@ -84,7 +83,7 @@ const studentSlice = createSlice({
             state.student.classId = null
             state.studentList = []
             state.classList = []
-        }
+                    }
     },
     extraReducers: builder => {
         builder.addCase(studentsListRequested.fulfilled, (state, action) => {

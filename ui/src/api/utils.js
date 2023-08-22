@@ -98,6 +98,6 @@ export async function del(url, data = {}, params = {}) {
     return await request('delete', url, data, params);
 }
 
-export async function put(url, data = {}, params = {}) {
-    return await request('put', url, data, params);
+export async function put(url, data = {}, params = {}, headers = {}) {
+    return await request('put', url, data, params, headers);
 }

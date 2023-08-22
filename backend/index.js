@@ -15,6 +15,7 @@ const { SUCCESS, UNAUTHORIZED, FORBIDDEN, CONFLICT, NOTFOUND } = require("./app/
 const router = require("./app/routes")
 const Logging = require("./app/models/logging")
 const multer = require('multer');
+const path = require("path")
 
 
 const app = exporess()
@@ -23,7 +24,7 @@ let redisStore = null
 app.use(cors({ exposedHeaders: "authorization" }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use("/uploads", exporess.static(path.join(__dirname, "/uploads")))
 const PORT = process.env.PORT || 3500
 
 const redisClient = redis.createClient({
@@ -52,11 +53,10 @@ app.use(
     })
 );
 
-const upload = multer({ dest: 'uploads/' });
 
 app.use(async (req, res, next) => {
     try {
-        if (!req.originalUrl.includes("login")) {
+        if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads")) {
             if (req.headers.authorization) {
                 const sessionKey = `sess:${Buffer.from(req.headers.authorization, 'base64').toString('ascii')}`
                 const ttl = await redisClient.ttl(sessionKey)
@@ -66,12 +66,13 @@ app.use(async (req, res, next) => {
                     req.session.touch();
                     next()
                 } else {
-                    throw new UNAUTHORIZED("Session expired")
+                    throw new UNAUTHORIZED({ message: "Session expired" })
                 }
             } else {
-                throw new UNAUTHORIZED("Missing Authorization token")
+                throw new UNAUTHORIZED({ message: "Missing Authorization token" })
             }
         } else {
+            console.log("I am called here")
             next()
         }
     } catch (err) {
@@ -135,7 +136,7 @@ Logging.belongsTo(Users, {
 let connect = async () => {
     try {
         await sequelize.authenticate()
-        await sequelize.sync({ force: false })
+        await sequelize.sync({ force: true })
         await createDefaultUser()
         await createDefaultClasses()
     } catch (err) {
