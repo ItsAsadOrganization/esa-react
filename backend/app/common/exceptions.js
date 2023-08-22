@@ -9,6 +9,7 @@ const HTTP_STATUS_CODE = {
     "BAD_REQUEST": 400,
     "UNAUTHORIZED": 401,
     "FORBIDDEN": 403,
+    "CONFLICT": 409,
     "NOT_FOUND": 404,
     "INTERNAL_SERVER_ERROR": 500
 
@@ -50,6 +51,18 @@ class SUCCESS extends BaseError {
         name,
         description = 'SUCCESS',
         statusCode = HTTP_STATUS_CODE.OK,
+        isOperational = true,
+    ) {
+        super(args, name, statusCode, isOperational, description)
+    }
+}
+
+class CONFLICT extends BaseError {
+    constructor(
+        args,
+        name,
+        description = 'CONFLICT',
+        statusCode = HTTP_STATUS_CODE.CONFLICT,
         isOperational = true,
     ) {
         super(args, name, statusCode, isOperational, description)
@@ -142,4 +155,4 @@ class INTERNAL_SERVER_ERROR extends BaseError {
 }
 
 
-module.exports = { INTERNAL_SERVER_ERROR, FORBIDDEN, UNAUTHORIZED, NOTFOUND, SUCCESS, CREATESUCCESS, PERMANENT_REDIRECTED, TEMPORARY_REDIRECTED, BAD_REQUEST }
+module.exports = { CONFLICT, INTERNAL_SERVER_ERROR, FORBIDDEN, UNAUTHORIZED, NOTFOUND, SUCCESS, CREATESUCCESS, PERMANENT_REDIRECTED, TEMPORARY_REDIRECTED, BAD_REQUEST }

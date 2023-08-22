@@ -91,11 +91,11 @@ const Students = () => {
     const handleChange2Base64 = (e) => {
         try {
             const file = e.target.files[0]
-            console.log({file})
+            console.log({ file })
 
-            if (file.size > 1000000) {
-                throw new Error("Please upload a file smaller than 1 MB");
-            } 
+            if (file.size > 10000) {
+                throw new Error("Please upload a file smaller than 50 KB");
+            }
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function () {
@@ -240,7 +240,7 @@ const Students = () => {
                                 dispatch(studentsListRequested()).unwrap()
                                 dispatch(handleRemoveLoading())
                             } catch (err) {
-                                openErrorToast(err)
+                                openErrorToast(err.message ? err.message : err)
                                 dispatch(handleRemoveLoading())
                             }
                         }),
@@ -546,6 +546,7 @@ const Students = () => {
                             </Box>
                             : ""}
                         <input type="file" onChange={handleChange2Base64} />
+                        <FormHelperText>Image should be less than 50KB in size (310px x 310px resolution recommended )</FormHelperText>
                     </Grid>
                 </Grid>
             </Dialog>

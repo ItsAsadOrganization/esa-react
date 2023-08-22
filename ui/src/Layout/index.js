@@ -302,8 +302,8 @@ const Layout = (props) => {
                     </Box>
                 </Toolbar>}
                 <Navigation />
-                 <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                 <Backdrop 
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.tooltip + 1 }}
                     open={loadings > 0}
                 >
                     <CircularProgress color="inherit" />

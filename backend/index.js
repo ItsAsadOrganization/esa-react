@@ -11,7 +11,7 @@ const Users = require("./app/models/users")
 const Classes = require("./app/models/classes")
 const Students = require("./app/models/students")
 const Voucher = require("./app/models/voucher")
-const { SUCCESS, UNAUTHORIZED } = require("./app/common/exceptions")
+const { SUCCESS, UNAUTHORIZED, FORBIDDEN, CONFLICT, NOTFOUND } = require("./app/common/exceptions")
 const router = require("./app/routes")
 const Logging = require("./app/models/logging")
 const multer = require('multer');
@@ -237,6 +237,24 @@ app.listen(PORT, (req, res, next) => {
 })
 
 app.use("/api", router)
+
+
+app.use((err, req, res, next) => {
+    switch (err.name) {
+        case "SequelizeValidationError":
+            throw new FORBIDDEN({ message: err.message })
+            break;
+        case "SequelizeUniqueConstraintError":
+            throw new CONFLICT({ message: err.errors[0].message })
+            break;
+        case "SequelizeDatabaseError":
+            throw new NOTFOUND({ message: err.message })
+            break;
+        default:
+            next(err)
+            break;
+    }
+})
 
 // process eroor
 app.use(async (err, req, res, next) => {
