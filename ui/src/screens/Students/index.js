@@ -89,14 +89,23 @@ const Students = () => {
     }, [setValue, id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId])
 
     const handleChange2Base64 = (e) => {
-        const file = e.target.files[0]
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            // setBase64image(reader.result)
-            dispatch(handleChangeStudentAvatar(reader.result))
-            // cb(reader.result)
-        };
+        try {
+            const file = e.target.files[0]
+            console.log({file})
+
+            if (file.size > 1000000) {
+                throw new Error("Please upload a file smaller than 1 MB");
+            } 
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                // setBase64image(reader.result)
+                dispatch(handleChangeStudentAvatar(reader.result))
+                // cb(reader.result)
+            };
+        } catch (err) {
+            openErrorToast(err.message ? err.message : err)
+        }
     }
     React.useEffect(() => {
         dispatch(handleAddLoading())
