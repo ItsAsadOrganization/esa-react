@@ -7,5 +7,6 @@ export const API_ROUTE_STUDENT = `${BASE_URL}/student`;
 export const API_ROUTE_STUDENTS = `${BASE_URL}/students`;
 export const API_ROUTE_VOUCHER = `${BASE_URL}/voucher`;
 export const API_ROUTE_VOUCHERS = `${BASE_URL}/vouchers`;
+export const API_ROUTE_LOGS = `${BASE_URL}/logs`;
 
 export const NETWORK_ERROR = `Network Error`;

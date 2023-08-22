@@ -122,7 +122,7 @@ const Layout = (props) => {
                                 justifyContent: 'center',
                             }}
                         >
-                            <Typography>EGC</Typography>
+                            <Typography>{!open ? "EGC" : "Encore Group Of Colleges"}</Typography>
                         </Toolbar>
                         <Divider />
                         <Box sx={{

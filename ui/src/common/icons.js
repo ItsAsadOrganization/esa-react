@@ -10,6 +10,9 @@ import PrintIcon from '@mui/icons-material/Print';
 import SchoolIcon from '@mui/icons-material/School';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 export default {
   Dashboard: DashboardIcon,
@@ -23,5 +26,8 @@ export default {
   Print: PrintIcon,
   School: SchoolIcon,
   Visibility: VisibilityIcon,
-  VisibilityOff: VisibilityOffIcon
+  VisibilityOff: VisibilityOffIcon,
+  ExpandLess: ExpandLessIcon,
+  ExpandMore: ExpandMoreIcon,
+  Timeline: TimelineIcon
 };

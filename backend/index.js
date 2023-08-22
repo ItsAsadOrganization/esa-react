@@ -247,21 +247,23 @@ app.use(async (err, req, res, next) => {
     }
 
     const sessionData = req.session
-    await Logging.create({
-        req_config: {
-            url: req.originalUrl,
-            body: req.body,
-            params: req.params,
-            query: req.query,
-            sessionId: req.sessionID,
-            method: req.method,
-            headers: req.headers
-        },
-        res_config: {
-            statusCode: err.statusCode,
-            response: { ..._err }
-        },
-        // userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
-    })
+    if (!req.originalUrl.includes("/api/logs")) {
+        await Logging.create({
+            req_config: {
+                url: req.originalUrl,
+                body: req.body,
+                params: req.params,
+                query: req.query,
+                sessionId: req.sessionID,
+                method: req.method,
+                headers: req.headers
+            },
+            res_config: {
+                statusCode: err.statusCode,
+                response: { ..._err }
+            },
+            // userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
+        })
+    }
     res.status(err.statusCode).json({ ..._err })
 })

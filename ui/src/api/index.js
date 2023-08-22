@@ -2,6 +2,7 @@ import {
   API_ROUTE_CLASS,
   API_ROUTE_CLASSES,
   API_ROUTE_LOGIN,
+  API_ROUTE_LOGS,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
   API_ROUTE_VOUCHER,
@@ -65,4 +66,8 @@ export const deleteClassesApi = ({ id }) => {
 
 export const putClassesApi = ({ id, name }) => {
   return put(API_ROUTE_CLASS, { name }, { id });
+};
+
+export const getLogsApi = () => {
+  return get(API_ROUTE_LOGS, {}, {});
 };
