@@ -26,6 +26,17 @@ class VouchersRepository {
         return voucher
     }
 
+    static async getStudentVouchers(id) {
+        const voucher = await Voucher.findAll({
+            where: {
+                studentID: {
+                    [Op.eq]: id
+                }
+            }
+        })
+        return voucher
+    }
+
     static async updateVoucher(id, paylaod) {
         const voucher = await Voucher.update(paylaod, {
             where: {

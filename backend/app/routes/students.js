@@ -28,7 +28,6 @@ studentsRouter.get("/students", (req, res, next) => {
 
 studentsRouter.post("/student", upload.single("avatar"), async (req, res, next) => {
     try {
-
         const payload = req.body
         const session = req.session
         payload["avatar"] = 'uploads/' + req.file.originalname

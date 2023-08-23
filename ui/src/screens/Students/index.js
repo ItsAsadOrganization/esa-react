@@ -39,13 +39,19 @@ import {
     handleChangeStudentAddress,
     handleChangeStudentAvatar,
     getClassList,
-    handleResetStudentModal
+    handleResetStudentModal,
+    getStudentFatherCNIC,
+    getStudentCNIC,
+    handleChangeStudentFatherCNIC,
+    handleChangeStudentCNIC
 } from "./studentSlice"
 import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
-import { ROLES } from "../../Layout/Navigation/constants"
+import { ROLES, ROUTES } from "../../Layout/Navigation/constants"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 import { BASE_URL } from "../../api/constants"
+import { useNavigate } from "react-router"
+import { handleChangePreviewStudentId } from "../PreviewStudent/previewStudentSlice"
 
 
 const Students = () => {
@@ -55,6 +61,8 @@ const Students = () => {
     // const [classes, setClasses] = React.useState([])
     // const [studentsList, setStudentsList] = React.useState([])
     const [base64image, setBase64image] = React.useState(null)
+
+    const navigate = useNavigate()
 
     // const [modalOpen, setModalOpen] = React.useState(false)
 
@@ -73,6 +81,8 @@ const Students = () => {
     const studentsList = useSelector(getStudenstList)
     const classes = useSelector(getClassList)
     const userRole = useSelector(getUserRole)
+    const father_cnic = useSelector(getStudentFatherCNIC)
+    const cnic = useSelector(getStudentCNIC)
 
     const dispatch = useDispatch()
 
@@ -87,7 +97,9 @@ const Students = () => {
         setValue("address", address)
         setValue("avatar", avatar)
         setValue("classId", classId)
-    }, [setValue, id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, classId])
+        setValue("father_cnic", father_cnic)
+        setValue("cnic", cnic)
+    }, [setValue, id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, father_cnic, cnic, classId])
 
     const handleChange2Base64 = (e) => {
         try {
@@ -142,6 +154,9 @@ const Students = () => {
                 dispatch(handleChangeStudentAddress(student.address))
                 dispatch(handleChangeStudentAvatar(student.avatar))
                 dispatch(handleChangeStudentClassId(student.classId))
+
+                dispatch(handleChangeStudentFatherCNIC(student.father_cnic))
+                dispatch(handleChangeStudentCNIC(student.cnic))
             },
             icon: Icons.BorderColor,
             color: "primary"
@@ -160,6 +175,20 @@ const Students = () => {
             },
             icon: Icons.Delete,
             color: "error"
+        },
+        {
+            label: "Configure",
+            variant: "contained",
+            action: async (student) => {
+                try {
+                    dispatch(handleChangePreviewStudentId(student.id))
+                    navigate(`/${ROUTES.previewStudent}`)
+                } catch (err) {
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
+            icon: Icons.Settings,
+            color: "success"
         }
     ]
     return (
@@ -239,6 +268,8 @@ const Students = () => {
                                 formData.append("address", address)
                                 formData.append("avatar", avatar)
                                 formData.append("classId", classId)
+                                formData.append("father_cnic", father_cnic)
+                                formData.append("cnic", cnic)
 
 
 
@@ -277,9 +308,10 @@ const Students = () => {
                                 }
                             }}
                             render={({ field }) => (
-                                <FormControl fullWidth size="small">
+                                <FormControl required fullWidth size="small">
                                     <InputLabel>Class</InputLabel>
                                     <Select
+                                        required
                                         error={errors.classId && !errors.classId.touched && !errors.classId.dirty}
                                         helperText={errors.classId && errors.classId.message}
                                         label="Class"
@@ -319,6 +351,7 @@ const Students = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    required
                                     error={errors.name && !errors.name.touched && !errors.name.dirty}
                                     value={name}
                                     onChange={e => {
@@ -351,6 +384,7 @@ const Students = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    required
                                     error={errors.father_name && !errors.father_name.touched && !errors.father_name.dirty}
                                     helperText={errors.father_name && errors.father_name.message}
                                     value={father_name}
@@ -387,6 +421,7 @@ const Students = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    required
                                     error={errors.email_address && !errors.email_address.touched && !errors.email_address.dirty}
                                     value={email_address}
                                     onChange={e => {
@@ -428,6 +463,7 @@ const Students = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    required
                                     error={errors.phone_1 && !errors.phone_1.touched && !errors.phone_1.dirty}
                                     helperText={errors.phone_1 && errors.phone_1.message}
                                     value={phone_1}
@@ -438,6 +474,91 @@ const Students = () => {
                                     }
                                     size="small"
                                     label="Father Contact"
+                                    fullWidth
+                                />
+                            )}
+                        />
+                    </Grid>
+
+
+
+                    <Grid item xs={12} md={6} sx={{
+                        mb: 2,
+                        [theme.breakpoints.up("md")]: {
+                            pr: 1
+                        }
+                    }}>
+                        <Controller
+                            as={InputMask}
+                            control={control}
+                            name="father_cnic"
+                            mask="xxxxx-xxxxxxx-x"
+                            alwaysShowMask={true}
+                            rules={{
+                                required: {
+                                    value: true,
+                                    message: "This field is required"
+                                },
+                                pattern: {
+                                    value: /[0-9]{5}-[0-9]{7}-[0-9]{1}/,
+                                    message: "Please enter 13 digits CNIC Number in format of xxxxx-xxxxxxxx-x"
+                                },
+                            }}
+                            render={({ field }) => (
+                                <TextField
+                                    required
+                                    error={errors.father_cnic && !errors.father_cnic.touched && !errors.father_cnic.dirty}
+                                    helperText={errors.father_cnic && errors.father_cnic.message}
+                                    value={father_cnic}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentFatherCNIC(e.target.value))
+                                    }
+                                    }
+                                    size="small"
+                                    label="Father NIC"
+                                    fullWidth
+                                />
+                            )}
+                        />
+                    </Grid>
+
+
+                    <Grid item xs={12} md={6} sx={{
+                        mb: 2,
+                        [theme.breakpoints.up("md")]: {
+                            pl: 1
+                        }
+                    }}>
+                        <Controller
+                            as={InputMask}
+                            control={control}
+                            name="cnic"
+                            mask="xxxxx-xxxxxxx-x"
+                            alwaysShowMask={true}
+                            rules={{
+                                required: {
+                                    value: true,
+                                    message: "This field is required"
+                                },
+                                pattern: {
+                                    value: /[0-9]{5}-[0-9]{7}-[0-9]{1}/,
+                                    message: "Please enter 13 digits CNIC Number in format of xxxxx-xxxxxxxx-x"
+                                },
+                            }}
+                            render={({ field }) => (
+                                <TextField
+                                    required
+                                    error={errors.cnic && !errors.cnic.touched && !errors.cnic.dirty}
+                                    helperText={errors.cnic && errors.cnic.message}
+                                    value={cnic}
+                                    onChange={e => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeStudentCNIC(e.target.value))
+                                    }
+                                    }
+                                    size="small"
+                                    label="NIC / Form B"
                                     fullWidth
                                 />
                             )}
@@ -516,6 +637,7 @@ const Students = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    required
                                     multiline
                                     rows={2}
                                     error={errors.address && !errors.address.touched && !errors.address.dirty}

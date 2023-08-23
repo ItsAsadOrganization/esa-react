@@ -37,6 +37,15 @@ voucherRouter.get("/class-vouchers", (req, res, next) => {
     }
 })
 
+voucherRouter.get("/voucher/student", (req, res, next) => {
+    try {
+        const id = req.query.student_id
+        Manager.getStudentVoucher(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 voucherRouter.put("/voucher", (req, res, next) => {
     try {
         const id = req.query.id

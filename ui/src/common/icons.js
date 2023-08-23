@@ -13,6 +13,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export default {
   Dashboard: DashboardIcon,
@@ -29,5 +30,6 @@ export default {
   VisibilityOff: VisibilityOffIcon,
   ExpandLess: ExpandLessIcon,
   ExpandMore: ExpandMoreIcon,
-  Timeline: TimelineIcon
+  Timeline: TimelineIcon,
+  Settings: SettingsIcon
 };

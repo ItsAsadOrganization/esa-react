@@ -136,7 +136,7 @@ Logging.belongsTo(Users, {
 let connect = async () => {
     try {
         await sequelize.authenticate()
-        await sequelize.sync({ force: true })
+        await sequelize.sync({ force: false })
         await createDefaultUser()
         await createDefaultClasses()
     } catch (err) {

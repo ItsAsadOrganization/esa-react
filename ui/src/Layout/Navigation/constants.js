@@ -2,6 +2,7 @@ import Icons from '../../common/icons';
 import Classes from '../../screens/Classes';
 import Dashboard from '../../screens/Dashboard';
 import Logs from '../../screens/Logs';
+import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
 import SetupVoucher from '../../screens/SetupVoucher';
 import Students from '../../screens/Students';
@@ -16,7 +17,8 @@ export const ROUTES = {
     setupVoucher: "setup-voucher",
     previewVoucher: "view-voucher",
     classes: "class",
-    systemLogs: "system-logs"
+    systemLogs: "system-logs",
+    previewStudent: "preview-student"
 };
 
 export const ROLES = {
@@ -100,6 +102,17 @@ export const APP_ROUTES = [
         permission: ROUTES.dashboard,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: PreviewVoucher,
+        showInNav: false,
+    },
+    {
+        label: ROUTES.previewStudent,
+        icon: Icons.Dashboard,
+        redirectPath: "/",
+        url: `/${ROUTES.previewStudent}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: PreviewStudent,
         showInNav: false,
     },
 ];

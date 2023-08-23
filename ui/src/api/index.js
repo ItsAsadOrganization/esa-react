@@ -5,6 +5,7 @@ import {
   API_ROUTE_LOGS,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
+  API_ROUTE_STUDENT_VOUCHERS,
   API_ROUTE_VOUCHER,
   API_ROUTE_VOUCHERS,
 } from "./constants";
@@ -45,6 +46,10 @@ export const getStudentById = ({ class_id }) => {
   return get(API_ROUTE_STUDENT, {}, { class_id });
 };
 
+export const getStudentByStudentId = ({ id }) => {
+  return get(API_ROUTE_STUDENT, {}, { id });
+};
+
 
 export const postVoucherApi = ({ date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId }) => {
   return post(API_ROUTE_VOUCHER, { date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId }, {});
@@ -72,4 +77,8 @@ export const putClassesApi = ({ id, name }) => {
 
 export const getLogsApi = () => {
   return get(API_ROUTE_LOGS, {}, {});
+};
+
+export const getStudentVouchersApi = ({student_id}) => {
+  return get(API_ROUTE_STUDENT_VOUCHERS, {}, {student_id});
 };

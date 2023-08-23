@@ -36,7 +36,9 @@ const studentSlice = createSlice({
             address: "",
             avatar: "",
             classId: null,
-                    },
+            fatther_nic: "",
+            cnic: ""
+        },
         studentModalOpen: false
     },
     reducers: {
@@ -49,6 +51,8 @@ const studentSlice = createSlice({
         handleChangeStudentPhone3: (state, action) => { state.student.phone_3 = action.payload },
         handleChangeStudentAddress: (state, action) => { state.student.address = action.payload },
         handleChangeStudentAvatar: (state, action) => { state.student.avatar = action.payload },
+        handleChangeStudentFatherCNIC: (state, action) => { state.student.fatther_nic = action.payload },
+        handleChangeStudentCNIC: (state, action) => { state.student.cnic = action.payload },
         handleChangeStudentClassId: (state, action) => {
             state.student.classId = action.payload
         },
@@ -67,8 +71,10 @@ const studentSlice = createSlice({
             state.student.phone_3 = ""
             state.student.address = ""
             state.student.avatar = ""
+            state.student.fatther_nic = ""
+            state.student.cnic = ""
             state.student.classId = null
-                    },
+        },
         handleResetSlice: (state) => {
             state.studentModalOpen = false
             state.student.id = null
@@ -80,10 +86,12 @@ const studentSlice = createSlice({
             state.student.phone_3 = ""
             state.student.address = ""
             state.student.avatar = ""
+            state.student.fatther_nic = ""
+            state.student.cnic = ""
             state.student.classId = null
             state.studentList = []
             state.classList = []
-                    }
+        }
     },
     extraReducers: builder => {
         builder.addCase(studentsListRequested.fulfilled, (state, action) => {
@@ -108,13 +116,19 @@ export const {
     handleChangeStudentClassId,
     handleChangeStudentModalOpen,
     handleResetStudentModal,
-    handleResetSlice
+    handleResetSlice,
+    handleChangeStudentFatherCNIC,
+    handleChangeStudentCNIC
 } = studentSlice.actions
 
 
 export const getStudentId = state => state.student.student.id
 export const getStudentName = state => state.student.student.name
 export const getStudentFatherName = state => state.student.student.father_name
+
+export const getStudentFatherCNIC = state => state.student.student.fatther_nic
+export const getStudentCNIC = state => state.student.student.cnic
+
 export const getStudentEmailAddress = state => state.student.student.email_address
 export const getStudentPhone1 = state => state.student.student.phone_1
 export const getStudentPhone2 = state => state.student.student.phone_2

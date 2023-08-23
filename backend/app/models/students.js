@@ -28,6 +28,12 @@ const Students = sequelize.define("students", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    father_cnic: {
+        type: DataTypes.STRING,
+    },
+    cnic: {
+        type: DataTypes.STRING,
+    },
     phone_1: {
         type: DataTypes.STRING,
     },

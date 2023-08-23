@@ -73,6 +73,20 @@ class VoucherManager {
         }
     }
 
+    static async getStudentVoucher(id, next) {
+        try {
+            const voucher = await Repository.getStudentVouchers(id)
+            if (!voucher) {
+                throw new SUCCESS({ voucher: [] })
+            } else {
+                throw new SUCCESS({ voucher })
+            }
+
+        } catch (err) {
+            next(err)
+        }
+    }
+
 
     static async printVoucher(voucher_id, next) {
         try {
