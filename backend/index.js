@@ -16,6 +16,15 @@ const router = require("./app/routes")
 const Logging = require("./app/models/logging")
 const multer = require('multer');
 const path = require("path")
+const Groups = require("./app/models/groups")
+
+
+const Attachments = require("./app/models/attachments")
+const Designations = require("./app/models/designation")
+const PaySlips = require("./app/models/payslips")
+const Salaries = require("./app/models/salaries")
+const Tutor = require("./app/models/tutor")
+
 
 
 const app = exporess()
@@ -139,11 +148,47 @@ let connect = async () => {
         await sequelize.sync({ force: false })
         await createDefaultUser()
         await createDefaultClasses()
+        await createDefaultGroups()
     } catch (err) {
         console.log(err)
     }
 }
 
+
+let createDefaultGroups = async () => {
+    try {
+
+        const groups = [
+            {
+                name: "System Admins",
+            },
+            {
+                name: "Administrator",
+            },
+            {
+                name: "Tutors",
+            },
+            {
+                name: "Students",
+            }
+        ]
+
+
+        groups.forEach(async usr => {
+            Groups.findOrCreate({
+                where: { name: usr.name },
+                defaults: usr
+            }).then(([user, created]) => {
+                console.log('Group :', user.name, 'Created:', created);
+            })
+                .catch(error => {
+                    console.error('Error creating or finding group:', error);
+                });
+        });
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 let createDefaultUser = async () => {
     try {
@@ -180,14 +225,6 @@ let createDefaultUser = async () => {
                     console.error('Error creating or finding user:', error);
                 });
         });
-
-        // const i = await Users.bulkCreate(users, {
-        //     updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
-        //     upsert: false, // Perform an update or create operation
-        // })
-        // if (i) {
-        //     console.log("User added")
-        // }
     } catch (err) {
         console.log(err)
     }
@@ -219,14 +256,6 @@ let createDefaultClasses = async () => {
                     console.error('Error creating or finding user:', error);
                 });
         });
-
-        // const i = await Classes.bulkCreate(classes, {
-        //     updateOnDuplicate: ['name'], // Specify the columns to update on duplicate
-        //     upsert: false, // Perform an update or create operation
-        // })
-        // if (i) {
-        //     console.log("Classes added")
-        // }
     } catch (err) {
         console.log(err)
     }

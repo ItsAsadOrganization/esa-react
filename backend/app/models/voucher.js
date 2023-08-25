@@ -29,7 +29,8 @@ const Voucher = sequelize.define("voucher", {
         defaultValue: false
     }
 }, {
-    paranoid: true
+    paranoid: true,
+    autoIncrement: 1000000
 })
 
 module.exports = Voucher
