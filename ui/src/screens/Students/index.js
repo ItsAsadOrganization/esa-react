@@ -457,8 +457,8 @@ const Students = () => {
                                     message: "This field is required"
                                 },
                                 pattern: {
-                                    value: /[0-9]{11}/,
-                                    message: "Please enter 11 digits cell number in the format 03xxxxxxxxx"
+                                    value: /[0-9]{4}-[0-9]{7}/,
+                                    message: "Please enter 11 digits cell number in the format 03xx-xxxxxxx"
                                 },
                             }}
                             render={({ field }) => (

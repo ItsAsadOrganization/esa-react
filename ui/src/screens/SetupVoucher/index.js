@@ -48,6 +48,7 @@ const SetupVoucher = () => {
             <Grid container maxWidth="xl" sx={{
                 p: 2,
                 boxShadow: theme => theme.shadows[5],
+                background:theme => theme.palette.background.paper
             }} >
                 <Grid item xs={!2} md={12} sx={{ mb: 2 }} >
                     <FormControl fullWidth size="small">

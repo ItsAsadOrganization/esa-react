@@ -2,7 +2,7 @@ import { Container, Divider, Grid, Table, TableBody, TableCell, TableHead, Table
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 
 
-const PreviewVoucher = ({ drawerUser }) => {
+const PreviewVoucher = ({ drawerUser, studentsList, classList }) => {
     return (
         <Container maxWidth="xl">
             <Grid container>
@@ -92,7 +92,7 @@ const PreviewVoucher = ({ drawerUser }) => {
                         fontSize: 14,
                         fontWeight: "bold"
                     }}>
-                        Asad Mehmood
+                        {studentsList.find(student => student.id === drawerUser.studentId).name}
                     </Typography>
                 </Grid>
 
@@ -108,7 +108,7 @@ const PreviewVoucher = ({ drawerUser }) => {
                         fontSize: 14,
                         fontWeight: "bold"
                     }}>
-                        9th
+                        {classList.find(cl => cl.id === drawerUser.classId).name}
                     </Typography>
                 </Grid>
 
@@ -123,7 +123,7 @@ const PreviewVoucher = ({ drawerUser }) => {
                         fontSize: 14,
                         fontWeight: "bold"
                     }}>
-                        10001
+                        {drawerUser.studentId}
                     </Typography>
                 </Grid>
 
@@ -230,14 +230,14 @@ const PreviewVoucher = ({ drawerUser }) => {
                 </Grid>
 
 
-                <Grid item xs={6} sx={{ mb: 1, display: "flex", flexDirection:"column", gap: 1, mt: 9 }}>
-                
+                <Grid item xs={6} sx={{ mb: 1, display: "flex", flexDirection: "column", gap: 1, mt: 9 }}>
+
                     <Typography sx={{
                         fontSize: 14
                     }}>Bank Stamp</Typography>
                 </Grid>
                 <Grid item xs={6} sx={{ mb: 1, display: "flex", gap: 1, justifyContent: "end", mt: 9 }}>
-                    
+
                     <Typography sx={{
                         fontSize: 14
                     }}>Office Stamp</Typography>

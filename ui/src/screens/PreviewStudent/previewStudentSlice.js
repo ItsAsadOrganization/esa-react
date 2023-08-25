@@ -51,7 +51,7 @@ const previewStudentSlice = createSlice({
             state.classesList = action.payload.data.classes
         })
         builder.addCase(studentVoucherRequested.fulfilled, (state, action) => {
-            state.studentChallans = action.payload.data.voucher
+            state.studentChallans = action.payload.data.voucher.map(v => ({ ...v, voucher_id: `EGC-${v.id}` }))
         })
     }
 })

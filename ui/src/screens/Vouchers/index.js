@@ -1,4 +1,4 @@
-import { Box, Chip, Container, Fab, Grid, IconButton, MenuItem, SwipeableDrawer, TextField, Tooltip, Typography } from "@mui/material"
+import { Box, Chip, Container, Fab, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, SwipeableDrawer, TextField, Tooltip, Typography } from "@mui/material"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS, TABLE_HEADS } from "./constants"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router"
 import Icons from "../../common/icons"
 import { ROUTES } from "../../Layout/Navigation/constants"
 import { useDispatch, useSelector } from "react-redux"
-import { classesRequested, getClassesList, getDialogOpen, getDrawerOpen, getDrawerUSer, getStudentsList, getVouchersList, handleChangeDrawerOpen, handleChangeDrawerUser, handleChangeVoucherID, handleChangeVoucherModalOpen, handleChangeVoucherPaid, handleChangeVoucherPaymentMode, studentsRequested, vouchersRequested } from "./voucherSlice"
+import { classesRequested, getClassSearch, getClassesList, getDialogOpen, getDrawerOpen, getDrawerUSer, getDueDateSearch, getPaymentStatusSearch, getRerence, getSearch, getStartDateSearch, getStudentSearch, getStudentsList, getVouchersList, handleChangeDrawerOpen, handleChangeDrawerUser, handleChangeDueDateSearch, handleChangePaymentModeSearch, handleChangeStartDateSearch, handleChangeVoucherID, handleChangeVoucherModalOpen, handleChangeVoucherPaid, handleChangeVoucherPaymentMode, handleChangeVoucherPaymentReference, handleChangeVoucherSearch, handleChangeVoucherSearchClass, handleChangeVoucherSearchStudent, studentsRequested, vouchersRequested } from "./voucherSlice"
 import React from "react"
 import PreviewVoucher from "../PreviewVoucher"
 import Dialog from "../../components/Dialog"
@@ -27,6 +27,17 @@ const Vouchers = () => {
     const drawerOpen = useSelector(getDrawerOpen)
     const drawerUser = useSelector(getDrawerUSer)
     const dialogOpen = useSelector(getDialogOpen)
+    const reference = useSelector(getRerence)
+    const search = useSelector(getSearch)
+
+    const classSearch = useSelector(getClassSearch)
+    const studentSearch = useSelector(getStudentSearch)
+    const paymentStatusSearch = useSelector(getPaymentStatusSearch)
+    const startDateSearch = useSelector(getStartDateSearch)
+    const dueDateSearch = useSelector(getDueDateSearch)
+
+    const [searchArr, setSearchArr] = React.useState([])
+
 
 
 
@@ -93,21 +104,158 @@ const Vouchers = () => {
         }
     }, [])
 
+    React.useEffect(() => {
+        if (search) {
+            setSearchArr(searchArr.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+        } else {
+            setSearchArr(vouchersList)
+        }
+    }, [search])
+
+    React.useEffect(() => {
+        if (classSearch) {
+            setSearchArr(searchArr.filter(ele => ele.classId === classSearch))
+        } else {
+            setSearchArr(vouchersList)
+        }
+    }, [classSearch])
+
+
+    React.useEffect(() => {
+        if (studentSearch) {
+            setSearchArr(searchArr.filter(ele => ele.studentId === studentSearch))
+        } else {
+            setSearchArr(vouchersList)
+        }
+    }, [studentSearch])
+
+    React.useEffect(() => {
+        if (paymentStatusSearch) {
+            setSearchArr(searchArr.filter(ele => ele.is_paid === Boolean(paymentStatusSearch)))
+        } else {
+            setSearchArr(vouchersList)
+        }
+    }, [paymentStatusSearch])
+
+
+    React.useEffect(() => {
+        if (vouchersList.length > 0) {
+            setSearchArr(vouchersList)
+        }
+    }, [vouchersList])
+
     return (
         <Container maxWidth="xl">
             <AppBreadCrumbs pageTitle={"Vouchers"} paths={BREADCRUMBS} />
-            <Grid container maxWidth="xl" >
-                <Grid item xs={!2} md={12} sx={{
-                    p: 2,
-                    boxShadow: theme => theme.shadows[5],
-                    background: theme => theme.palette.background.paper,
-                    mb: 1
-                }}>
-                    {console.log({ vouchersList })}
+            <Grid container maxWidth="xl" sx={{
+                p: 2,
+                boxShadow: theme => theme.shadows[5],
+                background: theme => theme.palette.background.paper,
+            }}>
+                <Grid container spacing={1} item xs={!2} md={12} sx={{
+                    mb: 1,
+                    pt: 1
+                }} >
+                    <Grid item xs={12} md={3}>
+                        <TextField
+                            fullWidth
+                            size="small"
+                            label="Search By Voucher Id"
+                            value={search}
+                            onChange={e => {
+                                dispatch(handleChangeVoucherSearch(e.target.value))
+                            }}
+                        />
+                    </Grid>
 
-                    {vouchersList.length > 0 ?
+                    <Grid item xs={12} md={3}>
+                        <FormControl required fullWidth size="small">
+                            <InputLabel>Class</InputLabel>
+                            <Select
+                                label="Class"
+                                value={classSearch || ""} onChange={e => {
+                                    dispatch(handleChangeVoucherSearchClass(e.target.value))
+                                }}>
+                                <MenuItem value={""}>{"Please select"}</MenuItem>
+                                {classList.length > 0 ?
+                                    classList.map(c => (
+                                        <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                                    ))
+                                    : ""}
+
+                            </Select>
+
+                        </FormControl>
+                    </Grid>
+
+
+                    <Grid item xs={12} md={3}>
+                        <FormControl required fullWidth size="small">
+                            <InputLabel>Student</InputLabel>
+                            <Select
+                                label="Student"
+                                value={studentSearch || ""} onChange={e => {
+                                    dispatch(handleChangeVoucherSearchStudent(e.target.value))
+                                }}>
+                                <MenuItem value={""}>{"Please select"}</MenuItem>
+                                {studentsList.length > 0 ?
+                                    studentsList.map(c => (
+                                        <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                                    ))
+                                    : ""}
+
+                            </Select>
+
+                        </FormControl>
+                    </Grid>
+
+
+                    <Grid item xs={12} md={3}>
+                        <FormControl required fullWidth size="small">
+                            <InputLabel>Payment Status</InputLabel>
+                            <Select
+                                label="Payment Status"
+                                value={paymentStatusSearch || ""} onChange={e => {
+                                    dispatch(handleChangePaymentModeSearch(e.target.value))
+                                }}>
+                                <MenuItem value={""}> Please Select </MenuItem>
+                                <MenuItem value={"true"}>Paid</MenuItem>
+                                <MenuItem value={"false"}>Unpaid</MenuItem>
+
+                            </Select>
+
+                        </FormControl>
+                    </Grid>
+
+                    {/* <Grid item xs={12} md={2}>
+                        <TextField
+                            type="date"
+                            fullWidth
+                            size="small"
+                            label="Start Date"
+                            value={startDateSearch}
+                            onChange={e => dispatch(handleChangeStartDateSearch(e.target.value))}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={2}>
+                        <TextField
+                            type="date"
+                            fullWidth
+                            size="small"
+                            label="Due Date"
+                            value={dueDateSearch}
+                            onChange={e => dispatch(handleChangeDueDateSearch(e.target.value))}
+                        />
+                    </Grid> */}
+
+                </Grid>
+                <Grid item xs={!2} md={12} sx={{
+
+                }}>
+                    {searchArr.length > 0 ?
                         <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
-                            {vouchersList.map(v => (
+                            {searchArr.map(v => (
                                 <StyledTableRow key={v.id}>
                                     <StyledTableCell >{v.voucher_id}</StyledTableCell>
                                     <StyledTableCell >{studentsList.find(std => std.id === v.studentId).name}</StyledTableCell>
@@ -115,37 +263,11 @@ const Vouchers = () => {
                                     <StyledTableCell >{v.date_issued}</StyledTableCell>
                                     <StyledTableCell >{v.date_expiry}</StyledTableCell>
                                     <StyledTableCell >{v.is_paid ? <Chip label="Paid" color="success" size="small" sx={{ px: 2 }} /> : <Chip label="UnPaid" color="error" size="small" sx={{ px: 2 }} />}</StyledTableCell>
-                                    <StyledTableCell sx={{ fontWeight: 700, textAlign: "center" }}>{v.payment_mode ?
+                                    <StyledTableCell sx={{}}>
+                                        Mode: {v.payment_mode}<br />
+                                        {v.payment_mode !== "cash" ? "Ref: " + v.config.reference : ""}
 
-                                        v.payment_mode === "easypaisa" ? <Box sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            gap: 1
-                                        }}>
-                                            <img src={EasyPaisaIcon} style={{
-                                                height: 25,
-                                            }} /> {v.payment_mode.charAt(0).toUpperCase() + v.payment_mode.slice(1)}</Box>
-                                            : v.payment_mode === "jazzcash" ? <Box sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                gap: 1
-                                            }}>
-                                                <img src={JazzCashIcon} style={{
-                                                    height: 20
-                                                }} /> {v.payment_mode.charAt(0).toUpperCase() + v.payment_mode.slice(1)}</Box> : v.payment_mode === "bank" ? <Box sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    gap: 1
-                                                }}>
-                                                    <img src={BankIcon} style={{
-                                                        height: 20
-                                                    }} /> {v.payment_mode.charAt(0).toUpperCase() + v.payment_mode.slice(1)} Transfer</Box> : ""
-
-
-                                        : ""}</StyledTableCell>
+                                    </StyledTableCell>
                                     <StyledTableCell>
                                         {tableActionButtons.map(btn => (
                                             <IconButton color={btn.color} onClick={() => btn.action(v)}>
@@ -230,7 +352,7 @@ const Vouchers = () => {
                             top: 150,
                             right: 25
                         }}>UNPAID</Typography>}
-                        <PreviewVoucher drawerUser={drawerUser} />
+                        <PreviewVoucher drawerUser={drawerUser} studentsList={studentsList} classList={classList} />
                     </Box>
                 </SwipeableDrawer>
             }
@@ -241,6 +363,7 @@ const Vouchers = () => {
                     dispatch(handleChangeVoucherModalOpen(false))
                     dispatch(handleChangeVoucherPaid(false))
                     dispatch(handleChangeVoucherPaymentMode(""))
+                    dispatch(handleChangeVoucherPaymentReference(""))
                     dispatch(handleRemoveLoading())
                 }}
                 actionsButtonArray={[
@@ -263,6 +386,9 @@ const Vouchers = () => {
                                 dispatch(handleChangeVoucherModalOpen(false))
                                 dispatch(vouchersRequested()).unwrap()
                                 openSuccessToast("Record Updated")
+                                dispatch(handleChangeVoucherPaid(false))
+                                dispatch(handleChangeVoucherPaymentMode(""))
+                                dispatch(handleChangeVoucherPaymentReference(""))
                                 dispatch(handleRemoveLoading())
                             } catch (err) {
                                 openErrorToast(err)
@@ -293,6 +419,10 @@ const Vouchers = () => {
                             <MenuItem value={"jazzcash"}>JazzCash</MenuItem>
                             <MenuItem value={"bank"}>Bank Transfer</MenuItem>
                         </TextField>
+                    </Grid>}
+
+                    {(drawerUser.is_paid && drawerUser.payment_mode !== "cash") && <Grid item xs={12}>
+                        <TextField label="Reference ID" fullWidth size="small" value={drawerUser.config.reference ? drawerUser.config.reference : reference} onChange={(e) => dispatch(handleChangeVoucherPaymentReference(e.target.value))} />
                     </Grid>}
 
                 </Grid>}

@@ -151,7 +151,7 @@ const PreviewStudent = () => {
                                                     {!open.expand ? <Icons.ExpandMore /> : <Icons.ExpandLess />}
                                                 </IconButton>
                                             </StyledTableCell>
-                                            <StyledTableCell> {challan.id} </StyledTableCell>
+                                            <StyledTableCell> {challan.voucher_id} </StyledTableCell>
                                             <StyledTableCell> {challan.date_issued} </StyledTableCell>
                                             <StyledTableCell> {challan.date_expiry} </StyledTableCell>
                                             <StyledTableCell >{challan.is_paid ? <Chip label="Paid" color="success" size="small" sx={{ px: 2 }} /> : <Chip label="UnPaid" color="error" size="small" sx={{ px: 2 }} />}</StyledTableCell>

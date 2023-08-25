@@ -117,13 +117,11 @@
 // module.exports = printPdf
 
 
-// const puppeteer = require('puppeteer');
 // const fs = require('fs');
 
 // (async () => {
 
 //   // Create a browser instance
-//   const browser = await puppeteer.launch();
 
 //   // Create a new page
 //   const page = await browser.newPage();

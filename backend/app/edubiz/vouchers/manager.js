@@ -1,7 +1,6 @@
 const { INTERNAL_SERVER_ERROR, CREATESUCCESS, SUCCESS } = require("../../common/exceptions")
 const printPdf = require("../../common/printServce")
 const Repository = require("./repository")
-const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require("path")
 
@@ -92,41 +91,6 @@ class VoucherManager {
         try {
             const voucher = await Repository.getVoucherById(voucher_id)
             const dir = path.join(path.resolve('./'), "common", "sample.html")
-
-
-                ; (async () => {
-
-                    // Create a browser instance
-                    const browser = await puppeteer.launch();
-
-                    // Create a new page
-                    const page = await browser.newPage();
-
-                    const data = {
-                        title: "Student Copy"
-                    }
-
-
-                    //Get HTML content from HTML file
-                    // const html = fs.readFileSync(dir, 'utf-8');
-                    const html = renderTemplate(data)
-                    await page.setContent(html, { waitUntil: 'domcontentloaded' });
-
-                    // To reflect CSS used for screens instead of print
-                    await page.emulateMediaType('screen');
-
-                    // Downlaod the PDF
-                    const pdf = await page.pdf({
-                        path: 'result.pdf',
-                        margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
-                        printBackground: true,
-                        format: 'A4',
-                    });
-
-                    // Close the browser instance
-                    await browser.close();
-                })();
-
         } catch (err) {
             // next(err)
             console.log(err)
