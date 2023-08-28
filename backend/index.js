@@ -115,6 +115,33 @@ Students.belongsTo(Classes, {
     onUpdate: "CASCADE"
 })
 
+Tutor.hasOne(Salaries, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Salaries.belongsTo(Tutor, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Tutor.hasOne(PaySlips, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+PaySlips.belongsTo(Tutor, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
+
+Designations.hasOne(Students, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Students.belongsTo(Designations, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
 Classes.hasMany(Voucher, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"

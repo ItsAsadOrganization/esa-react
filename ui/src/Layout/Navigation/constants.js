@@ -1,11 +1,14 @@
 import Icons from '../../common/icons';
 import Classes from '../../screens/Classes';
 import Dashboard from '../../screens/Dashboard';
+import Groups from '../../screens/Groups';
 import Logs from '../../screens/Logs';
+import Payslips from '../../screens/Payslips';
 import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
 import SetupVoucher from '../../screens/SetupVoucher';
 import Students from '../../screens/Students';
+import Tutors from '../../screens/Tutors';
 import Vouchers from '../../screens/Vouchers';
 
 export const LOGIN_ROUTE = '/';
@@ -18,7 +21,10 @@ export const ROUTES = {
     previewVoucher: "view-voucher",
     classes: "class",
     systemLogs: "system-logs",
-    previewStudent: "preview-student"
+    previewStudent: "preview-student",
+    tutors: "tutors",
+    payslips:'payslips',
+    groups:'groups',
 };
 
 export const ROLES = {
@@ -50,6 +56,17 @@ export const APP_ROUTES = [
         showInNav: true,
     },
     {
+        label: ROUTES.tutors,
+        icon: Icons.CastForEducation,
+        redirectPath: "/",
+        url: `/${ROUTES.tutors}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Tutors,
+        showInNav: true,
+    },
+    {
         label: ROUTES.vouchers,
         icon: Icons.ReceiptLong,
         redirectPath: "/",
@@ -61,6 +78,17 @@ export const APP_ROUTES = [
         showInNav: true,
     },
     {
+        label: ROUTES.payslips,
+        icon: Icons.Receipt,
+        redirectPath: "/",
+        url: `/${ROUTES.payslips}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Payslips,
+        showInNav: true,
+    },
+    {
         label: ROUTES.classes,
         icon: Icons.ReceiptLong,
         redirectPath: "/",
@@ -69,6 +97,17 @@ export const APP_ROUTES = [
         permission: ROUTES.dashboard,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: Classes,
+        showInNav: true,
+    },
+    {
+        label: ROUTES.groups,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.groups}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Groups,
         showInNav: true,
     },
     {

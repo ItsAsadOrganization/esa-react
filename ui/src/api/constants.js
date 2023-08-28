@@ -10,4 +10,8 @@ export const API_ROUTE_VOUCHERS = `${BASE_URL}/vouchers`;
 export const API_ROUTE_LOGS = `${BASE_URL}/logs`;
 export const API_ROUTE_STUDENT_VOUCHERS = `${BASE_URL}/voucher/student`;
 
+export const API_ROUTE_TUTORS = `${BASE_URL}/tutors`;
+export const API_ROUTE_TUTOR = `${BASE_URL}/tutor`;
+export const API_ROUTE_SALARY = `${BASE_URL}/salary`;
+
 export const NETWORK_ERROR = `Network Error`;

@@ -1,7 +1,7 @@
 const sequelize = require("../common/sequelize");
 const { DataTypes } = require("sequelize")
 
-const PaySlips = sequelize.define("groups", {
+const PaySlips = sequelize.define("payslips", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

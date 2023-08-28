@@ -14,6 +14,9 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import SettingsIcon from '@mui/icons-material/Settings';
+import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import GroupIcon from '@mui/icons-material/Group';
 
 export default {
   Dashboard: DashboardIcon,
@@ -31,5 +34,8 @@ export default {
   ExpandLess: ExpandLessIcon,
   ExpandMore: ExpandMoreIcon,
   Timeline: TimelineIcon,
-  Settings: SettingsIcon
+  Settings: SettingsIcon,
+  CastForEducation: CastForEducationIcon,
+  Receipt: ReceiptIcon,
+  Group: GroupIcon
 };

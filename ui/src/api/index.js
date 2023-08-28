@@ -3,9 +3,12 @@ import {
   API_ROUTE_CLASSES,
   API_ROUTE_LOGIN,
   API_ROUTE_LOGS,
+  API_ROUTE_SALARY,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
   API_ROUTE_STUDENT_VOUCHERS,
+  API_ROUTE_TUTOR,
+  API_ROUTE_TUTORS,
   API_ROUTE_VOUCHER,
   API_ROUTE_VOUCHERS,
 } from "./constants";
@@ -79,6 +82,22 @@ export const getLogsApi = () => {
   return get(API_ROUTE_LOGS, {}, {});
 };
 
-export const getStudentVouchersApi = ({student_id}) => {
-  return get(API_ROUTE_STUDENT_VOUCHERS, {}, {student_id});
+export const getStudentVouchersApi = ({ student_id }) => {
+  return get(API_ROUTE_STUDENT_VOUCHERS, {}, { student_id });
+};
+
+export const getTutorsApi = () => {
+  return get(API_ROUTE_TUTORS, {}, {});
+};
+
+export const postTutorsApi = ({ tutor }) => {
+  return post(API_ROUTE_TUTOR, { ...tutor }, {});
+};
+
+export const updateTutorApi = ({ tutor, id }) => {
+  return put(API_ROUTE_TUTOR, { ...tutor }, { id });
+};
+
+export const postSalaryApi = ({ incrementValue, salary, tutorId }) => {
+  return post(API_ROUTE_SALARY, { incrementValue, salary, tutorId }, {});
 };

@@ -19,6 +19,7 @@ import studentReducer from '../screens/Students/studentSlice';
 import classReducer from '../screens/Classes/classSlice';
 import logReducer from '../screens/Logs/logSlice';
 import previewStudentReducer from '../screens/PreviewStudent/previewStudentSlice';
+import tutorReducer from '../screens/Tutors/tutorSlice';
 
 const persistConfig = {
     key: REDUX_PERSIST_KEY,
@@ -35,7 +36,8 @@ const appReducer = combineReducers({
     student: studentReducer,
     classes: classReducer,
     logs: logReducer,
-    previewStudent: previewStudentReducer
+    previewStudent: previewStudentReducer,
+    tutors: tutorReducer
 });
 
 const rootReducer = (state, action) => {
