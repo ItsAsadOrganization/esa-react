@@ -1,6 +1,7 @@
 import {
   API_ROUTE_CLASS,
   API_ROUTE_CLASSES,
+  API_ROUTE_DESIGNATIONS,
   API_ROUTE_GENERATE_PAYSLIPS,
   API_ROUTE_LOGIN,
   API_ROUTE_LOGS,
@@ -118,4 +119,9 @@ export const getPaySlipsyApi = () => {
 
 export const deleteTutortSalaryApi = ({ id }) => {
   return del(API_ROUTE_SALARY, {}, { id });
+};
+
+
+export const getDesignationsApi = () => {
+  return get(API_ROUTE_DESIGNATIONS, {}, {});
 };

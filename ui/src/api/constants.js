@@ -16,5 +16,8 @@ export const API_ROUTE_SALARY = `${BASE_URL}/salary`;
 export const API_ROUTE_GENERATE_PAYSLIPS = `${BASE_URL}/generate`;
 export const API_ROUTE_PAYSLIPS = `${BASE_URL}/payslips`;
 
+export const API_ROUTE_DESIGNATIONS = `${BASE_URL}/designations`;
+export const API_ROUTE_DESIGNATION = `${BASE_URL}/designation`;
+
 
 export const NETWORK_ERROR = `Network Error`;

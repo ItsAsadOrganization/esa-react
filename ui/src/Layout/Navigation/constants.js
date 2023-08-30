@@ -1,6 +1,7 @@
 import Icons from '../../common/icons';
 import Classes from '../../screens/Classes';
 import Dashboard from '../../screens/Dashboard';
+import Designations from '../../screens/Designations';
 import Groups from '../../screens/Groups';
 import Logs from '../../screens/Logs';
 import Payslips from '../../screens/Payslips';
@@ -25,6 +26,7 @@ export const ROUTES = {
     tutors: "tutors",
     payslips:'payslips',
     groups:'groups',
+    designations:'designations',
 };
 
 export const ROLES = {
@@ -108,6 +110,17 @@ export const APP_ROUTES = [
         permission: ROUTES.dashboard,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: Groups,
+        showInNav: true,
+    },
+    {
+        label: ROUTES.designations,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.designations}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Designations,
         showInNav: true,
     },
     {
