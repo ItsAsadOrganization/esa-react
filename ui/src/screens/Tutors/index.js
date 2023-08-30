@@ -11,7 +11,7 @@ import React from "react"
 import { openErrorToast, openSuccessToast } from "../../common/toast"
 import { useDispatch, useSelector } from "react-redux"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
-import { getSalary, getSalaryIncrementValue, getSalaryModelOpen, getTutor, getTutorId, getTutorsList, getTutorsModalOpen, handleChangeResetModel, handleChangeSalary, handleChangeSalaryIncrementValue, handleChangeSalaryModelOpen, handleChangeTutorAddress, handleChangeTutorContact, handleChangeTutorEmail, handleChangeTutorEmergencyContact, handleChangeTutorId, handleChangeTutorJoiningDate, handleChangeTutorName, handleChangeTutorsModalOpen, tutorsRequested } from "./tutorSlice"
+import { getSalary, getSalaryID, getSalaryIncrementValue, getSalaryModelOpen, getTutor, getTutorId, getTutorsList, getTutorsModalOpen, handleChangeResetModel, handleChangeSalary, handleChangeSalaryIncrementValue, handleChangeSalaryModelOpen, handleChangeTutorAddress, handleChangeTutorContact, handleChangeTutorEmail, handleChangeTutorEmergencyContact, handleChangeTutorId, handleChangeTutorJoiningDate, handleChangeTutorName, handleChangeTutorsModalOpen, tutorsRequested, tutorsSalaryRequested } from "./tutorSlice"
 import NothingFound from "../../components/NothingFound"
 import Icons from "../../common/icons"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
@@ -19,7 +19,7 @@ import { ROLES } from "../../Layout/Navigation/constants"
 import { getUserRole } from "../Login/loginSlice"
 import Dialog from "../../components/Dialog"
 import { Controller, useForm } from "react-hook-form"
-import { postSalaryApi, postTutorsApi, updateTutorApi } from "../../api"
+import { deleteTutortSalaryApi, postSalaryApi, postTutorsApi, updateTutorApi } from "../../api"
 
 const Tutors = () => {
     const dispatch = useDispatch()
@@ -31,6 +31,7 @@ const Tutors = () => {
     const salaryModelOpen = useSelector(getSalaryModelOpen)
     const salary = useSelector(getSalary)
     const salaryIncrementValue = useSelector(getSalaryIncrementValue)
+    const salaryId = useSelector(getSalaryID)
 
 
     const [tutList, setTutList] = React.useState([])
@@ -89,9 +90,13 @@ const Tutors = () => {
             variant: "contained",
             action: async (tutor) => {
                 try {
+                    dispatch(handleAddLoading())
                     dispatch(handleChangeTutorId(tutor.id))
+                    dispatch(tutorsSalaryRequested({ id: tutor.id })).unwrap()
                     dispatch(handleChangeSalaryModelOpen(true))
+                    dispatch(handleRemoveLoading())
                 } catch (err) {
+                    dispatch(handleRemoveLoading())
                     openErrorToast(err.message ? err.message : err)
                 }
             },
@@ -126,8 +131,8 @@ const Tutors = () => {
 
     React.useEffect(() => {
         if (emailFilter) {
-            console.log({emailFilter})
-            console.log({emailFilter: tutList.filter(ele => ele.email.toLowerCase().includes(emailFilter.toLowerCase()))})
+            console.log({ emailFilter })
+            console.log({ emailFilter: tutList.filter(ele => ele.email.toLowerCase().includes(emailFilter.toLowerCase())) })
             setTutList(tutList.filter(ele => ele.email.toLowerCase().includes(emailFilter.toLowerCase())))
         } else {
             setTutList(tutorsList)
@@ -433,11 +438,20 @@ const Tutors = () => {
                             try {
 
                                 dispatch(handleAddLoading())
-                                await postSalaryApi({
-                                    salary,
-                                    incrementValue: salaryIncrementValue,
-                                    tutorId
-                                })
+                                if (salaryId == null) {
+                                    await postSalaryApi({
+                                        salary,
+                                        incrementValue: salaryIncrementValue,
+                                        tutorId
+                                    })
+                                } else {
+                                    await deleteTutortSalaryApi({ id: salaryId })
+                                    await postSalaryApi({
+                                        salary,
+                                        incrementValue: salaryIncrementValue,
+                                        tutorId
+                                    })
+                                }
                                 openSuccessToast("Record Added Successfully")
                                 dispatch(handleChangeSalaryModelOpen(false))
                                 dispatch(handleChangeSalaryIncrementValue(0))

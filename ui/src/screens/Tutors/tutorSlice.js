@@ -1,5 +1,5 @@
-import { getTutorsApi } from "../../api";
-import { TUTORS_REQUESTED, TUTOR_SLICE_NAME } from "./constants";
+import { getTutorsApi, getTutortSalaryApi } from "../../api";
+import { TUTORS_REQUESTED, TUTORS_SALARY_REQUESTED, TUTOR_SLICE_NAME } from "./constants";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -12,12 +12,22 @@ export const tutorsRequested = createAsyncThunk(TUTORS_REQUESTED, async () => {
     }
 })
 
+export const tutorsSalaryRequested = createAsyncThunk(TUTORS_SALARY_REQUESTED, async ({ id }) => {
+    try {
+        const response = await getTutortSalaryApi({ id })
+        return response
+    } catch (err) {
+        throw err
+    }
+})
+
 const tutorSlice = createSlice({
     name: TUTOR_SLICE_NAME,
     initialState: {
         tutorsList: [],
         tutorsModalOpen: false,
         id: null,
+        salaryId: null,
         tutor: {
             name: "",
             email: "",
@@ -68,6 +78,11 @@ const tutorSlice = createSlice({
         builder.addCase(tutorsRequested.fulfilled, (state, action) => {
             state.tutorsList = action.payload.data.tutors
         })
+        builder.addCase(tutorsSalaryRequested.fulfilled, (state, action) => {
+            state.salary = action.payload.data.salary.salary
+            state.salaryId = action.payload.data.salary.id
+            state.incrementValue = action.payload.data.salary.incrementValue
+        })
     }
 })
 
@@ -94,5 +109,6 @@ export const getTutorId = state => state.tutors.id
 export const getSalaryModelOpen = state => state.tutors.salaryModelOpen
 export const getSalary = state => state.tutors.salary
 export const getSalaryIncrementValue = state => state.tutors.incrementValue
+export const getSalaryID = state => state.tutors.salaryId
 
 export default tutorSlice.reducer

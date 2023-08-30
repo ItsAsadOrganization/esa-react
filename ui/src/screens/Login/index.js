@@ -32,12 +32,12 @@ const Login = () => {
                 }
             }}>
                 <Grid container>
-                    <Grid item xs={12} sx={{
+                    {/* <Grid item xs={12} sx={{
                         textAlign: "center",
                         mb: 2
                     }}>
                         <img src={Logo} style={{ width: 150, borderRadius: "50%", boxShadow: theme.shadows[16] }} alt={"logo"} />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} sx={{ mb: 2 }}>
                         <Typography sx={{
                             color: theme.palette.action.active,

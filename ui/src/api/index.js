@@ -1,8 +1,10 @@
 import {
   API_ROUTE_CLASS,
   API_ROUTE_CLASSES,
+  API_ROUTE_GENERATE_PAYSLIPS,
   API_ROUTE_LOGIN,
   API_ROUTE_LOGS,
+  API_ROUTE_PAYSLIPS,
   API_ROUTE_SALARY,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
@@ -100,4 +102,20 @@ export const updateTutorApi = ({ tutor, id }) => {
 
 export const postSalaryApi = ({ incrementValue, salary, tutorId }) => {
   return post(API_ROUTE_SALARY, { incrementValue, salary, tutorId }, {});
+};
+
+export const getTutortSalaryApi = ({ id }) => {
+  return get(API_ROUTE_SALARY, {}, { id });
+};
+
+export const generatePaySlipsyApi = () => {
+  return get(API_ROUTE_GENERATE_PAYSLIPS, {}, {});
+};
+
+export const getPaySlipsyApi = () => {
+  return get(API_ROUTE_PAYSLIPS, {}, {});
+};
+
+export const deleteTutortSalaryApi = ({ id }) => {
+  return del(API_ROUTE_SALARY, {}, { id });
 };

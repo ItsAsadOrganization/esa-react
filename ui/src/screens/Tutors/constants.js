@@ -33,3 +33,4 @@ export const TABLE_HEADS_SA = [
 
 export const TUTOR_SLICE_NAME = 'tutorSlice'
 export const TUTORS_REQUESTED = `${TUTOR_SLICE_NAME}/tutorsRequested`
+export const TUTORS_SALARY_REQUESTED = `${TUTOR_SLICE_NAME}/tutorsSalaryRequested`

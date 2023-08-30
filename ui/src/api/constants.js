@@ -13,5 +13,8 @@ export const API_ROUTE_STUDENT_VOUCHERS = `${BASE_URL}/voucher/student`;
 export const API_ROUTE_TUTORS = `${BASE_URL}/tutors`;
 export const API_ROUTE_TUTOR = `${BASE_URL}/tutor`;
 export const API_ROUTE_SALARY = `${BASE_URL}/salary`;
+export const API_ROUTE_GENERATE_PAYSLIPS = `${BASE_URL}/generate`;
+export const API_ROUTE_PAYSLIPS = `${BASE_URL}/payslips`;
+
 
 export const NETWORK_ERROR = `Network Error`;
