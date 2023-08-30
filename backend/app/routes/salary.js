@@ -22,5 +22,14 @@ salaryRouter.post("/salary", (req, res, next) => {
     }
 })
 
+salaryRouter.delete("/salary", (req, res, next) => {
+    try {
+        const id = req.query.id
+        Manager.deleteSalary(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 
 module.exports = salaryRouter

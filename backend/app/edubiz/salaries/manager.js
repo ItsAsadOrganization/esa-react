@@ -23,6 +23,17 @@ class SalariesManager {
             next(err)
         }
     }
+
+    static async deleteSalary(id, next) {
+        try {
+            const salary = await Repository.destroy(id)
+            if (salary) {
+                throw new SUCCESS({ message: "Salary Record Deleted" })
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = SalariesManager

@@ -8,13 +8,8 @@ const Salaries = sequelize.define("salaries", {
         unique: true,
         primaryKey: true
     },
-    incrementValue: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
     salary: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
+        type: DataTypes.JSON,
     },
 }, {
     paranoid: true,
