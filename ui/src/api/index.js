@@ -1,6 +1,7 @@
 import {
   API_ROUTE_CLASS,
   API_ROUTE_CLASSES,
+  API_ROUTE_DESIGNATION,
   API_ROUTE_DESIGNATIONS,
   API_ROUTE_GENERATE_PAYSLIPS,
   API_ROUTE_LOGIN,
@@ -124,4 +125,16 @@ export const deleteTutortSalaryApi = ({ id }) => {
 
 export const getDesignationsApi = () => {
   return get(API_ROUTE_DESIGNATIONS, {}, {});
+};
+
+export const postDesignationsApi = ({ name }) => {
+  return post(API_ROUTE_DESIGNATION, { name }, {});
+};
+
+export const updateDesignationsApi = ({ id, name }) => {
+  return put(API_ROUTE_DESIGNATION, { name }, { id });
+};
+
+export const deleteDesignationsApi = ({ id }) => {
+  return del(API_ROUTE_DESIGNATION, {}, { id });
 };

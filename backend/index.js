@@ -169,6 +169,15 @@ Logging.belongsTo(Users, {
     onUpdate: "CASCADE"
 })
 
+Designations.hasMany(Tutor, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Tutor.belongsTo(Designations, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
 let connect = async () => {
     try {
         await sequelize.authenticate()

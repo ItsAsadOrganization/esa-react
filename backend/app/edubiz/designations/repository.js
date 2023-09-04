@@ -21,7 +21,9 @@ class DesignationReqpository {
     static async update(id, payload) {
         const response = await Designations.update(payload, {
             where: {
-                [Op.eq]: id
+                id: {
+                    [Op.eq]: id
+                }
             }
         })
         return response

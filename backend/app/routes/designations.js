@@ -5,7 +5,7 @@ let designationRouter = Router()
 
 designationRouter.get("/designations", (req, res, next) => {
     try {
-        Manager.generatePaySlips(next)
+        Manager.getAllDesignations(req.session,next)
     } catch (err) {
         next(err)
     }
@@ -13,7 +13,7 @@ designationRouter.get("/designations", (req, res, next) => {
 
 designationRouter.post("/designation", (req, res, next) => {
     try {
-        Manager.generatePaySlips(next)
+        Manager.postDesignations(req.body, next)
     } catch (err) {
         next(err)
     }

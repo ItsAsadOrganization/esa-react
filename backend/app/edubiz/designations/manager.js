@@ -41,12 +41,12 @@ class DesignationManager {
             if (!designation) {
                 throw new INTERNAL_SERVER_ERROR("Error inserting user record")
             }
-            throw new SUCCESS({ designation })
+            throw new SUCCESS({ designation: _designations })
         } catch (err) {
             next(err)
         }
     }
-    
+
     static async removeDesignation(id, next) {
         try {
             const designation = await Reqpository.remove(id)

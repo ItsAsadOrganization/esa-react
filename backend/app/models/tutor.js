@@ -17,6 +17,9 @@ const Tutor = sequelize.define("tutor", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    cnic: {
+        type: DataTypes.STRING,
+    },
     contact: {
         type: DataTypes.STRING,
     },
