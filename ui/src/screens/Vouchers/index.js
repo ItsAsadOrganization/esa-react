@@ -17,6 +17,7 @@ import JazzCashIcon from './media/jazzcash.png'
 import BankIcon from './media/bank.png'
 import NothingFound from "../../components/NothingFound"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
+import JsPDF from 'jspdf';
 
 const Vouchers = () => {
     const navigate = useNavigate()
@@ -38,6 +39,17 @@ const Vouchers = () => {
 
     const [searchArr, setSearchArr] = React.useState([])
 
+
+    const generatePDF = () => {
+
+        const report = new JsPDF('l', 'pt', 'a4');
+        report.html(document.querySelector('#report'),{
+            margin: 1.25
+        }).then(() => {
+            report.save('report.pdf');
+        })
+    }
+    
 
 
 
@@ -301,7 +313,7 @@ const Vouchers = () => {
             {drawerUser &&
                 <SwipeableDrawer
                     PaperProps={{
-                        sx: { maxWidth: 600, px: 2 },
+                        sx: {  px: 2 },
                     }}
                     anchor={"right"}
                     open={drawerOpen}
@@ -319,8 +331,6 @@ const Vouchers = () => {
                         </IconButton>
                     </Box>
                     <Box sx={{
-                        maxWidth: 550,
-                        minWidth: 550,
                         border: '1px solid',
                         margin: "auto",
                         boxSizing: "content-box",
