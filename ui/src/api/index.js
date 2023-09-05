@@ -4,6 +4,7 @@ import {
   API_ROUTE_DESIGNATION,
   API_ROUTE_DESIGNATIONS,
   API_ROUTE_GENERATE_PAYSLIPS,
+  API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR,
   API_ROUTE_LOGIN,
   API_ROUTE_LOGS,
   API_ROUTE_PAYSLIP,
@@ -143,4 +144,8 @@ export const deleteDesignationsApi = ({ id }) => {
 
 export const updatePaySlipApi = ({ id, config }) => {
   return put(API_ROUTE_PAYSLIP, {config}, { id });
+};
+
+export const generateTutorPaySlipApi = ({id}) => {
+  return get(API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR, {}, {id});
 };

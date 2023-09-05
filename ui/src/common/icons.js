@@ -17,6 +17,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import GroupIcon from '@mui/icons-material/Group';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 export default {
   Dashboard: DashboardIcon,
@@ -37,5 +38,6 @@ export default {
   Settings: SettingsIcon,
   CastForEducation: CastForEducationIcon,
   Receipt: ReceiptIcon,
-  Group: GroupIcon
+  Group: GroupIcon,
+  Autorenew: AutorenewIcon
 };

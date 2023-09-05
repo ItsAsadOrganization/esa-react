@@ -13,6 +13,7 @@ class SalariesManager {
 
     static async postTutorSalary(payload, session, next) {
         try {
+            payload.salary.payments.basic_salary =  ((payload.salary.payments.increment / 100) * payload.salary.payments.basic_salary) + payload.salary.payments.basic_salary
             const salary = await Repository.createSalary(payload)
             const _salary = await Repository.getSalaryById(salary.dataValues.id)
             if (!_salary) {

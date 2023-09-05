@@ -9,7 +9,7 @@ import { getPaySlipConfig, getPaySlipId, getPaySlipModelOpen, getPaySlipsList, h
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import Icons from "../../common/icons"
 import Dialog from "../../components/Dialog"
-import { updatePaySlipApi } from "../../api"
+import { generateTutorPaySlipApi, updatePaySlipApi } from "../../api"
 import logo from '../Login/logo.jpg'
 
 const Payslips = () => {
@@ -60,6 +60,23 @@ const Payslips = () => {
                 }
             },
             icon: Icons.Settings,
+            color: "success"
+        },
+        {
+            label: "Configure",
+            variant: "contained",
+            action: async (ps) => {
+                try {
+                    dispatch(handleAddLoading())
+                    await generateTutorPaySlipApi({ id: ps.tutorId })
+                    loadPaySlips()
+                    dispatch(handleRemoveLoading())
+                } catch (err) {
+                    dispatch(handleRemoveLoading())
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
+            icon: Icons.Autorenew,
             color: "success"
         }
     ]
@@ -329,41 +346,41 @@ const Payslips = () => {
                         }}>Salary Slip</Typography>
                     </Grid>
 
-                    {console.log({previewSalary})}
+                    {console.log({ previewSalary })}
                     <Grid item xs={12} sx={{ mb: 2 }}>
                         <Table size="small">
                             <TableRow>
-                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000`}}>Registration ID</TableCell>
+                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000` }}>Registration ID</TableCell>
                                 <TableCell sx={{
                                     fontWeight: 700, fontSize: 14, border: `1px solid #000`
                                 }}>{previewSalary?.tutorId}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000`}}>Full Name</TableCell>
+                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000` }}>Full Name</TableCell>
                                 <TableCell sx={{
                                     fontWeight: 700, fontSize: 14, border: `1px solid #000`
                                 }}>{previewSalary?.tutor_name?.toUpperCase()}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000`}}>Designaiton</TableCell>
+                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000` }}>Designaiton</TableCell>
                                 <TableCell sx={{
                                     fontWeight: 700, fontSize: 14, border: `1px solid #000`
                                 }}>{previewSalary?.designation?.toUpperCase()}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000`}}>CNIC Number</TableCell>
+                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000` }}>CNIC Number</TableCell>
                                 <TableCell sx={{
                                     fontWeight: 700, fontSize: 14, border: `1px solid #000`
                                 }}>{previewSalary?.cnic}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000`}}>Joining Date</TableCell>
+                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000` }}>Joining Date</TableCell>
                                 <TableCell sx={{
                                     fontWeight: 700, fontSize: 14, border: `1px solid #000`
                                 }}>{previewSalary?.joining_date}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000`}}>Month</TableCell>
+                                <TableCell sx={{ width: 150, fontSize: 14, border: `1px solid #000` }}>Month</TableCell>
                                 <TableCell sx={{
                                     fontWeight: 700, fontSize: 14, border: `1px solid #000`
                                 }}>{previewSalary?.month}</TableCell>
@@ -461,8 +478,8 @@ const Payslips = () => {
                     </Grid>
 
 
-                    <Grid item xs={12} sx={{ mt: 2}}>
-                       <Typography sx={{ fontSize: 12}} component={"em"}><b>Note: </b>This is an autogenerated payslip. any miscalculations and errors are accepted.<b style={{color:"red"}}>*</b> </Typography>
+                    <Grid item xs={12} sx={{ mt: 2 }}>
+                        <Typography sx={{ fontSize: 12 }} component={"em"}><b>Note: </b>This is an autogenerated payslip. any miscalculations and errors are accepted.<b style={{ color: "red" }}>*</b> </Typography>
                     </Grid>
                 </Grid>
             </Dialog>

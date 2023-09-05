@@ -19,6 +19,7 @@ export const API_ROUTE_PAYSLIP = `${BASE_URL}/payslip`;
 
 export const API_ROUTE_DESIGNATIONS = `${BASE_URL}/designations`;
 export const API_ROUTE_DESIGNATION = `${BASE_URL}/designation`;
+export const API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR = `${BASE_URL}/generate/tutor`;
 
 
 export const NETWORK_ERROR = `Network Error`;

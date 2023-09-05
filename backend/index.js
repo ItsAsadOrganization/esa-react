@@ -65,7 +65,7 @@ app.use(
 
 app.use(async (req, res, next) => {
     try {
-        if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads")) {
+        if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads") && !req.originalUrl.includes("generate")) {
             if (req.headers.authorization) {
                 const sessionKey = `sess:${Buffer.from(req.headers.authorization, 'base64').toString('ascii')}`
                 const ttl = await redisClient.ttl(sessionKey)

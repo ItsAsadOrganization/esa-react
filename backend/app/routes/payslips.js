@@ -11,6 +11,23 @@ paySlipRouter.get("/generate", (req, res, next) => {
     }
 })
 
+paySlipRouter.get("/range", (req, res, next) => {
+    try {
+        Manager.getDateRange(next)
+    } catch (err) {
+        next(err)
+    }
+})
+
+paySlipRouter.get("/generate/tutor", (req, res, next) => {
+    try {
+        const id = req.query.id
+        Manager.generatePaySlipsById(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 paySlipRouter.get("/payslips", (req, res, next) => {
     try {
         Manager.getPaySlips(next)
