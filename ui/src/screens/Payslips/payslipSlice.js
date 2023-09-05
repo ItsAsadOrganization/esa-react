@@ -25,21 +25,26 @@ const paySlipSlice = createSlice({
         handleChangePaySlipConfig: (state, action) => { state.paySlipConfig = action.payload },
         handleChangePaySlipModalOpen: (state, action) => { state.paySlipModalOpen = action.payload },
         handleUpdatePaySlipConfigDeductions: (state, action) => {
-            state.paySlipConfig.deductions[action.payload.key] = parseFloat(action.payload.value)
+            state.paySlipConfig.deductions[action.payload.key1][action.payload.key2] = parseFloat(action.payload.value)
+            if (action.payload.key1 === "late_arrivals") {
+                state.paySlipConfig.deductions.late_arrivals.amount = parseInt((state.paySlipConfig.deductions.late_arrivals.days / 2) * (state.paySlipConfig.payments.basic_salary / 30))
+            } else {
+                state.paySlipConfig.deductions.unpaid_leaves.amount = parseInt(state.paySlipConfig.deductions.unpaid_leaves.days * (state.paySlipConfig.payments.basic_salary / 30))
+            }
             state.paySlipConfig.total_deductions = state.paySlipConfig.deductions.icome_tax +
-                                                    state.paySlipConfig.deductions.late_arrivals +
-                                                    state.paySlipConfig.deductions.unpaid_leaves
+                state.paySlipConfig.deductions.late_arrivals.amount +
+                state.paySlipConfig.deductions.unpaid_leaves.amount
             state.paySlipConfig.net_income = state.paySlipConfig.total_payment - state.paySlipConfig.total_deductions
 
         },
         handleUpdatePaySlipConfigPayments: (state, action) => {
             state.paySlipConfig.payments[action.payload.key] = parseFloat(action.payload.value)
             state.paySlipConfig.total_payment = state.paySlipConfig.payments.basic_salary +
-                                                    state.paySlipConfig.payments.bonus +
-                                                    state.paySlipConfig.payments.home_allowence +
-                                                    state.paySlipConfig.payments.increment +
-                                                    state.paySlipConfig.payments.utility_allowence +
-                                                    state.paySlipConfig.payments.encashment
+                state.paySlipConfig.payments.bonus +
+                state.paySlipConfig.payments.home_allowence +
+                state.paySlipConfig.payments.increment +
+                state.paySlipConfig.payments.utility_allowence +
+                state.paySlipConfig.payments.encashment
             state.paySlipConfig.net_income = state.paySlipConfig.total_payment - state.paySlipConfig.total_deductions
 
         },

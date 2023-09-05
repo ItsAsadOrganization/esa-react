@@ -37,8 +37,12 @@ class Manager {
                     element.salary.payments.bonus +
                     element.salary.payments.encashment
 
+                let late_arrivals = ((element.salary.deductions.late_arrivals.days) / 2) * (incrementedSalary / 30)
+                let unpaid_leaves = element.salary.deductions.unpaid_leaves.days * (incrementedSalary / 30)
+                element.salary.deductions.late_arrivals.amount = late_arrivals
+                element.salary.deductions.unpaid_leaves.amount = unpaid_leaves
                 let tax = await SalarTaxFetchService.getTaxRateFromFBR(grossSalary)
-                let total_deductions = parseFloat(tax.monthly.tax.replace(/,/g, "")) + element.salary.deductions.late_arrivals + element.salary.deductions.unpaid_leaves
+                let total_deductions = parseFloat(tax.monthly.tax.replace(/,/g, "")) + element.salary.deductions.late_arrivals.amount + element.salary.deductions.unpaid_leaves.amount
 
                 // console.log("\n\n\n", { increment, incrementedSalary, grossSalary, tax })
                 element.salary.deductions.icome_tax = parseFloat(tax.monthly.tax.replace(/,/g, ""));
@@ -79,6 +83,19 @@ class Manager {
                     payslip.dataValues["month"] = MONTHS.find(m => m.index === date).name + " " + year
                 }
                 throw new SUCCESS({ payslips })
+            }
+
+        } catch (err) {
+            next(err)
+        }
+    }
+
+
+    static async updatePaySlip(id, payload, next) {
+        try {
+            const payslips = await Repository.updateSlip(id, payload)
+            if(payslips){
+                throw new SUCCESS({ message: "PaySlip Updated" })
             }
 
         } catch (err) {

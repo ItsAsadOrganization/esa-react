@@ -4,14 +4,14 @@
 //popup tp create a new user
 // config to create salary
 
-import { Chip, Container, Fab, Grid, IconButton, TextField, Tooltip } from "@mui/material"
+import { Chip, Container, Fab, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Tooltip } from "@mui/material"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS, TABLE_HEADS, TABLE_HEADS_SA } from "./constants"
 import React from "react"
 import { openErrorToast, openSuccessToast } from "../../common/toast"
 import { useDispatch, useSelector } from "react-redux"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
-import { getSalary, getSalaryID, getSalaryIncrementValue, getSalaryModelOpen, getTutor, getTutorId, getTutorsList, getTutorsModalOpen, handleChangeResetModel, handleChangeSalary, handleChangeSalaryIncrementValue, handleChangeSalaryModelOpen, handleChangeTutorAddress, handleChangeTutorContact, handleChangeTutorEmail, handleChangeTutorEmergencyContact, handleChangeTutorId, handleChangeTutorJoiningDate, handleChangeTutorName, handleChangeTutorsModalOpen, tutorsRequested, tutorsSalaryRequested } from "./tutorSlice"
+import { getDesignationsList, getSalary, getSalaryID, getSalaryModelOpen, getTutor, getTutorId, getTutorsList, getTutorsModalOpen, handleChangeResetModel, handleChangeSalary, handleChangeSalaryModelOpen, handleChangeTutorAddress, handleChangeTutorCNIC, handleChangeTutorContact, handleChangeTutorDesignationIs, handleChangeTutorEmail, handleChangeTutorEmergencyContact, handleChangeTutorId, handleChangeTutorJoiningDate, handleChangeTutorName, handleChangeTutorsModalOpen, handleResetSalaryModel, tutorsRequested, tutorsSalaryRequested } from "./tutorSlice"
 import NothingFound from "../../components/NothingFound"
 import Icons from "../../common/icons"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
@@ -30,8 +30,8 @@ const Tutors = () => {
     const tutorId = useSelector(getTutorId)
     const salaryModelOpen = useSelector(getSalaryModelOpen)
     const salary = useSelector(getSalary)
-    const salaryIncrementValue = useSelector(getSalaryIncrementValue)
     const salaryId = useSelector(getSalaryID)
+    const designationsList = useSelector(getDesignationsList)
 
 
     const [tutList, setTutList] = React.useState([])
@@ -47,6 +47,8 @@ const Tutors = () => {
         setValue("emergency_contact", tutor.emergency_contact)
         setValue("address", tutor.address)
         setValue("joining_date", tutor.joining_date)
+        setValue("cnic", tutor.cnic)
+        setValue("designationId", tutor.designationId)
     }, [setValue, tutor])
 
     React.useEffect(() => {
@@ -67,6 +69,8 @@ const Tutors = () => {
                 dispatch(handleChangeTutorEmergencyContact(tutor.emergency_contact))
                 dispatch(handleChangeTutorAddress(tutor.address))
                 dispatch(handleChangeTutorJoiningDate(tutor.joining_date))
+                dispatch(handleChangeTutorCNIC(tutor.cnic))
+                dispatch(handleChangeTutorDesignationIs(tutor.designationId))
                 dispatch(handleChangeTutorsModalOpen(true))
             },
             icon: Icons.BorderColor,
@@ -109,7 +113,6 @@ const Tutors = () => {
         try {
             dispatch(handleAddLoading())
             dispatch(tutorsRequested()).unwrap()
-            openSuccessToast("Tutors Listed Loaded")
             dispatch(handleRemoveLoading())
         } catch (err) {
             dispatch(handleRemoveLoading())
@@ -184,6 +187,7 @@ const Tutors = () => {
                                     <StyledTableCell>{tutor.email}</StyledTableCell>
                                     <StyledTableCell>{tutor.contact}</StyledTableCell>
                                     <StyledTableCell>{tutor.emergency_contact}</StyledTableCell>
+                                    <StyledTableCell>{designationsList.find(d => d.id === tutor.designationId).name}</StyledTableCell>
                                     <StyledTableCell>{tutor.address}</StyledTableCell>
                                     <StyledTableCell>{tutor.joining_date}</StyledTableCell>
                                     {userRole === ROLES.superadmin ? <StyledTableCell>{tutor.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
@@ -219,7 +223,7 @@ const Tutors = () => {
 
             <Dialog dailogOpen={tutorModelOpen} title="Tutor" size={"sm"}
                 hasCloseIcon={true}
-                clickAwayListener={true}
+                clickAwayListener={false}
                 handleClose={() => {
                     dispatch(handleChangeResetModel())
                     reset()
@@ -237,6 +241,7 @@ const Tutors = () => {
                                 tutorId === null ? await postTutorsApi({ tutor }) :
                                     await updateTutorApi({ tutor, id: tutorId })
                                 openSuccessToast("Record Added Successfully")
+                                dispatch(handleChangeResetModel())
                                 dispatch(handleChangeResetModel())
                                 reset()
                                 clearErrors()
@@ -300,6 +305,71 @@ const Tutors = () => {
                                         dispatch(handleChangeTutorEmail(e.target.value))
                                     }}
                                 />
+                            )}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="cnic"
+                            defaultValue={tutor.cnic}
+                            rules={{
+                                required: "CNIC number is mandatory",
+                                pattern: {
+                                    value: /[0-9]{5}-[0-9]{7}-[0-9]{1}/,
+                                    message: "Please provide CNIC number in 11111-1111111-1"
+                                }
+                            }}
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    required
+                                    error={errors.cnic && !errors.cnic.touched && !errors.cnic.dirty}
+                                    helperText={errors.cnic && errors.cnic.message}
+                                    size="small"
+                                    fullWidth
+                                    label="CNIC Number"
+                                    value={tutor.cnic}
+                                    onChange={(e) => {
+                                        field.onChange(e)
+                                        dispatch(handleChangeTutorCNIC(e.target.value))
+                                    }}
+                                />
+                            )}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Controller
+                            name="designationId"
+                            defaultValue={tutor.designationId}
+                            rules={{
+                                required: "Designation is mandatory",
+                            }}
+                            control={control}
+                            render={({ field }) => (
+                                <FormControl required fullWidth size="small">
+                                    <InputLabel>Designation</InputLabel>
+                                    <Select
+                                        required
+                                        error={errors.designationId && !errors.designationId.touched && !errors.designationId.dirty}
+                                        helperText={errors.designationId && errors.designationId.message}
+                                        label="Designation"
+                                        value={tutor.designationId || ""} onChange={e => {
+                                            field.onChange(e)
+                                            dispatch(handleChangeTutorDesignationIs(e.target.value))
+                                        }}>
+                                        <MenuItem value={""}>{"Please select"}</MenuItem>
+                                        {designationsList.length > 0 ?
+                                            designationsList.map(c => (
+                                                <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                                            ))
+                                            : ""}
+
+                                    </Select>
+                                    {errors.designationId && <FormHelperText error >{errors.designationId.message}</FormHelperText>}
+
+                                </FormControl>
                             )}
                         />
                     </Grid>
@@ -423,9 +493,7 @@ const Tutors = () => {
                 hasCloseIcon={true}
                 clickAwayListener={false}
                 handleClose={() => {
-                    dispatch(handleChangeSalaryModelOpen(false))
-                    dispatch(handleChangeSalaryIncrementValue(0))
-                    dispatch(handleChangeSalary(0))
+                    dispatch(handleResetSalaryModel())
                     reset()
                     clearErrors()
                 }}
@@ -441,21 +509,17 @@ const Tutors = () => {
                                 if (salaryId == null) {
                                     await postSalaryApi({
                                         salary,
-                                        incrementValue: salaryIncrementValue,
                                         tutorId
                                     })
                                 } else {
                                     await deleteTutortSalaryApi({ id: salaryId })
                                     await postSalaryApi({
                                         salary,
-                                        incrementValue: salaryIncrementValue,
                                         tutorId
                                     })
                                 }
                                 openSuccessToast("Record Added Successfully")
-                                dispatch(handleChangeSalaryModelOpen(false))
-                                dispatch(handleChangeSalaryIncrementValue(0))
-                                dispatch(handleChangeSalary(0))
+                                dispatch(handleResetSalaryModel())
                                 dispatch(handleRemoveLoading())
                             } catch (err) {
                                 openErrorToast(err.message ? err.message : err)
@@ -466,30 +530,42 @@ const Tutors = () => {
                     }
                 ]}
             >
-                <Grid container spacing={1}>
+                <Grid container>
                     <Grid item xs={12}>
-                        <TextField
-                            type="number"
-                            value={salary}
-                            label="Salary In PKR"
-                            onChange={e => {
-                                dispatch(handleChangeSalary(e.target.value))
-                            }}
-                            fullWidth
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            type="number"
-                            value={salaryIncrementValue}
-                            label="Increment in Percentage"
-                            onChange={e => {
-                                dispatch(handleChangeSalaryIncrementValue(e.target.value))
-                            }}
-                            fullWidth
-                            size="small"
-                        />
+                        <ExplicitTable tableSize="small" columns={[{ name: "Head" }, { name: "Amount" }]}>
+                            <StyledTableRow>
+                                <StyledTableCell>Basic Salary</StyledTableCell>
+                                <StyledTableCell><TextField type="number"
+                                    onChange={e => dispatch(handleChangeSalary({
+                                        key: "basic_salary",
+                                        value: e.target.value
+                                    }))}
+                                    fullWidth value={salary?.payments?.basic_salary} size="small" /></StyledTableCell>
+                            </StyledTableRow>
+                            <StyledTableRow>
+                                <StyledTableCell>Home Allowance</StyledTableCell>
+                                <StyledTableCell><TextField
+                                    onChange={e => dispatch(handleChangeSalary({
+                                        key: "home_allowence",
+                                        value: e.target.value
+                                    }))} type="number" fullWidth value={salary?.payments?.home_allowence} size="small" /></StyledTableCell>
+                            </StyledTableRow>
+                            <StyledTableRow>
+                                <StyledTableCell>Utility Allowance</StyledTableCell>
+                                <StyledTableCell><TextField
+                                    onChange={e => dispatch(handleChangeSalary({
+                                        key: "utility_allowence",
+                                        value: e.target.value
+                                    }))} type="number" fullWidth value={salary?.payments?.utility_allowence} size="small" /></StyledTableCell>
+                            </StyledTableRow>
+                            <StyledTableRow>
+                                <StyledTableCell>increment (%)</StyledTableCell>
+                                <StyledTableCell><TextField onChange={e => dispatch(handleChangeSalary({
+                                    key: "increment",
+                                    value: e.target.value
+                                }))} type="number" fullWidth value={salary?.payments?.increment} size="small" /></StyledTableCell>
+                            </StyledTableRow>
+                        </ExplicitTable>
                     </Grid>
                 </Grid>
 

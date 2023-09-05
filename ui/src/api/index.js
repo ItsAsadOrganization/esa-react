@@ -6,6 +6,7 @@ import {
   API_ROUTE_GENERATE_PAYSLIPS,
   API_ROUTE_LOGIN,
   API_ROUTE_LOGS,
+  API_ROUTE_PAYSLIP,
   API_ROUTE_PAYSLIPS,
   API_ROUTE_SALARY,
   API_ROUTE_STUDENT,
@@ -137,4 +138,9 @@ export const updateDesignationsApi = ({ id, name }) => {
 
 export const deleteDesignationsApi = ({ id }) => {
   return del(API_ROUTE_DESIGNATION, {}, { id });
+};
+
+
+export const updatePaySlipApi = ({ id, config }) => {
+  return put(API_ROUTE_PAYSLIP, {config}, { id });
 };

@@ -9,6 +9,18 @@ class PaySlipRepository {
         return response
     }
 
+
+    static async updateSlip(id, payload) {
+        const response = await PaySlips.update(payload, {
+            where: {
+                id: {
+                    [Op.eq]: id
+                }
+            }
+        })
+        return response
+    }
+
     static async getPaySlips() {
         const response = await PaySlips.findAll({
             where: {

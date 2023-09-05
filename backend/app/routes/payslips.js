@@ -19,5 +19,15 @@ paySlipRouter.get("/payslips", (req, res, next) => {
     }
 })
 
+paySlipRouter.put("/payslip", (req, res, next) => {
+    try {
+        const id = req.query.id
+        const payload = req.body
+        Manager.updatePaySlip(id, payload, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 
 module.exports = paySlipRouter

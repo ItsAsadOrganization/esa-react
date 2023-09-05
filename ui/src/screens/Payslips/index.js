@@ -2,13 +2,14 @@ import { Container, Grid, IconButton, TextField } from "@mui/material"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS } from "./constants"
 import React from "react"
-import { openErrorToast } from "../../common/toast"
+import { openErrorToast, openSuccessToast } from "../../common/toast"
 import { useDispatch, useSelector } from 'react-redux'
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
-import { getPaySlipConfig, getPaySlipModelOpen, getPaySlipsList, handleChangePaySlipConfig, handleChangePaySlipId, handleChangePaySlipModalOpen, handleUpdatePaySlipConfig, handleUpdatePaySlipConfigDeductions, handleUpdatePaySlipConfigPayments, payslipsRequested } from "./payslipSlice"
+import { getPaySlipConfig, getPaySlipId, getPaySlipModelOpen, getPaySlipsList, handleChangePaySlipConfig, handleChangePaySlipId, handleChangePaySlipModalOpen, handleUpdatePaySlipConfig, handleUpdatePaySlipConfigDeductions, handleUpdatePaySlipConfigPayments, payslipsRequested } from "./payslipSlice"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import Icons from "../../common/icons"
 import Dialog from "../../components/Dialog"
+import { updatePaySlipApi } from "../../api"
 
 const Payslips = () => {
     const dispatch = useDispatch()
@@ -16,6 +17,7 @@ const Payslips = () => {
     const paySlips = useSelector(getPaySlipsList)
     const psModelOpen = useSelector(getPaySlipModelOpen)
     const psConfig = useSelector(getPaySlipConfig)
+    const psId = useSelector(getPaySlipId)
 
     const loadPaySlips = async () => {
         try {
@@ -91,7 +93,6 @@ const Payslips = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    {console.log({ paySlips })}
                     {paySlips.length > 0 ?
                         <ExplicitTable tableSize="small" columns={[{ name: "Tutor Name" }, { name: "Month" }, { name: "Amount Payable" }, { name: "" }]}>
                             {paySlips.map(ps => (
@@ -113,10 +114,38 @@ const Payslips = () => {
                 </Grid>
             </Grid>
 
-            {console.log({ psConfig })}
-            <Dialog handleClose={() => {
+            <Dialog size={"md"} handleClose={() => {
                 dispatch(handleChangePaySlipModalOpen(false))
-            }} dailogOpen={psModelOpen} title="Pay Slip Details" hasCloseIcon={true} clickAwayListener={false} >
+                dispatch(handleChangePaySlipId(null))
+                dispatch(handleChangePaySlipConfig({}))
+            }} dailogOpen={psModelOpen} title="Pay Slip Details" hasCloseIcon={true} clickAwayListener={false}
+
+                actionsButtonArray={[
+                    {
+                        label: "Done",
+                        color: "primary",
+                        variant: "contained",
+                        action: async (data) => {
+                            try {
+
+                                dispatch(handleAddLoading())
+                                await updatePaySlipApi({ id: psId, config: psConfig })
+                                openSuccessToast("Salary Slip Updated")
+                                loadPaySlips()
+                                dispatch(handleChangePaySlipModalOpen(false))
+                                dispatch(handleChangePaySlipId(null))
+                                dispatch(handleChangePaySlipConfig({}))
+                                dispatch(handleRemoveLoading())
+                            } catch (err) {
+                                openErrorToast(err.message ? err.message : err)
+                                dispatch(handleRemoveLoading())
+                            }
+                        },
+                        size: "small"
+                    }
+                ]}
+
+            >
                 <Grid container spacing={1}>
                     <Grid item xs={6}>
                         <ExplicitTable tableSize="small">
@@ -139,7 +168,7 @@ const Payslips = () => {
                                 <StyledTableCell>Utility Allowence</StyledTableCell>
                                 <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>
                                     <TextField
-                                    type="number"
+                                        type="number"
                                         fullWidth
                                         size="small"
                                         value={psConfig?.payments?.utility_allowence}
@@ -155,7 +184,7 @@ const Payslips = () => {
                                 <StyledTableCell>Bonus</StyledTableCell>
                                 <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>
                                     <TextField
-                                    type="number"
+                                        type="number"
                                         fullWidth
                                         size="small"
                                         value={psConfig?.payments?.bonus}
@@ -172,7 +201,7 @@ const Payslips = () => {
                                 <StyledTableCell>Encashment</StyledTableCell>
                                 <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>
                                     <TextField
-                                    type="number"
+                                        type="number"
                                         fullWidth
                                         size="small"
                                         value={psConfig?.payments?.encashment}
@@ -205,37 +234,50 @@ const Payslips = () => {
                                 <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>{psConfig?.deductions?.icome_tax}</StyledTableCell>
                             </StyledTableRow>
                             <StyledTableRow>
-                                <StyledTableCell>Late Arrivals</StyledTableCell>
+                                <StyledTableCell sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1
+                                }}>Late Arrivals  <TextField sx={{
+                                    maxWidth: 100
+                                }}
+                                    type="number"
+                                    defaultValue={0}
+                                    size="small"
+                                    value={psConfig?.deductions?.late_arrivals?.days}
+                                    onChange={e => {
+                                        dispatch(handleUpdatePaySlipConfigDeductions({
+                                            key1: "late_arrivals",
+                                            key2: "days",
+                                            value: e.target.value
+                                        }))
+                                    }}
+                                    /></StyledTableCell>
                                 <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>
-                                    <TextField
-                                        type="number"
-                                        fullWidth
-                                        defaultValue={0}
-                                        size="small"
-                                        value={psConfig?.deductions?.late_arrivals}
-                                        onChange={e => {
-                                            dispatch(handleUpdatePaySlipConfigDeductions({
-                                                key: "late_arrivals",
-                                                value: e.target.value
-                                            }))
-                                        }}
-                                    />
+                                    {psConfig?.deductions?.late_arrivals?.amount}
                                 </StyledTableCell>
                             </StyledTableRow>
                             <StyledTableRow>
-                                <StyledTableCell>Unpaid Leaves</StyledTableCell>
-                                <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>
-                                    <TextField
-                                        fullWidth
+                                <StyledTableCell sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1
+                                }}>Unpaid Leaves <TextField
+                                        sx={{
+                                            maxWidth: 100
+                                        }}
                                         size="small"
-                                        value={psConfig?.deductions?.unpaid_leaves}
+                                        value={psConfig?.deductions?.unpaid_leaves?.days}
                                         onChange={e => {
                                             dispatch(handleUpdatePaySlipConfigDeductions({
-                                                key: "unpaid_leaves",
+                                                key1: "unpaid_leaves",
+                                                key2: "days",
                                                 value: e.target.value
                                             }))
                                         }}
-                                    />
+                                    /> Days</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "right", fontWeight: "bold" }}>
+                                    {psConfig?.deductions?.unpaid_leaves?.amount}
                                 </StyledTableCell>
                             </StyledTableRow>
                             <StyledTableRow>
