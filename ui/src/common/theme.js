@@ -35,6 +35,9 @@ export const darkTheme = {
         success: {
             main: "#0acf97"
         },
+        companyBlue: {
+            main: "#2d3192",
+        },
         warning: {
             main: "#ffc35a"
         }, info: {
@@ -82,8 +85,12 @@ export const lightTheme = {
             light: "#859bb3"
         },
         companyPink: {
-            main: "#ff3d71",
+            main: "#ec1f24",
             light: "#ff3d7114"
+        },
+       
+        companyBlue: {
+            main: "#2d3192",
         },
         mainBackground: {
             main: "#ecf0f6"

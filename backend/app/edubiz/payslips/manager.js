@@ -4,6 +4,7 @@ const SalaryRepository = require("../salaries/Repository")
 const numberToWords = require('number-to-words');
 const Repository = require("./repository");
 const TutorsRepository = require("../tutors/repository");
+const DesignationReqpository = require("../designations/repository");
 
 
 const MONTHS = [
@@ -75,11 +76,19 @@ class Manager {
                 throw new SUCCESS({ payslips: [] })
             } else {
                 const tutors = await TutorsRepository.getAllTutors(false)
+                const designations = await DesignationReqpository.getAllDesignation()
                 for (const payslip of payslips) {
                     const tutor_name = tutors.find(t => t.id === payslip.tutorId).name
+                    const joining_date = tutors.find(t => t.id === payslip.tutorId).joining_date
+                    const cnic = tutors.find(t => t.id === payslip.tutorId).cnic
+                    const designationId = tutors.find(t => t.id === payslip.tutorId).designationId
+                    const designation = designations.find(d => d.id === designationId).name
                     const date = new Date(payslip.createdAt).getMonth() + 1
                     const year = new Date(payslip.createdAt).getFullYear()
                     payslip.dataValues["tutor_name"] = tutor_name
+                    payslip.dataValues["designation"] = designation
+                    payslip.dataValues["joining_date"] = joining_date
+                    payslip.dataValues["cnic"] = cnic
                     payslip.dataValues["month"] = MONTHS.find(m => m.index === date).name + " " + year
                 }
                 throw new SUCCESS({ payslips })
@@ -94,7 +103,7 @@ class Manager {
     static async updatePaySlip(id, payload, next) {
         try {
             const payslips = await Repository.updateSlip(id, payload)
-            if(payslips){
+            if (payslips) {
                 throw new SUCCESS({ message: "PaySlip Updated" })
             }
 
