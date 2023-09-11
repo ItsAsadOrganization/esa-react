@@ -1,4 +1,4 @@
-import { Box, Chip, Container, Fab, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, SwipeableDrawer, TextField, Tooltip, Typography } from "@mui/material"
+import { Box, Chip, Container, Fab, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, Stack, SwipeableDrawer, TextField, Tooltip, Typography } from "@mui/material"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS, TABLE_HEADS } from "./constants"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
@@ -43,13 +43,13 @@ const Vouchers = () => {
     const generatePDF = () => {
 
         const report = new JsPDF('l', 'pt', 'a4');
-        report.html(document.querySelector('#report'),{
+        report.html(document.querySelector('#report'), {
             margin: 1.25
         }).then(() => {
             report.save('report.pdf');
         })
     }
-    
+
 
 
 
@@ -313,7 +313,7 @@ const Vouchers = () => {
             {drawerUser &&
                 <SwipeableDrawer
                     PaperProps={{
-                        sx: {  px: 2 },
+                        sx: { px: 2 },
                     }}
                     anchor={"right"}
                     open={drawerOpen}
@@ -330,40 +330,45 @@ const Vouchers = () => {
                             <Icons.Close />
                         </IconButton>
                     </Box>
-                    <Box sx={{
-                        border: '1px solid',
-                        margin: "auto",
-                        boxSizing: "content-box",
-                        p: 2,
-                        position: "relative"
-                    }}>
-                        {drawerUser.is_paid ? <Typography sx={{
-                            fontSize: 36,
-                            fontWeight: 700,
-                            border: "3px dashed green",
-                            maxWidth: "fit-content",
-                            px: 1,
-                            py: 0.5,
-                            color: "green",
-                            position: "absolute",
-                            transform: "rotate(45deg)",
-                            top: 150,
-                            right: 25
-                        }}>PAID</Typography> : <Typography sx={{
-                            fontSize: 36,
-                            fontWeight: 700,
-                            border: "3px dashed red",
-                            maxWidth: "fit-content",
-                            px: 1,
-                            py: 0.5,
-                            color: "red",
-                            position: "absolute",
-                            transform: "rotate(45deg)",
-                            top: 150,
-                            right: 25
-                        }}>UNPAID</Typography>}
-                        <PreviewVoucher drawerUser={drawerUser} studentsList={studentsList} classList={classList} />
-                    </Box>
+                    {drawerUser.is_paid ? <Typography sx={{
+                        fontSize: 36,
+                        fontWeight: 700,
+                        border: "3px dashed green",
+                        maxWidth: "fit-content",
+                        px: 1,
+                        py: 0.5,
+                        color: "green",
+                        position: "absolute",
+                        transform: "rotate(45deg)",
+                        top: 150,
+                        right: 25,
+                        zIndex: 1000
+                    }}>PAID</Typography> : <Typography sx={{
+                        fontSize: 36,
+                        fontWeight: 700,
+                        border: "3px dashed red",
+                        maxWidth: "fit-content",
+                        px: 1,
+                        py: 0.5,
+                        color: "red",
+                        position: "absolute",
+                        transform: "rotate(45deg)",
+                        top: 150,
+                        right: 25,
+                        zIndex: 1000
+                    }}>UNPAID</Typography>}
+                    <Stack flexDirection={"row"} gap={1} id="report" onClick={generatePDF}>
+                        {["Parents", "Office", "Bank"].map(e => (
+                            <Box sx={{
+                                border: '1px solid',
+                                margin: "auto",
+                                boxSizing: "content-box",
+                                position: "relative",
+                            }}>
+                                <PreviewVoucher title={e} drawerUser={drawerUser} studentsList={studentsList} classList={classList} />
+                            </Box>
+                        ))}
+                    </Stack>
                 </SwipeableDrawer>
             }
 

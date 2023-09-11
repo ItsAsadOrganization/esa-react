@@ -18,12 +18,17 @@ const multer = require('multer');
 const path = require("path")
 const Groups = require("./app/models/groups")
 
-
 const Attachments = require("./app/models/attachments")
 const Designations = require("./app/models/designation")
 const PaySlips = require("./app/models/payslips")
 const Salaries = require("./app/models/salaries")
 const Tutor = require("./app/models/tutor")
+const AppConfig = require("./app/models/app_config")
+const TutorLeaves = require("./app/models/tutor_leaves")
+const TutorsAttendance = require("./app/models/tutattendance")
+const StudentsAttendance = require("./app/models/stdattendance")
+const { CLASSES_MIGRATIONS, USERS_MIGRATIONS, GROUPS, LEAVES_MIGRATIONS } = require("./app/migrations/migrations")
+const Notifications = require("./app/models/notification")
 
 
 
@@ -133,15 +138,6 @@ PaySlips.belongsTo(Tutor, {
 })
 
 
-Designations.hasOne(Students, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-})
-Students.belongsTo(Designations, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-})
-
 Classes.hasMany(Voucher, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
@@ -178,10 +174,40 @@ Tutor.belongsTo(Designations, {
     onUpdate: "CASCADE"
 })
 
+Tutor.hasMany(TutorLeaves, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+TutorLeaves.belongsTo(Tutor, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
+Tutor.hasMany(TutorsAttendance, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+TutorsAttendance.belongsTo(Tutor, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
+Students.hasMany(StudentsAttendance, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+StudentsAttendance.belongsTo(Students, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
+
+
 let connect = async () => {
     try {
         await sequelize.authenticate()
-        await sequelize.sync({ force: false })
+        await sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null, { raw: true })
+        await sequelize.sync({ force: true })
         await createDefaultUser()
         await createDefaultClasses()
         await createDefaultGroups()
@@ -194,23 +220,10 @@ let connect = async () => {
 let createDefaultGroups = async () => {
     try {
 
-        const groups = [
-            {
-                name: "System Admins",
-            },
-            {
-                name: "Administrator",
-            },
-            {
-                name: "Tutors",
-            },
-            {
-                name: "Students",
-            }
-        ]
 
 
-        groups.forEach(async usr => {
+
+        GROUPS.forEach(async usr => {
             Groups.findOrCreate({
                 where: { name: usr.name },
                 defaults: usr
@@ -228,24 +241,7 @@ let createDefaultGroups = async () => {
 
 let createDefaultUser = async () => {
     try {
-
-        const users = [
-            {
-                name: "admin",
-                email: "admin@admin.com",
-                password: "P@ssw0rd123*",
-                role: "admin"
-            },
-            {
-                name: "superadmin",
-                email: "superadmin@egc.edu.pk",
-                password: "SuperAdmin@123,.",
-                role: "superadmin"
-            }
-        ]
-
-
-        users.forEach(async usr => {
+        USERS_MIGRATIONS.forEach(async usr => {
             Users.findOrCreate({
                 where: { name: usr.name },
                 defaults: {
@@ -270,23 +266,27 @@ let createDefaultUser = async () => {
 let createDefaultClasses = async () => {
 
     try {
-        const classes = [
-            { name: "9th" },
-            { name: "10th" },
-            { name: "11th" },
-            { name: "12th" },
-            { name: "IELTS" },
-            { name: "IDP" },
-            { name: "Computer Courses" },
-        ]
-
-        classes.forEach(user => {
+        CLASSES_MIGRATIONS.forEach(user => {
             Classes.findOrCreate({
                 where: { name: user.name }, // Specify the criteria to find the record
                 defaults: user, // Provide the attributes to create if the record doesn't exist
             })
                 .then(([user, created]) => {
                     console.log('Classes:', user.name, 'Created:', created);
+                })
+                .catch(error => {
+                    console.error('Error creating or finding user:', error);
+                });
+        });
+
+
+        LEAVES_MIGRATIONS.forEach(user => {
+            AppConfig.findOrCreate({
+                where: { name: user.name }, // Specify the criteria to find the record
+                defaults: user, // Provide the attributes to create if the record doesn't exist
+            })
+                .then(([user, created]) => {
+                    console.log('Config for :', user.name, 'Created');
                 })
                 .catch(error => {
                     console.error('Error creating or finding user:', error);
@@ -349,5 +349,18 @@ app.use(async (err, req, res, next) => {
             // userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
         })
     }
+    if(!err.statusCode){
+        err.statusCode = 500
+    }
+    
+    if(!_err.name){
+        _err.name ="Server Error"
+    }
+   
+    if(!_err.description){
+        _err.description ="Internal Server Error"
+    }
+
+
     res.status(err.statusCode).json({ ..._err })
 })

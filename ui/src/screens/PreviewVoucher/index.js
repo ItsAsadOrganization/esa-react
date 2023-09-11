@@ -4,20 +4,19 @@ import logo from '../Login/logo.jpg'
 import JsPDF from 'jspdf';
 
 
-const PreviewVoucher = ({ drawerUser, studentsList, classList }) => {
+const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
 
-    const generatePDF = () => {
-
-        const report = new JsPDF('l', 'pt', 'a4');
-        report.html(document.querySelector('#report'),{
-            margin: 1.25
-        }).then(() => {
-            report.save('report.pdf');
-        })
-    }
+    
     return (
-        <Container id="report" onClick={generatePDF}>
-            <Grid container maxWidth={'280pt'}>
+        <Container sx={{
+            '&.MuiContainer-root':{
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                paddingTop: '10px',
+                paddingBottom: '10px'
+            }
+        }} >
+            <Grid container maxWidth={'191pt'}>
                 <Grid item xs={12} sx={{mb: 1}}>
                     <Typography sx={{
                         textAlign: "center",
@@ -28,7 +27,7 @@ const PreviewVoucher = ({ drawerUser, studentsList, classList }) => {
                         maxWidth: "fit-content",
                         margin: "auto",
                         fontSize:12
-                    }}>Fee Slip</Typography>
+                    }}>{title} Copy</Typography>
                 </Grid>
 
                 <Grid item xs={12} >

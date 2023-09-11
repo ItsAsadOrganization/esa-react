@@ -6,10 +6,7 @@ const Students = sequelize.define("students", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        unique: true,
         primaryKey: true,
-        allowNull: false,
-        initialAutoIncrement: 1000
     },
     name: {
         type: DataTypes.STRING,

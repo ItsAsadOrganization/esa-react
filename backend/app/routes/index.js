@@ -9,6 +9,8 @@ const tutorRouter = require('./tutors');
 const salaryRouter = require('./salary');
 const paySlipRouter = require('./payslips');
 const designationRouter = require('./designations');
+const appConfigRouter = require('./appconfig');
+const campusRouter = require('./campus');
 const router = express.Router();
 
 router.use("", userRouter)
@@ -20,6 +22,8 @@ router.use("", tutorRouter)
 router.use("", salaryRouter)
 router.use("", paySlipRouter)
 router.use("", designationRouter)
+router.use("", appConfigRouter)
+router.use("", campusRouter)
 
 
 router.get("/logs", (req, res, next) => {

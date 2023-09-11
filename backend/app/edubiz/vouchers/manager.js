@@ -1,5 +1,4 @@
 const { INTERNAL_SERVER_ERROR, CREATESUCCESS, SUCCESS } = require("../../common/exceptions")
-const printPdf = require("../../common/printServce")
 const Repository = require("./repository")
 const fs = require('fs');
 const path = require("path")

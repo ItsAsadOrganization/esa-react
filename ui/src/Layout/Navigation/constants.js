@@ -102,17 +102,6 @@ export const APP_ROUTES = [
         showInNav: true,
     },
     {
-        label: ROUTES.groups,
-        icon: Icons.Group,
-        redirectPath: "/",
-        url: `/${ROUTES.groups}`,
-        isProtected: true,
-        permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
-        screen: Groups,
-        showInNav: true,
-    },
-    {
         label: ROUTES.designations,
         icon: Icons.Group,
         redirectPath: "/",

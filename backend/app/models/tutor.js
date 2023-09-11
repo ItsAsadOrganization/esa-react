@@ -6,7 +6,6 @@ const Tutor = sequelize.define("tutor", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        unique: true,
         primaryKey: true
     },
     name: {
