@@ -1,4 +1,5 @@
 const { SUCCESS, INTERNAL_SERVER_ERROR, CREATESUCCESS } = require("../../common/exceptions")
+const NotificationRepository = require("../notification/repository")
 const Repository = require("./repository")
 
 class StudentsManager {
@@ -25,6 +26,11 @@ class StudentsManager {
             if (!_student) {
                 throw new INTERNAL_SERVER_ERROR("Error inserting user record")
             }
+            await NotificationRepository.saveNotifications({
+                title: "Student Admission",
+                description: `A new student has been admitted with id ${student.dataValues.id}`,
+                is_read: 0
+            })
             throw new CREATESUCCESS({ student: _student })
         } catch (err) {
             next(err)
@@ -62,6 +68,11 @@ class StudentsManager {
                 throw new INTERNAL_SERVER_ERROR("Error updating record")
             }
             const student = await Repository.getStudentById(id)
+            await NotificationRepository.saveNotifications({
+                title: "Record Update",
+                description: `Student record has been updated with id ${id}`,
+                is_read: 0
+            })
 
             throw new SUCCESS({ student })
         } catch (err) {
@@ -72,7 +83,12 @@ class StudentsManager {
     static async delete(id, next) {
         try {
             const std = await Repository.removeRecord(id)
-            if(std){
+            if (std) {
+                await NotificationRepository.saveNotifications({
+                    title: "Record Deletion",
+                    description: `Student record has been deleted with id ${id}`,
+                    is_read: 0
+                })
                 throw new SUCCESS({ message: "User Deleted" })
             }
         } catch (err) {

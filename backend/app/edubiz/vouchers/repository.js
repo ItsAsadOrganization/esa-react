@@ -1,5 +1,6 @@
-const { Op } = require("sequelize")
+const { Op, Sequelize } = require("sequelize")
 const Voucher = require("../../models/voucher")
+const sequelize = require("../../common/sequelize")
 
 
 class VouchersRepository {
@@ -23,6 +24,18 @@ class VouchersRepository {
 
     static async getAllVouchers(paranoid) {
         const voucher = await Voucher.findAll({ paranoid: paranoid })
+        return voucher
+    }
+
+    static async getExpiringVouchers() {
+        const voucher = await Voucher.findAll({
+            where: {
+                [Op.and]: [
+                    Sequelize.where(Sequelize.col("date_expiry"), { [Op.lte]: Sequelize.literal('CURRENT_DATE') }),
+                    Sequelize.where(Sequelize.col("is_paid"), { [Op.eq]: 0 }),
+                ]
+            }
+        })
         return voucher
     }
 

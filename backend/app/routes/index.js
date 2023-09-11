@@ -11,6 +11,8 @@ const paySlipRouter = require('./payslips');
 const designationRouter = require('./designations');
 const appConfigRouter = require('./appconfig');
 const campusRouter = require('./campus');
+const NotificationRepository = require('../edubiz/notification/repository');
+const { SUCCESS } = require('../common/exceptions');
 const router = express.Router();
 
 router.use("", userRouter)
@@ -28,6 +30,16 @@ router.use("", campusRouter)
 
 router.get("/logs", (req, res, next) => {
     LoggingManager.getLogs(next)
+})
+
+router.put("/noty", async (req, res, next) => {
+    try {
+        const id = req.query.id
+        await NotificationRepository.updateNotification(id)
+        throw new SUCCESS({ message: "notificaiton previewed" })
+    } catch (err) {
+        next(err)
+    }
 })
 
 module.exports = router

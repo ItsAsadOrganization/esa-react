@@ -3,6 +3,7 @@ import {
   API_ROUTE_CLASSES,
   API_ROUTE_DESIGNATION,
   API_ROUTE_DESIGNATIONS,
+  API_ROUTE_EXPIRING_VOUCHERS,
   API_ROUTE_GENERATE_PAYSLIPS,
   API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR,
   API_ROUTE_LOGIN,
@@ -15,6 +16,7 @@ import {
   API_ROUTE_STUDENT_VOUCHERS,
   API_ROUTE_TUTOR,
   API_ROUTE_TUTORS,
+  API_ROUTE_UPDATE_NOTY_READ,
   API_ROUTE_VOUCHER,
   API_ROUTE_VOUCHERS,
 } from "./constants";
@@ -146,6 +148,14 @@ export const updatePaySlipApi = ({ id, config }) => {
   return put(API_ROUTE_PAYSLIP, {config}, { id });
 };
 
+export const updateNotyApi = ({ id }) => {
+  return put(API_ROUTE_UPDATE_NOTY_READ, {}, { id });
+};
+
 export const generateTutorPaySlipApi = ({id}) => {
   return get(API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR, {}, {id});
+};
+
+export const getExpiringVouchersApi = () => {
+  return get(API_ROUTE_EXPIRING_VOUCHERS, {}, {});
 };

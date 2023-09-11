@@ -9,6 +9,7 @@ const commonSlice = createSlice({
     initialState: {
         loadings: 0,
         errors: [],
+        notification: [],
     },
     reducers: {
         handleAddLoading: (state, action) => {
@@ -16,6 +17,9 @@ const commonSlice = createSlice({
         },
         handleRemoveLoading: (state, action) => {
             state.loadings--
+        },
+        handleChangeNotificaiton: (state, action)=> {
+            state.notification = action.payload
         }
     },
     extraReducers: {
@@ -25,9 +29,11 @@ const commonSlice = createSlice({
 
 export const {
     handleAddLoading,
-    handleRemoveLoading
+    handleRemoveLoading,
+    handleChangeNotificaiton
 } = commonSlice.actions;
 
 export const getLoadings = (state) => state.common.loadings;
+export const getNotifications = (state) => state.common.notification;
 
 export default commonSlice.reducer;

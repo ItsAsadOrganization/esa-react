@@ -5,7 +5,7 @@ import { handleLogout, isUserLoggedIn, getUserPermissions, getUserRole } from '.
 import { APP_ROUTES } from './Navigation/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getLoadings, getTheme, handleChangeTheme } from '../common/commonSlice';
+import { getLoadings, getTheme, handleChangeTheme, getNotifications } from '../common/commonSlice';
 import Icons from '../common/icons'
 
 import * as React from 'react';
@@ -25,7 +25,9 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useTheme } from '@emotion/react';
-import { Backdrop, CircularProgress, Tooltip } from '@mui/material';
+import { Backdrop, Badge, CircularProgress, Tooltip } from '@mui/material';
+import { openErrorToast } from '../common/toast';
+import { updateNotyApi } from '../api';
 
 const settings = [];
 const drawerWidth = 240;
@@ -84,12 +86,17 @@ const Layout = (props) => {
     const userPermissions = useSelector(getUserPermissions);
     const userRole = useSelector(getUserRole);
     const loadings = useSelector(getLoadings);
+    const notificaiotns = useSelector(getNotifications);
 
     // const selectedTheme = useSelector(getTheme)
 
     const theme = useTheme()
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const [anchorElNoty, setAnchorElNoty] = React.useState(null);
+
+
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -280,7 +287,9 @@ const Layout = (props) => {
                 >
                     <Box sx={{
                         display: "flex",
-                        alignItems: "center"
+                        alignItems: "center",
+                        flexDirection: "row",
+                        justifyContent: "space-between"
                     }}>
                         <IconButton
                             edge="start"
@@ -294,15 +303,83 @@ const Layout = (props) => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Box sx={{
-                            width: "180px",
-                        }}>
 
-                        </Box>
+
+                    </Box>
+
+                    <Box>
+                        <IconButton onClick={(e) => {
+                            setAnchorElNoty(e.currentTarget);
+                        }}>
+                            <Badge badgeContent={notificaiotns.filter(n => n.is_read === "0").length} color="primary">
+                                {notificaiotns.filter(n => n.is_read === "0").length > 0 ?  <Icons.NotificationsActive /> :  <Icons.NotificationsActiveOutlined />}
+                            </Badge>
+                        </IconButton>
+
+                        <Menu
+                            id="lock-menu"
+                            anchorEl={anchorElNoty}
+                            open={Boolean(anchorElNoty)}
+                            onClose={() => {
+                                setAnchorElNoty(null)
+                            }}
+                            sx={{
+                                '& .MuiPaper-root': {
+                                    minWidth: 400,
+                                    width: 400,
+                                    maxHeight: 500,
+                                    overflow: "auto",
+                                    p: 0
+                                },
+                                '& .MuiList-root': {
+                                    padding: 0
+                                }
+                            }}
+                            MenuListProps={{
+                                'aria-labelledby': 'lock-button',
+                                role: 'listbox',
+                            }}
+                        >
+                            {notificaiotns.map((n, i) => (
+                                <MenuItem key={i} sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "start",
+                                    background: n.is_read === "0" ? "#ccc" : "#fff"
+                                }}
+                                    onClick={async () => {
+                                        try {
+                                            await updateNotyApi({ id: n.id })
+                                        } catch (err) {
+                                            openErrorToast(err)
+                                        }
+                                    }}
+                                >
+                                    {console.log(n.is_read)}
+                                    <Box sx={{
+                                        width: "100%",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between"
+                                    }}>
+                                        <Typography sx={{
+                                            fontWeight: 700
+                                        }}>{n.title}</Typography>
+                                        <Typography sx={{
+                                            fontSize: 12,
+                                            fontWeight: 700
+                                        }}>{new Date(n.createdAt).toLocaleDateString()}</Typography>
+                                    </Box>
+                                    <Typography>{n.description}</Typography>
+                                </MenuItem>
+                            ))}
+
+                        </Menu>
                     </Box>
                 </Toolbar>}
                 <Navigation />
-                 <Backdrop 
+                <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.tooltip + 1 }}
                     open={loadings > 0}
                 >

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from './store';
 import { persistStore } from 'redux-persist'
@@ -12,6 +12,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./index.css"
 import { darkTheme, lightTheme } from './common/theme';
+// Add with other imports
+import io from "socket.io-client";
+import { handleChangeNotificaiton } from './common/commonSlice';
 
 const theme = createTheme(lightTheme);
 
@@ -19,23 +22,37 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let persistor = persistStore(store);
 
+
+export const socket = io.connect("http://localhost:3502");
+
+
 const App = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    //listens for the event list from the backend
+    socket.on("noty", (data) => {
+      dispatch(handleChangeNotificaiton(data))
+    });
+  }, [socket]);
+
   return (
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Layout />
-          <ToastContainer autoClose={5000} draggable={false} limit={5} />
-        </BrowserRouter>
-      </ThemeProvider>
-    </PersistGate>
-  </Provider>
+
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Layout />
+        <ToastContainer autoClose={5000} draggable={false} limit={5} />
+      </BrowserRouter>
+    </ThemeProvider>
+
   );
 }
 
 root.render(
   // <React.StrictMode>
-  <App />
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
   // </React.StrictMode>
 );
