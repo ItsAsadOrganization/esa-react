@@ -15,10 +15,14 @@ const Notifications = sequelize.define("notification", {
         type: DataTypes.TEXT('long'),
     },
     is_read: {
-        type: DataTypes.TEXT('long'),
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
-    api_uri: {
-        type: DataTypes.TEXT('long'),
+    user_id: {
+        type: DataTypes.INTEGER,
+    },
+    group_id: {
+        type: DataTypes.INTEGER,
     }
 }, {
     paranoid: true,

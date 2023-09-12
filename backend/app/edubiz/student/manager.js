@@ -7,7 +7,6 @@ class StudentsManager {
         try {
             const sessionData = session.user
             const paranoid = sessionData.role === "superadmin" ? false : true
-            console.log("\n\n\n", { paranoid })
             const students = await Repository.getAllStudents(paranoid)
             if (!students) {
                 throw new SUCCESS({ students: [] })
@@ -29,7 +28,6 @@ class StudentsManager {
             await NotificationRepository.saveNotifications({
                 title: "Student Admission",
                 description: `A new student has been admitted with id ${student.dataValues.id}`,
-                is_read: 0
             })
             throw new CREATESUCCESS({ student: _student })
         } catch (err) {
@@ -71,7 +69,6 @@ class StudentsManager {
             await NotificationRepository.saveNotifications({
                 title: "Record Update",
                 description: `Student record has been updated with id ${id}`,
-                is_read: 0
             })
 
             throw new SUCCESS({ student })
@@ -87,7 +84,6 @@ class StudentsManager {
                 await NotificationRepository.saveNotifications({
                     title: "Record Deletion",
                     description: `Student record has been deleted with id ${id}`,
-                    is_read: 0
                 })
                 throw new SUCCESS({ message: "User Deleted" })
             }

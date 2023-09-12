@@ -25,9 +25,10 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useTheme } from '@emotion/react';
-import { Backdrop, Badge, CircularProgress, Tooltip } from '@mui/material';
+import { Alert, Avatar, Backdrop, Badge, Button, CircularProgress, Icon, Snackbar, Tooltip } from '@mui/material';
 import { openErrorToast } from '../common/toast';
 import { updateNotyApi } from '../api';
+import { getItem, setItem } from '../utils/storage';
 
 const settings = [];
 const drawerWidth = 240;
@@ -113,10 +114,48 @@ const Layout = (props) => {
     const toggleDrawer = () => {
         setOpen(!open);
     };
+    const [snackOpen, setSnackOpen] = React.useState(true)
+
+    React.useEffect(() => {
+        setItem("notifcations", notificaiotns.length)
+    }, [])
+
+    React.useEffect(() => {
+        if (notificaiotns.length > 0 && notificaiotns.length > getItem("notifcations")) {
+            setSnackOpen(true)
+        }
+    }, [notificaiotns])
 
 
     return (
         <Box sx={{ display: 'flex' }}>
+
+
+            {/* {notificaiotns.filter(n => !n.is_read).length > 0 &&
+                <Snackbar
+                    sx={{
+                        maxWidth: 300
+                    }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    open={snackOpen} autoHideDuration={5000} onClose={(event, reason) => {
+                        if (reason === 'clickaway') {
+                            return;
+                        }
+
+                        setSnackOpen(false);
+                    }}>
+                    <Alert onClose={(event, reason) => {
+                        if (reason === 'clickaway') {
+                            return;
+                        }
+
+                        setSnackOpen(false);
+                    }} variant="filled" elevation={6} severity="error" sx={{ mb: 1 }} title='Notifications Alert' >
+                        You have {notificaiotns.filter(n => !n.is_read).length} Unread Notifications which needs your attention.
+                    </Alert>
+                </Snackbar>
+            } */}
+
             {console.log({ theme })}
             {/* <CssBaseline /> */}
             {isLoggedIn && (
@@ -311,8 +350,8 @@ const Layout = (props) => {
                         <IconButton onClick={(e) => {
                             setAnchorElNoty(e.currentTarget);
                         }}>
-                            <Badge badgeContent={notificaiotns.filter(n => n.is_read === "0").length} color="primary">
-                                {notificaiotns.filter(n => n.is_read === "0").length > 0 ?  <Icons.NotificationsActive /> :  <Icons.NotificationsActiveOutlined />}
+                            <Badge badgeContent={notificaiotns.filter(n => !n.is_read).length} color="primary">
+                                {notificaiotns.filter(n => !n.is_read).length > 0 ? <Icons.NotificationsActive /> : <Icons.NotificationsActiveOutlined />}
                             </Badge>
                         </IconButton>
 
@@ -327,12 +366,14 @@ const Layout = (props) => {
                                 '& .MuiPaper-root': {
                                     minWidth: 400,
                                     width: 400,
+                                    maxWidth: 400,
                                     maxHeight: 500,
                                     overflow: "auto",
-                                    p: 0
+                                    p: 0,
                                 },
                                 '& .MuiList-root': {
-                                    padding: 0
+                                    padding: 0,
+                                    position: "relative"
                                 }
                             }}
                             MenuListProps={{
@@ -340,40 +381,83 @@ const Layout = (props) => {
                                 role: 'listbox',
                             }}
                         >
-                            {notificaiotns.map((n, i) => (
-                                <MenuItem key={i} sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "start",
-                                    background: n.is_read === "0" ? "#ccc" : "#fff"
-                                }}
-                                    onClick={async () => {
-                                        try {
-                                            await updateNotyApi({ id: n.id })
-                                        } catch (err) {
-                                            openErrorToast(err)
-                                        }
-                                    }}
-                                >
-                                    {console.log(n.is_read)}
-                                    <Box sx={{
-                                        width: "100%",
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between"
-                                    }}>
-                                        <Typography sx={{
-                                            fontWeight: 700
-                                        }}>{n.title}</Typography>
-                                        <Typography sx={{
-                                            fontSize: 12,
-                                            fontWeight: 700
-                                        }}>{new Date(n.createdAt).toLocaleDateString()}</Typography>
-                                    </Box>
-                                    <Typography>{n.description}</Typography>
-                                </MenuItem>
-                            ))}
+                            {notificaiotns.length > 0 ? <>
+                                {notificaiotns.slice(0, 10).map((n, i) => (
+                                    <>
+                                        <MenuItem key={i} sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "start",
+                                            background: !n.is_read ? "#ccc" : "#fff",
+                                            whiteSpace: "normal",
+                                            maxWidth: "100%"
+                                        }}
+                                            onClick={async () => {
+                                                try {
+                                                    await updateNotyApi({ id: n.id })
+                                                } catch (err) {
+                                                    openErrorToast(err)
+                                                }
+                                            }}
+                                        >
+                                            <Box sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: 1
+                                            }}>
+                                                <Avatar sx={{ bgcolor: theme => !n.is_read ? theme.palette.info.light : "inheirt" }}>
+                                                    <Icons.NotificationsActive />
+                                                </Avatar>
+                                                <Box>
+                                                    <Box sx={{
+                                                        width: "100%",
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        alignItems: "center",
+                                                        justifyContent: "space-between"
+                                                    }}>
+                                                        <Typography sx={{
+                                                            fontWeight: 700
+                                                        }}>{n.title}</Typography>
+                                                        <Typography sx={{
+                                                            fontSize: 12,
+                                                            fontWeight: 700
+                                                        }}>{new Date(n.createdAt).toLocaleDateString()}</Typography>
+                                                    </Box>
+                                                    <Typography>{n.description}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </MenuItem>
+                                        <Divider sx={{ m: "0 !important" }} />
+                                    </>
+                                ))}
+                                {notificaiotns.length > 10 && <MenuItem sx={{
+                                    position: "sticky",
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    justifyContent: "center",
+                                    background: "#ccc",
+                                    '&:hover': {
+                                        background: "#ccc"
+                                    }
+                                }}>
+                                    Show All {notificaiotns.length} Notifications
+                                </MenuItem>}
+                            </> : <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: "center",
+                                justifyContent: 'center',
+                                height: 200,
+                                gap: 1,
+                            }}>
+                                <Icons.NotificationsActiveOutlined sx={{
+                                    width: 50,
+                                    height: 50
+                                }} />
+                                <Typography>No Notifications Found</Typography>
+                            </Box>}
 
                         </Menu>
                     </Box>

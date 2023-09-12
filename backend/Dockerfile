@@ -15,4 +15,4 @@ RUN npm install --silent
 COPY . .
 
 # CMD ["pm2-runtime", "index.js"]
-CMD ["nodemon"]
+CMD ["npm", "run", "start"]

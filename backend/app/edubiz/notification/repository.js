@@ -18,7 +18,7 @@ class NotificationRepository {
 
     static async updateNotification(id) {
         const response = await Notifications.update({
-            is_read: 1
+            is_read: true
         }, {
             where: { id }
         })

@@ -118,7 +118,7 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (search) {
-            setSearchArr(searchArr.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+            setSearchArr(vouchersList.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
         } else {
             setSearchArr(vouchersList)
         }
@@ -126,7 +126,7 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (classSearch) {
-            setSearchArr(searchArr.filter(ele => ele.classId === classSearch))
+            setSearchArr(vouchersList.filter(ele => ele.classId === classSearch))
         } else {
             setSearchArr(vouchersList)
         }
@@ -135,16 +135,20 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (studentSearch) {
-            setSearchArr(searchArr.filter(ele => ele.studentId === studentSearch))
+            setSearchArr(vouchersList.filter(ele => ele.studentId === studentSearch))
         } else {
             setSearchArr(vouchersList)
         }
     }, [studentSearch])
 
     React.useEffect(() => {
-        if (paymentStatusSearch) {
-            setSearchArr(searchArr.filter(ele => ele.is_paid === Boolean(paymentStatusSearch)))
-        } else {
+        if (paymentStatusSearch === "paid") {
+            setSearchArr(vouchersList.filter(ele => ele.is_paid))
+        } 
+        else if (paymentStatusSearch === "unpaid") {
+            setSearchArr(vouchersList.filter(ele => ele.is_paid === false))
+        } 
+        else {
             setSearchArr(vouchersList)
         }
     }, [paymentStatusSearch])
@@ -227,12 +231,12 @@ const Vouchers = () => {
                             <InputLabel>Payment Status</InputLabel>
                             <Select
                                 label="Payment Status"
-                                value={paymentStatusSearch || ""} onChange={e => {
+                                value={paymentStatusSearch} onChange={e => {
                                     dispatch(handleChangePaymentModeSearch(e.target.value))
                                 }}>
                                 <MenuItem value={""}> Please Select </MenuItem>
-                                <MenuItem value={"true"}>Paid</MenuItem>
-                                <MenuItem value={"false"}>Unpaid</MenuItem>
+                                <MenuItem value={"paid"}>Paid</MenuItem>
+                                <MenuItem value={"unpaid"}>Unpaid</MenuItem>
 
                             </Select>
 
@@ -265,6 +269,7 @@ const Vouchers = () => {
                 <Grid item xs={!2} md={12} sx={{
 
                 }}>
+                    {console.log({ searchArr })}
                     {searchArr.length > 0 ?
                         <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
                             {searchArr.map(v => (

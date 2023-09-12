@@ -158,7 +158,6 @@ class Manager {
     static async getDateRange(next) {
         try {
             const payslips = await Repository.getDateRange()
-            console.log({ payslips })
             const max = payslips[0].max
             const date = new Date(max).getMonth() + 1
             const year = new Date(max).getFullYear()
