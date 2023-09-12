@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { STUDENTS_REQUESTED, VOUCHER_SLICE_NAME, VOUCHERs_REQUESTED } from "./constants";
-import { getAllClasses, getAllStudents, getAllVouchers } from "../../api";
+import { EXPIRING_VOUCHERS_REQUESTED, STUDENTS_REQUESTED, VOUCHER_SLICE_NAME, VOUCHERs_REQUESTED } from "./constants";
+import { getAllClasses, getAllStudents, getAllVouchers, getExpiringVouchersApi } from "../../api";
 import { CLASSES_REQUESTED } from "../SetupVoucher/constants";
 
 export const vouchersRequested = createAsyncThunk(VOUCHERs_REQUESTED, async () => {
@@ -17,6 +17,15 @@ export const vouchersRequested = createAsyncThunk(VOUCHERs_REQUESTED, async () =
 export const classesRequested = createAsyncThunk(CLASSES_REQUESTED, async () => {
     try {
         const response = await getAllClasses()
+        return response
+    } catch (err) {
+        throw err
+    }
+})
+
+export const expiringVouchersRequested = createAsyncThunk(EXPIRING_VOUCHERS_REQUESTED, async () => {
+    try {
+        const response = await getExpiringVouchersApi()
         return response
     } catch (err) {
         throw err
@@ -49,6 +58,7 @@ const voucherSlice = createSlice({
         paymentStatusSearch: "",
         startDateSearch: "",
         dueDateSearch: "",
+        showExpiring: false
     },
     reducers: {
         handleChangeDrawerOpen: (state, action) => { state.drawerOpen = action.payload },
@@ -65,6 +75,7 @@ const voucherSlice = createSlice({
         handleChangePaymentModeSearch: (state, action) => { state.paymentStatusSearch = action.payload },
         handleChangeStartDateSearch: (state, action) => { state.startDateSearch = action.payload },
         handleChangeDueDateSearch: (state, action) => { state.dueDateSearch = action.payload },
+        handleChangeShowExpiring: (state, action) => { state.showExpiring = action.payload },
 
         handleChangeVoucherPaymentReference: (state, action) => {
             state.reference = action.payload
@@ -87,6 +98,9 @@ const voucherSlice = createSlice({
         builder.addCase(studentsRequested.fulfilled, (state, action) => {
             state.students = action.payload.data.students
         })
+        builder.addCase(expiringVouchersRequested.fulfilled, (state, action) => {
+            state.vouchersList = action.payload.data.voucher.map(v => ({ ...v, voucher_id: `EGC-${v.id}` }))
+        })
     }
 })
 
@@ -104,7 +118,8 @@ export const {
     handleChangeVoucherSearchStudent,
     handleChangePaymentModeSearch,
     handleChangeStartDateSearch,
-    handleChangeDueDateSearch
+    handleChangeDueDateSearch,
+    handleChangeShowExpiring
 } = voucherSlice.actions
 
 export const getVouchersList = state => state.voucher.vouchersList
@@ -121,4 +136,5 @@ export const getStudentSearch = state => state.voucher.studentSearch
 export const getPaymentStatusSearch = state => state.voucher.paymentStatusSearch
 export const getStartDateSearch = state => state.voucher.startDateSearch
 export const getDueDateSearch = state => state.voucher.dueDateSearch
+export const getShowExpiring = state => state.voucher.showExpiring
 export default voucherSlice.reducer

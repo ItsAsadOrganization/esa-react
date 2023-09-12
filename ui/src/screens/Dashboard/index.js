@@ -1,13 +1,20 @@
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Alert, Box, Container, Grid, Snackbar, Typography } from '@mui/material'
 import AppBreadCrumbs from '../../components/BreadCrumbs';
 import NothingFound from '../../components/NothingFound';
 import Icons from '../../common/icons';
 import { BREADCRUMBS } from './constants';
+import { useSelector } from 'react-redux'
+import { getNotifications } from '../../common/commonSlice';
+import React from 'react';
 
 const Dashboard = () => {
+    const notifications = useSelector(getNotifications)
+   
     return (
         <Container maxWidth="xl">
             <AppBreadCrumbs pageTitle={"Dashboard"} paths={BREADCRUMBS} />
+
+        
             <Grid container maxWidth="xl" >
                 <Grid item xs={!2} md={12} sx={{
                     p: 2,

@@ -18,6 +18,9 @@ import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import GroupIcon from '@mui/icons-material/Group';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
+import RuleIcon from '@mui/icons-material/Rule';
 
 export default {
   Dashboard: DashboardIcon,
@@ -39,5 +42,8 @@ export default {
   CastForEducation: CastForEducationIcon,
   Receipt: ReceiptIcon,
   Group: GroupIcon,
-  Autorenew: AutorenewIcon
+  Autorenew: AutorenewIcon,
+  NotificationsActive: NotificationsActiveIcon,
+  NotificationsActiveOutlined: NotificationsActiveOutlinedIcon,
+  Rule: RuleIcon
 };

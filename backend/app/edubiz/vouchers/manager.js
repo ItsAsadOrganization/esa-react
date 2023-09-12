@@ -1,4 +1,5 @@
-const { INTERNAL_SERVER_ERROR, CREATESUCCESS, SUCCESS } = require("../../common/exceptions")
+const { INTERNAL_SERVER_ERROR, CREATESUCCESS, SUCCESS } = require("../../common/exceptions");
+const NotificationRepository = require("../notification/repository");
 const Repository = require("./repository")
 const fs = require('fs');
 const path = require("path")
@@ -11,6 +12,10 @@ class VoucherManager {
             if (!_voucher) {
                 throw new INTERNAL_SERVER_ERROR("Error inserting user record")
             }
+            await NotificationRepository.saveNotifications({
+                title: "New Voucher Created",
+                description: `A new voucher has been generated for with id EGC-${voucher.dataValues.id}`,
+            })
             throw new CREATESUCCESS({ voucher: _voucher })
         } catch (err) {
             next(err)
@@ -24,9 +29,12 @@ class VoucherManager {
                 throw new INTERNAL_SERVER_ERROR("Error updating record")
             }
             const voucher = await Repository.getVoucherById(id)
+            await NotificationRepository.saveNotifications({
+                title: "New Voucher Created",
+                description: `Voucher details updated with id EGC-${id}`,
+            })
             throw new SUCCESS({ voucher })
         } catch (err) {
-            console.log("\n\n\n\n", err)
             next(err)
         }
     }
@@ -80,6 +88,28 @@ class VoucherManager {
                 throw new SUCCESS({ voucher })
             }
 
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async getExpiringVouchers(url) {
+        try {
+            const voucher = await Repository.getExpiringVouchers()
+            await NotificationRepository.saveNotifications({
+                title: "Expiring Vouchers",
+                description: `${voucher.length} Vouchers found either expired and unpaid as well as expiring today.`,
+            })
+            console.log("vouchers ", voucher)
+        } catch (err) {
+            next(err)
+        }
+    }
+    
+    static async getExpiringVouchersApi(next) {
+        try {
+            const voucher = await Repository.getExpiringVouchers()
+            throw new SUCCESS({voucher})
         } catch (err) {
             next(err)
         }

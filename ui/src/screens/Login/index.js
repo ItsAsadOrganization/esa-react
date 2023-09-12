@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TextField, Button, Grid, Box, Typography, IconButton } from "@mui/material";
 import { loginRequested } from "./loginSlice";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logo from "./logo.jpg"
 import { useTheme } from "@emotion/react";
 import Icons from "../../common/icons";
@@ -59,9 +59,13 @@ const Login = () => {
                     </Grid>
                     <Grid item xs={12} sx={{ mb: 2 }}>
                         <Button fullWidth variant="contained" size="small" onClick={async () => {
-                            dispatch(handleAddLoading())
-                            await dispatch(loginRequested({ username: userName, password }));
-                            dispatch(handleRemoveLoading())
+                            try {
+                                await dispatch(loginRequested({ username: userName, password }));
+                            } catch (err) {
+                                dispatch(handleRemoveLoading())
+                                console.log(err)
+
+                            }
 
                         }}>Login</Button>
                     </Grid>

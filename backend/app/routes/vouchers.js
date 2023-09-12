@@ -20,6 +20,14 @@ voucherRouter.get("/voucher", (req, res, next) => {
     }
 })
 
+voucherRouter.get("/voucher/expiring", (req, res, next) => {
+    try {
+        Manager.getExpiringVouchersApi(next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 voucherRouter.get("/vouchers", (req, res, next) => {
     try {
         const session = req.session

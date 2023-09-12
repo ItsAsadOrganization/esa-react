@@ -88,7 +88,9 @@ export const lightTheme = {
             main: "#ec1f24",
             light: "#ff3d7114"
         },
-       
+        info: {
+            main: "#6fa8dc"
+        },
         companyBlue: {
             main: "#2d3192",
         },

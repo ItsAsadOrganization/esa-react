@@ -1,4 +1,4 @@
-import { Box, Chip, Container, Fab, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, Stack, SwipeableDrawer, TextField, Tooltip, Typography } from "@mui/material"
+import { Box, Checkbox, Chip, Container, Fab, FormControl, FormControlLabel, Grid, IconButton, InputLabel, MenuItem, Select, Stack, SwipeableDrawer, TextField, Tooltip, Typography } from "@mui/material"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS, TABLE_HEADS } from "./constants"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router"
 import Icons from "../../common/icons"
 import { ROUTES } from "../../Layout/Navigation/constants"
 import { useDispatch, useSelector } from "react-redux"
-import { classesRequested, getClassSearch, getClassesList, getDialogOpen, getDrawerOpen, getDrawerUSer, getDueDateSearch, getPaymentStatusSearch, getRerence, getSearch, getStartDateSearch, getStudentSearch, getStudentsList, getVouchersList, handleChangeDrawerOpen, handleChangeDrawerUser, handleChangeDueDateSearch, handleChangePaymentModeSearch, handleChangeStartDateSearch, handleChangeVoucherID, handleChangeVoucherModalOpen, handleChangeVoucherPaid, handleChangeVoucherPaymentMode, handleChangeVoucherPaymentReference, handleChangeVoucherSearch, handleChangeVoucherSearchClass, handleChangeVoucherSearchStudent, studentsRequested, vouchersRequested } from "./voucherSlice"
+import { classesRequested, expiringVouchersRequested, getClassSearch, getClassesList, getDialogOpen, getDrawerOpen, getDrawerUSer, getDueDateSearch, getPaymentStatusSearch, getRerence, getSearch, getShowExpiring, getStartDateSearch, getStudentSearch, getStudentsList, getVouchersList, handleChangeDrawerOpen, handleChangeDrawerUser, handleChangeDueDateSearch, handleChangePaymentModeSearch, handleChangeShowExpiring, handleChangeStartDateSearch, handleChangeVoucherID, handleChangeVoucherModalOpen, handleChangeVoucherPaid, handleChangeVoucherPaymentMode, handleChangeVoucherPaymentReference, handleChangeVoucherSearch, handleChangeVoucherSearchClass, handleChangeVoucherSearchStudent, studentsRequested, vouchersRequested } from "./voucherSlice"
 import React from "react"
 import PreviewVoucher from "../PreviewVoucher"
 import Dialog from "../../components/Dialog"
@@ -30,6 +30,7 @@ const Vouchers = () => {
     const dialogOpen = useSelector(getDialogOpen)
     const reference = useSelector(getRerence)
     const search = useSelector(getSearch)
+    const showExpiring = useSelector(getShowExpiring)
 
     const classSearch = useSelector(getClassSearch)
     const studentSearch = useSelector(getStudentSearch)
@@ -51,19 +52,7 @@ const Vouchers = () => {
     }
 
 
-
-
-
     const tableActionButtons = [
-        // {
-        //     label: "Print",
-        //     variant: "contained",
-        //     action: (student) => {
-        //         console.log("clicked on challan", student.id)
-        //     },
-        //     icon: Icons.Print,
-        //     color: "success"
-        // },
         {
             label: "Challans",
             variant: "contained",
@@ -118,7 +107,7 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (search) {
-            setSearchArr(searchArr.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+            setSearchArr(vouchersList.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
         } else {
             setSearchArr(vouchersList)
         }
@@ -126,7 +115,7 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (classSearch) {
-            setSearchArr(searchArr.filter(ele => ele.classId === classSearch))
+            setSearchArr(vouchersList.filter(ele => ele.classId === classSearch))
         } else {
             setSearchArr(vouchersList)
         }
@@ -135,16 +124,20 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (studentSearch) {
-            setSearchArr(searchArr.filter(ele => ele.studentId === studentSearch))
+            setSearchArr(vouchersList.filter(ele => ele.studentId === studentSearch))
         } else {
             setSearchArr(vouchersList)
         }
     }, [studentSearch])
 
     React.useEffect(() => {
-        if (paymentStatusSearch) {
-            setSearchArr(searchArr.filter(ele => ele.is_paid === Boolean(paymentStatusSearch)))
-        } else {
+        if (paymentStatusSearch === "paid") {
+            setSearchArr(vouchersList.filter(ele => ele.is_paid))
+        }
+        else if (paymentStatusSearch === "unpaid") {
+            setSearchArr(vouchersList.filter(ele => ele.is_paid === false))
+        }
+        else {
             setSearchArr(vouchersList)
         }
     }, [paymentStatusSearch])
@@ -155,6 +148,38 @@ const Vouchers = () => {
             setSearchArr(vouchersList)
         }
     }, [vouchersList])
+
+    const loadExpiring = async () => {
+        try {
+            dispatch(handleAddLoading())
+            dispatch(studentsRequested()).unwrap()
+            dispatch(classesRequested()).unwrap()
+            dispatch(expiringVouchersRequested()).unwrap()
+            dispatch(handleRemoveLoading())
+        } catch (err) {
+            openErrorToast(err.message ? err.message : err)
+        }
+    }
+
+    const loadGeneral = async () => {
+        try {
+            dispatch(handleAddLoading())
+            dispatch(studentsRequested()).unwrap()
+            dispatch(classesRequested()).unwrap()
+            dispatch(vouchersRequested()).unwrap()
+            dispatch(handleRemoveLoading())
+        } catch (err) {
+            openErrorToast(err.message ? err.message : err)
+        }
+    }
+
+    React.useEffect(() => {
+        if (showExpiring) {
+            loadExpiring()
+        } else {
+            loadGeneral()
+        }
+    }, [showExpiring])
 
     return (
         <Container maxWidth="xl">
@@ -222,21 +247,26 @@ const Vouchers = () => {
                     </Grid>
 
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={1.5}>
                         <FormControl required fullWidth size="small">
                             <InputLabel>Payment Status</InputLabel>
                             <Select
                                 label="Payment Status"
-                                value={paymentStatusSearch || ""} onChange={e => {
+                                value={paymentStatusSearch} onChange={e => {
                                     dispatch(handleChangePaymentModeSearch(e.target.value))
                                 }}>
                                 <MenuItem value={""}> Please Select </MenuItem>
-                                <MenuItem value={"true"}>Paid</MenuItem>
-                                <MenuItem value={"false"}>Unpaid</MenuItem>
+                                <MenuItem value={""}>Paid</MenuItem>
+                                <MenuItem value={"unpaid"}>Unpaid</MenuItem>
 
                             </Select>
 
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={1.5}>
+                        <FormControlLabel label="Show Expiring" control={<Checkbox checked={showExpiring} onChange={e => {
+                            dispatch(handleChangeShowExpiring(e.target.checked))
+                        }} icon={<Icons.Rule />} checkedIcon={<Icons.Rule />} />} />
                     </Grid>
 
                     {/* <Grid item xs={12} md={2}>
@@ -265,10 +295,13 @@ const Vouchers = () => {
                 <Grid item xs={!2} md={12} sx={{
 
                 }}>
-                    {searchArr.length > 0 ?
+                    {console.log({ searchArr })}
+                    {(searchArr.length > 0 && studentsList.length > 0 && classList.length > 0) ?
                         <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
                             {searchArr.map(v => (
-                                <StyledTableRow key={v.id}>
+                                <StyledTableRow key={v.id} sx={{
+                                    background: theme => (new Date(v.date_expiry) <= new Date() && !v.is_paid) ? '#fab1b1' : theme.palette.background.paper
+                                }}>
                                     <StyledTableCell >{v.voucher_id}</StyledTableCell>
                                     <StyledTableCell >{studentsList.find(std => std.id === v.studentId).name}</StyledTableCell>
                                     <StyledTableCell >{classList.find(c => c.id === v.classId).name}</StyledTableCell>

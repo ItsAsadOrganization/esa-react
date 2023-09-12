@@ -5,6 +5,10 @@ const bodyParser = require("body-parser")
 const session = require("express-session")
 const RedisStore = require('connect-redis').default
 const redis = require("redis")
+const helmet = require('helmet')
+var cron = require('node-cron');
+
+
 // const logger = require("./app/common/logging")
 const sequelize = require("./app/common/sequelize")
 const Users = require("./app/models/users")
@@ -29,16 +33,26 @@ const TutorsAttendance = require("./app/models/tutattendance")
 const StudentsAttendance = require("./app/models/stdattendance")
 const { CLASSES_MIGRATIONS, USERS_MIGRATIONS, GROUPS, LEAVES_MIGRATIONS } = require("./app/migrations/migrations")
 const Notifications = require("./app/models/notification")
-
-
+const NotificationRepository = require("./app/edubiz/notification/repository")
+const VoucherManager = require("./app/edubiz/vouchers/manager")
 
 const app = exporess()
-let redisStore = null
 
+const http = require("http").Server(app);
+
+let redisStore = null
+app.use(helmet())
 app.use(cors({ exposedHeaders: "authorization" }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use("/uploads", exporess.static(path.join(__dirname, "/uploads")))
+
+const socketIO = require('socket.io')(http, {
+    cors: {
+        origin: "http://localhost:3501"
+    }
+});
+
 const PORT = process.env.PORT || 3500
 
 const redisClient = redis.createClient({
@@ -207,7 +221,7 @@ let connect = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null, { raw: true })
-        await sequelize.sync({ force: true })
+        await sequelize.sync({ force: false })
         await createDefaultUser()
         await createDefaultClasses()
         await createDefaultGroups()
@@ -219,10 +233,6 @@ let connect = async () => {
 
 let createDefaultGroups = async () => {
     try {
-
-
-
-
         GROUPS.forEach(async usr => {
             Groups.findOrCreate({
                 where: { name: usr.name },
@@ -296,11 +306,27 @@ let createDefaultClasses = async () => {
         console.log(err)
     }
 }
-app.listen(PORT, (req, res, next) => {
+
+let scheduleJob = async () => {
+    cron.schedule('0 0 * * 0-6', () => {
+        // console.log('running a task every minute');
+        VoucherManager.getExpiringVouchers("/api/voucher/expiring")
+    });
+}
+http.listen(PORT, (req, res, next) => {
     connectToRedisStore(req, res, next)
     connect()
+    scheduleJob()
 
 })
+
+
+socketIO.on('connection', (socket) => {
+    console.log(`⚡: ${socket.id} user just connected!`);
+    socket.on('disconnect', () => {
+        console.log('🔥: A user disconnected');
+    });
+});
 
 app.use("/api", router)
 
@@ -349,18 +375,18 @@ app.use(async (err, req, res, next) => {
             // userId: sessionData.userid ? sessionData.userid : sessionData.user.userid
         })
     }
-    if(!err.statusCode){
+    if (!err.statusCode) {
         err.statusCode = 500
     }
-    
-    if(!_err.name){
-        _err.name ="Server Error"
-    }
-   
-    if(!_err.description){
-        _err.description ="Internal Server Error"
+
+    if (!_err.name) {
+        _err.name = "Server Error"
     }
 
+    if (!_err.description) {
+        _err.description = "Internal Server Error"
+    }
+    socketIO.emit("noty", await NotificationRepository.getNotifications())
 
     res.status(err.statusCode).json({ ..._err })
 })

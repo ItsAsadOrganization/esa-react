@@ -4,6 +4,7 @@ import Dashboard from '../../screens/Dashboard';
 import Designations from '../../screens/Designations';
 import Groups from '../../screens/Groups';
 import Logs from '../../screens/Logs';
+import Notifications from '../../screens/Notifications';
 import Payslips from '../../screens/Payslips';
 import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
@@ -27,6 +28,7 @@ export const ROUTES = {
     payslips:'payslips',
     groups:'groups',
     designations:'designations',
+    notifications:'notifications',
 };
 
 export const ROLES = {
@@ -110,6 +112,17 @@ export const APP_ROUTES = [
         permission: ROUTES.dashboard,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: Designations,
+        showInNav: true,
+    },
+    {
+        label: ROUTES.notifications,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.notifications}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Notifications,
         showInNav: true,
     },
     {

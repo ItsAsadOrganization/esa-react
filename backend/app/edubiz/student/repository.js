@@ -28,7 +28,6 @@ class StudentsRepository {
                 }
             }
         }).then(async (Instances) => {
-            console.log("\n\n\n\n", { Instances })
             if (Instances.length > 0) {
                 Instances.forEach((instance) => {
                     instance.destroy()

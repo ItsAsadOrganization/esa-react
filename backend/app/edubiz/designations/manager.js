@@ -1,4 +1,5 @@
 const { SUCCESS, CREATESUCCESS, INTERNAL_SERVER_ERROR } = require("../../common/exceptions")
+const NotificationRepository = require("../notification/repository")
 const Reqpository = require("./repository")
 
 
@@ -28,6 +29,10 @@ class DesignationManager {
             if (!designation) {
                 throw new INTERNAL_SERVER_ERROR("Error inserting user record")
             }
+            await NotificationRepository.saveNotifications({
+                title: "Designation Created",
+                description: `A new designation has been added with name ${payload.name}`,
+            })
             throw new CREATESUCCESS({ designation })
         } catch (err) {
             next(err)
@@ -41,6 +46,10 @@ class DesignationManager {
             if (!designation) {
                 throw new INTERNAL_SERVER_ERROR("Error inserting user record")
             }
+            await NotificationRepository.saveNotifications({
+                title: "Designation Update",
+                description: `Designation ${payload.name} Updated`,
+            })
             throw new SUCCESS({ designation: _designations })
         } catch (err) {
             next(err)
@@ -53,6 +62,10 @@ class DesignationManager {
             if (!designation) {
                 throw new INTERNAL_SERVER_ERROR("Error inserting user record")
             }
+            await NotificationRepository.saveNotifications({
+                title: "Designation Deleted",
+                description: `Designation dispersed with name ${payload.name}`,
+            })
             throw new SUCCESS({ message: "Deleted Successfully" })
         } catch (err) {
             next(err)
