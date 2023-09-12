@@ -22,7 +22,7 @@ voucherRouter.get("/voucher", (req, res, next) => {
 
 voucherRouter.get("/voucher/expiring", (req, res, next) => {
     try {
-        Manager.getExpiringVouchers(req.originalUrl, next)
+        Manager.getExpiringVouchersApi(next)
     } catch (err) {
         next(err)
     }

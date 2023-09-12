@@ -2,9 +2,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Navigation from './Navigation';
 import { handleLogout, isUserLoggedIn, getUserPermissions, getUserRole } from '../screens/Login/loginSlice';
-import { APP_ROUTES } from './Navigation/constants';
+import { APP_ROUTES, ROUTES } from './Navigation/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getLoadings, getTheme, handleChangeTheme, getNotifications } from '../common/commonSlice';
 import Icons from '../common/icons'
 
@@ -431,7 +431,7 @@ const Layout = (props) => {
                                         <Divider sx={{ m: "0 !important" }} />
                                     </>
                                 ))}
-                                {notificaiotns.length > 10 && <MenuItem sx={{
+                                {notificaiotns.length > 10 && <MenuItem component={Link} to={ROUTES.notifications} sx={{
                                     position: "sticky",
                                     bottom: 0,
                                     left: 0,

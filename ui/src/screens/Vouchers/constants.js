@@ -21,3 +21,4 @@ export const BREADCRUMBS = [
 export const VOUCHER_SLICE_NAME = 'voucherSlice'
 export const VOUCHERs_REQUESTED = `${VOUCHER_SLICE_NAME}/vouchersRequested`
 export const STUDENTS_REQUESTED = `${VOUCHER_SLICE_NAME}/studentsRequested`
+export const EXPIRING_VOUCHERS_REQUESTED = `${VOUCHER_SLICE_NAME}/expiringVouchersRequested`

@@ -105,6 +105,15 @@ class VoucherManager {
             next(err)
         }
     }
+    
+    static async getExpiringVouchersApi(next) {
+        try {
+            const voucher = await Repository.getExpiringVouchers()
+            throw new SUCCESS({voucher})
+        } catch (err) {
+            next(err)
+        }
+    }
 
 
     static async printVoucher(voucher_id, next) {

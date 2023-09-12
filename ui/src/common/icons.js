@@ -20,6 +20,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
+import RuleIcon from '@mui/icons-material/Rule';
 
 export default {
   Dashboard: DashboardIcon,
@@ -43,5 +44,6 @@ export default {
   Group: GroupIcon,
   Autorenew: AutorenewIcon,
   NotificationsActive: NotificationsActiveIcon,
-  NotificationsActiveOutlined: NotificationsActiveOutlinedIcon
+  NotificationsActiveOutlined: NotificationsActiveOutlinedIcon,
+  Rule: RuleIcon
 };
