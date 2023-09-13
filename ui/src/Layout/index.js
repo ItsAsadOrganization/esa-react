@@ -88,6 +88,7 @@ const Layout = (props) => {
     const userRole = useSelector(getUserRole);
     const loadings = useSelector(getLoadings);
     const notificaiotns = useSelector(getNotifications);
+    const location = useLocation()
 
     // const selectedTheme = useSelector(getTheme)
 
@@ -119,6 +120,12 @@ const Layout = (props) => {
     React.useEffect(() => {
         setItem("notifcations", notificaiotns.length)
     }, [])
+   
+    React.useEffect(() => {
+        if(location.pathname === "/queries"){
+            setOpen(false)
+        }
+    }, [location])
 
     React.useEffect(() => {
         if (notificaiotns.length > 0 && notificaiotns.length > getItem("notifcations")) {
@@ -129,8 +136,6 @@ const Layout = (props) => {
 
     return (
         <Box sx={{ display: 'flex' }}>
-
-
             {/* {notificaiotns.filter(n => !n.is_read).length > 0 &&
                 <Snackbar
                     sx={{
@@ -156,8 +161,7 @@ const Layout = (props) => {
                 </Snackbar>
             } */}
 
-            {console.log({ theme })}
-            {/* <CssBaseline /> */}
+    {console.log({theme})}
             {isLoggedIn && (
                 <>
                     <Drawer variant="permanent" open={open}>

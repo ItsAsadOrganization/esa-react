@@ -8,6 +8,7 @@ import Notifications from '../../screens/Notifications';
 import Payslips from '../../screens/Payslips';
 import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
+import Queries from '../../screens/Queries';
 import SetupVoucher from '../../screens/SetupVoucher';
 import Students from '../../screens/Students';
 import Tutors from '../../screens/Tutors';
@@ -29,11 +30,13 @@ export const ROUTES = {
     groups:'groups',
     designations:'designations',
     notifications:'notifications',
+    queries:'queries',
 };
 
 export const ROLES = {
     admin: 'admin',
-    superadmin: 'superadmin'
+    superadmin: 'superadmin',
+    coordinator: 'coordinator',
 };
 
 export const APP_ROUTES = [
@@ -44,7 +47,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.dashboard}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Dashboard,
         showInNav: true,
     },
@@ -55,7 +58,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.students}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Students,
         showInNav: true,
     },
@@ -77,7 +80,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.vouchers}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Vouchers,
         showInNav: true,
     },
@@ -115,15 +118,26 @@ export const APP_ROUTES = [
         showInNav: true,
     },
     {
+        label: ROUTES.queries,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.queries}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
+        screen: Queries,
+        showInNav: true,
+    },
+    {
         label: ROUTES.notifications,
         icon: Icons.Group,
         redirectPath: "/",
         url: `/${ROUTES.notifications}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Notifications,
-        showInNav: true,
+        showInNav: false,
     },
     {
         label: ROUTES.systemLogs,
@@ -143,7 +157,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.setupVoucher}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: SetupVoucher,
         showInNav: false,
     },
@@ -154,7 +168,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.previewVoucher}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: PreviewVoucher,
         showInNav: false,
     },
@@ -165,7 +179,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.previewStudent}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: PreviewStudent,
         showInNav: false,
     },

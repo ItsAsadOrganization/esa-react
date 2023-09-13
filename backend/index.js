@@ -35,13 +35,16 @@ const { CLASSES_MIGRATIONS, USERS_MIGRATIONS, GROUPS, LEAVES_MIGRATIONS } = requ
 const Notifications = require("./app/models/notification")
 const NotificationRepository = require("./app/edubiz/notification/repository")
 const VoucherManager = require("./app/edubiz/vouchers/manager")
+const Queries = require("./app/models/query")
 
 const app = exporess()
 
 const http = require("http").Server(app);
 
 let redisStore = null
-app.use(helmet())
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+  }))
 app.use(cors({ exposedHeaders: "authorization" }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -49,7 +52,7 @@ app.use("/uploads", exporess.static(path.join(__dirname, "/uploads")))
 
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3501"
+        origin: "*"
     }
 });
 
@@ -211,6 +214,24 @@ Students.hasMany(StudentsAttendance, {
     onUpdate: "CASCADE"
 })
 StudentsAttendance.belongsTo(Students, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
+Students.hasMany(Queries, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Queries.belongsTo(Students, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+
+Tutor.hasMany(Queries, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Queries.belongsTo(Tutor, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
 })

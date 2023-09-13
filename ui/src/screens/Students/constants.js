@@ -4,6 +4,7 @@ export const TABLE_HEADS = [
     { name: "Father Name" },
     { name: "Emergency Contact" },
     { name: "Address" },
+    { name: "Is Mature" },
     { name: "" },
 ]
 
@@ -15,6 +16,7 @@ export const TABLE_HEADS_SA = [
     { name: "Father Name" },
     { name: "Emergency Contact" },
     { name: "Address" },
+    { name: "Is Mature" },
     { name: "Status" },
     { name: "" },
 ]

@@ -205,12 +205,12 @@ const Students = () => {
                         <ExplicitTable columns={userRole === ROLES.superadmin ? TABLE_HEADS_SA : TABLE_HEADS} tableSize="small">
                             {studentsList.map(student => (
                                 <StyledTableRow key={student.id}>
-                                    {console.log({ "ssss": `${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar })}
                                     <StyledTableCell><Avatar src={`${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar} /></StyledTableCell>
                                     <StyledTableCell>{student.name}</StyledTableCell>
                                     <StyledTableCell>{student.father_name}</StyledTableCell>
                                     <StyledTableCell>{student.phone_1}</StyledTableCell>
                                     <StyledTableCell>{student.address}</StyledTableCell>
+                                    <StyledTableCell>{!student.enrolled ? <Chip label="No" color="error" size="small" /> : <Chip label="Yes" color="success" size="small" />}</StyledTableCell>
                                     {userRole === ROLES.superadmin ? <StyledTableCell>{student.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
                                     <StyledTableCell>
                                         {tableActionButtons.map(btn => (
@@ -222,7 +222,6 @@ const Students = () => {
                                 </StyledTableRow>
                             ))}
                         </ExplicitTable>
-
                         : <NothingFound pageIcon={{
                             icon: Icons.School
                         }} pageTitle="Student" action={() => dispatch(handleChangeStudentModalOpen(true))} />}

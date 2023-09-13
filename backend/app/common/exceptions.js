@@ -21,7 +21,7 @@ class BaseError extends Error {
         super(description)
 
         Object.setPrototypeOf(this, new.target.prototype)
-        this.name = name
+        this.name = description
         this.statusCode = statusCode
         this.description = description
         // this.isOperational = isOperational
@@ -36,7 +36,7 @@ class BaseError extends Error {
 class NOTFOUND extends BaseError {
     constructor(
         args,
-        name,
+        name = "Not found",
         description = 'NOT FOUND',
         statusCode = HTTP_STATUS_CODE.NOT_FOUND,
         isOperational = true,
@@ -48,7 +48,7 @@ class NOTFOUND extends BaseError {
 class SUCCESS extends BaseError {
     constructor(
         args,
-        name,
+        name = "Success",
         description = 'SUCCESS',
         statusCode = HTTP_STATUS_CODE.OK,
         isOperational = true,
@@ -60,7 +60,7 @@ class SUCCESS extends BaseError {
 class CONFLICT extends BaseError {
     constructor(
         args,
-        name,
+        name = "Conflict",
         description = 'CONFLICT',
         statusCode = HTTP_STATUS_CODE.CONFLICT,
         isOperational = true,
@@ -72,7 +72,7 @@ class CONFLICT extends BaseError {
 class CREATESUCCESS extends BaseError {
     constructor(
         args,
-        name,
+        name = "Create Success",
         description = 'CREATE SUCCESS',
         statusCode = HTTP_STATUS_CODE.CREATED,
         isOperational = true,
@@ -84,7 +84,7 @@ class CREATESUCCESS extends BaseError {
 class PERMANENT_REDIRECTED extends BaseError {
     constructor(
         args,
-        name,
+        name = "Permanent Redirected",
         description = 'PERMANENT REDIRECTED',
         statusCode = HTTP_STATUS_CODE.PERMANENT_REDIRECTED,
         isOperational = true,

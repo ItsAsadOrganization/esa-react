@@ -10,6 +10,8 @@ import {
   API_ROUTE_LOGS,
   API_ROUTE_PAYSLIP,
   API_ROUTE_PAYSLIPS,
+  API_ROUTE_QUERIES,
+  API_ROUTE_QUERY,
   API_ROUTE_SALARY,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
@@ -145,17 +147,33 @@ export const deleteDesignationsApi = ({ id }) => {
 
 
 export const updatePaySlipApi = ({ id, config }) => {
-  return put(API_ROUTE_PAYSLIP, {config}, { id });
+  return put(API_ROUTE_PAYSLIP, { config }, { id });
 };
 
 export const updateNotyApi = ({ id }) => {
   return put(API_ROUTE_UPDATE_NOTY_READ, {}, { id });
 };
 
-export const generateTutorPaySlipApi = ({id}) => {
-  return get(API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR, {}, {id});
+export const generateTutorPaySlipApi = ({ id }) => {
+  return get(API_ROUTE_GENERATE_PAYSLIP_FOR_TUTOR, {}, { id });
 };
 
 export const getExpiringVouchersApi = () => {
   return get(API_ROUTE_EXPIRING_VOUCHERS, {}, {});
+};
+
+export const getQueriesApi = () => {
+  return get(API_ROUTE_QUERIES, {}, {});
+};
+
+export const postQueryApi = ({ contact_medium, comment, studentId, tutorId, follow_up }) => {
+  return post(API_ROUTE_QUERY, { contact_medium, comment, studentId, tutorId, follow_up }, {});
+};
+
+export const getQueryApi = ({ id }) => {
+  return get(API_ROUTE_QUERY, {}, { id });
+};
+
+export const endQueryApi = ({ id }) => {
+  return put(API_ROUTE_QUERY, {}, { id });
 };
