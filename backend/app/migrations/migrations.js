@@ -10,6 +10,9 @@ const GROUPS = [
     },
     {
         name: "Students",
+    },
+    {
+        name: "Coordinators",
     }
 ]
 

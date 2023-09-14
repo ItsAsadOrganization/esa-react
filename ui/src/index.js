@@ -15,6 +15,7 @@ import { darkTheme, lightTheme } from './common/theme';
 // Add with other imports
 import io from "socket.io-client";
 import { handleChangeNotificaiton } from './common/commonSlice';
+import { getItem } from './utils/storage';
 
 const theme = createTheme(lightTheme);
 
@@ -23,7 +24,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 let persistor = persistStore(store);
 
 
-export const socket = io.connect("http://localhost:3502");
+export const socket = io.connect("http://localhost:3502",{
+  extraHeaders: {
+    authorization: getItem('secret') 
+  }
+});
 
 
 const App = () => {

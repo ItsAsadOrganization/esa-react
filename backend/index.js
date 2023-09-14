@@ -36,6 +36,9 @@ const Notifications = require("./app/models/notification")
 const NotificationRepository = require("./app/edubiz/notification/repository")
 const VoucherManager = require("./app/edubiz/vouchers/manager")
 const Queries = require("./app/models/query")
+const GroupManager = require("./app/edubiz/groups/manager")
+const GroupRepository = require("./app/edubiz/groups/repository")
+const QueryRepository = require("./app/edubiz/query/repository")
 
 const app = exporess()
 
@@ -44,7 +47,7 @@ const http = require("http").Server(app);
 let redisStore = null
 app.use(helmet({
     crossOriginResourcePolicy: false,
-  }))
+}))
 app.use(cors({ exposedHeaders: "authorization" }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -56,7 +59,32 @@ const socketIO = require('socket.io')(http, {
     }
 });
 
+
+
+
+socketIO.on('connection', (socket) => {
+    const users = [];
+    for (let [id, socket] of socketIO.of("/").sockets) {
+        users.push({
+            userID: id,
+            username: socket.username,
+        });
+    }
+    console.log("\n\n\n", { users })
+    console.log(`⚡: ${socket.id} user just connected!`);
+
+
+    socket.on("chat-ended-opened", async () => {
+        const queries = await QueryRepository.getAllQueries()
+        socket.emit("query-update", { queries })
+    })
+    socket.on('disconnect', () => {
+        console.log('🔥: A user disconnected');
+    });
+});
+
 const PORT = process.env.PORT || 3500
+
 
 const redisClient = redis.createClient({
     // url: "redis://reids:6379"
@@ -84,7 +112,6 @@ app.use(
     })
 );
 
-
 app.use(async (req, res, next) => {
     try {
         if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads") && !req.originalUrl.includes("generate")) {
@@ -103,13 +130,17 @@ app.use(async (req, res, next) => {
                 throw new UNAUTHORIZED({ message: "Missing Authorization token" })
             }
         } else {
-            console.log("I am called here")
             next()
         }
     } catch (err) {
         next(err)
     }
 })
+
+
+
+
+
 
 let connectToRedisStore = async (req, res, next) => {
     try {
@@ -341,13 +372,6 @@ http.listen(PORT, (req, res, next) => {
 
 })
 
-
-socketIO.on('connection', (socket) => {
-    console.log(`⚡: ${socket.id} user just connected!`);
-    socket.on('disconnect', () => {
-        console.log('🔥: A user disconnected');
-    });
-});
 
 app.use("/api", router)
 

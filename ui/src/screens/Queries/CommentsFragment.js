@@ -16,12 +16,12 @@ const Comment = ({ details, tutorsList }) => {
 
     return (
         <Box sx={{
-            background: theme => tutorsList.find(t => t.email === myEmail).id === details.tutorId ? theme.palette.info.light : theme.palette.background.paper,
+            background: theme => tutorsList.find(t => t.email === myEmail)?.id === details.tutorId ? theme.palette.info.light : theme.palette.background.paper,
             maxWidth: '75%',
             minWidth: '50%',
             p: 1,
             mb: 1,
-            float: tutorsList.find(t => t.email === myEmail).id === details.tutorId ? "right" : "left"
+            float: tutorsList.find(t => t.email === myEmail)?.id === details.tutorId ? "right" : "left"
         }}>
             <Box sx={{
                 display: "flex",
@@ -32,7 +32,7 @@ const Comment = ({ details, tutorsList }) => {
                     fontSize: 12,
                     fontWeight: 600,
                     color: theme => theme.palette.primary.main
-                }}>{tutorsList.find(t => t.id === details.tutorId).name}</Typography>
+                }}>{tutorsList.find(t => t.id === details.tutorId)?.name}</Typography>
                 <Typography sx={{
                     fontSize: 12,
                     fontWeight: 600,
@@ -129,7 +129,7 @@ const CommentsFragment = () => {
         }
     }, [studentId])
     return (
-        <Grid item xs={!2} md={7} sx={{
+        <Grid item xs={!2} md={6} sm={8} lg={8} sx={{
             boxShadow: theme => theme.shadows[5],
             background: theme => theme.palette.background.paper
         }}>
@@ -147,8 +147,8 @@ const CommentsFragment = () => {
                 p: 2,
                 background: `url(${bg})`,
                 backgroundRepeat: "repeat",
-                minHeight: theme => `calc(100vh - ${theme.mixins.toolbar.minHeight * 3}px - ${theme.mixins.toolbar.minHeight}px - 75px)`,
-                maxHeight: theme => `calc(100vh - ${theme.mixins.toolbar.minHeight * 3}px - ${theme.mixins.toolbar.minHeight}px - 75px)`,
+                minHeight: theme => `calc(100vh - ${theme.mixins.toolbar.minHeight * 2}px - 100px)`,
+                maxHeight: theme => `calc(100vh - ${theme.mixins.toolbar.minHeight * 2}px - 100px)`,
                 overflow: "auto",
                 '::-webkit-scrollbar': {
                     width: '5px'
@@ -163,65 +163,82 @@ const CommentsFragment = () => {
                     background: '#555'
                 },
             }}>
-                {queryDetails.length > 0 ?
-                    queryDetails.map(qd => (
-                        <Comment details={qd} key={qd.id} tutorsList={tutorsList} />
-                    ))
-                    : ""}
+                {studentId === null ?
+                    <Box sx={{
+                        margin: "auto",
+                        marginTop: "20%",
+                        maxWidth: "fit-content",
+                        textAlign: "center"
+                    }}>
+                        <Icons.SpeakerNotesOff sx={{
+                            color: theme => theme.palette.customFontColor.light,
+                            fontSize: "3.5em"
+                        }} />
+                        <Typography sx={{
+                            fontWeight: 700,
+                            color: theme => theme.palette.customFontColor.light
+                        }}>Please select client from left panel</Typography>
+                    </Box> : <>
+                        {queryDetails.length > 0 ?
+                            queryDetails.filter(q => q.tutorId !== null).map(qd => (
+                                <Comment details={qd} key={qd.id} tutorsList={tutorsList} />
+                            ))
+                            : ""}</>}
             </Box>
+            {studentId === null ? "" : <>
 
-            {queryDetails.filter(q => q.ended).length === 0 ? <Toolbar sx={{
-                px: "10px !important",
-                borderTop: '1px solid #777',
-                p: 1,
-                display: "flex",
-                flexDirection: "column",
-                gap: 1.5
-            }}>
-                <TextField fullWidth size="small" placeholder="Comments" value={comment} onChange={e => dispatch(handleChangeComment(e.target.value))} />
-                <Box sx={{
+                {queryDetails.filter(q => q.ended).length === 0 ? <Toolbar sx={{
+                    px: "10px !important",
+                    borderTop: '1px solid #777',
+                    p: 1,
                     display: "flex",
-                    alignItems: "center",
-                    width: "100%",
+                    flexDirection: "column",
                     gap: 1.5
                 }}>
-                    <TextField fullWidth size="small" label="Next Follow Up" type="date" value={followUp} onChange={e => dispatch(handleChangeFollowUp(e.target.value))} />
-                    <TextField fullWidth size="small" label="Contact Medium" select value={contact_medium} onChange={e => dispatch(handleChangeContactMedium(e.target.value))}>
-                        <MenuItem value="pc">Phone Call</MenuItem>
-                        <MenuItem value="im">Instant Message</MenuItem>
-                        <MenuItem value="wc">WhatsApp Call</MenuItem>
-                        <MenuItem value="wm">WhatsApp Message</MenuItem>
-                        <MenuItem value="wvn">WhatsApp Voice Note</MenuItem>
-                    </TextField>
-                    <IconButton onClick={async (e) => {
-                        try {
-                            let tutorId = ""
-                            const tutor = tutorsList.filter(t => t.email === useremail)
-                            if (tutor.length > 0) {
-                                tutorId = tutor[0].id
-                            } else {
-                                tutorId = myId
-                            }
-                            await postQueryApi({ tutorId, studentId, follow_up: followUp, contact_medium, comment })
-                            dispatch(handleResetForm())
-                            loadQueryDetails()
-                        } catch (err) {
-                            openErrorToast(err)
-                        }
+                    <TextField fullWidth size="small" placeholder="Comments" value={comment} onChange={e => dispatch(handleChangeComment(e.target.value))} />
+                    <Box sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        gap: 1.5
                     }}>
-                        <Icons.Save />
-                    </IconButton>
-                </Box>
-            </Toolbar> : <Toolbar sx={{
-                px: "10px !important",
-                borderTop: '1px solid #777',
-                p: 1,
-                display: "flex",
-                flexDirection: "column",
-                gap: 1.5
-            }}>
-                <Typography>The Query has been Closed</Typography>
-            </Toolbar>}
+                        <TextField fullWidth size="small" label="Next Follow Up" type="date" value={followUp} onChange={e => dispatch(handleChangeFollowUp(e.target.value))} />
+                        <TextField fullWidth size="small" label="Contact Medium" select value={contact_medium} onChange={e => dispatch(handleChangeContactMedium(e.target.value))}>
+                            <MenuItem value="pc">Phone Call</MenuItem>
+                            <MenuItem value="im">Instant Message</MenuItem>
+                            <MenuItem value="wc">WhatsApp Call</MenuItem>
+                            <MenuItem value="wm">WhatsApp Message</MenuItem>
+                            <MenuItem value="wvn">WhatsApp Voice Note</MenuItem>
+                        </TextField>
+                        <IconButton onClick={async (e) => {
+                            try {
+                                let tutorId = ""
+                                const tutor = tutorsList.filter(t => t.email === useremail)
+                                if (tutor.length > 0) {
+                                    tutorId = tutor[0].id
+                                } else {
+                                    tutorId = myId
+                                }
+                                await postQueryApi({ tutorId, studentId, follow_up: followUp, contact_medium, comment })
+                                dispatch(handleResetForm())
+                                loadQueryDetails()
+                            } catch (err) {
+                                openErrorToast(err)
+                            }
+                        }}>
+                            <Icons.Save />
+                        </IconButton>
+                    </Box>
+                </Toolbar> : <Toolbar sx={{
+                    px: "10px !important",
+                    borderTop: '1px solid #777',
+                    p: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1.5
+                }}>
+                    <Typography>{queryDetails.slice(-1)[0].comment}</Typography>
+                </Toolbar>}</>}
         </Grid>
     )
 }

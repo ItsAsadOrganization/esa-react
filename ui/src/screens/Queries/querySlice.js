@@ -36,6 +36,17 @@ const querySlice = createSlice({
         contact_medium: null,
     },
     reducers: {
+        handleChangeQueryList: (state, action) => {
+            state.queriesList =
+                [
+                    ...new Map(
+                        action.payload
+                            .filter(Boolean)
+                            .map((item) => [item["studentId"], item]),
+                    ).values(),
+                ]
+                
+        },
         handleChangeStudentId: (state, action) => { state.studentId = action.payload },
         handleChangeComment: (state, action) => { state.comment = action.payload },
         handleChangeFollowUp: (state, action) => { state.followUp = action.payload },
@@ -48,8 +59,29 @@ const querySlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(queriesRequested.fulfilled, (state, action) => {
-            state.queriesList = action.payload.students.data.students.filter(std => std.enrolled === false)
-            state.studentId = action.payload.students.data.students.filter(std => std.enrolled === false)[0].id
+            state.queriesList = [
+                ...new Map(
+                    action.payload.queries.data.queries
+                        .filter(Boolean)
+                        .map((item) => [item["studentId"], item]),
+                ).values(),
+            ]
+            state.studentsList = action.payload.students.data.students
+            state.studentId = [
+                ...new Map(
+                    action.payload.queries.data.queries
+                        .filter(Boolean)
+                        .map((item) => [item["studentId"], item]),
+                ).values(),
+            ].length > 0 ?
+                [
+                    ...new Map(
+                        action.payload.queries.data.queries
+                            .filter(Boolean)
+                            .map((item) => [item["studentId"], item]),
+                    ).values(),
+                ][0]
+                : null
             state.tutorsList = action.payload.tutors.data.tutors
         })
         builder.addCase(studentQueriesRequested.fulfilled, (state, action) => {
@@ -60,6 +92,7 @@ const querySlice = createSlice({
 
 export const {
     handleChangeStudentId,
+    handleChangeQueryList,
     handleChangeComment,
     handleChangeFollowUp,
     handleChangeContactMedium,

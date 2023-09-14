@@ -161,8 +161,7 @@ const Layout = (props) => {
                 </Snackbar>
             } */}
 
-    {console.log({theme})}
-            {isLoggedIn && (
+            {(isLoggedIn && location.pathname !== "/queries" ) && (
                 <>
                     <Drawer variant="permanent" open={open}>
                         <Toolbar
@@ -320,7 +319,7 @@ const Layout = (props) => {
                     overflow: 'auto',
                 }}
             >
-                {isLoggedIn && <Toolbar
+                {(isLoggedIn && location.pathname !== "/queries") && <Toolbar
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
                         display: "flex",

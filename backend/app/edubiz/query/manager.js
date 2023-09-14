@@ -54,7 +54,7 @@ class QueryManager {
 
     static async closeQuery(studentId, payload, next) {
         try {
-            payload["comment"] = `Conversation has been closed by Asad Mehmood`
+            payload["studentId"] = studentId
             await Repository.postQuery(payload)
             const query = await Repository.updateEnded(studentId)
             await NotificationRepository.saveNotifications({

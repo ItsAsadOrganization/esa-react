@@ -1,26 +1,41 @@
-import { Avatar, Box, Button, Grid, Toolbar, Typography } from "@mui/material"
+import { Avatar, Box, Button, Fab, Grid, Toolbar, Tooltip, Typography } from "@mui/material"
 import Icons from "../../common/icons"
 import { blue } from "@mui/material/colors"
-import { useSelector } from "react-redux"
-import { getQueriesList, getQueryDetails, getStudentId } from "./querySlice"
+import { useDispatch, useSelector } from "react-redux"
+import { getQueriesList, getQueryDetails, getStudentId, getStudentsList, studentQueriesRequested } from "./querySlice"
 import React, { useState } from "react"
+import { openErrorToast } from "../../common/toast"
+import { endQueryApi } from "../../api"
+import { getUserName } from "../Login/loginSlice"
+import { socket } from "../.."
 
 
 const ProfileFragment = () => {
-    const queriesList = useSelector(getQueriesList)
+    const studentsList = useSelector(getStudentsList)
     const studentId = useSelector(getStudentId)
     const queryDetails = useSelector(getQueryDetails)
+    const username = useSelector(getUserName)
+
+    const dispatch = useDispatch()
 
     const [profile, setProfile] = useState(null)
 
+    const loadQueryDetails = async () => {
+        try {
+            await dispatch(studentQueriesRequested({ studentId })).unwrap()
+        } catch (err) {
+            openErrorToast(err.message ? err.message : err)
+        }
+    }
+
     React.useEffect(() => {
         if (studentId) {
-            setProfile(queriesList?.find(q => q.id === studentId))
+            setProfile(studentsList?.find(q => q.id === studentId))
         }
     }, [studentId])
 
     return (
-        <Grid item xs={!2} md={2} sx={{
+        <Grid item xs={!2} md={3} lg={2} sm={8} sx={{
             boxShadow: theme => theme.shadows[5],
             background: theme => theme.palette.background.paper,
         }}>
@@ -35,7 +50,21 @@ const ProfileFragment = () => {
                     ml: 1
                 }}>Profile</Typography>
             </Toolbar>
-            {studentId === null ? "Nothing Found" : <Box sx={{
+            {studentId === null ? <Box sx={{
+                margin: "auto",
+                marginTop: "80%",
+                maxWidth: "fit-content",
+                textAlign: "center"
+            }}>
+                <Icons.AccountCircleOutlined sx={{
+                    color: theme => theme.palette.customFontColor.light,
+                    fontSize: "3.5em"
+                }} />
+                <Typography sx={{
+                    fontWeight: 700,
+                    color: theme => theme.palette.customFontColor.light
+                }}>Nothing to show</Typography>
+            </Box> : <Box sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -74,11 +103,20 @@ const ProfileFragment = () => {
                 </Box>
 
                 {queryDetails.filter(q => q.ended).length === 0 &&
-                    <Button variant="contained" size="small" fullWidth>
+                    <Button onClick={async () => {
+                        try {
+                            socket.emit('chat-ended-opened', await endQueryApi({ id: studentId, name: username }))
+                            loadQueryDetails()
+                        } catch (err) {
+                            openErrorToast(err.message ? err.message : err)
+                        }
+                    }} variant="contained" size="small" fullWidth>
                         Close Query
                     </Button>
                 }
             </Box>}
+
+
         </Grid>
     )
 }

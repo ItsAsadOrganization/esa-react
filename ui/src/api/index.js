@@ -174,6 +174,6 @@ export const getQueryApi = ({ id }) => {
   return get(API_ROUTE_QUERY, {}, { id });
 };
 
-export const endQueryApi = ({ id }) => {
-  return put(API_ROUTE_QUERY, {}, { id });
+export const endQueryApi = ({ id, name }) => {
+  return put(API_ROUTE_QUERY, {comment: `The query has been closed by ${name}`}, { id });
 };
