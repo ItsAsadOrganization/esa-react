@@ -39,7 +39,8 @@ const studentSlice = createSlice({
             fatther_nic: "",
             cnic: ""
         },
-        studentModalOpen: false
+        studentModalOpen: false,
+        queryModalOpen: false
     },
     reducers: {
         handleChangeStudentId: (state, action) => { state.student.id = action.payload },
@@ -53,6 +54,7 @@ const studentSlice = createSlice({
         handleChangeStudentAvatar: (state, action) => { state.student.avatar = action.payload },
         handleChangeStudentFatherCNIC: (state, action) => { state.student.fatther_nic = action.payload },
         handleChangeStudentCNIC: (state, action) => { state.student.cnic = action.payload },
+        handleChangeQueryModalOpen: (state, action) => { state.queryModalOpen = action.payload },
         handleChangeStudentClassId: (state, action) => {
             state.student.classId = action.payload
         },
@@ -91,6 +93,7 @@ const studentSlice = createSlice({
             state.student.classId = null
             state.studentList = []
             state.classList = []
+            state.queryModalOpen = false
         }
     },
     extraReducers: builder => {
@@ -118,7 +121,8 @@ export const {
     handleResetStudentModal,
     handleResetSlice,
     handleChangeStudentFatherCNIC,
-    handleChangeStudentCNIC
+    handleChangeStudentCNIC,
+    handleChangeQueryModalOpen
 } = studentSlice.actions
 
 
@@ -139,5 +143,6 @@ export const getStudentClassId = state => state.student.student.classId
 export const getStudentModalOpen = state => state.student.studentModalOpen
 export const getStudenstList = state => state.student.studentList
 export const getClassList = state => state.student.classList
+export const getQueryModalOpen = state => state.student.queryModalOpen
 
 export default studentSlice.reducer 

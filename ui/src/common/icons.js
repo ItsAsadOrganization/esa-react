@@ -23,6 +23,8 @@ import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsAc
 import RuleIcon from '@mui/icons-material/Rule';
 import SaveIcon from '@mui/icons-material/Save';
 import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
+import CheckIcon from '@mui/icons-material/Check';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 export default {
   Dashboard: DashboardIcon,
@@ -49,5 +51,7 @@ export default {
   NotificationsActiveOutlined: NotificationsActiveOutlinedIcon,
   Rule: RuleIcon,
   Save: SaveIcon,
-  SpeakerNotesOff: SpeakerNotesOffIcon
+  SpeakerNotesOff: SpeakerNotesOffIcon,
+  Check: CheckIcon,
+  QuestionAnswer: QuestionAnswerIcon
 };

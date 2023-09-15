@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize")
 const Queries = require("../../models/query")
+const Tutor = require("../../models/tutor")
 const Students = require("../../models/students")
 
 
@@ -7,15 +8,10 @@ class QueryRepository {
     static async getAllQueries(paranoid) {
         const queries = await Queries.findAll({
             paranoid: paranoid,
-            raw: true,
-            attributes: ["id", "contact_medium", "comment", "follow_up", "ended", "studentId", "tutorId",'createdAt'],
-            include: [
-                {
-                    model: Students,
-                    attributes:['enrolled']
-                }
-            ]
-            // group: ['id','modifiedDate'],
+            attributes: ["id", "contact_medium", "comment", "follow_up", "ended", "createdAt", "studentId", "tutorId",
+                [Sequelize.fn('date_format', Sequelize.col('createdAt'), '%m-%d-%Y'), 'modifiedDate']
+            ],
+            group: ['id', 'modifiedDate'],
         })
         return queries
     }
@@ -32,6 +28,18 @@ class QueryRepository {
 
     static async getQueryByStudentId(id) {
         const queries = await Queries.findAll({
+            raw: true,
+            include: [
+                {
+                    model: Tutor,
+                    attributes: ["name"]
+                },
+                {
+                    model: Students,
+                    attributes: ["name"]
+                }
+            ]
+            ,
             where: {
                 studentId: id
             }

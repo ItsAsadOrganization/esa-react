@@ -12,6 +12,7 @@ import {
   API_ROUTE_PAYSLIPS,
   API_ROUTE_QUERIES,
   API_ROUTE_QUERY,
+  API_ROUTE_QUERY_STUDENTS,
   API_ROUTE_SALARY,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
@@ -175,5 +176,10 @@ export const getQueryApi = ({ id }) => {
 };
 
 export const endQueryApi = ({ id, name }) => {
-  return put(API_ROUTE_QUERY, {comment: `The query has been closed by ${name}`}, { id });
+  return put(API_ROUTE_QUERY, { comment: `The query has been closed by ${name}` }, { id });
+};
+
+
+export const getStudentsQueryApi = () => {
+  return get(API_ROUTE_QUERY_STUDENTS, {}, {});
 };

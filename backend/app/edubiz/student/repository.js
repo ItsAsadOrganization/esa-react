@@ -1,11 +1,26 @@
 const { Op } = require("sequelize")
 const Students = require("../../models/students")
 const Voucher = require("../../models/voucher")
+const Classes = require("../../models/classes")
 
 class StudentsRepository {
     static async getAllStudents(paranoid) {
         const studnets = await Students.findAll({
             paranoid: paranoid
+        })
+        return studnets
+    }
+   
+    static async getAllStudentsWithClasses() {
+        const studnets = await Students.findAll({
+            raw: true,
+            attributes: ["id","name","enrolled", "createdAt", "avatar"],
+            include: [
+                {
+                    model:Classes,
+                    attributes: ["name"]
+                }
+            ],
         })
         return studnets
     }

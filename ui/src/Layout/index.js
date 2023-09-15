@@ -120,12 +120,7 @@ const Layout = (props) => {
     React.useEffect(() => {
         setItem("notifcations", notificaiotns.length)
     }, [])
-   
-    React.useEffect(() => {
-        if(location.pathname === "/queries"){
-            setOpen(false)
-        }
-    }, [location])
+
 
     React.useEffect(() => {
         if (notificaiotns.length > 0 && notificaiotns.length > getItem("notifcations")) {
@@ -161,7 +156,7 @@ const Layout = (props) => {
                 </Snackbar>
             } */}
 
-            {(isLoggedIn && location.pathname !== "/queries" ) && (
+            {(isLoggedIn) && (
                 <>
                     <Drawer variant="permanent" open={open}>
                         <Toolbar
@@ -319,7 +314,7 @@ const Layout = (props) => {
                     overflow: 'auto',
                 }}
             >
-                {(isLoggedIn && location.pathname !== "/queries") && <Toolbar
+                {(isLoggedIn) && <Toolbar
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
                         display: "flex",

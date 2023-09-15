@@ -24,6 +24,7 @@ export const API_ROUTE_UPDATE_NOTY_READ = `${BASE_URL}/noty`;
 export const API_ROUTE_EXPIRING_VOUCHERS= `${BASE_URL}/voucher/expiring`;
 export const API_ROUTE_QUERIES= `${BASE_URL}/queries`;
 export const API_ROUTE_QUERY= `${BASE_URL}/query`;
+export const API_ROUTE_QUERY_STUDENTS= `${BASE_URL}/students/queries`;
 
 
 export const NETWORK_ERROR = `Network Error`;

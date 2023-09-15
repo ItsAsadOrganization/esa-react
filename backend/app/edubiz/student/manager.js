@@ -17,6 +17,33 @@ class StudentsManager {
             next(err)
         }
     }
+    
+    static async getAllStudentsWithClasses( next) {
+        try {
+            const students = await Repository.getAllStudentsWithClasses()
+            if (!students) {
+                throw new SUCCESS({ students: [] })
+            } else {
+                throw new SUCCESS({ students })
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async getAllStudents(session, next) {
+        try {
+            const sessionData = session.user
+            const paranoid = sessionData.role === "superadmin" ? false : true
+            const students = await Repository.getAllStudents(paranoid)
+            if (!students) {
+                throw new SUCCESS({ students: [] })
+            } else {
+                throw new SUCCESS({ students })
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
 
     static async postStudent(payload, session, next) {
         try {

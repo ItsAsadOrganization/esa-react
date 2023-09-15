@@ -8,7 +8,6 @@ import Notifications from '../../screens/Notifications';
 import Payslips from '../../screens/Payslips';
 import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
-import Queries from '../../screens/Queries';
 import SetupVoucher from '../../screens/SetupVoucher';
 import Students from '../../screens/Students';
 import Tutors from '../../screens/Tutors';
@@ -115,17 +114,6 @@ export const APP_ROUTES = [
         permission: ROUTES.dashboard,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: Designations,
-        showInNav: true,
-    },
-    {
-        label: ROUTES.queries,
-        icon: Icons.Group,
-        redirectPath: "/",
-        url: `/${ROUTES.queries}`,
-        isProtected: true,
-        permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
-        screen: Queries,
         showInNav: true,
     },
     {
