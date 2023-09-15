@@ -44,21 +44,7 @@ const TabPanel = ({ queriesList, studentsList, value, index }) => {
 
                             </>
                         ))
-                        : <Box sx={{
-                            margin: "auto",
-                            marginTop: "50%",
-                            maxWidth: "fit-content",
-                            textAlign: "center"
-                        }}>
-                            <Icons.SpeakerNotesOff sx={{
-                                color: theme => theme.palette.customFontColor.light,
-                                fontSize: "3.5em"
-                            }} />
-                            <Typography sx={{
-                                fontWeight: 700,
-                                color: theme => theme.palette.customFontColor.light
-                            }}>No Active Queries</Typography>
-                        </Box>}
+                        : ""}
                 </>
             )
             break;
@@ -69,21 +55,7 @@ const TabPanel = ({ queriesList, studentsList, value, index }) => {
                         queriesList.filter(q => q.ended === true).map(q => (
                             <UserFragment studentsList={studentsList} id={q.studentId} key={q.id} name={q.name} />
                         ))
-                        : <Box sx={{
-                            margin: "auto",
-                            marginTop: "50%",
-                            maxWidth: "fit-content",
-                            textAlign: "center"
-                        }}>
-                            <Icons.SpeakerNotesOff sx={{
-                                color: theme => theme.palette.customFontColor.light,
-                                fontSize: "3.5em"
-                            }} />
-                            <Typography sx={{
-                                fontWeight: 700,
-                                color: theme => theme.palette.customFontColor.light
-                            }}>Nothing Found</Typography>
-                        </Box>}
+                        : ""}
                 </>
             )
             break;
@@ -97,6 +69,7 @@ const ClientsFragments = () => {
     const studentsList = useSelector(getStudentsList)
 
     const [active, setActive] = React.useState(0)
+    const [queries, setQueries] = React.useState([])
 
     const dispatch = useDispatch()
 
@@ -113,6 +86,33 @@ const ClientsFragments = () => {
     React.useEffect(() => {
         loadQueries()
     }, [])
+
+    React.useEffect(() => {
+        if (queriesList.length > 0) {
+            console.log(queriesList.length)
+            let queries = []
+            const groups = queriesList.reduce((groups, game) => {
+                const date = game.createdAt.split('T')[0];
+                if (!groups[date]) {
+                    groups[date] = [];
+                }
+                if (Array.isArray(queries) && queries.length > 0) {
+                    if (queries.filter(g => g.date === date).length > 0) {
+                        const index = queries.findIndex(g => g.date === date)
+                        queries[index].queries = [...queries[index].queries, game]
+                    } else {
+                        queries.push({ date, queries: [game] })
+                    }
+                } else {
+                    queries.push({ date, queries: [game] })
+                }
+                groups[date].push(game);
+                return groups
+            }, {});
+
+            setQueries(queries)
+        }
+    }, [queriesList])
 
     return (
         <Grid item xs={!2} md={3} lg={2} sm={4} sx={{
@@ -160,7 +160,37 @@ const ClientsFragments = () => {
                     <Tab label="Active" value={0} />
                     <Tab label="Spam" value={1} />
                 </Tabs>
-                <TabPanel queriesList={queriesList} studentsList={studentsList} index={0} value={active} />
+                {console.log({queries})}
+                {queries.length > 0 ?
+                    queries.map(query => (
+                        query.queries.filter(q => {
+                            if(active === 0){
+                                return q.ended === false
+                            }else{
+                                return q.ended === true
+                            }
+                        }).length > 0 ? (
+                            <>
+                                <Typography>{query.date}</Typography>
+                                <TabPanel queriesList={query.queries} studentsList={studentsList} index={0} value={active} />
+                            </>
+                        ) : ""
+                    ))
+                    : <Box sx={{
+                        margin: "auto",
+                        marginTop: "50%",
+                        maxWidth: "fit-content",
+                        textAlign: "center"
+                    }}>
+                        <Icons.SpeakerNotesOff sx={{
+                            color: theme => theme.palette.customFontColor.light,
+                            fontSize: "3.5em"
+                        }} />
+                        <Typography sx={{
+                            fontWeight: 700,
+                            color: theme => theme.palette.customFontColor.light
+                        }}>No Active Queries</Typography>
+                    </Box>}
 
             </Box>
         </Grid>
