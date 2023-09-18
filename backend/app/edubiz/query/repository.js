@@ -2,6 +2,7 @@ const { Sequelize } = require("sequelize")
 const Queries = require("../../models/query")
 const Tutor = require("../../models/tutor")
 const Students = require("../../models/students")
+const Users = require("../../models/users")
 
 
 class QueryRepository {
@@ -31,7 +32,7 @@ class QueryRepository {
             raw: true,
             include: [
                 {
-                    model: Tutor,
+                    model: Users,
                     attributes: ["name"]
                 },
                 {

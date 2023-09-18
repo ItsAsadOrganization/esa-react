@@ -258,11 +258,11 @@ Queries.belongsTo(Students, {
     onUpdate: "CASCADE"
 })
 
-Tutor.hasMany(Queries, {
+Users.hasMany(Queries, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
 })
-Queries.belongsTo(Tutor, {
+Queries.belongsTo(Users, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
 })

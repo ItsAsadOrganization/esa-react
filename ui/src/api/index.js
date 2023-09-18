@@ -167,8 +167,8 @@ export const getQueriesApi = () => {
   return get(API_ROUTE_QUERIES, {}, {});
 };
 
-export const postQueryApi = ({ contact_medium, comment, studentId, tutorId, follow_up }) => {
-  return post(API_ROUTE_QUERY, { contact_medium, comment, studentId, tutorId, follow_up }, {});
+export const postQueryApi = ({ contact_medium, comment, studentId, userId, follow_up }) => {
+  return post(API_ROUTE_QUERY, { contact_medium, comment, studentId, userId, follow_up }, {});
 };
 
 export const getQueryApi = ({ id }) => {
