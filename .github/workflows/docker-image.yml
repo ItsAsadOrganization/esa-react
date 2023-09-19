@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Rename sample to env
+      run: mv sample.env .env
+      
     - name: Build the Docker image
       run: docker compose up --build
