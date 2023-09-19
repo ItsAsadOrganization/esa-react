@@ -29,11 +29,13 @@ export const ROUTES = {
     groups:'groups',
     designations:'designations',
     notifications:'notifications',
+    queries:'queries',
 };
 
 export const ROLES = {
     admin: 'admin',
-    superadmin: 'superadmin'
+    superadmin: 'superadmin',
+    coordinator: 'coordinator',
 };
 
 export const APP_ROUTES = [
@@ -44,7 +46,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.dashboard}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Dashboard,
         showInNav: true,
     },
@@ -55,7 +57,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.students}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Students,
         showInNav: true,
     },
@@ -77,7 +79,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.vouchers}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Vouchers,
         showInNav: true,
     },
@@ -121,9 +123,9 @@ export const APP_ROUTES = [
         url: `/${ROUTES.notifications}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Notifications,
-        showInNav: true,
+        showInNav: false,
     },
     {
         label: ROUTES.systemLogs,
@@ -143,7 +145,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.setupVoucher}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: SetupVoucher,
         showInNav: false,
     },
@@ -154,7 +156,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.previewVoucher}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: PreviewVoucher,
         showInNav: false,
     },
@@ -165,7 +167,7 @@ export const APP_ROUTES = [
         url: `/${ROUTES.previewStudent}`,
         isProtected: true,
         permission: ROUTES.dashboard,
-        roles: [ROLES.admin, ROLES.superadmin],
+        roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: PreviewStudent,
         showInNav: false,
     },

@@ -21,6 +21,10 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 import RuleIcon from '@mui/icons-material/Rule';
+import SaveIcon from '@mui/icons-material/Save';
+import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
+import CheckIcon from '@mui/icons-material/Check';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 export default {
   Dashboard: DashboardIcon,
@@ -45,5 +49,9 @@ export default {
   Autorenew: AutorenewIcon,
   NotificationsActive: NotificationsActiveIcon,
   NotificationsActiveOutlined: NotificationsActiveOutlinedIcon,
-  Rule: RuleIcon
+  Rule: RuleIcon,
+  Save: SaveIcon,
+  SpeakerNotesOff: SpeakerNotesOffIcon,
+  Check: CheckIcon,
+  QuestionAnswer: QuestionAnswerIcon
 };

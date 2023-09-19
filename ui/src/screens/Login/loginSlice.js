@@ -26,12 +26,15 @@ const loginSlice = createSlice({
         username: null,
         permissions: [],
         role: null,
+        email: null,
+        id: null,
     },
     reducers: {
         handleLogout: (state, action) => {
             removeItem(AUTH_TOKEN_KEY);
             // removeAuthToken();
             state.isLoggedIn = false;
+            state.id = null;
             state.username = null;
             state.permissions = [];
             state.role = '';
@@ -42,17 +45,20 @@ const loginSlice = createSlice({
             state.isLoading = true;
         },
         [loginRequested.fulfilled]: (state, user) => {
+            state.id = user.payload.data.user.id;
             state.username = user.payload.data.user.name;
             state.isLoggedIn = true;
             state.role = user.payload.data.user.role;
+            state.email = user.payload.data.user.email;
             // state.permissions = user.payload.data.permissions;
             state.isLoading = false;
         },
         [loginRequested.rejected]: (state, data) => {
-            console.log({ data })
             state.isLoggedIn = false;
             state.error = data;
             state.isLoading = false;
+            state.email = null;
+            state.id = null;
         }
     }
 });
@@ -63,5 +69,7 @@ export const isUserLoggedIn = (state) => state.login.isLoggedIn;
 export const getUserName = (state) => state.login.username;
 export const getUserPermissions = (state) => state.login.permissions;
 export const getUserRole = (state) => state.login.role;
+export const getUserEmail = (state) => state.login.email;
+export const getUserId = (state) => state.login.id;
 
 export default loginSlice.reducer;

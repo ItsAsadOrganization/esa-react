@@ -88,6 +88,7 @@ const Layout = (props) => {
     const userRole = useSelector(getUserRole);
     const loadings = useSelector(getLoadings);
     const notificaiotns = useSelector(getNotifications);
+    const location = useLocation()
 
     // const selectedTheme = useSelector(getTheme)
 
@@ -120,6 +121,7 @@ const Layout = (props) => {
         setItem("notifcations", notificaiotns.length)
     }, [])
 
+
     React.useEffect(() => {
         if (notificaiotns.length > 0 && notificaiotns.length > getItem("notifcations")) {
             setSnackOpen(true)
@@ -129,8 +131,6 @@ const Layout = (props) => {
 
     return (
         <Box sx={{ display: 'flex' }}>
-
-
             {/* {notificaiotns.filter(n => !n.is_read).length > 0 &&
                 <Snackbar
                     sx={{
@@ -156,9 +156,7 @@ const Layout = (props) => {
                 </Snackbar>
             } */}
 
-            {console.log({ theme })}
-            {/* <CssBaseline /> */}
-            {isLoggedIn && (
+            {(isLoggedIn) && (
                 <>
                     <Drawer variant="permanent" open={open}>
                         <Toolbar
@@ -316,7 +314,7 @@ const Layout = (props) => {
                     overflow: 'auto',
                 }}
             >
-                {isLoggedIn && <Toolbar
+                {(isLoggedIn) && <Toolbar
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
                         display: "flex",

@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, Container, Fab, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Tooltip, Typography } from "@mui/material"
+import { Avatar, Box, Button, Chip, Container, Fab, FormControl, FormHelperText, Grid, IconButton, InputLabel, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, TextField, Tooltip, Typography } from "@mui/material"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import { BREADCRUMBS, TABLE_HEADS, TABLE_HEADS_SA } from "./constants"
 import Icons from "../../common/icons"
@@ -43,7 +43,9 @@ import {
     getStudentFatherCNIC,
     getStudentCNIC,
     handleChangeStudentFatherCNIC,
-    handleChangeStudentCNIC
+    handleChangeStudentCNIC,
+    getQueryModalOpen,
+    handleChangeQueryModalOpen
 } from "./studentSlice"
 import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
@@ -52,6 +54,7 @@ import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 import { BASE_URL } from "../../api/constants"
 import { useNavigate } from "react-router"
 import { handleChangePreviewStudentId } from "../PreviewStudent/previewStudentSlice"
+import Queries from "../Queries"
 
 
 const Students = () => {
@@ -61,6 +64,8 @@ const Students = () => {
     // const [classes, setClasses] = React.useState([])
     // const [studentsList, setStudentsList] = React.useState([])
     const [base64image, setBase64image] = React.useState(null)
+    const [actionMenu, setActionMenu] = React.useState(null)
+    const open = Boolean(actionMenu)
 
     const navigate = useNavigate()
 
@@ -83,6 +88,7 @@ const Students = () => {
     const userRole = useSelector(getUserRole)
     const father_cnic = useSelector(getStudentFatherCNIC)
     const cnic = useSelector(getStudentCNIC)
+    const queryModalOpen = useSelector(getQueryModalOpen)
 
     const dispatch = useDispatch()
 
@@ -130,15 +136,6 @@ const Students = () => {
 
 
     const tableActionButtons = [
-        // {
-        //     label: "Challans",
-        //     variant: "contained",
-        //     action: (student) => {
-        //         console.log("clicked on challan", student.id)
-        //     },
-        //     icon: Icons.ReceiptLong,
-        //     color: "warning"
-        // },
         {
             label: "Edit",
             variant: "contained",
@@ -161,6 +158,48 @@ const Students = () => {
             icon: Icons.BorderColor,
             color: "primary"
         },
+
+        {
+            label: "Profile",
+            variant: "contained",
+            action: async (student) => {
+                try {
+                    dispatch(handleChangePreviewStudentId(student.id))
+                    navigate(`/${ROUTES.previewStudent}`)
+                } catch (err) {
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
+            icon: Icons.Settings,
+            color: "success"
+        },
+        {
+            label: "Mature",
+            variant: "contained",
+            action: async (student) => {
+                try {
+
+                } catch (err) {
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
+            icon: Icons.Rule,
+            color: "warning"
+        },
+        {
+            label: "Queries",
+            variant: "contained",
+            action: async (student) => {
+                try {
+                    dispatch(handleChangeStudentId(student.id))
+                    dispatch(handleChangeQueryModalOpen(true))
+                } catch (err) {
+                    openErrorToast(err.message ? err.message : err)
+                }
+            },
+            icon: Icons.QuestionAnswer,
+            color: "info"
+        },
         {
             label: "Delete",
             variant: "contained",
@@ -176,20 +215,6 @@ const Students = () => {
             icon: Icons.Delete,
             color: "error"
         },
-        {
-            label: "Configure",
-            variant: "contained",
-            action: async (student) => {
-                try {
-                    dispatch(handleChangePreviewStudentId(student.id))
-                    navigate(`/${ROUTES.previewStudent}`)
-                } catch (err) {
-                    openErrorToast(err.message ? err.message : err)
-                }
-            },
-            icon: Icons.Settings,
-            color: "success"
-        }
     ]
     return (
         <Container maxWidth="xl">
@@ -205,24 +230,24 @@ const Students = () => {
                         <ExplicitTable columns={userRole === ROLES.superadmin ? TABLE_HEADS_SA : TABLE_HEADS} tableSize="small">
                             {studentsList.map(student => (
                                 <StyledTableRow key={student.id}>
-                                    {console.log({ "ssss": `${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar })}
                                     <StyledTableCell><Avatar src={`${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar} /></StyledTableCell>
                                     <StyledTableCell>{student.name}</StyledTableCell>
                                     <StyledTableCell>{student.father_name}</StyledTableCell>
                                     <StyledTableCell>{student.phone_1}</StyledTableCell>
                                     <StyledTableCell>{student.address}</StyledTableCell>
+                                    <StyledTableCell>{!student.enrolled ? <Chip label="No" color="error" size="small" /> : <Chip label="Yes" color="success" size="small" />}</StyledTableCell>
                                     {userRole === ROLES.superadmin ? <StyledTableCell>{student.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
                                     <StyledTableCell>
                                         {tableActionButtons.map(btn => (
                                             <IconButton color={btn.color} onClick={() => btn.action(student)}>
                                                 <btn.icon />
                                             </IconButton>
+
                                         ))}
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </ExplicitTable>
-
                         : <NothingFound pageIcon={{
                             icon: Icons.School
                         }} pageTitle="Student" action={() => dispatch(handleChangeStudentModalOpen(true))} />}
@@ -685,6 +710,11 @@ const Students = () => {
                         <FormHelperText>Image should be less than 50KB in size (310px x 310px resolution recommended )</FormHelperText>
                     </Grid>
                 </Grid>
+            </Dialog>
+
+
+            <Dialog dailogOpen={queryModalOpen} clickAwayListener={false} hasCloseIcon={true} title="Queries" handleClose={() => dispatch(handleChangeQueryModalOpen(false))} >
+                <Queries id={id} />
             </Dialog>
         </Container>
     )

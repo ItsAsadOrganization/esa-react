@@ -42,6 +42,10 @@ const Students = sequelize.define("students", {
     },
     avatar: {
         type: DataTypes.TEXT("long"),
+    },
+    enrolled: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     initialAutoIncrement: 1000,

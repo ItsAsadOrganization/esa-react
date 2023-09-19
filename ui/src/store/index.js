@@ -41,7 +41,7 @@ const appReducer = combineReducers({
     previewStudent: previewStudentReducer,
     tutors: tutorReducer,
     paySlip: payslipReducer,
-    designations:designationReducer
+    designations:designationReducer,
 });
 
 const rootReducer = (state, action) => {

@@ -6,10 +6,10 @@ import JsPDF from 'jspdf';
 
 const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
 
-    
+
     return (
         <Container sx={{
-            '&.MuiContainer-root':{
+            '&.MuiContainer-root': {
                 paddingLeft: '10px',
                 paddingRight: '10px',
                 paddingTop: '10px',
@@ -17,7 +17,7 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
             }
         }} >
             <Grid container maxWidth={'191pt'}>
-                <Grid item xs={12} sx={{mb: 1}}>
+                <Grid item xs={12} sx={{ mb: 1 }}>
                     <Typography sx={{
                         textAlign: "center",
                         background: "#000",
@@ -26,37 +26,91 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                         py: 0.25,
                         maxWidth: "fit-content",
                         margin: "auto",
-                        fontSize:12
+                        fontSize: 10
                     }}>{title} Copy</Typography>
                 </Grid>
 
-                <Grid item xs={12} >
+                <Grid item xs={3} >
                     <Box sx={{
-                        width: 80,
+                        width: 50,
                         margin: "auto",
-                        mb: 1
+                        mb: 0.25
                     }}>
                         <img width={"100%"} src={logo} alt="logo" />
                     </Box>
-                    <Typography sx={{
-                        maxWidth: "fit-content",
-                        margin: "auto",
-                        fontWeight: 700,
-                        textTransform: "uppercase",
-                        mb: 1,
-                        fontSize: 12,
-                    }}>
-
-                        Encore Group Of Colleges
-                    </Typography>
                 </Grid>
+
+                <Grid container item xs={9} sx={{ mb: 0.5}}>
+                    <Grid item xs={12}>
+                        <Typography sx={{
+                            maxWidth: "fit-content",
+                            margin: "auto",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            fontSize: 12,
+                        }}>
+
+                            Encore Group Of Colleges
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={3.5} >
+                        <Typography sx={{
+                            fontSize: 8
+                        }}>
+                            Student Name
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={8.5} >
+                        <Typography sx={{
+                            fontSize: 8,
+                            fontWeight: "bold"
+                        }}>
+                            {studentsList.find(student => student.id === drawerUser.studentId).name}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={3.5} >
+                        <Typography sx={{
+                            fontSize: 8
+                        }}>Roll Number
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={8.5} >
+                        <Typography sx={{
+                            fontSize: 8,
+                            fontWeight: "bold"
+                        }}>
+                            {drawerUser.studentId}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={3.5} >
+                        <Typography sx={{
+                            fontSize: 8
+                        }}>Class
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={8.5} >
+                        <Typography sx={{
+                            fontSize: 8,
+                            fontWeight: "bold"
+                        }}>
+                            {classList.find(cl => cl.id === drawerUser.classId).name}
+                        </Typography>
+                    </Grid>
+
+
+                </Grid>
+
+
 
 
                 <Grid item xs={3} >
                     <Typography sx={{
                         fontSize: 8
                     }}>
-                        Account Number
+                        Account No
                     </Typography>
                 </Grid>
                 <Grid item xs={9} >
@@ -64,7 +118,7 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                         fontSize: 8,
                         fontWeight: "bold"
                     }}>
-                        PK ASCM 0007 05** **** ****
+                        PK94HABB0013017900778003
                     </Typography>
                 </Grid>
 
@@ -81,10 +135,108 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                         fontSize: 8,
                         fontWeight: "bold"
                     }}>
-                        Encore Group Of Colleges
+                        ANSAR ABBAS KHAN
+                    </Typography>
+                </Grid>
+                <Grid item xs={3} >
+                    <Typography sx={{
+                        fontSize: 8
+                    }}>
+                        Bank Name
+                    </Typography>
+                </Grid>
+                <Grid item xs={9} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        fontWeight: "bold",
+                        mb: 0.5
+                    }}>
+                        Habib Bank Limited
                     </Typography>
                 </Grid>
 
+
+                <Grid item xs={3} >
+                    <Typography sx={{
+                        fontSize: 8
+                    }}>
+                        Account No
+                    </Typography>
+                </Grid>
+                <Grid item xs={9} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        fontWeight: "bold"
+                    }}>
+                        PK52UNIL0109000224860985
+                    </Typography>
+                </Grid>
+
+
+                <Grid item xs={3} >
+                    <Typography sx={{
+                        fontSize: 8
+                    }}>
+                        Account Title 
+                    </Typography>
+                </Grid>
+                <Grid item xs={9} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        fontWeight: "bold"
+                    }}>
+                        ANSAR ABBAS KHAN
+                    </Typography>
+                </Grid>
+                <Grid item xs={3} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        mb: 0.5
+                    }}>
+                        Bank Name
+                    </Typography>
+                </Grid>
+                <Grid item xs={9} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        fontWeight: "bold"
+                    }}>
+                       United Bank Limited
+                    </Typography>
+                </Grid>
+
+                <Grid item xs={3} >
+                    <Typography sx={{
+                        fontSize: 8
+                    }}>
+                        Account No
+                    </Typography>
+                </Grid>
+                <Grid item xs={9} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        fontWeight: "bold"
+                    }}>
+                        +923083960931
+                    </Typography>
+                </Grid>
+
+
+                <Grid item xs={3} >
+                    <Typography sx={{
+                        fontSize: 8
+                    }}>
+                        Account Title
+                    </Typography>
+                </Grid>
+                <Grid item xs={9} >
+                    <Typography sx={{
+                        fontSize: 8,
+                        fontWeight: "bold"
+                    }}>
+                        ANSAR ABBAS KHAN
+                    </Typography>
+                </Grid>
                 <Grid item xs={3} >
                     <Typography sx={{
                         fontSize: 8
@@ -97,57 +249,14 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                         fontSize: 8,
                         fontWeight: "bold"
                     }}>
-                        Habib Bank Limited
+                        Easypaisa / JazzCash
                     </Typography>
                 </Grid>
 
 
-                <Grid item xs={3} >
-                    <Typography sx={{
-                        fontSize: 8
-                    }}>
-                        Student Name
-                    </Typography>
-                </Grid>
-                <Grid item xs={9} >
-                    <Typography sx={{
-                        fontSize: 8,
-                        fontWeight: "bold"
-                    }}>
-                        {studentsList.find(student => student.id === drawerUser.studentId).name}
-                    </Typography>
-                </Grid>
 
 
-                <Grid item xs={3} >
-                    <Typography sx={{
-                        fontSize: 8
-                    }}>Class
-                    </Typography>
-                </Grid>
-                <Grid item xs={9} >
-                    <Typography sx={{
-                        fontSize: 8,
-                        fontWeight: "bold"
-                    }}>
-                        {classList.find(cl => cl.id === drawerUser.classId).name}
-                    </Typography>
-                </Grid>
 
-                <Grid item xs={3} >
-                    <Typography sx={{
-                        fontSize: 8
-                    }}>Roll Number
-                    </Typography>
-                </Grid>
-                <Grid item xs={9} >
-                    <Typography sx={{
-                        fontSize: 8,
-                        fontWeight: "bold"
-                    }}>
-                        {drawerUser.studentId}
-                    </Typography>
-                </Grid>
 
 
                 <Grid item xs={12} >
@@ -172,15 +281,15 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                     <Table size="small">
                         <TableBody>
                             <TableRow >
-                                <TableCell sx={{ fontSize: 8,  p: 0 }} >Total Amount</TableCell>
+                                <TableCell sx={{ fontSize: 8, p: 0 }} >Total Amount</TableCell>
                                 <TableCell sx={{ textAlign: "right", fontSize: 8, p: 0 }} ><b>PKR {drawerUser.config.total_amount} /-</b></TableCell>
                             </TableRow>
                             <TableRow >
-                                <TableCell sx={{ fontSize: 8 ,  p: 0}} >Discount</TableCell>
+                                <TableCell sx={{ fontSize: 8, p: 0 }} >Discount</TableCell>
                                 <TableCell sx={{ textAlign: "right", fontSize: 8, p: 0 }} ><b>{drawerUser.config.discount}%</b></TableCell>
                             </TableRow>
                             <TableRow >
-                                <TableCell sx={{ fontSize: 8 ,  p: 0}} >Sub Total</TableCell>
+                                <TableCell sx={{ fontSize: 8, p: 0 }} >Sub Total</TableCell>
                                 <TableCell sx={{ textAlign: "right", fontSize: 8, p: 0 }} ><b>PKR {drawerUser.config.sub_total} /-</b></TableCell>
                             </TableRow>
                         </TableBody>
@@ -188,7 +297,7 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Typography sx={{fontSize: 8}} >Important Notice</Typography>
+                    <Typography sx={{ fontSize: 8 }} >Important Notice</Typography>
                 </Grid>
                 <Grid item xs={12} sx={{ mb: 2 }}>
                     <Table>
