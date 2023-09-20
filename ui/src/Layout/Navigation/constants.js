@@ -8,6 +8,8 @@ import Notifications from '../../screens/Notifications';
 import Payslips from '../../screens/Payslips';
 import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
+import Roles from '../../screens/Roles';
+import SetupRole from '../../screens/SetupRole';
 import SetupVoucher from '../../screens/SetupVoucher';
 import Students from '../../screens/Students';
 import Tutors from '../../screens/Tutors';
@@ -25,11 +27,13 @@ export const ROUTES = {
     systemLogs: "system-logs",
     previewStudent: "preview-student",
     tutors: "tutors",
-    payslips:'payslips',
-    groups:'groups',
-    designations:'designations',
-    notifications:'notifications',
-    queries:'queries',
+    payslips: 'payslips',
+    groups: 'groups',
+    designations: 'designations',
+    notifications: 'notifications',
+    queries: 'queries',
+    roles: 'roles',
+    setupRole: 'setup-role',
 };
 
 export const ROLES = {
@@ -126,6 +130,28 @@ export const APP_ROUTES = [
         roles: [ROLES.admin, ROLES.superadmin, ROLES.coordinator],
         screen: Notifications,
         showInNav: false,
+    },
+    {
+        label: ROUTES.roles,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.roles}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Roles,
+        showInNav: true,
+    },
+    {
+        label: ROUTES.setupRole,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.setupRole}`,
+        isProtected: true,
+        permission: ROUTES.dashboard,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: SetupRole,
+        showInNav: true,
     },
     {
         label: ROUTES.systemLogs,
