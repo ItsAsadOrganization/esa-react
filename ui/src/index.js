@@ -24,7 +24,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 let persistor = persistStore(store);
 
 
-export const socket = io.connect("http://localhost:3502",{
+export const socket = io.connect(`${window.location.protocol}//${window.location.hostname}:3502`,{
   extraHeaders: {
     authorization: getItem('secret') 
   }
@@ -43,6 +43,7 @@ const App = () => {
   return (
 
     <ThemeProvider theme={theme}>
+      {console.log(`${window.location.protocol}//${window.location.hostname}:3502`)}
       <BrowserRouter>
         <Layout />
         <ToastContainer autoClose={5000} draggable={false} limit={5} />
