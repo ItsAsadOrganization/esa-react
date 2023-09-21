@@ -131,31 +131,6 @@ const Layout = (props) => {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            {/* {notificaiotns.filter(n => !n.is_read).length > 0 &&
-                <Snackbar
-                    sx={{
-                        maxWidth: 300
-                    }}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    open={snackOpen} autoHideDuration={5000} onClose={(event, reason) => {
-                        if (reason === 'clickaway') {
-                            return;
-                        }
-
-                        setSnackOpen(false);
-                    }}>
-                    <Alert onClose={(event, reason) => {
-                        if (reason === 'clickaway') {
-                            return;
-                        }
-
-                        setSnackOpen(false);
-                    }} variant="filled" elevation={6} severity="error" sx={{ mb: 1 }} title='Notifications Alert' >
-                        You have {notificaiotns.filter(n => !n.is_read).length} Unread Notifications which needs your attention.
-                    </Alert>
-                </Snackbar>
-            } */}
-
             {(isLoggedIn) && (
                 <>
                     <Drawer variant="permanent" open={open}>
@@ -210,7 +185,19 @@ const Layout = (props) => {
                                     }
 
                                 }}>
-                                {APP_ROUTES.filter(route => route.showInNav).map(route => route.roles.includes(userRole) ? (
+                                {APP_ROUTES.filter(route => {
+                                    if (route.label.toLowerCase() !== "dashboard") {
+                                        if(userPermissions.find(up => up.page.toLowerCase() === route.label.toLowerCase())?.permissions[0]?.permission === "show-in-nav" ){
+                                            return userPermissions.find(up => up.page.toLowerCase() === route.label.toLowerCase())?.permissions[0].checked
+                                        }
+                                        else{
+                                            return false
+                                        }
+                                    }
+                                    else {
+                                        return true
+                                    }
+                                }).map(route => route.roles.includes(userRole) ? (
 
                                     <ListItemButton
                                         disableRipple

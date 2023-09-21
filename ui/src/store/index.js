@@ -22,6 +22,7 @@ import previewStudentReducer from '../screens/PreviewStudent/previewStudentSlice
 import tutorReducer from '../screens/Tutors/tutorSlice';
 import payslipReducer from '../screens/Payslips/payslipSlice';
 import designationReducer from '../screens/Designations/designationSlice';
+import setupRoleReducer from '../screens/SetupRole/setupRolesSlice';
 
 const persistConfig = {
     key: REDUX_PERSIST_KEY,
@@ -42,6 +43,7 @@ const appReducer = combineReducers({
     tutors: tutorReducer,
     paySlip: payslipReducer,
     designations:designationReducer,
+    setupRole: setupRoleReducer
 });
 
 const rootReducer = (state, action) => {

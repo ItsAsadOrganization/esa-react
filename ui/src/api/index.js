@@ -13,6 +13,8 @@ import {
   API_ROUTE_QUERIES,
   API_ROUTE_QUERY,
   API_ROUTE_QUERY_STUDENTS,
+  API_ROUTE_ROLE,
+  API_ROUTE_ROLES,
   API_ROUTE_SALARY,
   API_ROUTE_STUDENT,
   API_ROUTE_STUDENTS,
@@ -183,3 +185,12 @@ export const endQueryApi = ({ id, name }) => {
 export const getStudentsQueryApi = () => {
   return get(API_ROUTE_QUERY_STUDENTS, {}, {});
 };
+
+export const postRoleApi = ({ name, permissions }) => {
+  return post(API_ROUTE_ROLE, { name, permissions }, {});
+};
+
+export const getRolesApi = () => {
+  return get(API_ROUTE_ROLES, {}, {});
+};
+

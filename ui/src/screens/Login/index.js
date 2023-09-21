@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextField, Button, Grid, Box, Typography, IconButton } from "@mui/material";
-import { loginRequested } from "./loginSlice";
+import { getUserPermissions, loginRequested } from "./loginSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import Logo from "./logo.jpg"
 import { useTheme } from "@emotion/react";
@@ -13,6 +13,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const [showPass, setShowPass] = useState(false)
+
+    const user = useSelector(getUserPermissions)
 
     const theme = useTheme()
     return (

@@ -12,8 +12,8 @@ class UserManager {
             } else {
                 sessionData.username = username
                 sessionData.password = password
-                sessionData.role = response.dataValues.role
-                sessionData.userid = response.dataValues.id
+                sessionData.role = response.roleId
+                sessionData.userid = response.id
                 throw new SUCCESS({ user: response })
             }
         } catch (err) {

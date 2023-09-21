@@ -48,9 +48,9 @@ const loginSlice = createSlice({
             state.id = user.payload.data.user.id;
             state.username = user.payload.data.user.name;
             state.isLoggedIn = true;
-            state.role = user.payload.data.user.role;
+            state.role = user.payload.data.user["role.name"];
             state.email = user.payload.data.user.email;
-            // state.permissions = user.payload.data.permissions;
+            state.permissions = user.payload.data.user["role.permissions"];
             state.isLoading = false;
         },
         [loginRequested.rejected]: (state, data) => {
