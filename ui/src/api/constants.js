@@ -27,6 +27,8 @@ export const API_ROUTE_QUERY = `${BASE_URL}/query`;
 export const API_ROUTE_QUERY_STUDENTS = `${BASE_URL}/students/queries`;
 export const API_ROUTE_ROLE = `${BASE_URL}/role`;
 export const API_ROUTE_ROLES = `${BASE_URL}/roles`;
+export const API_ROUTE_USERS = `${BASE_URL}//users`;
+export const API_ROUTE_USER = `${BASE_URL}//user`;
 
 
 export const NETWORK_ERROR = `Network Error`;

@@ -78,7 +78,6 @@ const Vouchers = () => {
             variant: "contained",
             action: async (student) => {
                 try {
-                    console.log("in delte")
                     // await deleteStudentApi(student.id)
                     // dispatch(studentsRequested()).unwrap()
                     // openSuccessToast("Record Deleted")
@@ -295,7 +294,6 @@ const Vouchers = () => {
                 <Grid item xs={!2} md={12} sx={{
 
                 }}>
-                    {console.log({ searchArr })}
                     {(searchArr.length > 0 && studentsList.length > 0 && classList.length > 0) ?
                         <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
                             {searchArr.map(v => (

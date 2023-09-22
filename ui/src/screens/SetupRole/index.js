@@ -1,19 +1,27 @@
 import { Container, Button, Grid, MenuItem, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, FormLabel, FormControlLabel, Checkbox, Stack } from "@mui/material"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import { Permissions } from "./constants"
-import { getSetupRoleName, getSetupRolePermissions, handleChangeSetupRoleName, handleChangeSetupRolePermission } from "./setupRolesSlice"
+import { getSetupRoleName, getSetupRolePermissions, handleChangeSetupRoleName, handleChangeSetupRolePermission, handleResetSlice, getSetupRoleID } from "./setupRolesSlice"
 import { useDispatch, useSelector } from 'react-redux'
 import { openErrorToast } from "../../common/toast"
-import { postRoleApi } from "../../api"
+import { postRoleApi, putRoleApi } from "../../api"
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from "../../Layout/Navigation/constants"
+import React from "react"
 
 const SetupRole = () => {
 
+    const roleId = useSelector(getSetupRoleID)
     const name = useSelector(getSetupRoleName)
     const rolePermissions = useSelector(getSetupRolePermissions)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    React.useEffect(() => {
+        return () => {
+            dispatch(handleResetSlice())
+        }
+    }, [])
     return (
         <Container maxWidth="xl">
             <Grid container maxWidth="xl" sx={{
@@ -105,9 +113,13 @@ const SetupRole = () => {
                     <Button variant="contained" size="small" sx={{ px: 4 }}
                         onClick={async () => {
                             try {
-                                await postRoleApi({
+                                roleId === null ? await postRoleApi({
                                     name: name,
                                     permissions: rolePermissions
+                                }) : await putRoleApi({
+                                    name: name,
+                                    permissions: rolePermissions,
+                                    id: roleId
                                 })
                                 navigate(`/${ROUTES.roles}`)
                             } catch (err) {

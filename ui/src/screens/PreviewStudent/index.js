@@ -39,7 +39,6 @@ const PreviewStudent = () => {
     }, [])
     return (
         <Container maxWidth="xl">
-            {console.log({ challans })}
             <AppBreadCrumbs pageTitle={"Student Profile"} paths={BREADCRUMBS} />
             <Grid container>
                 <Grid item xs={12} md={4} sx={{

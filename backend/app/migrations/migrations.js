@@ -66,76 +66,253 @@ const PERMISSIONS_MIGRATIONS = [
         name: 'superadmin',
         permissions: [
             {
-                page: "Dashboard",
-                permissions: [
-                    { checked: true, label: "Create", permission: "add-student" },
+                "page": "Dashboard",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    }
                 ]
             },
             {
-                page: "Students",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-student" },
-                    { checked: true, label: "Read", permission: "view-student" },
-                    { checked: true, label: "Update", permission: "update-student" },
-                    { checked: true, label: "Delete", permission: "delete-student" },
-                    { checked: true, label: "Comment on Query", permission: "query-comment" },
-                    { checked: true, label: "Close Query", permission: "query-close" },
-                    { checked: true, label: "View Query Logs", permission: "query-read" },
-                    { checked: true, label: "Can Mature", permission: "mature-student" },
+                "page": "Students",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-student"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-student"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-student"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-student"
+                    },
+                    {
+                        "label": "Comment on Query",
+                        "checked": true,
+                        "permission": "query-comment"
+                    },
+                    {
+                        "label": "Close Query",
+                        "checked": true,
+                        "permission": "query-close"
+                    },
+                    {
+                        "label": "View Query Logs",
+                        "checked": true,
+                        "permission": "query-read"
+                    },
+                    {
+                        "label": "Can Mature",
+                        "checked": true,
+                        "permission": "mature-student"
+                    }
                 ]
             },
             {
-                page: "Tutors",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-tutor" },
-                    { checked: true, label: "Read", permission: "view-tutor" },
-                    { checked: true, label: "Update", permission: "update-tutor" },
-                    { checked: true, label: "Delete", permission: "delete-tutor" },
-                    { checked: true, label: "Salary Setting", permission: "salary-setting" },
+                "page": "Tutors",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-tutor"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-tutor"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-tutor"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-tutor"
+                    },
+                    {
+                        "label": "Salary Setting",
+                        "checked": true,
+                        "permission": "salary-setting"
+                    }
                 ]
             },
             {
-                page: "Vouchers",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-vouchers" },
-                    { checked: true, label: "Read", permission: "view-vouchers" },
-                    { checked: true, label: "Update", permission: "update-vouchers" },
-                    { checked: true, label: "Delete", permission: "delete-vouchers" },
-                    { checked: true, label: "Salary Setting", permission: "salary-setting" },
-                    { checked: true, label: "View Single Voucher", permission: "view-voucher" },
-                    { checked: true, label: "Print", permission: "print-voucher" },
+                "page": "Vouchers",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-vouchers"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-vouchers"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-vouchers"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-vouchers"
+                    },
+                    {
+                        "label": "Salary Setting",
+                        "checked": true,
+                        "permission": "salary-setting"
+                    },
+                    {
+                        "label": "View Single Voucher",
+                        "checked": true,
+                        "permission": "view-voucher"
+                    },
+                    {
+                        "label": "Print",
+                        "checked": true,
+                        "permission": "print-voucher"
+                    }
                 ]
             },
             {
-                page: "Class",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-voucher" },
-                    { checked: true, label: "Read", permission: "view-voucher" },
-                    { checked: true, label: "Update", permission: "update-voucher" },
-                    { checked: true, label: "Delete", permission: "delete-voucher" },
+                "page": "Class",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-voucher"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-voucher"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-voucher"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-voucher"
+                    }
                 ]
             },
             {
-                page: "Designation",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-designation" },
-                    { checked: true, label: "Read", permission: "view-designation" },
-                    { checked: true, label: "Update", permission: "update-designation" },
-                    { checked: true, label: "Delete", permission: "delete-designation" },
+                "page": "Designation",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-designation"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-designation"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-designation"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-designation"
+                    }
                 ]
             },
             {
-                page: "PaySlips",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Read", permission: "view-payslip" },
-                    { checked: true, label: "Update", permission: "update-payslip" },
-                    { checked: true, label: "Delete", permission: "delete-payslip" },
+                "page": "PaySlips",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-payslip"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-payslip"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-payslip"
+                    }
+                ]
+            },
+            {
+                "page": "PaySlips",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-payslip"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-payslip"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-payslip"
+                    }
                 ]
             }
         ]
@@ -144,76 +321,253 @@ const PERMISSIONS_MIGRATIONS = [
         name: 'admin',
         permissions: [
             {
-                page: "Dashboard",
-                permissions: [
-                    { checked: true, label: "Create", permission: "add-student" },
+                "page": "Dashboard",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    }
                 ]
             },
             {
-                page: "Students",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-student" },
-                    { checked: true, label: "Read", permission: "view-student" },
-                    { checked: true, label: "Update", permission: "update-student" },
-                    { checked: false, label: "Delete", permission: "delete-student" },
-                    { checked: true, label: "Comment on Query", permission: "query-comment" },
-                    { checked: false, label: "Close Query", permission: "query-close" },
-                    { checked: true, label: "View Query Logs", permission: "query-read" },
-                    { checked: false, label: "Can Mature", permission: "mature-student" },
+                "page": "Students",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-student"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-student"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-student"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-student"
+                    },
+                    {
+                        "label": "Comment on Query",
+                        "checked": true,
+                        "permission": "query-comment"
+                    },
+                    {
+                        "label": "Close Query",
+                        "checked": true,
+                        "permission": "query-close"
+                    },
+                    {
+                        "label": "View Query Logs",
+                        "checked": true,
+                        "permission": "query-read"
+                    },
+                    {
+                        "label": "Can Mature",
+                        "checked": true,
+                        "permission": "mature-student"
+                    }
                 ]
             },
             {
-                page: "Tutors",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-tutor" },
-                    { checked: true, label: "Read", permission: "view-tutor" },
-                    { checked: true, label: "Update", permission: "update-tutor" },
-                    { checked: false, label: "Delete", permission: "delete-tutor" },
-                    { checked: true, label: "Salary Setting", permission: "salary-setting" },
+                "page": "Tutors",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-tutor"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-tutor"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-tutor"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-tutor"
+                    },
+                    {
+                        "label": "Salary Setting",
+                        "checked": true,
+                        "permission": "salary-setting"
+                    }
                 ]
             },
             {
-                page: "Vouchers",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-vouchers" },
-                    { checked: true, label: "Read", permission: "view-vouchers" },
-                    { checked: true, label: "Update", permission: "update-vouchers" },
-                    { checked: false, label: "Delete", permission: "delete-vouchers" },
-                    { checked: false, label: "Salary Setting", permission: "salary-setting" },
-                    { checked: true, label: "View Single Voucher", permission: "view-voucher" },
-                    { checked: true, label: "Print", permission: "print-voucher" },
+                "page": "Vouchers",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-vouchers"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-vouchers"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-vouchers"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-vouchers"
+                    },
+                    {
+                        "label": "Salary Setting",
+                        "checked": true,
+                        "permission": "salary-setting"
+                    },
+                    {
+                        "label": "View Single Voucher",
+                        "checked": true,
+                        "permission": "view-voucher"
+                    },
+                    {
+                        "label": "Print",
+                        "checked": true,
+                        "permission": "print-voucher"
+                    }
                 ]
             },
             {
-                page: "Class",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Create", permission: "add-voucher" },
-                    { checked: true, label: "Read", permission: "view-voucher" },
-                    { checked: false, label: "Update", permission: "update-voucher" },
-                    { checked: false, label: "Delete", permission: "delete-voucher" },
+                "page": "Class",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-voucher"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-voucher"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-voucher"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-voucher"
+                    }
                 ]
             },
             {
-                page: "Designation",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: false, label: "Create", permission: "add-designation" },
-                    { checked: true, label: "Read", permission: "view-designation" },
-                    { checked: false, label: "Update", permission: "update-designation" },
-                    { checked: false, label: "Delete", permission: "delete-designation" },
+                "page": "Designation",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-designation"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-designation"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-designation"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-designation"
+                    }
                 ]
             },
             {
-                page: "PaySlips",
-                permissions: [
-                    { checked: true, label: "Show In Navigation", permission: "show-in-nav" },
-                    { checked: true, label: "Read", permission: "view-payslip" },
-                    { checked: false, label: "Update", permission: "update-payslip" },
-                    { checked: false, label: "Delete", permission: "delete-payslip" },
+                "page": "PaySlips",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-payslip"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-payslip"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-payslip"
+                    }
+                ]
+            },
+            {
+                "page": "PaySlips",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-payslip"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-payslip"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-payslip"
+                    }
                 ]
             }
         ]

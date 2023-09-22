@@ -30,27 +30,7 @@ import { openErrorToast } from '../common/toast';
 import { updateNotyApi } from '../api';
 import { getItem, setItem } from '../utils/storage';
 
-const settings = [];
 const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: theme.palette.background.paper,
-    transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    // ...(open && {
-    //     marginLeft: drawerWidth,
-    //     width: `calc(100% - ${drawerWidth}px)`,
-    //     transition: theme.transitions.create(['width', 'margin'], {
-    //         easing: theme.transitions.easing.sharp,
-    //         duration: theme.transitions.duration.enteringScreen,
-    //     }),
-    // }),
-}));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -185,50 +165,40 @@ const Layout = (props) => {
                                     }
 
                                 }}>
-                                {APP_ROUTES.filter(route => {
-                                    if (route.label.toLowerCase() !== "dashboard") {
-                                        if(userPermissions.find(up => up.page.toLowerCase() === route.label.toLowerCase())?.permissions[0]?.permission === "show-in-nav" ){
-                                            return userPermissions.find(up => up.page.toLowerCase() === route.label.toLowerCase())?.permissions[0].checked
-                                        }
-                                        else{
-                                            return false
-                                        }
-                                    }
-                                    else {
-                                        return true
-                                    }
-                                }).map(route => route.roles.includes(userRole) ? (
+                                {
+                                    APP_ROUTES.filter(route => (
+                                        Object.keys(userPermissions).includes(`${route.label.charAt(0).toUpperCase() + route.label.slice(1)}ShowInNav`)
+                                    )).map(route =>
+                                        <ListItemButton
+                                            disableRipple
+                                            selected={route.url.toLowerCase() === window.location.pathname.toLowerCase()}
+                                            onClick={() => { navigate(route.url.toLowerCase()); }} key={route.label}
 
-                                    <ListItemButton
-                                        disableRipple
-                                        selected={route.url.toLowerCase() === window.location.pathname.toLowerCase()}
-                                        onClick={() => { navigate(route.url.toLowerCase()); }} key={route.label}
+                                        >
+                                            <ListItemIcon
+                                                sx={{
+                                                    minWidth: "30px",
+                                                }}>
+                                                <route.icon sx={{
+                                                    fontSize: "1.25rem"
+                                                }} />
+                                            </ListItemIcon>
+                                            {open && <ListItemText
+                                                primaryTypographyProps={{
+                                                    fontSize: '0.8125rem',
+                                                    fontWeight: 600
+                                                }}
+                                                primary={
+                                                    route.label.includes("-") ?
+                                                        route.label.split("-").map((l) => (
+                                                            l.charAt(0).toUpperCase() + l.slice(1) + " "
+                                                        ))
+                                                        : route.label.charAt(0).toUpperCase() + route.label.slice(1)
+                                                } />}
+                                        </ListItemButton>
+                                    )
 
-                                    >
-                                        <ListItemIcon
-                                            sx={{
-                                                minWidth: "30px",
-                                            }}>
-                                            <route.icon sx={{
-                                                fontSize: "1.25rem"
-                                            }} />
-                                        </ListItemIcon>
-                                        {open && <ListItemText
-                                            primaryTypographyProps={{
-                                                fontSize: '0.8125rem',
-                                                fontWeight: 600
-                                            }}
-                                            primary={
-                                                route.label.includes("-") ?
-                                                    route.label.split("-").map((l) => (
-                                                        l.charAt(0).toUpperCase() + l.slice(1) + " "
-                                                    ))
-                                                    : route.label.charAt(0).toUpperCase() + route.label.slice(1)
-                                            } />}
-                                    </ListItemButton>
-                                ) : null)}
-                                {/* {mainListItems} */}
-                                {/* {secondaryListItems} */}
+                                }
                             </List>
                             <List component="nav" sx={{
                                 color: theme.palette.error.main,

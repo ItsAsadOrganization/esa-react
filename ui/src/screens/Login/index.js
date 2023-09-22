@@ -6,6 +6,7 @@ import Logo from "./logo.jpg"
 import { useTheme } from "@emotion/react";
 import Icons from "../../common/icons";
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice";
+import { openErrorToast } from "../../common/toast";
 const Login = () => {
     // admin@admin.com
     // P@ssw0rd123*
@@ -65,7 +66,7 @@ const Login = () => {
                                 await dispatch(loginRequested({ username: userName, password }));
                             } catch (err) {
                                 dispatch(handleRemoveLoading())
-                                console.log(err)
+                                openErrorToast(err.message ? err.message : err)
 
                             }
 

@@ -346,7 +346,6 @@ const Payslips = () => {
                         }}>Salary Slip</Typography>
                     </Grid>
 
-                    {console.log({ previewSalary })}
                     <Grid item xs={12} sx={{ mb: 2 }}>
                         <Table size="small">
                             <TableRow>

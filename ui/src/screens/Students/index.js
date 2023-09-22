@@ -55,22 +55,21 @@ import { BASE_URL } from "../../api/constants"
 import { useNavigate } from "react-router"
 import { handleChangePreviewStudentId } from "../PreviewStudent/previewStudentSlice"
 import Queries from "../Queries"
+import useCan from "../../hooks/useCan"
 
 
 const Students = () => {
     const { control, clearErrors, reset, setValue, handleSubmit, formState: { errors } } = useForm()
     const theme = useTheme()
 
-    // const [classes, setClasses] = React.useState([])
-    // const [studentsList, setStudentsList] = React.useState([])
+    //permission
+    const addStudent = useCan('StudentsAddStudent')
+
     const [base64image, setBase64image] = React.useState(null)
     const [actionMenu, setActionMenu] = React.useState(null)
     const open = Boolean(actionMenu)
 
     const navigate = useNavigate()
-
-    // const [modalOpen, setModalOpen] = React.useState(false)
-
 
     const id = useSelector(getStudentId)
     const name = useSelector(getStudentName)
@@ -250,19 +249,20 @@ const Students = () => {
                         </ExplicitTable>
                         : <NothingFound pageIcon={{
                             icon: Icons.School
-                        }} pageTitle="Student" action={() => dispatch(handleChangeStudentModalOpen(true))} />}
+                        }} pageTitle="Student" action={() => dispatch(handleChangeStudentModalOpen(true))} permission={addStudent} />}
                 </Grid>
             </Grid>
-
-            <Tooltip placement="top" title="Add New Student">
-                <Fab color="primary" onClick={() => dispatch(handleChangeStudentModalOpen(true))} sx={{
-                    position: "absolute",
-                    right: 50,
-                    bottom: 50
-                }}>
-                    <Icons.Add />
-                </Fab>
-            </Tooltip>
+            {addStudent &&
+                <Tooltip placement="top" title="Add New Student">
+                    <Fab color="primary" onClick={() => dispatch(handleChangeStudentModalOpen(true))} sx={{
+                        position: "absolute",
+                        right: 50,
+                        bottom: 50
+                    }}>
+                        <Icons.Add />
+                    </Fab>
+                </Tooltip>
+            }
 
 
             <Dialog dailogOpen={modalOpen} clickAwayListener={false} size={"md"} hasCloseIcon={true} title="Student"

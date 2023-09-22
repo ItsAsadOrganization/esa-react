@@ -4,7 +4,7 @@ export const Permissions = [
     {
         page: "Dashboard",
         permissions: [
-            { checked: false, label: "Create", permission: "add-student"},
+            { checked: false, label: "Show In Navigation", permission: "show-in-nav"},
         ]
     },
     {
@@ -76,6 +76,16 @@ export const Permissions = [
     },
     {
         page: "Roles",
+        permissions: [
+            { checked: false, label: "Show In Navigation", permission: "show-in-nav"},
+            { checked: false, label: "Create", permission: "add-roles"},
+            { checked: false, label: "Read", permission: "view-roles"},
+            { checked: false, label: "Update", permission: "update-roles"},
+            { checked: false, label: "Delete", permission: "delete-roles"},
+        ]
+    },
+    {
+        page: "Users",
         permissions: [
             { checked: false, label: "Show In Navigation", permission: "show-in-nav"},
             { checked: false, label: "Create", permission: "add-roles"},

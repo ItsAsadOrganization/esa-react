@@ -31,7 +31,6 @@ const Queries = ({ id }) => {
         }
     }
     React.useEffect(() => {
-        console.log({ id })
         if (id) {
             getQueries()
         }

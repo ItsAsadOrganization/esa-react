@@ -22,6 +22,8 @@ import {
   API_ROUTE_TUTOR,
   API_ROUTE_TUTORS,
   API_ROUTE_UPDATE_NOTY_READ,
+  API_ROUTE_USER,
+  API_ROUTE_USERS,
   API_ROUTE_VOUCHER,
   API_ROUTE_VOUCHERS,
 } from "./constants";
@@ -190,7 +192,18 @@ export const postRoleApi = ({ name, permissions }) => {
   return post(API_ROUTE_ROLE, { name, permissions }, {});
 };
 
+export const putRoleApi = ({ id, name, permissions }) => {
+  return put(API_ROUTE_ROLE, { name, permissions }, {id});
+};
+
 export const getRolesApi = () => {
   return get(API_ROUTE_ROLES, {}, {});
 };
 
+export const getUsersApi = () => {
+  return get(API_ROUTE_USERS, {}, {});
+};
+
+export const postUserInfoApi = ({ name, email, roleId, password }) => {
+  return post(API_ROUTE_USER, { name, email, roleId, password }, {});
+};

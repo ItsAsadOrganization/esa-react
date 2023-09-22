@@ -7,7 +7,7 @@ class UserRepository {
     static async getLoginDetails(username, password) {
         const user = await Users.findOne({
             raw: true,
-            include:[
+            include: [
                 {
                     model: Roles,
                     attributes: ["name", "permissions"]
@@ -21,8 +21,33 @@ class UserRepository {
         return user
     }
 
-    static async getAllUsers() {
-        const user = await Users.findAll()
+    static async getAllUsers(panaroid) {
+        const user = await Users.findAll({
+            include: [
+                {
+                    model: Roles,
+                    attributes: ["name"]
+                }
+            ],
+            raw: true,
+            paranoid: panaroid
+        })
+        return user
+    }
+
+    static async create(payload) {
+        const user = await Users.create(payload)
+        return user
+    }
+
+    static async getUserById(id) {
+        const user = await Users.findByPk(id, {
+            raw: true,
+            attributes: { exclude: ['password'] },
+            include: [
+                { model: Roles, attributes: ["name"] }
+            ]
+        })
         return user
     }
 }

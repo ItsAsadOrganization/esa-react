@@ -52,7 +52,6 @@ const SetupVoucher = () => {
             }} >
                 <Grid item xs={!2} md={12} sx={{ mb: 2 }} >
                     <FormControl fullWidth size="small">
-                        {console.log({ classesList })}
                         <InputLabel>Class</InputLabel>
                         <Select
                             label="Class"
@@ -73,7 +72,6 @@ const SetupVoucher = () => {
 
                 <Grid item xs={!2} md={12} sx={{ mb: 2 }} >
                     <FormControl fullWidth size="small">
-                        {console.log({ classesList })}
                         <InputLabel>Student</InputLabel>
                         <Select
                             label="Student"
