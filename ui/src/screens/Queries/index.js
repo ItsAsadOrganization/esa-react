@@ -1,7 +1,7 @@
 import { Box, Button, Checkbox, Chip, Container, Fab, FormControl, FormControlLabel, Grid, Icon, IconButton, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import React from "react"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
-import { BREADCRUMBS } from "./constants"
+import { BREADCRUMBS, CONTACT_MEDUM } from "./constants"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import Icons from "../../common/icons"
 import { useDispatch, useSelector } from "react-redux"
@@ -211,29 +211,29 @@ const Queries = () => {
                                     return ql
                                 }
                             })
-                            .filter(ql => {
-                                if ([...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name))].length > 0) {
-                                    return [...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name.toLowerCase()))].includes(ql.user.name.toLowerCase())
-                                } else {
-                                    return ql
-                                }
-                            }).map(query => (
-                                <StyledTableRow>
-                                    <StyledTableCell >
-                                        {query.student_name}
-                                    </StyledTableCell>
-                                    <StyledTableCell>{query.phone_number}</StyledTableCell>
-                                    <StyledTableCell sx={{ fontWeight: 700, color: userColor.find(c => c.user.toLowerCase() === query.user.name.toLowerCase())?.color }}>{query.user.name}</StyledTableCell>
-                                    <StyledTableCell > {new Date(query.createdAt).getDate() + "-" + (new Date(query.createdAt).getMonth() + 1) + "-" + new Date(query.createdAt).getFullYear()}</StyledTableCell>
-                                    <StyledTableCell sx={{ textAlign: "right" }}>
-                                        {actionButtonArray.filter(btn => btn.visibility).map(btn => (
-                                            <IconButton onClick={() => btn.action(query)} color={btn.color}>
-                                                <btn.icon />
-                                            </IconButton>
-                                        ))}
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))
+                                .filter(ql => {
+                                    if ([...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name))].length > 0) {
+                                        return [...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name.toLowerCase()))].includes(ql.user.name.toLowerCase())
+                                    } else {
+                                        return ql
+                                    }
+                                }).map(query => (
+                                    <StyledTableRow>
+                                        <StyledTableCell >
+                                            {query.student_name}
+                                        </StyledTableCell>
+                                        <StyledTableCell>{query.phone_number}</StyledTableCell>
+                                        <StyledTableCell sx={{ fontWeight: 700, color: userColor.find(c => c.user.toLowerCase() === query.user.name.toLowerCase())?.color }}>{query.user.name}</StyledTableCell>
+                                        <StyledTableCell > {new Date(query.createdAt).getDate() + "-" + (new Date(query.createdAt).getMonth() + 1) + "-" + new Date(query.createdAt).getFullYear()}</StyledTableCell>
+                                        <StyledTableCell sx={{ textAlign: "right" }}>
+                                            {actionButtonArray.filter(btn => btn.visibility).map(btn => (
+                                                <IconButton onClick={() => btn.action(query)} color={btn.color}>
+                                                    <btn.icon />
+                                                </IconButton>
+                                            ))}
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))
                             : ""}
                     </ExplicitTable>
                 </Grid>
@@ -254,6 +254,7 @@ const Queries = () => {
                 dispatch(handleResetQueryModal())
                 dispatch(handleChangeQueryStudentName(''))
                 dispatch(handleChangeQueryStudentPhone(''))
+                setStudentId(null)
             }}
                 actionsButtonArray={[{
                     label: "Save",
@@ -284,6 +285,7 @@ const Queries = () => {
                             dispatch(handleChangeQueryStudentName(''))
                             dispatch(handleChangeQueryStudentPhone(''))
                             dispatch(handleResetQueryModal())
+                            setStudentId(null)
                             loadQueries()
                             dispatch(handleRemoveLoading())
                         } catch (err) {
@@ -313,10 +315,14 @@ const Queries = () => {
                             sx={{ maxWidth: '98%' }} label="Comment" fullWidth size="small" />
                     </Grid>
                     <Grid item xs={12} sx={{ mb: 2 }}>
-                        <TextField value={queryForm.contact_medium}
+                        <TextField select value={queryForm.contact_medium}
                             onChange={e => {
                                 dispatch(handleChangeQueryFormContactMedium(e.target.value))
-                            }} sx={{ maxWidth: '98%' }} label="Communication Medium" fullWidth size="small" />
+                            }} sx={{ maxWidth: '98%' }} label="Communication Medium" fullWidth size="small" >
+                            {CONTACT_MEDUM.map(e => (
+                                <MenuItem key={e} value={e}>{e}</MenuItem>
+                            ))}
+                        </TextField>
                     </Grid>
 
                 </Grid> : <>
@@ -329,10 +335,14 @@ const Queries = () => {
                                 sx={{ maxWidth: '98%' }} label="Comment" fullWidth size="small" />
                         </Grid>
                         <Grid item xs={4} sx={{ mb: 2 }}>
-                            <TextField value={queryForm.contact_medium}
+                            <TextField select value={queryForm.contact_medium}
                                 onChange={e => {
                                     dispatch(handleChangeQueryFormContactMedium(e.target.value))
-                                }} sx={{ maxWidth: '98%' }} label="Communication Medium" fullWidth size="small" />
+                                }} sx={{ maxWidth: '98%' }} label="Communication Medium" fullWidth size="small" >
+                                {CONTACT_MEDUM.map(e => (
+                                    <MenuItem key={e} value={e}>{e}</MenuItem>
+                                ))}
+                            </TextField>
                         </Grid>
 
                         <Grid item xs={12}>
