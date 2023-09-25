@@ -9,10 +9,9 @@ class QueryRepository {
     static async getAllQueries(paranoid) {
         const queries = await Queries.findAll({
             paranoid: paranoid,
-            attributes: ["id", "contact_medium", "comment", "follow_up", "ended", "createdAt", "studentId", "tutorId",
-                [Sequelize.fn('date_format', Sequelize.col('createdAt'), '%m-%d-%Y'), 'modifiedDate']
-            ],
-            group: ['id', 'modifiedDate'],
+            include: [
+                { model: Users, attributes: ["name"] }
+            ]
         })
         return queries
     }
@@ -28,32 +27,28 @@ class QueryRepository {
     }
 
     static async getQueryByStudentId(id) {
-        const queries = await Queries.findAll({
+        const queries = await Queries.findByPk(id, {
             raw: true,
             include: [
-                {
-                    model: Users,
-                    attributes: ["name"]
-                },
-                {
-                    model: Students,
-                    attributes: ["name"]
-                }
+                { model: Users, attributes: ["name"] }
             ]
-            ,
+        })
+        return queries
+    }
+
+    static async updateEnded(id, payload) {
+        const queries = await Queries.update(payload, {
             where: {
-                studentId: id
+                id: id
             }
         })
         return queries
     }
 
-    static async updateEnded(id) {
-        const queries = await Queries.update({
-            ended: true,
-        }, {
+    static async delete(id) {
+        const queries = await Queries.destroy({
             where: {
-                studentId: id
+                id: id
             }
         })
         return queries

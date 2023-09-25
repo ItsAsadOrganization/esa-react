@@ -52,16 +52,19 @@ class QueryManager {
     }
 
 
-    static async closeQuery(studentId, payload, next) {
+    static async update(id, payload, next) {
         try {
-            payload["studentId"] = studentId
-            await Repository.postQuery(payload)
-            const query = await Repository.updateEnded(studentId)
-            await NotificationRepository.saveNotifications({
-                title: "Query Closed",
-                description: `Query conversation has been closed for student having ID: `+studentId,
-            })
-            throw new SUCCESS({ query : "Conversation closed" })
+            const query = await Repository.updateEnded(id, payload)
+            throw new SUCCESS({ query : "Updated" })
+        } catch (err) {
+            next(err)
+        }
+    }
+   
+    static async delete(id, next) {
+        try {
+            const query = await Repository.delete(id)
+            throw new SUCCESS({ query : "Deleted Query" })
         } catch (err) {
             next(err)
         }

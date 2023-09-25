@@ -13,6 +13,7 @@ import { useNavigate } from "react-router"
 import { ROUTES } from "../../Layout/Navigation/constants"
 import Dialog from "../../components/Dialog"
 import { handleChangeSetupRoleId, handleChangeSetupRoleName, handleSetPermissions } from "../SetupRole/setupRolesSlice"
+import useCan from "../../hooks/useCan"
 
 const Roles = () => {
     const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const Roles = () => {
             icon: Icons.Visibility,
             color: "primary",
             size: "small",
+            visibility: useCan("RolesViewRoles"),
             action: (role) => {
                 setPreviewRole({
                     open: true,
@@ -51,6 +53,7 @@ const Roles = () => {
             icon: Icons.BorderColor,
             color: "secondary",
             size: "small",
+            visibility: useCan("RolesUpdateRoles"),
             action: (role) => {
                 dispatch(handleChangeSetupRoleId(role.id))
                 dispatch(handleChangeSetupRoleName(role.name))
@@ -83,7 +86,7 @@ const Roles = () => {
                                     <StyledTableCell><b>{role.name.charAt(0).toUpperCase() + role.name.slice(1)}</b></StyledTableCell>
                                     <StyledTableCell><em>{role.name}</em></StyledTableCell>
                                     <StyledTableCell sx={{ textAlign: "right" }}> {
-                                        actionButtonArray.map(btn => (
+                                        actionButtonArray.filter(btn => btn.visibility).map(btn => (
                                             <Tooltip placement="top" title={btn.label}>
                                                 <IconButton key={btn.label} onClick={() => btn.action(role)}>
                                                     <btn.icon color={btn.color} />
@@ -98,7 +101,7 @@ const Roles = () => {
                 </Grid>
             </Grid>
 
-            <Tooltip placement="top" title="Add New">
+            {useCan("RolesAddRoles") && <Tooltip placement="top" title="Add New">
                 <Fab
                     onClick={() => { navigate(`/${ROUTES.setupRole}`) }}
                     color="primary"
@@ -109,7 +112,7 @@ const Roles = () => {
                     }}>
                     <Icons.Add />
                 </Fab>
-            </Tooltip>
+            </Tooltip>}
 
             <Dialog dailogOpen={previewRole.open && previewRole.data} size={"sm"} hasCloseIcon={true}
                 title={`${previewRole.data?.name.charAt(0).toUpperCase() + previewRole.data?.name.slice(1)} Privileges`}

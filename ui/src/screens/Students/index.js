@@ -151,6 +151,7 @@ const Students = () => {
         {
             label: "Edit",
             variant: "contained",
+            visibility: useCan("StudentsUpdateStudent"),
             action: (student) => {
                 dispatch(handleChangeStudentModalOpen(true))
                 dispatch(handleChangeStudentId(student.id))
@@ -174,6 +175,7 @@ const Students = () => {
         {
             label: "Profile",
             variant: "contained",
+            visibility: useCan("StudentsViewStudent"),
             action: async (student) => {
                 try {
                     dispatch(handleChangePreviewStudentId(student.id))
@@ -187,6 +189,7 @@ const Students = () => {
         },
         {
             label: "Delete",
+            visibility: useCan("StudentsDeleteStudent"),
             variant: "contained",
             action: async (student) => {
                 try {
@@ -333,7 +336,7 @@ const Students = () => {
                                     <StyledTableCell>{student.cnic}</StyledTableCell>
                                     {userRole === ROLES.superadmin ? <StyledTableCell>{student.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
                                     <StyledTableCell>
-                                        {tableActionButtons.map(btn => (
+                                        {tableActionButtons.filter(btn => btn.visibility).map(btn => (
                                             <IconButton color={btn.color} onClick={() => btn.action(student)}>
                                                 <btn.icon />
                                             </IconButton>

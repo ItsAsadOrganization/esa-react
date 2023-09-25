@@ -60,9 +60,6 @@ const socketIO = require('socket.io')(http, {
     }
 });
 
-
-
-
 socketIO.on('connection', (socket) => {
     const users = [];
     for (let [id, socket] of socketIO.of("/").sockets) {
@@ -256,6 +253,13 @@ Roles.hasMany(Users, {
     onUpdate: "CASCADE"
 })
 Users.belongsTo(Roles)
+
+
+Users.hasMany(Queries, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Queries.belongsTo(Users)
 
 
 
