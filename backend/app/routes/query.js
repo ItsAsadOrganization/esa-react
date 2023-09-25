@@ -20,11 +20,20 @@ queryRouter.get("/query", (req, res, next) => {
     }
 })
 
+queryRouter.delete("/query", (req, res, next) => {
+    try {
+        const id = req.query.id
+        Manager.delete(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 queryRouter.put("/query", (req, res, next) => {
     try {
-        const studentId = req.query.id
+        const id = req.query.id
         const payload = req.body
-        Manager.closeQuery(studentId,payload, next)
+        Manager.update(id, payload, next)
     } catch (err) {
         next(err)
     }

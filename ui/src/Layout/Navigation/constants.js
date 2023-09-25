@@ -8,6 +8,7 @@ import Notifications from '../../screens/Notifications';
 import Payslips from '../../screens/Payslips';
 import PreviewStudent from '../../screens/PreviewStudent';
 import PreviewVoucher from '../../screens/PreviewVoucher';
+import Queries from '../../screens/Queries';
 import Roles from '../../screens/Roles';
 import SetupRole from '../../screens/SetupRole';
 import SetupVoucher from '../../screens/SetupVoucher';
@@ -51,9 +52,10 @@ export const PERMISSIONS = {
     designations: "DesignationsShowInNav",
     roles: "RolesShowInNav",
     users: "UsersShowInNav",
+    queries: "QueriesShowInNav",
+    setupRole: "RolesAddRoles",
     
     groups: 'groups',
-    setupRole: 'setup-role',
 }
 
 export const ROLES = {
@@ -138,6 +140,17 @@ export const APP_ROUTES = [
         permission: PERMISSIONS.designations,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: Designations,
+        showInNav: true,
+    },
+    {
+        label: ROUTES.queries,
+        icon: Icons.Group,
+        redirectPath: "/",
+        url: `/${ROUTES.queries}`,
+        isProtected: true,
+        permission: PERMISSIONS.queries,
+        roles: [ROLES.admin, ROLES.superadmin],
+        screen: Queries,
         showInNav: true,
     },
     {

@@ -49,10 +49,10 @@ export const Permissions = [
         page: "Class",
         permissions: [
             { checked: false, label: "Show In Navigation", permission: "show-in-nav"},
-            { checked: false, label: "Create", permission: "add-voucher"},
-            { checked: false, label: "Read", permission: "view-voucher"},
-            { checked: false, label: "Update", permission: "update-voucher"},
-            { checked: false, label: "Delete", permission: "delete-voucher"},
+            { checked: false, label: "Create", permission: "add-class"},
+            { checked: false, label: "Read", permission: "view-class"},
+            { checked: false, label: "Update", permission: "update-class"},
+            { checked: false, label: "Delete", permission: "delete-class"},
         ]
     },
     {
@@ -92,6 +92,16 @@ export const Permissions = [
             { checked: false, label: "Read", permission: "view-roles"},
             { checked: false, label: "Update", permission: "update-roles"},
             { checked: false, label: "Delete", permission: "delete-roles"},
+        ]
+    },
+    {
+        page: "Queries",
+        permissions: [
+            { checked: false, label: "Show In Navigation", permission: "show-in-nav"},
+            { checked: false, label: "Create", permission: "add-queries"},
+            { checked: false, label: "Read", permission: "view-queries"},
+            { checked: false, label: "Update", permission: "update-queries"},
+            { checked: false, label: "Delete", permission: "delete-queries"},
         ]
     }
 ]

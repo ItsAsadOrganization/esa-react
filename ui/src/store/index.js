@@ -25,6 +25,7 @@ import designationReducer from '../screens/Designations/designationSlice';
 import setupRoleReducer from '../screens/SetupRole/setupRolesSlice';
 import roleReducer from '../screens/Roles/roleSlice';
 import usersReducer from '../screens/Users/usersSlice';
+import queryReducer from '../screens/Queries/querySlice';
 
 const persistConfig = {
     key: REDUX_PERSIST_KEY,
@@ -47,7 +48,8 @@ const appReducer = combineReducers({
     designations:designationReducer,
     setupRole: setupRoleReducer,
     role: roleReducer,
-    users: usersReducer
+    users: usersReducer,
+    queries: queryReducer
 });
 
 const rootReducer = (state, action) => {

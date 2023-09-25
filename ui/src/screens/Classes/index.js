@@ -14,6 +14,7 @@ import { Controller, useForm } from "react-hook-form"
 import React from "react"
 import { deleteClassesApi, postClassesApi, putClassesApi } from "../../api"
 import { getLoadings, handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
+import useCan from "../../hooks/useCan"
 
 const Classes = () => {
 
@@ -34,6 +35,7 @@ const Classes = () => {
         {
             label: "Edit",
             variant: "contained",
+            visibility: useCan("ClassUpdateClass"),
             action: (_class) => {
                 dispatch(handleAddLoading())
                 dispatch(handleChangeClassName(_class.name))
@@ -47,6 +49,7 @@ const Classes = () => {
         {
             label: "Delete",
             variant: "contained",
+            visibility: useCan("ClassDeleteClass"),
             action: async (_class) => {
                 try {
                     dispatch(handleAddLoading())
@@ -94,7 +97,7 @@ const Classes = () => {
                                     <StyledTableCell><i>{student.name}</i></StyledTableCell>
                                     {userRole === ROLES.superadmin ? <StyledTableCell>{student.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
                                     <StyledTableCell>
-                                        {tableActionButtons.map(btn => (
+                                        {tableActionButtons.filter(btn => btn.visibility).map(btn => (
                                             <IconButton color={btn.color} onClick={() => btn.action(student)}>
                                                 <btn.icon />
                                             </IconButton>
@@ -110,15 +113,17 @@ const Classes = () => {
 
                 </Grid>
             </Grid>
-            <Tooltip title="Add Class">
-                <Fab color="primary" onClick={e => dispatch(handleChangeClassModalOpen(true))} sx={{
-                    position: "absolute",
-                    right: 50,
-                    bottom: 50
-                }}>
-                    <Icons.Add />
-                </Fab>
-            </Tooltip>
+            {useCan("ClassAddClass") &&
+                <Tooltip title="Add Class">
+                    <Fab color="primary" onClick={e => dispatch(handleChangeClassModalOpen(true))} sx={{
+                        position: "absolute",
+                        right: 50,
+                        bottom: 50
+                    }}>
+                        <Icons.Add />
+                    </Fab>
+                </Tooltip>
+            }
 
 
             <Dialog clickAwayListener={false} size={"sm"} title="Class" hasCloseIcon handleClose={e => {

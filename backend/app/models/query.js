@@ -8,24 +8,17 @@ const Queries = sequelize.define("queries", {
         unique: true,
         primaryKey: true
     },
-    contact_medium: {
-        type: DataTypes.ENUM(['pc', 'im','wc', 'wm', 'wvn']),
-        comment: "Accepts Phone Call, Instant Message, WhatsApp Call, WhatsApp Message, Whatsapp Voice Note"
+    student_name: {
+        type: DataTypes.STRING,
     },
-    comment: {
-        type: DataTypes.TEXT('long')
+    phone_number: {
+        type: DataTypes.STRING
     },
-    follow_up: {
-        type: DataTypes.DATEONLY,
-        default: null
-    },
-    ended: {
-        type: DataTypes.BOOLEAN,
-        default: false
-    },
+    config: {
+        type: DataTypes.JSON
+    }
 }, {
     paranoid: true,
 })
-// tutor id
 
 module.exports = Queries

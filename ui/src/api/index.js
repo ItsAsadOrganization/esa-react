@@ -171,8 +171,16 @@ export const getQueriesApi = () => {
   return get(API_ROUTE_QUERIES, {}, {});
 };
 
-export const postQueryApi = ({ contact_medium, comment, studentId, userId, follow_up }) => {
-  return post(API_ROUTE_QUERY, { contact_medium, comment, studentId, userId, follow_up }, {});
+export const postQueryApi = ({ student_name, phone_number, config, userId }) => {
+  return post(API_ROUTE_QUERY, { student_name, phone_number, config, userId }, {});
+};
+
+export const putQueryApi = ({ student_name, phone_number, config, userId, id }) => {
+  return put(API_ROUTE_QUERY, { student_name, phone_number, config, userId }, { id });
+};
+
+export const delQueryApi = ({ id }) => {
+  return del(API_ROUTE_QUERY, {}, { id });
 };
 
 export const getQueryApi = ({ id }) => {
@@ -193,7 +201,7 @@ export const postRoleApi = ({ name, permissions }) => {
 };
 
 export const putRoleApi = ({ id, name, permissions }) => {
-  return put(API_ROUTE_ROLE, { name, permissions }, {id});
+  return put(API_ROUTE_ROLE, { name, permissions }, { id });
 };
 
 export const getRolesApi = () => {
