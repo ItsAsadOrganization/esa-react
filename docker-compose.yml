@@ -48,7 +48,7 @@ services:
       - egc
 
   phpmyadmin:
-    container_name: phpmyadmin-twitter
+    container_name: phpmyadmin-esa
     image: phpmyadmin
     depends_on:
       - db
