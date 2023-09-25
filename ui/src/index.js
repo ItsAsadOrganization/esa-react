@@ -17,7 +17,7 @@ import io from "socket.io-client";
 import { handleChangeNotificaiton } from './common/commonSlice';
 import { getItem } from './utils/storage';
 
-const theme = createTheme(lightTheme);
+const theme = createTheme(darkTheme);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -54,11 +54,9 @@ const App = () => {
 }
 
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>
-  // </React.StrictMode>
 );

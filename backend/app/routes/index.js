@@ -14,6 +14,7 @@ const campusRouter = require('./campus');
 const NotificationRepository = require('../edubiz/notification/repository');
 const { SUCCESS } = require('../common/exceptions');
 const queryRouter = require('./query');
+const roleRouter = require('./role');
 const router = express.Router();
 
 router.use("", userRouter)
@@ -28,6 +29,7 @@ router.use("", designationRouter)
 router.use("", appConfigRouter)
 router.use("", campusRouter)
 router.use("", queryRouter)
+router.use("", roleRouter)
 
 
 router.get("/logs", (req, res, next) => {

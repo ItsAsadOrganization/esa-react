@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { TextField, Button, Grid, Box, Typography, IconButton } from "@mui/material";
-import { loginRequested } from "./loginSlice";
+import { getUserPermissions, loginRequested } from "./loginSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import Logo from "./logo.jpg"
 import { useTheme } from "@emotion/react";
 import Icons from "../../common/icons";
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice";
+import { openErrorToast } from "../../common/toast";
 const Login = () => {
     // admin@admin.com
     // P@ssw0rd123*
@@ -13,6 +14,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const [showPass, setShowPass] = useState(false)
+
+    const user = useSelector(getUserPermissions)
 
     const theme = useTheme()
     return (
@@ -63,7 +66,7 @@ const Login = () => {
                                 await dispatch(loginRequested({ username: userName, password }));
                             } catch (err) {
                                 dispatch(handleRemoveLoading())
-                                console.log(err)
+                                openErrorToast(err.message ? err.message : err)
 
                             }
 

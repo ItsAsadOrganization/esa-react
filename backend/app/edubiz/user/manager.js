@@ -12,8 +12,8 @@ class UserManager {
             } else {
                 sessionData.username = username
                 sessionData.password = password
-                sessionData.role = response.dataValues.role
-                sessionData.userid = response.dataValues.id
+                sessionData.role = response.roleId
+                sessionData.userid = response.id
                 throw new SUCCESS({ user: response })
             }
         } catch (err) {
@@ -26,6 +26,25 @@ class UserManager {
         try {
             await sessionData.destroy();
             throw new SUCCESS("Session Destroyed")
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async getAllUsers(next) {
+        try {
+            const users = await Repository.getAllUsers(false)
+            throw new SUCCESS({ users })
+        } catch (err) {
+            next(err)
+        }
+    }
+    
+    static async createUser(payload, next) {
+        try {
+            const u = await Repository.create(payload)
+            const user = await Repository.getUserById(u.dataValues.id) 
+            throw new SUCCESS({ user })
         } catch (err) {
             next(err)
         }

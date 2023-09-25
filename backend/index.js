@@ -31,7 +31,7 @@ const AppConfig = require("./app/models/app_config")
 const TutorLeaves = require("./app/models/tutor_leaves")
 const TutorsAttendance = require("./app/models/tutattendance")
 const StudentsAttendance = require("./app/models/stdattendance")
-const { CLASSES_MIGRATIONS, USERS_MIGRATIONS, GROUPS, LEAVES_MIGRATIONS } = require("./app/migrations/migrations")
+const { CLASSES_MIGRATIONS, USERS_MIGRATIONS, GROUPS, LEAVES_MIGRATIONS, PERMISSIONS_MIGRATIONS } = require("./app/migrations/migrations")
 const Notifications = require("./app/models/notification")
 const NotificationRepository = require("./app/edubiz/notification/repository")
 const VoucherManager = require("./app/edubiz/vouchers/manager")
@@ -39,6 +39,7 @@ const Queries = require("./app/models/query")
 const GroupManager = require("./app/edubiz/groups/manager")
 const GroupRepository = require("./app/edubiz/groups/repository")
 const QueryRepository = require("./app/edubiz/query/repository")
+const Roles = require("./app/models/roles")
 
 const app = exporess()
 
@@ -267,6 +268,12 @@ Queries.belongsTo(Users, {
     onUpdate: "CASCADE"
 })
 
+Roles.hasMany(Users, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Users.belongsTo(Roles)
+
 
 
 let connect = async () => {
@@ -274,9 +281,9 @@ let connect = async () => {
         await sequelize.authenticate()
         await sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null, { raw: true })
         await sequelize.sync({ force: false })
-        await createDefaultUser()
         await createDefaultClasses()
         await createDefaultGroups()
+        await createDefaultUser()
     } catch (err) {
         console.log(err)
     }
@@ -354,6 +361,20 @@ let createDefaultClasses = async () => {
                     console.error('Error creating or finding user:', error);
                 });
         });
+
+
+        PERMISSIONS_MIGRATIONS.forEach(user => {
+            Roles.findOrCreate({
+                where: { name: user.name }, // Specify the criteria to find the record
+                defaults: user, // Provide the attributes to create if the record doesn't exist
+            })
+                .then(([user, created]) => {
+                    console.log('Config for Role :', user.name, 'Created');
+                })
+                .catch(error => {
+                    console.error('Error creating or finding Role config:', error);
+                });
+        });
     } catch (err) {
         console.log(err)
     }
@@ -369,7 +390,6 @@ http.listen(PORT, (req, res, next) => {
     connectToRedisStore(req, res, next)
     connect()
     scheduleJob()
-
 })
 
 

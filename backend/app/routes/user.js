@@ -24,5 +24,23 @@ userRouter.get("/logout", (req, res, next) => {
     }
 })
 
+userRouter.get("/users", (req, res, next) => {
+    try {
+        Manager.getAllUsers(next)
+    } catch (err) {
+        next(err)
+    }
+})
+
+
+userRouter.post("/user", (req, res, next) => {
+    try {
+        const payload = req.body
+        Manager.createUser(payload, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 
 module.exports = userRouter

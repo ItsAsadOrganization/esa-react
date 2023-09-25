@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material"
 import PropTypes from 'prop-types';
 
 
-const NothingFound = ({ pageIcon, pageTitle, action }) => {
+const NothingFound = ({ pageIcon, pageTitle, action, permission }) => {
     return (
         <Box sx={{
             borderRadius: 4,
@@ -52,11 +52,13 @@ const NothingFound = ({ pageIcon, pageTitle, action }) => {
                 fontSize: 14,
                 textAlign: "center"
             }}>Nothing here yet.<br />Start adding {pageTitle.toLowerCase()} here</Typography>
-            <Button variant="outlined" size="small" sx={{
-                px: 4
-            }} onClick={action} >
-                Add New {pageTitle}
-            </Button>
+            {permission &&
+                <Button variant="outlined" size="small" sx={{
+                    px: 4
+                }} onClick={action} >
+                    Add New {pageTitle}
+                </Button>
+            }
         </Box>
     )
 }
@@ -64,13 +66,15 @@ const NothingFound = ({ pageIcon, pageTitle, action }) => {
 NothingFound.prototype = {
     pageTitle: PropTypes.string,
     action: PropTypes.func,
-    pageIcon: PropTypes.object
+    pageIcon: PropTypes.object,
+    permission: PropTypes.bool
 }
 
 NothingFound.defaultProps = {
     pageTitle: '',
     action: () => { },
-    pageIcon: {}
+    pageIcon: {},
+    permission: true,
 
 }
 

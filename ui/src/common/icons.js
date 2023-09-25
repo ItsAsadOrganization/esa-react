@@ -25,6 +25,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
 import CheckIcon from '@mui/icons-material/Check';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import LockIcon from '@mui/icons-material/Lock'
 
 export default {
   Dashboard: DashboardIcon,
@@ -53,5 +54,6 @@ export default {
   Save: SaveIcon,
   SpeakerNotesOff: SpeakerNotesOffIcon,
   Check: CheckIcon,
-  QuestionAnswer: QuestionAnswerIcon
+  QuestionAnswer: QuestionAnswerIcon,
+  Lock: LockIcon
 };

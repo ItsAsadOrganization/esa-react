@@ -59,7 +59,6 @@ const studentSlice = createSlice({
             state.student.classId = action.payload
         },
         handleChangeStudentModalOpen: (state, action) => {
-            console.log("I am called")
             state.studentModalOpen = action.payload
         },
         handleResetStudentModal: (state) => {

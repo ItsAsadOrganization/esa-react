@@ -45,12 +45,21 @@ const loginSlice = createSlice({
             state.isLoading = true;
         },
         [loginRequested.fulfilled]: (state, user) => {
+            let permissions = {}
+            user.payload.data.user["role.permissions"].map(p => (
+                p.permissions.map(np => {
+                    if (np.checked) {
+                        const label = p.page+np.permission.split("-").map(l => l.charAt(0).toUpperCase() + l.slice(1)).join("")
+                        permissions[label] = np.checked
+                    }
+                })
+            ))
             state.id = user.payload.data.user.id;
             state.username = user.payload.data.user.name;
             state.isLoggedIn = true;
-            state.role = user.payload.data.user.role;
+            state.role = user.payload.data.user["role.name"];
             state.email = user.payload.data.user.email;
-            // state.permissions = user.payload.data.permissions;
+            state.permissions = permissions
             state.isLoading = false;
         },
         [loginRequested.rejected]: (state, data) => {

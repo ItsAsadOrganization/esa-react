@@ -134,8 +134,6 @@ const Tutors = () => {
 
     React.useEffect(() => {
         if (emailFilter) {
-            console.log({ emailFilter })
-            console.log({ emailFilter: tutList.filter(ele => ele.email.toLowerCase().includes(emailFilter.toLowerCase())) })
             setTutList(tutList.filter(ele => ele.email.toLowerCase().includes(emailFilter.toLowerCase())))
         } else {
             setTutList(tutorsList)

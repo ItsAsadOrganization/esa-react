@@ -46,6 +46,19 @@ services:
       - 3503:8081
     networks:
       - egc
+
+  phpmyadmin:
+    container_name: phpmyadmin-twitter
+    image: phpmyadmin
+    depends_on:
+      - db
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=db
+    ports:
+        - "6505:80"
+    networks:
+      - egc
     
   ui:
     build: ${UI_DIR}
