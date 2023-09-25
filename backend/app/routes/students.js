@@ -36,11 +36,19 @@ studentsRouter.get("/students/queries", (req, res, next) => {
 
 studentsRouter.post("/student", upload.single("avatar"), async (req, res, next) => {
     try {
-        const payload = req.body
-        const session = req.session
-        payload["avatar"] = 'uploads/' + req.file.originalname
-        Manager.postStudent(payload, session, next)
+        if (req.files) {
+            const payload = req.body
+            const session = req.session
+            payload["avatar"] = 'uploads/' + req.file.originalname
+            Manager.postStudent(payload, session, next)
+        } else {
+            const payload = req.body
+            const session = req.session
+            payload["avatar"] = null
+            Manager.postStudent(payload, session, next)
+        }
     } catch (err) {
+        console.log({ err })
         next(err)
     }
 })

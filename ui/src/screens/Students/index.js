@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Chip, Container, Fab, FormControl, FormHelperText, Grid, IconButton, InputLabel, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, TextField, Tooltip, Typography } from "@mui/material"
+import { Avatar, Box, Button, Checkbox, Chip, Container, Fab, FormControl, FormControlLabel, FormHelperText, Grid, IconButton, InputLabel, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, TextField, Tooltip, Typography } from "@mui/material"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
 import { BREADCRUMBS, TABLE_HEADS, TABLE_HEADS_SA } from "./constants"
 import Icons from "../../common/icons"
@@ -45,7 +45,14 @@ import {
     handleChangeStudentFatherCNIC,
     handleChangeStudentCNIC,
     getQueryModalOpen,
-    handleChangeQueryModalOpen
+    handleChangeQueryModalOpen,
+    getClassSearchList,
+    handleChangeClassSearch,
+    getCnicSearch,
+    getNameSearch,
+    handleChangeNameSearch,
+    handleChangeCnicSearch,
+    getClassSearch
 } from "./studentSlice"
 import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
@@ -56,6 +63,7 @@ import { useNavigate } from "react-router"
 import { handleChangePreviewStudentId } from "../PreviewStudent/previewStudentSlice"
 import Queries from "../Queries"
 import useCan from "../../hooks/useCan"
+import { MuiFileInput } from 'mui-file-input'
 
 
 const Students = () => {
@@ -88,6 +96,10 @@ const Students = () => {
     const father_cnic = useSelector(getStudentFatherCNIC)
     const cnic = useSelector(getStudentCNIC)
     const queryModalOpen = useSelector(getQueryModalOpen)
+    const classSearchList = useSelector(getClassSearchList)
+    const cnicSearch = useSelector(getCnicSearch)
+    const nameSearch = useSelector(getNameSearch)
+    const classSearch = useSelector(getClassSearch)
 
     const dispatch = useDispatch()
 
@@ -106,19 +118,20 @@ const Students = () => {
         setValue("cnic", cnic)
     }, [setValue, id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, father_cnic, cnic, classId])
 
-    const handleChange2Base64 = (e) => {
+    const handleChange2Base64 = (file) => {
         try {
-            const file = e.target.files[0]
-            if (file.size > 1000000) {
-                throw new Error("Please upload a file smaller than 50 KB");
+            if (file) {
+                if (file.size > 1000000) {
+                    throw new Error("Please upload a file smaller than 50 KB");
+                }
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    setBase64image(reader.result)
+                };
+            } else {
+                setBase64image(null)
             }
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-                setBase64image(reader.result)
-                dispatch(handleChangeStudentAvatar(file))
-                // cb(reader.result)
-            };
         } catch (err) {
             openErrorToast(err.message ? err.message : err)
         }
@@ -173,33 +186,6 @@ const Students = () => {
             color: "success"
         },
         {
-            label: "Mature",
-            variant: "contained",
-            action: async (student) => {
-                try {
-
-                } catch (err) {
-                    openErrorToast(err.message ? err.message : err)
-                }
-            },
-            icon: Icons.Rule,
-            color: "warning"
-        },
-        {
-            label: "Queries",
-            variant: "contained",
-            action: async (student) => {
-                try {
-                    dispatch(handleChangeStudentId(student.id))
-                    dispatch(handleChangeQueryModalOpen(true))
-                } catch (err) {
-                    openErrorToast(err.message ? err.message : err)
-                }
-            },
-            icon: Icons.QuestionAnswer,
-            color: "info"
-        },
-        {
             label: "Delete",
             variant: "contained",
             action: async (student) => {
@@ -219,6 +205,94 @@ const Students = () => {
         <Container maxWidth="xl">
             <AppBreadCrumbs pageTitle={"Students"} paths={BREADCRUMBS} />
             <Grid container maxWidth="xl" >
+                <Grid item container xs={12} md={12} sx={{
+                    p: 2,
+                    boxShadow: theme => theme.shadows[5],
+                    background: theme => theme.palette.background.paper,
+                    mb: 1
+                }}>
+                    <Grid item xs={12} sm={6} md={3} >
+                        <TextField placeholder="Search by name" value={nameSearch}
+                            sx={{ maxWidth: "98%" }}
+                            onChange={e => {
+                                dispatch(handleChangeNameSearch(e.target.value))
+                            }}
+                            InputProps={{
+                                startAdornment: <Icons.Search sx={{ mr: 1 }} />
+                            }} fullWidth size="small" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <TextField placeholder="Search by CNIC"
+                            sx={{ maxWidth: "98%" }}
+                            value={cnicSearch}
+                            onChange={e => {
+                                dispatch(handleChangeCnicSearch(e.target.value))
+                            }}
+                            InputProps={{
+                                startAdornment: <Icons.Search sx={{ mr: 1 }} />
+                            }} fullWidth size="small" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} >
+                        <FormControl fullWidth size="small" sx={{ maxWidth: "98%" }}>
+                            <InputLabel id="demo-multiple-chip-label">Class Search</InputLabel>
+                            <Select
+                                labelId="demo-multiple-name-label"
+                                id="demo-multiple-name"
+                                multiple
+                                renderValue={(selected) => (
+                                    selected.length === classSearchList.length ? <Chip size="small" label={"All"} /> : <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                        {selected.map((value) => (
+                                            <Chip size="small" key={value} label={value} />
+                                        ))}
+                                    </Box>
+                                )}
+                                fullWidth
+                                value={classSearchList.filter(cls => cls.selected).length > 0 ? classSearchList.filter(cls => cls.selected).map(cls => cls.name) : []}
+                            >
+                                {classSearchList && classSearchList.length > 0 ?
+                                    <>
+                                        <MenuItem disableRipple>
+                                            <FormControlLabel
+                                                label={"All"}
+                                                control={
+                                                    <Checkbox
+                                                        checked={classSearchList.filter(cls => cls.selected).length === classSearchList.length}
+                                                        indeterminate={classSearchList.filter(cls => cls.selected).length > 0 && classSearchList.filter(cls => cls.selected).length !== classSearchList.length}
+                                                        onChange={(e) => {
+                                                            dispatch(handleChangeClassSearch({
+                                                                type: 'all',
+                                                                selected: e.target.checked
+                                                            }))
+                                                        }}
+                                                    />
+                                                }
+                                            />
+                                        </MenuItem>
+                                        {classSearchList.map((cls, index) => (
+                                            <MenuItem disableRipple>
+                                                <FormControlLabel
+                                                    sx={{ ml: 3 }}
+                                                    label={cls.name}
+                                                    control={
+                                                        <Checkbox
+                                                            checked={cls.selected}
+                                                            onChange={(e) => {
+                                                                dispatch(handleChangeClassSearch({
+                                                                    index: index,
+                                                                    selected: e.target.checked
+                                                                }))
+                                                            }}
+                                                        />
+                                                    }
+                                                />
+                                            </MenuItem>
+                                        ))}
+                                    </>
+                                    : ""}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                </Grid>
                 <Grid item xs={!2} md={12} sx={{
                     p: 2,
                     boxShadow: theme => theme.shadows[5],
@@ -227,14 +301,36 @@ const Students = () => {
                 }}>
                     {studentsList.length > 0 ?
                         <ExplicitTable columns={userRole === ROLES.superadmin ? TABLE_HEADS_SA : TABLE_HEADS} tableSize="small">
-                            {studentsList.map(student => (
+                            {studentsList.filter(std => {
+                                if (nameSearch) {
+                                    return std.name.toLowerCase().includes(nameSearch.toLowerCase())
+                                } else {
+                                    return std
+                                }
+                            }).filter(std => {
+                                if (cnicSearch) {
+                                    return std.cnic.includes(cnicSearch)
+                                } else {
+                                    return std
+                                }
+                            }).filter(std => {
+                                if (classSearch.length > 0) {
+                                    return classSearch.includes(std["class.name"])
+                                } else {
+                                    return std
+                                }
+                            }).map(student => (
                                 <StyledTableRow key={student.id}>
-                                    <StyledTableCell><Avatar src={`${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar} /></StyledTableCell>
+                                    <StyledTableCell>
+                                        {
+                                            !student.avatar ? <Avatar>{student.name.charAt(0)}</Avatar> : <Avatar src={`${window.location.protocol}//${window.location.hostname}:3502/` + student.avatar} />
+                                        }
+                                    </StyledTableCell>
                                     <StyledTableCell>{student.name}</StyledTableCell>
+                                    <StyledTableCell>{student["class.name"]}</StyledTableCell>
                                     <StyledTableCell>{student.father_name}</StyledTableCell>
-                                    <StyledTableCell>{student.phone_1}</StyledTableCell>
-                                    <StyledTableCell>{student.address}</StyledTableCell>
-                                    <StyledTableCell>{!student.enrolled ? <Chip label="No" color="error" size="small" /> : <Chip label="Yes" color="success" size="small" />}</StyledTableCell>
+                                    <StyledTableCell>{student.email_address}</StyledTableCell>
+                                    <StyledTableCell>{student.cnic}</StyledTableCell>
                                     {userRole === ROLES.superadmin ? <StyledTableCell>{student.deletedAt === null ? <Chip label="Active" color="success" size="small" /> : <Chip label="Inactive" color="error" size="small" />}</StyledTableCell> : ""}
                                     <StyledTableCell>
                                         {tableActionButtons.map(btn => (
@@ -647,9 +743,6 @@ const Students = () => {
 
                     <Grid item xs={12} sx={{
                         mb: 2,
-                        [theme.breakpoints.up("md")]: {
-                            pr: 1
-                        }
                     }}>
                         <Controller
                             control={control}
@@ -665,6 +758,9 @@ const Students = () => {
                                     required
                                     multiline
                                     rows={2}
+                                    sx={{
+                                        p: 0
+                                    }}
                                     error={errors.address && !errors.address.touched && !errors.address.dirty}
                                     value={address}
                                     onChange={e => {
@@ -683,9 +779,6 @@ const Students = () => {
 
                     <Grid item xs={12} sx={{
                         mb: 2,
-                        [theme.breakpoints.up("md")]: {
-                            pl: 1
-                        }
                     }}>
                         {base64image ?
                             <Box sx={{
@@ -706,7 +799,11 @@ const Students = () => {
                                 }} />
                             </Box>
                             : ""}
-                        <input type="file" onChange={handleChange2Base64} />
+                        <MuiFileInput label={"Avatar"} fullWidth size="small" variant="outlined" value={avatar} onChange={(newFile) => {
+                            dispatch(handleChangeStudentAvatar(newFile))
+                            handleChange2Base64(newFile)
+                        }
+                        } />
                         <FormHelperText>Image should be less than 50KB in size (310px x 310px resolution recommended )</FormHelperText>
                     </Grid>
                 </Grid>

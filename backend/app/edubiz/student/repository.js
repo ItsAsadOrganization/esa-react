@@ -6,18 +6,26 @@ const Classes = require("../../models/classes")
 class StudentsRepository {
     static async getAllStudents(paranoid) {
         const studnets = await Students.findAll({
+            raw: true,
+            attributes: ["id", "name", "father_name", "email_address", "cnic", "avatar"],
+            include: [
+                {
+                    model: Classes,
+                    attributes: ["name"]
+                }
+            ],
             paranoid: paranoid
         })
         return studnets
     }
-   
+
     static async getAllStudentsWithClasses() {
         const studnets = await Students.findAll({
             raw: true,
-            attributes: ["id","name","enrolled", "createdAt", "avatar"],
+            attributes: ["id", "name", "enrolled", "createdAt", "avatar"],
             include: [
                 {
-                    model:Classes,
+                    model: Classes,
                     attributes: ["name"]
                 }
             ],
