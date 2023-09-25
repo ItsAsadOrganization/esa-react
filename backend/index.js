@@ -250,23 +250,6 @@ StudentsAttendance.belongsTo(Students, {
     onUpdate: "CASCADE"
 })
 
-Students.hasMany(Queries, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-})
-Queries.belongsTo(Students, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-})
-
-Users.hasMany(Queries, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-})
-Queries.belongsTo(Users, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-})
 
 Roles.hasMany(Users, {
     onDelete: "CASCADE",

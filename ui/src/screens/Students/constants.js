@@ -1,10 +1,10 @@
 export const TABLE_HEADS = [
     { name: "Avatar" },
     { name: "Name" },
+    { name: "Class" },
     { name: "Father Name" },
-    { name: "Emergency Contact" },
-    { name: "Address" },
-    { name: "Is Mature" },
+    { name: "Email Address" },
+    { name: "CNIC" },
     { name: "" },
 ]
 
@@ -13,10 +13,10 @@ export const TABLE_HEADS = [
 export const TABLE_HEADS_SA = [
     { name: "Avatar" },
     { name: "Name" },
+    { name: "Class" },
     { name: "Father Name" },
-    { name: "Emergency Contact" },
-    { name: "Address" },
-    { name: "Is Mature" },
+    { name: "Email Address" },
+    { name: "CNIC" },
     { name: "Status" },
     { name: "" },
 ]

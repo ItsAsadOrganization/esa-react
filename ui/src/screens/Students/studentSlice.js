@@ -25,6 +25,10 @@ const studentSlice = createSlice({
     initialState: {
         studentList: [],
         classList: [],
+        classSearchList: [],
+        classSearch: [],
+        cnicSearch: '',
+        nameSearch: '',
         student: {
             id: null,
             name: "",
@@ -34,7 +38,7 @@ const studentSlice = createSlice({
             phone_2: "",
             phone_3: "",
             address: "",
-            avatar: "",
+            avatar: null,
             classId: null,
             fatther_nic: "",
             cnic: ""
@@ -54,6 +58,19 @@ const studentSlice = createSlice({
         handleChangeStudentAvatar: (state, action) => { state.student.avatar = action.payload },
         handleChangeStudentFatherCNIC: (state, action) => { state.student.fatther_nic = action.payload },
         handleChangeStudentCNIC: (state, action) => { state.student.cnic = action.payload },
+
+
+        handleChangeCnicSearch: (state, action) => { state.cnicSearch = action.payload },
+        handleChangeNameSearch: (state, action) => { state.nameSearch = action.payload },
+        handleChangeClassSearch: (state, action) => {
+            if (action.payload.type === "all") {
+                state.classSearchList = state.classSearchList.map(cls => ({ ...cls, selected: action.payload.selected }))
+            } else {
+                state.classSearchList[action.payload.index].selected = action.payload.selected
+            }
+            state.classSearch = [...new Set(state.classSearchList.filter(cls => cls.selected).map(cls => cls.name))]
+        },
+
         handleChangeQueryModalOpen: (state, action) => { state.queryModalOpen = action.payload },
         handleChangeStudentClassId: (state, action) => {
             state.student.classId = action.payload
@@ -71,7 +88,7 @@ const studentSlice = createSlice({
             state.student.phone_2 = ""
             state.student.phone_3 = ""
             state.student.address = ""
-            state.student.avatar = ""
+            state.student.avatar = null
             state.student.fatther_nic = ""
             state.student.cnic = ""
             state.student.classId = null
@@ -86,7 +103,7 @@ const studentSlice = createSlice({
             state.student.phone_2 = ""
             state.student.phone_3 = ""
             state.student.address = ""
-            state.student.avatar = ""
+            state.student.avatar = null
             state.student.fatther_nic = ""
             state.student.cnic = ""
             state.student.classId = null
@@ -101,6 +118,8 @@ const studentSlice = createSlice({
         })
         builder.addCase(classesRequested.fulfilled, (state, action) => {
             state.classList = action.payload.data.classes
+            state.classSearchList = action.payload.data.classes.map(cls => ({ name: cls.name, id: cls.id, selected: true }))
+            state.classSearch = [...new Set(action.payload.data.classes.map(cls => cls.name))]
         })
     }
 })
@@ -121,7 +140,10 @@ export const {
     handleResetSlice,
     handleChangeStudentFatherCNIC,
     handleChangeStudentCNIC,
-    handleChangeQueryModalOpen
+    handleChangeQueryModalOpen,
+    handleChangeCnicSearch,
+    handleChangeNameSearch,
+    handleChangeClassSearch
 } = studentSlice.actions
 
 
@@ -143,5 +165,9 @@ export const getStudentModalOpen = state => state.student.studentModalOpen
 export const getStudenstList = state => state.student.studentList
 export const getClassList = state => state.student.classList
 export const getQueryModalOpen = state => state.student.queryModalOpen
+export const getClassSearchList = state => state.student.classSearchList
+export const getCnicSearch = state => state.student.cnicSearch
+export const getNameSearch = state => state.student.nameSearch
+export const getClassSearch= state => state.student.classSearch
 
 export default studentSlice.reducer 
