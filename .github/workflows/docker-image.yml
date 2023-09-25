@@ -20,7 +20,7 @@ jobs:
       run: mv sample.env .env
    
     - name: stop and downgrade all containers with images
-      run: docker compose down -v --rmi
+      run: docker compose down -v --rmi all
       
     - name: Build the Docker image
       run: docker compose build --no-cache
