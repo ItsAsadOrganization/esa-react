@@ -18,6 +18,9 @@ jobs:
 
     - name: Rename sample to env
       run: mv sample.env .env
+   
+    - name: stop and downgrade all containers with images
+      run: docker compose down -v --rmi
       
     - name: Build the Docker image
       run: docker compose build --no-cache
