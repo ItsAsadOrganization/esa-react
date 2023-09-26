@@ -12,7 +12,6 @@ class SalarTaxFetchService {
             return salary.data.calculation
 
         } catch (err) {
-            console.log({ err })
             // next(err)
         }
     }

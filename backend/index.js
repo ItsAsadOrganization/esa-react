@@ -9,7 +9,7 @@ const helmet = require('helmet')
 var cron = require('node-cron');
 
 
-// const logger = require("./app/common/logging")
+const logger = require("./app/common/logging")
 const sequelize = require("./app/common/sequelize")
 const Users = require("./app/models/users")
 const Classes = require("./app/models/classes")
@@ -68,7 +68,6 @@ socketIO.on('connection', (socket) => {
             username: socket.username,
         });
     }
-    console.log("\n\n\n", { users })
     console.log(`⚡: ${socket.id} user just connected!`);
 
 
@@ -142,16 +141,13 @@ app.use(async (req, res, next) => {
 
 let connectToRedisStore = async (req, res, next) => {
     try {
-        // logger.info("Trying to connect to Redis")
-        console.log("Trying to connect")
+        logger.info("Trying to connect to Redis")
         await redisClient.connect()
-        console.log("Conncted")
-        // logger.info("Redis Connectin Successful")
+        logger.info("Redis Connectin Successful")
 
-        // logger.info("Redis store initialized")
+        logger.info("Redis store initialized")
     } catch (err) {
-        console.log(">>>>>>>>>>>>>>>>> ", err)
-        // logger.error("error connectibg redis ", err)
+        logger.error("error connectibg redis ", err)
     }
 }
 
@@ -272,7 +268,7 @@ let connect = async () => {
         await createDefaultGroups()
         await createDefaultUser()
     } catch (err) {
-        console.log(err)
+       logger.error(err)
     }
 }
 
@@ -284,14 +280,14 @@ let createDefaultGroups = async () => {
                 where: { name: usr.name },
                 defaults: usr
             }).then(([user, created]) => {
-                console.log('Group :', user.name, 'Created:', created);
+                logger.info('Group :', user.name, 'Created:', created)
             })
                 .catch(error => {
                     console.error('Error creating or finding group:', error);
                 });
         });
     } catch (err) {
-        console.log(err)
+        logger.error(err)
     }
 }
 
@@ -307,14 +303,14 @@ let createDefaultUser = async () => {
                     role: usr.role
                 }
             }).then(([user, created]) => {
-                console.log('User:', user.name, 'Created:', created);
+                logger.info('User:', user.name, 'Created:', created)
             })
                 .catch(error => {
-                    console.error('Error creating or finding user:', error);
+                    logger.error('Error creating or finding user:', error);
                 });
         });
     } catch (err) {
-        console.log(err)
+        logger.log(err)
     }
 }
 
@@ -328,10 +324,10 @@ let createDefaultClasses = async () => {
                 defaults: user, // Provide the attributes to create if the record doesn't exist
             })
                 .then(([user, created]) => {
-                    console.log('Classes:', user.name, 'Created:', created);
+                    logger.log('Classes:', user.name, 'Created:', created);
                 })
                 .catch(error => {
-                    console.error('Error creating or finding user:', error);
+                    loffer.error('Error creating or finding user:', error);
                 });
         });
 
@@ -342,10 +338,10 @@ let createDefaultClasses = async () => {
                 defaults: user, // Provide the attributes to create if the record doesn't exist
             })
                 .then(([user, created]) => {
-                    console.log('Config for :', user.name, 'Created');
+                    logger.log('Config for :', user.name, 'Created');
                 })
                 .catch(error => {
-                    console.error('Error creating or finding user:', error);
+                    logger.error('Error creating or finding user:', error);
                 });
         });
 
@@ -356,20 +352,19 @@ let createDefaultClasses = async () => {
                 defaults: user, // Provide the attributes to create if the record doesn't exist
             })
                 .then(([user, created]) => {
-                    console.log('Config for Role :', user.name, 'Created');
+                    logger.log('Config for Role :', user.name, 'Created');
                 })
                 .catch(error => {
-                    console.error('Error creating or finding Role config:', error);
+                    logger.error('Error creating or finding Role config:', error);
                 });
         });
     } catch (err) {
-        console.log(err)
+        logger.log(err)
     }
 }
 
 let scheduleJob = async () => {
     cron.schedule('0 0 * * 0-6', () => {
-        // console.log('running a task every minute');
         VoucherManager.getExpiringVouchers("/api/voucher/expiring")
     });
 }

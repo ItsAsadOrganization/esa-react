@@ -43,4 +43,34 @@ userRouter.post("/user", (req, res, next) => {
 })
 
 
+userRouter.put("/user", (req, res, next) => {
+    try {
+        const id = req.query.id
+        const payload = req.body
+        Manager.updateUser(id, payload, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
+
+userRouter.put("/user/chpw", (req, res, next) => {
+    try {
+        const id = req.query.id
+        const payload = req.body
+        Manager.updatePassword(id, payload, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
+
+userRouter.delete("/user", (req, res, next) => {
+    try {
+        const id = req.query.id
+        Manager.delete(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
 module.exports = userRouter

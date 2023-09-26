@@ -10,9 +10,6 @@ const ProtectedRoute = ({ roles, permission, redirectPath = "/", children }) => 
   const isLoggedIn = useSelector(isUserLoggedIn);
   const userPermissions = useSelector(getUserPermissions);
   const userRole = useSelector(getUserRole);
-
-  console.log({permission})
-  console.log("....",Object.keys(userPermissions))
   if (isLoggedIn) {
     if(Object.keys(userPermissions).includes(permission)){
       return children ? children : <Outlet />;

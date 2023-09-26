@@ -22,10 +22,23 @@ class QueryManager {
         }
     }
 
+    static async getAllQueriesByUId(id, next) {
+        try {
+            const queries = await Repository.getAllQueriesByUId(id)
+            if (!queries) {
+                throw new SUCCESS({ queries: [] })
+            } else {
+                throw new SUCCESS({ queries })
+            }
+
+        } catch (err) {
+            next(err)
+        }
+    }
+
 
     static async postQuery(payload, next) {
         try {
-            console.log("\n\n\n", payload)
             const query = await Repository.postQuery(payload)
             const _student = await Repository.getQueryById(query.dataValues.id)
             if (!_student) {
@@ -55,16 +68,16 @@ class QueryManager {
     static async update(id, payload, next) {
         try {
             const query = await Repository.updateEnded(id, payload)
-            throw new SUCCESS({ query : "Updated" })
+            throw new SUCCESS({ query: "Updated" })
         } catch (err) {
             next(err)
         }
     }
-   
+
     static async delete(id, next) {
         try {
             const query = await Repository.delete(id)
-            throw new SUCCESS({ query : "Deleted Query" })
+            throw new SUCCESS({ query: "Deleted Query" })
         } catch (err) {
             next(err)
         }

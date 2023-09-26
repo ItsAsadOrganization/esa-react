@@ -1,4 +1,4 @@
-const { SUCCESS, NOTFOUND } = require("../../common/exceptions")
+const { SUCCESS, NOTFOUND, UNAUTHORIZED } = require("../../common/exceptions")
 const VoucherManager = require("../vouchers/manager")
 const Repository = require("./repository")
 
@@ -8,7 +8,7 @@ class UserManager {
         try {
             const response = await Repository.getLoginDetails(username, password)
             if (!response) {
-                throw new NOTFOUND("User not found with provided credentials")
+                throw new UNAUTHORIZED("User not found with provided credentials")
             } else {
                 sessionData.username = username
                 sessionData.password = password
@@ -33,18 +33,47 @@ class UserManager {
 
     static async getAllUsers(next) {
         try {
-            const users = await Repository.getAllUsers(false)
+            const users = await Repository.getAllUsers(true)
             throw new SUCCESS({ users })
         } catch (err) {
             next(err)
         }
     }
-    
+
     static async createUser(payload, next) {
         try {
             const u = await Repository.create(payload)
-            const user = await Repository.getUserById(u.dataValues.id) 
+            const user = await Repository.getUserById(u.dataValues.id)
             throw new SUCCESS({ user })
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async updateUser(id, payload, next) {
+        try {
+            const u = await Repository.update(id, payload)
+            const user = await Repository.getUserById(id)
+            throw new SUCCESS({ user })
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async updatePassword(id, payload, next) {
+        try {
+            const u = await Repository.updatePassword(id, payload)
+            const user = await Repository.getUserById(id)
+            throw new SUCCESS({ user })
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async delete(id, next) {
+        try {
+            const u = await Repository.delete(id)
+            throw new SUCCESS({ user: "Record Deleted" })
         } catch (err) {
             next(err)
         }

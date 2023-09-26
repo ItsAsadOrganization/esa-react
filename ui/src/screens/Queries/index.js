@@ -6,7 +6,7 @@ import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components
 import Icons from "../../common/icons"
 import { useDispatch, useSelector } from "react-redux"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
-import { getQueriesList, getQueryConfig, getQueryForm, getQueryModalOpen, getQueryStudentName, getQueryStudentPhone, handleChangeQueryConfig, handleChangeQueryFormComment, handleChangeQueryFormContactMedium, handleChangeQueryModalOpen, handleChangeQueryStudentName, handleChangeQueryStudentPhone, handleResetQueryModal, queryiesListRequested } from "./querySlice"
+import { getQueriesList, getQueryConfig, getQueryForm, getQueryModalOpen, getQueryStudentName, getQueryStudentPhone, handleChangeQueryConfig, handleChangeQueryFormCode, handleChangeQueryFormComment, handleChangeQueryFormContactMedium, handleChangeQueryModalOpen, handleChangeQueryStudentName, handleChangeQueryStudentPhone, handleResetQueryModal, queryiesListRequested } from "./querySlice"
 import { openErrorToast } from "../../common/toast"
 import Dialog from "../../components/Dialog"
 import { delQueryApi, postQueryApi, putQueryApi } from "../../api"
@@ -24,31 +24,52 @@ const Queries = () => {
     const queryConfig = useSelector(getQueryConfig)
     const [userColor, setUserColor] = React.useState([])
     const [studentId, setStudentId] = React.useState(null)
-
-
     const [nameSearch, setNameSearch] = React.useState("")
     const [phSearch, setPhSearch] = React.useState("")
+
+    const [codeSearch, setCodeSearch] = React.useState("")
+    const [medium, setMedium] = React.useState("")
+
     const [dateSearch, setDateSearch] = React.useState(null)
     const [clSearch, setClSearch] = React.useState([])
+    const canViewAll = useCan("QueriesAll")
 
     const loadQueries = () => {
         try {
             dispatch(handleAddLoading())
-            dispatch(queryiesListRequested()).unwrap()
+            dispatch(queryiesListRequested({})).unwrap()
             dispatch(handleRemoveLoading())
         } catch (err) {
             dispatch(handleRemoveLoading())
             openErrorToast(err.message ? err.message : err)
         }
     }
+
+    const loadQueriesById = () => {
+        try {
+            dispatch(handleAddLoading())
+            dispatch(queryiesListRequested({ userId: myId })).unwrap()
+            dispatch(handleRemoveLoading())
+        } catch (err) {
+            dispatch(handleRemoveLoading())
+            openErrorToast(err.message ? err.message : err)
+        }
+    }
+
     React.useEffect(() => {
-        loadQueries()
-    }, [])
+        if (canViewAll !== null && canViewAll) {
+            loadQueries()
+        }
+        if (canViewAll !== null && canViewAll === false) {
+            loadQueriesById()
+        }
+    }, [canViewAll])
 
     React.useEffect(() => {
         if (queriesList.length > 0) {
-            setUserColor([...new Set(queriesList.map(ql => ({ selected: true, user: ql.user.name, color: "hsl(" + Math.random() * 270 + ", 30%, 50%)" })))])
-            setClSearch([...new Set(queriesList.map(ql => ({ selected: true, name: ql.user.name })))])
+            const queryList = [...new Set(queriesList.map(ql => ql.user.name))]
+            setUserColor(queryList.map(ql => ({ user: ql, color: "hsl(" + Math.random() * 270 + ", 30%, 50%)" })))
+            setClSearch(queryList.map(ql => ({ selected: true, name: ql })))
         }
     }, [queriesList])
 
@@ -61,6 +82,7 @@ const Queries = () => {
             setStudentId(query.id)
             dispatch(handleChangeQueryStudentName(query.student_name))
             dispatch(handleChangeQueryStudentPhone(query.phone_number))
+            dispatch(handleChangeQueryFormCode(query.code))
             dispatch(handleChangeQueryModalOpen(true))
             dispatch(handleChangeQueryConfig(query.config))
         }
@@ -91,7 +113,16 @@ const Queries = () => {
                 background: theme => theme.palette.background.paper,
                 mb: 1
             }} >
-                <Grid item xs={!2} md={3} >
+                <Grid item xs={!2} md={2} >
+                    <TextField fullWidth
+                        value={codeSearch} onChange={e => setCodeSearch(e.target.value)}
+                        InputProps={
+                            { startAdornment: <Icons.Search sx={{ mr: 1 }} /> }
+                        }
+                        placeholder="Code Search"
+                        sx={{ maxWidth: '96%' }} size="small" />
+                </Grid>
+                <Grid item xs={!2} md={2} >
                     <TextField fullWidth
                         value={nameSearch} onChange={e => setNameSearch(e.target.value)}
                         InputProps={
@@ -164,7 +195,6 @@ const Queries = () => {
                                                         checked={cls.selected}
                                                         onChange={(e) => {
                                                             let _cl = [...clSearch]
-                                                            console.log({ _cl })
                                                             _cl[index].selected = e.target.checked
                                                             setClSearch(_cl)
                                                         }}
@@ -179,7 +209,7 @@ const Queries = () => {
                     </FormControl>
                 </Grid>
 
-                <Grid item xs={!2} md={3} >
+                <Grid item xs={!2} md={2} >
                     <TextField type="date" value={dateSearch} onChange={e => setDateSearch(e.target.value)} label="Date Created" fullWidth sx={{ maxWidth: '96%' }} size="small" />
                 </Grid>
             </Grid>
@@ -190,9 +220,15 @@ const Queries = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    <ExplicitTable tableSize="small" columns={[{ name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Actions", align: "right" }]}>
+                    <ExplicitTable tableSize="small" columns={[{ name: "Code" }, { name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Actions", align: "right" }]}>
                         {queriesList.length > 0 ?
                             queriesList.filter(ql => {
+                                if (codeSearch) {
+                                    return ql.code.includes(codeSearch)
+                                } else {
+                                    return ql
+                                }
+                            }).filter(ql => {
                                 if (nameSearch) {
                                     return ql.student_name.toLowerCase().includes(nameSearch.toLowerCase())
                                 } else {
@@ -219,6 +255,7 @@ const Queries = () => {
                                     }
                                 }).map(query => (
                                     <StyledTableRow>
+                                        <StyledTableCell>{query.code}</StyledTableCell>
                                         <StyledTableCell >
                                             {query.student_name}
                                         </StyledTableCell>
@@ -267,6 +304,7 @@ const Queries = () => {
                             studentId === null ? await postQueryApi({
                                 student_name: name,
                                 phone_number: phone,
+                                code: queryForm.code,
                                 config: [{
                                     comment: queryForm.comment,
                                     contact_medium: queryForm.contact_medium,
@@ -276,6 +314,7 @@ const Queries = () => {
                                 id: studentId,
                                 student_name: name,
                                 phone_number: phone,
+                                code: queryForm.code,
                                 config: [...queryConfig, {
                                     comment: queryForm.comment,
                                     contact_medium: queryForm.contact_medium,
@@ -286,7 +325,11 @@ const Queries = () => {
                             dispatch(handleChangeQueryStudentPhone(''))
                             dispatch(handleResetQueryModal())
                             setStudentId(null)
-                            loadQueries()
+                            if (canViewAll) {
+                                loadQueries()
+                            } else {
+                                loadQueriesById()
+                            }
                             dispatch(handleRemoveLoading())
                         } catch (err) {
                             dispatch(handleRemoveLoading())
@@ -296,6 +339,12 @@ const Queries = () => {
                 }]}
             >
                 {studentId === null ? <Grid container>
+                    <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
+                        <TextField value={queryForm.code} onChange={e => {
+                            dispatch(handleChangeQueryFormCode(e.target.value))
+                        }} sx={{ width: '98%' }} label="Code" fullWidth size="small" />
+                    </Grid>
+
                     <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
                         <TextField value={name} onChange={e => {
                             dispatch(handleChangeQueryStudentName(e.target.value))
@@ -327,6 +376,11 @@ const Queries = () => {
 
                 </Grid> : <>
                     <Grid container>
+                        <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
+                            <TextField value={queryForm.code} onChange={e => {
+                                dispatch(handleChangeQueryFormCode(e.target.value))
+                            }} sx={{ width: '98%' }} label="Code" fullWidth size="small" />
+                        </Grid>
                         <Grid item xs={8} sx={{ mb: 2 }}>
                             <TextField value={queryForm.comment}
                                 onChange={e => {
@@ -364,9 +418,7 @@ const Queries = () => {
                             </Box>
                         </Grid>
                     </Grid>
-
                 </>
-
                 }
             </Dialog>
         </Container>

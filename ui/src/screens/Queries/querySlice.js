@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { QUERIES_SLICE_NAME } from "./constants";
+import { QUERIES_LIST_REQUESTED, QUERIES_SLICE_NAME } from "./constants";
 import { getQueriesApi } from "../../api";
 
 
-export const queryiesListRequested = createAsyncThunk("", async () => {
+export const queryiesListRequested = createAsyncThunk(QUERIES_LIST_REQUESTED, async ({ userId = null }) => {
     try {
-        const response = await getQueriesApi()
+        const response = await getQueriesApi({id: userId})
         return response
     } catch (err) {
         throw err
@@ -24,6 +24,7 @@ const querySlice = createSlice({
             comment: "",
             followUpDate: null,
             contact_medium: "",
+            code: ""
         },
         queryConfig: {},
         queryStdId: null
@@ -32,6 +33,7 @@ const querySlice = createSlice({
         handleChangeQueryStudentName: (state, action) => { state.queryStudentName = action.payload },
         handleChangeQueryStudentPhone: (state, action) => { state.queryStudentPhone = action.payload },
         handleChangeQueryModalOpen: (state, action) => { state.queryModalOpen = action.payload },
+        handleChangeQueryFormCode: (state, action) => { state.queryForm.code = action.payload },
         handleChangeQueryFormComment: (state, action) => { state.queryForm.comment = action.payload },
         handleChangeQueryFormFollowUpDate: (state, action) => { state.queryForm.followUpDate = action.payload },
         handleChangeQueryFormContactMedium: (state, action) => { state.queryForm.contact_medium = action.payload },
@@ -44,6 +46,7 @@ const querySlice = createSlice({
                 comment: "",
                 followUpDate: null,
                 contact_medium: "",
+                code: ""
             }
         },
         handleResetQuerySlice: (state) => {
@@ -55,6 +58,7 @@ const querySlice = createSlice({
                 comment: "",
                 followUpDate: null,
                 contact_medium: "",
+                code: ""
             }
         }
     },
@@ -75,7 +79,8 @@ export const {
     handleResetQueryModal,
     handleResetQuerySlice,
     handleChangeQueryStudentName,
-    handleChangeQueryStudentPhone
+    handleChangeQueryStudentPhone,
+    handleChangeQueryFormCode
 } = querySlice.actions
 
 

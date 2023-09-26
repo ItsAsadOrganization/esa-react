@@ -8,13 +8,12 @@ import { LOGIN_SLICE_NAME, LOGIN_REQUESTED, TOKEN_MISSING_ERROR } from './consta
 export const loginRequested = createAsyncThunk(LOGIN_REQUESTED, async ({ username, password }) => {
     try {
         const response = await loginUserApi(username, password);
-        // if(response.headers.authorization) {
+        if(response.headers.authorization) {
         return response;
-        // }
-        // throw TOKEN_MISSING_ERROR;
+        }
+        throw TOKEN_MISSING_ERROR;
     }
     catch (err) {
-        console.log({ err })
         throw err.data;
     }
 });

@@ -7,6 +7,7 @@ import { AUTH_TOKEN_KEY } from '../common/constants';
 import { dispatch } from '../store';
 import { handleLogout } from '../screens/Login/loginSlice';
 import { setItem, getItem } from '../utils/storage';
+import { openErrorToast } from '../common/toast';
 
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -33,7 +34,8 @@ export const removeAuthToken = () => {
 export function parseClientError(error) {
     let parsed = 'Seems like a cog stopped moving.';
 
-    if (error.response && error.response.status === 401 || error.message === NETWORK_ERROR) {
+    if (error.response && error.response.status === 401) {
+        openErrorToast(error.response.data.data);
         dispatch(handleLogout());
     }
     const message = (error.response
