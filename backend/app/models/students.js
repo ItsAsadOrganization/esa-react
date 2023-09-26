@@ -40,6 +40,9 @@ const Students = sequelize.define("students", {
     phone_3: {
         type: DataTypes.STRING,
     },
+    gender: {
+        type: DataTypes.ENUM("male","female"),
+    },
     avatar: {
         type: DataTypes.TEXT("long"),
     },

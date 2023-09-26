@@ -66,11 +66,19 @@ studentsRouter.get("/student", (req, res, next) => {
     }
 })
 
-studentsRouter.put("/student", (req, res, next) => {
+studentsRouter.put("/student", upload.single("avatar"), (req, res, next) => {
     try {
-        const payload = req.body
-        const id = req.query.id
-        Manager.updateStudent(id, payload, next)
+        if (req.files) {
+            const payload = req.body
+            const id = req.query.id
+            payload["avatar"] = 'uploads/' + req.file.originalname
+            Manager.updateStudent(id, payload, next)
+        } else {
+            const payload = req.body
+            const id = req.query.id
+            payload["avatar"] = null
+            Manager.updateStudent(id, payload, next)
+        }
     } catch (err) {
         next(err)
     }

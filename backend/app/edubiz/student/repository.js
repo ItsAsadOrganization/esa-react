@@ -7,7 +7,6 @@ class StudentsRepository {
     static async getAllStudents(paranoid) {
         const studnets = await Students.findAll({
             raw: true,
-            attributes: ["id", "name", "father_name", "email_address", "cnic", "avatar"],
             include: [
                 {
                     model: Classes,
@@ -22,7 +21,6 @@ class StudentsRepository {
     static async getAllStudentsWithClasses() {
         const studnets = await Students.findAll({
             raw: true,
-            attributes: ["id", "name", "enrolled", "createdAt", "avatar"],
             include: [
                 {
                     model: Classes,

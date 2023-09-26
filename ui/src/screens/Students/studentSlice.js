@@ -38,6 +38,7 @@ const studentSlice = createSlice({
             phone_2: "",
             phone_3: "",
             address: "",
+            gender: "male",
             avatar: null,
             classId: null,
             fatther_nic: "",
@@ -58,6 +59,7 @@ const studentSlice = createSlice({
         handleChangeStudentAvatar: (state, action) => { state.student.avatar = action.payload },
         handleChangeStudentFatherCNIC: (state, action) => { state.student.fatther_nic = action.payload },
         handleChangeStudentCNIC: (state, action) => { state.student.cnic = action.payload },
+        handleChangeStudentGender: (state, action) => { state.student.gender = action.payload },
 
 
         handleChangeCnicSearch: (state, action) => { state.cnicSearch = action.payload },
@@ -92,6 +94,7 @@ const studentSlice = createSlice({
             state.student.fatther_nic = ""
             state.student.cnic = ""
             state.student.classId = null
+            state.student.gender = 'male'
         },
         handleResetSlice: (state) => {
             state.studentModalOpen = false
@@ -106,6 +109,7 @@ const studentSlice = createSlice({
             state.student.avatar = null
             state.student.fatther_nic = ""
             state.student.cnic = ""
+            state.student.gender = "male"
             state.student.classId = null
             state.studentList = []
             state.classList = []
@@ -143,7 +147,8 @@ export const {
     handleChangeQueryModalOpen,
     handleChangeCnicSearch,
     handleChangeNameSearch,
-    handleChangeClassSearch
+    handleChangeClassSearch,
+    handleChangeStudentGender
 } = studentSlice.actions
 
 
@@ -160,6 +165,9 @@ export const getStudentPhone2 = state => state.student.student.phone_2
 export const getStudentPhone3 = state => state.student.student.phone_3
 export const getStudentAddress = state => state.student.student.address
 export const getStudentAvatar = state => state.student.student.avatar
+
+export const getStudentGender = state => state.student.student.gender
+
 export const getStudentClassId = state => state.student.student.classId
 export const getStudentModalOpen = state => state.student.studentModalOpen
 export const getStudenstList = state => state.student.studentList

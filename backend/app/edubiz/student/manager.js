@@ -17,8 +17,8 @@ class StudentsManager {
             next(err)
         }
     }
-    
-    static async getAllStudentsWithClasses( next) {
+
+    static async getAllStudentsWithClasses(next) {
         try {
             const students = await Repository.getAllStudentsWithClasses()
             if (!students) {
@@ -88,6 +88,7 @@ class StudentsManager {
 
     static async updateStudent(id, payload, next) {
         try {
+            console.log("\n\n\n\n", { payload })
             const _student = await Repository.putStudent(id, payload)
             if (_student === 0) {
                 throw new INTERNAL_SERVER_ERROR("Error updating record")
