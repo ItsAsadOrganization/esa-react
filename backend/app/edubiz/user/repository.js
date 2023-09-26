@@ -40,6 +40,30 @@ class UserRepository {
         return user
     }
 
+    static async update(id, payload) {
+        const user = await Users.update({
+            name: payload.name,
+            email: payload.email,
+            roleId: payload.roleId
+        }, { where: { id } })
+        return user
+    }
+
+    static async updatePassword(id, payload) {
+        const user = await Users.update({
+            password: payload.password
+        }, {
+            where: { id },
+            individualHooks: true,
+        })
+        return user
+    }
+
+    static async delete(id) {
+        const user = await Users.destroy({ where: { id } })
+        return user
+    }
+
     static async getUserById(id) {
         const user = await Users.findByPk(id, {
             raw: true,

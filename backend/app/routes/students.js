@@ -48,7 +48,6 @@ studentsRouter.post("/student", upload.single("avatar"), async (req, res, next) 
             Manager.postStudent(payload, session, next)
         }
     } catch (err) {
-        console.log({ err })
         next(err)
     }
 })

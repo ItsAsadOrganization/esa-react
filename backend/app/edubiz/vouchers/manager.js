@@ -100,7 +100,6 @@ class VoucherManager {
                 title: "Expiring Vouchers",
                 description: `${voucher.length} Vouchers found either expired and unpaid as well as expiring today.`,
             })
-            console.log("vouchers ", voucher)
         } catch (err) {
             next(err)
         }
@@ -122,7 +121,6 @@ class VoucherManager {
             const dir = path.join(path.resolve('./'), "common", "sample.html")
         } catch (err) {
             // next(err)
-            console.log(err)
         }
     }
 }

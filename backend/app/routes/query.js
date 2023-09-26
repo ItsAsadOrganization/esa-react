@@ -5,7 +5,12 @@ let queryRouter = Router()
 
 queryRouter.get("/queries", (req, res, next) => {
     try {
-        Manager.getAllQueries(req.session, next)
+        const id = req.query.id
+        if(id){
+            Manager.getAllQueriesByUId(id, next)
+        }else{
+            Manager.getAllQueries(req.session, next)
+        }
     } catch (err) {
         next(err)
     }

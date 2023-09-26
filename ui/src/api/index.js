@@ -24,6 +24,7 @@ import {
   API_ROUTE_UPDATE_NOTY_READ,
   API_ROUTE_USER,
   API_ROUTE_USERS,
+  API_ROUTE_USER_CHPW,
   API_ROUTE_VOUCHER,
   API_ROUTE_VOUCHERS,
 } from "./constants";
@@ -167,16 +168,16 @@ export const getExpiringVouchersApi = () => {
   return get(API_ROUTE_EXPIRING_VOUCHERS, {}, {});
 };
 
-export const getQueriesApi = () => {
-  return get(API_ROUTE_QUERIES, {}, {});
+export const getQueriesApi = ({ id }) => {
+  return get(API_ROUTE_QUERIES, {}, { id });
 };
 
-export const postQueryApi = ({ student_name, phone_number, config, userId }) => {
-  return post(API_ROUTE_QUERY, { student_name, phone_number, config, userId }, {});
+export const postQueryApi = ({ student_name, phone_number, config, code, userId }) => {
+  return post(API_ROUTE_QUERY, { student_name, phone_number, config, code, userId }, {});
 };
 
-export const putQueryApi = ({ student_name, phone_number, config, userId, id }) => {
-  return put(API_ROUTE_QUERY, { student_name, phone_number, config, userId }, { id });
+export const putQueryApi = ({ student_name, phone_number, config, userId, code, id }) => {
+  return put(API_ROUTE_QUERY, { student_name, phone_number, config, userId, code }, { id });
 };
 
 export const delQueryApi = ({ id }) => {
@@ -214,4 +215,16 @@ export const getUsersApi = () => {
 
 export const postUserInfoApi = ({ name, email, roleId, password }) => {
   return post(API_ROUTE_USER, { name, email, roleId, password }, {});
+};
+
+export const putUserInfoApi = ({ name, email, roleId, id }) => {
+  return put(API_ROUTE_USER, { name, email, roleId }, { id });
+};
+
+export const putUserPwdApi = ({ password, id }) => {
+  return put(API_ROUTE_USER_CHPW, { password }, { id });
+};
+
+export const delUserInfoApi = ({ id }) => {
+  return del(API_ROUTE_USER, {}, { id });
 };

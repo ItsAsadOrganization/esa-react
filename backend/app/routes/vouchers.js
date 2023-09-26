@@ -70,8 +70,7 @@ voucherRouter.post("/voucher/print", (req, res, next) => {
         Manager.printVoucher(voucher_id, next)
     } catch (err) {
         // next(err)
-        console.log("\n\n\n\n")
-        console.log(err)
+        logger.log(err)
     }
 })
 

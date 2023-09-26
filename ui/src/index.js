@@ -43,7 +43,6 @@ const App = () => {
   return (
 
     <ThemeProvider theme={theme}>
-      {console.log(`${window.location.protocol}//${window.location.hostname}:3502`)}
       <BrowserRouter>
         <Layout />
         <ToastContainer autoClose={5000} draggable={false} limit={5} />

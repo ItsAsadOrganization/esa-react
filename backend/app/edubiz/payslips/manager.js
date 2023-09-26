@@ -45,7 +45,6 @@ class Manager {
                 let tax = await SalarTaxFetchService.getTaxRateFromFBR(grossSalary)
                 let total_deductions = parseFloat(tax.monthly.tax.replace(/,/g, "")) + element.salary.deductions.late_arrivals.amount + element.salary.deductions.unpaid_leaves.amount
 
-                // console.log("\n\n\n", { increment, incrementedSalary, grossSalary, tax })
                 element.salary.deductions.icome_tax = parseFloat(tax.monthly.tax.replace(/,/g, ""));
                 element.salary.payments["gross_salary"] = grossSalary
 
@@ -65,7 +64,6 @@ class Manager {
             throw new SUCCESS({ message: "PaySlips Created" })
         } catch (err) {
             next(err)
-            console.log("\n\n\n", { err })
         }
     }
 
@@ -89,7 +87,6 @@ class Manager {
             let tax = await SalarTaxFetchService.getTaxRateFromFBR(grossSalary)
             let total_deductions = parseFloat(tax.monthly.tax.replace(/,/g, "")) + tutSalary.salary.deductions.late_arrivals.amount + tutSalary.salary.deductions.unpaid_leaves.amount
 
-            // console.log("\n\n\n", { increment, incrementedSalary, grossSalary, tax })
             tutSalary.salary.deductions.icome_tax = parseFloat(tax.monthly.tax.replace(/,/g, ""));
             tutSalary.salary.payments["gross_salary"] = grossSalary
 
@@ -108,7 +105,6 @@ class Manager {
             throw new SUCCESS({ message: "PaySlips Created" })
         } catch (err) {
             next(err)
-            console.log("\n\n\n", { err })
         }
     }
 

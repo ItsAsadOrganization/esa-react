@@ -11,6 +11,7 @@ let sequelize = new Sequelize(
         host: process.env.DB_HOST,
         dialect: process.env.DB_DIALECT,
         port: process.env.DB_PORT || 5432,
+        logging: true,
         define: {
             timestamps: true,
             freezeTableName: true

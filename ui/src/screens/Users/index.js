@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux"
 import React from "react"
 import { openErrorToast } from "../../common/toast"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
-import { getAddUser, getRolesList, getUsersList, handleChangeUserDetail, usersListRequested } from "./usersSlice"
+import { getAddUser, getAddUserId, getRolesList, getUsersList, handleChangeUserDetail, handleChangeUserId, usersListRequested } from "./usersSlice"
 import Icons from "../../common/icons"
 import Dialog from "../../components/Dialog"
 import { handlResetForm } from './usersSlice'
-import { postUserInfoApi } from "../../api"
+import { delUserInfoApi, postUserInfoApi, putUserInfoApi, putUserPwdApi } from "../../api"
 
 const Users = () => {
 
@@ -18,6 +18,7 @@ const Users = () => {
     const usersList = useSelector(getUsersList)
     const rolesList = useSelector(getRolesList)
     const userinfo = useSelector(getAddUser)
+    const uId = useSelector(getAddUserId)
 
     const [modal, setModal] = React.useState({
         open: false,
@@ -45,7 +46,7 @@ const Users = () => {
 
     React.useEffect(() => {
         handleChangePassword()
-    }, [setPassword])
+    }, [password.pwd, password.newPwd])
 
 
     const loadUsers = async () => {
@@ -68,7 +69,11 @@ const Users = () => {
             color: "primary",
             size: "small",
             action: (user) => {
-
+                dispatch(handleChangeUserId(user.id))
+                setModal({
+                    open: true,
+                    action: "chpw"
+                })
             }
         },
         {
@@ -76,14 +81,45 @@ const Users = () => {
             icon: Icons.BorderColor,
             color: "secondary",
             size: "small",
-            action: () => { }
+            action: (user) => {
+                dispatch(handleChangeUserDetail({
+                    key: "name",
+                    value: user.name
+                }))
+
+                dispatch(handleChangeUserDetail({
+                    key: "email",
+                    value: user.email
+                }))
+
+                dispatch(handleChangeUserDetail({
+                    key: "roleId",
+                    value: user.roleId
+                }))
+
+                dispatch(handleChangeUserId(user.id))
+                setModal({
+                    open: true,
+                    action: "edit"
+                })
+            }
         },
         {
             label: "Delete",
             icon: Icons.Delete,
             color: "error",
             size: "small",
-            action: () => { }
+            action: async (user) => {
+                try {
+                    dispatch(handleAddLoading())
+                    await delUserInfoApi({ id: user.id })
+                    loadUsers()
+                    dispatch(handleRemoveLoading())
+                } catch (err) {
+                    dispatch(handleRemoveLoading())
+                    openErrorToast(err.message ? err.message : err)
+                }
+            }
         }
     ]
 
@@ -160,16 +196,31 @@ const Users = () => {
                     variant: "contained",
                     size: "small",
                     color: "primary",
-                    disabled: (!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd),
+                    disabled: modal.action === "add" && (!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd),
                     action: async () => {
                         try {
                             dispatch(handleAddLoading())
-                            await postUserInfoApi({
-                                name: userinfo.name,
-                                email: userinfo.email,
-                                password: userinfo.password,
-                                roleId: userinfo.roleId
-                            })
+                            if (modal.action === "add") {
+                                await postUserInfoApi({
+                                    name: userinfo.name,
+                                    email: userinfo.email,
+                                    password: userinfo.password,
+                                    roleId: userinfo.roleId
+                                })
+                            } else if (modal.action === "edit") {
+                                await putUserInfoApi({
+                                    name: userinfo.name,
+                                    email: userinfo.email,
+                                    roleId: userinfo.roleId,
+                                    id: uId
+                                })
+                            } else if (modal.action === "chpw") {
+                                await putUserPwdApi({
+                                    password: userinfo.password,
+                                    id: uId
+                                })
+                            }
+
                             await dispatch(usersListRequested()).unwrap()
                             dispatch(handlResetForm())
                             setModal({
@@ -188,75 +239,80 @@ const Users = () => {
                 }]}
             >
                 <Grid container rowGap={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            error={!userinfo.name}
-                            helperText={!userinfo.name ? "Required Field" : ""}
-                            fullWidth size="small" label="Name" value={userinfo.name} onChange={(e) => {
-                                dispatch(handleChangeUserDetail({
-                                    key: "name",
-                                    value: e.target.value
-                                }))
-                            }} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            error={!userinfo.email}
-                            helperText={!userinfo.email ? "Required Field" : ""}
-                            fullWidth size="small" label="Email Address" value={userinfo.email} onChange={(e) => {
-                                dispatch(handleChangeUserDetail({
-                                    key: "email",
-                                    value: e.target.value
-                                }))
-                            }} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            error={!userinfo.roleId}
-                            helperText={!userinfo.roleId ? "Required Field" : ""}
-                            fullWidth size="small" label="Role" select value={userinfo.roleId ? userinfo.roleId : ""} onChange={(e) => {
-                                dispatch(handleChangeUserDetail({
-                                    key: "roleId",
-                                    value: e.target.value
-                                }))
-                            }} >
-                            {rolesList.length > 0 ?
-                                rolesList.filter(r => r.name !== "superadmin").map(role => (
-                                    <MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
-                                ))
-                                : ""}
-                        </TextField>
-                    </Grid>
+                    {(uId === null || modal.action === "edit") && <>
+                        <Grid item xs={12}>
+                            <TextField
+                                error={!userinfo.name}
+                                helperText={!userinfo.name ? "Required Field" : ""}
+                                fullWidth size="small" label="Name" value={userinfo.name} onChange={(e) => {
+                                    dispatch(handleChangeUserDetail({
+                                        key: "name",
+                                        value: e.target.value
+                                    }))
+                                }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                error={!userinfo.email}
+                                helperText={!userinfo.email ? "Required Field" : ""}
+                                fullWidth size="small" label="Email Address" value={userinfo.email} onChange={(e) => {
+                                    dispatch(handleChangeUserDetail({
+                                        key: "email",
+                                        value: e.target.value
+                                    }))
+                                }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                error={!userinfo.roleId}
+                                helperText={!userinfo.roleId ? "Required Field" : ""}
+                                fullWidth size="small" label="Role" select value={userinfo.roleId ? userinfo.roleId : ""} onChange={(e) => {
+                                    dispatch(handleChangeUserDetail({
+                                        key: "roleId",
+                                        value: e.target.value
+                                    }))
+                                }} >
+                                {rolesList.length > 0 ?
+                                    rolesList.filter(r => r.name !== "superadmin").map(role => (
+                                        <MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+                                    ))
+                                    : ""}
+                            </TextField>
+                        </Grid>
+                    </>}
 
-                    <Grid item xs={12}>
-                        <TextField
-                            type={!vtype ? "password" : "text"}
-                            InputProps={{
-                                endAdornment: <IconButton onClick={() => setVtype(!vtype)}>
-                                    {!vtype ? <Icons.Visibility /> : <Icons.VisibilityOff />}
-                                </IconButton>
-                            }}
-                            error={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd)}
-                            helperText={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd) ? "Password Mismatch" : ""}
-                            fullWidth size="small" label="Password" value={password.pwd} onChange={(e) => {
-                                setPassword({ ...password, pwd: e.target.value })
-                            }} />
-                    </Grid>
+                    {(uId === null || modal.action === "chpw") &&
+                        <Grid item xs={12}>
+                            <TextField
+                                type={!vtype ? "password" : "text"}
+                                InputProps={{
+                                    endAdornment: <IconButton onClick={() => setVtype(!vtype)}>
+                                        {!vtype ? <Icons.Visibility /> : <Icons.VisibilityOff />}
+                                    </IconButton>
+                                }}
+                                error={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd)}
+                                helperText={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd) ? "Password Mismatch" : ""}
+                                fullWidth size="small" label="Password" value={password.pwd} onChange={(e) => {
+                                    setPassword({ ...password, pwd: e.target.value })
+                                }} />
+                        </Grid>
+                    }
 
-                    <Grid item xs={12}>
-                        <TextField
-                            type={!vtype ? "password" : "text"}
-                            InputProps={{
-                                endAdornment: <IconButton onClick={() => setVtype(!vtype)}>
-                                    {!vtype ? <Icons.Visibility /> : <Icons.VisibilityOff />}
-                                </IconButton>
-                            }}
-                            error={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd)}
-                            helperText={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd) ? "Password Mismatch" : ""}
-                            fullWidth size="small" label="Confirm Password" value={password.newPwd} onChange={(e) => {
-                                setPassword({ ...password, newPwd: e.target.value })
-                            }} />
-                    </Grid>
+                    {(uId === null || modal.action === "chpw") &&
+                        <Grid item xs={12}>
+                            <TextField
+                                type={!vtype ? "password" : "text"}
+                                InputProps={{
+                                    endAdornment: <IconButton onClick={() => setVtype(!vtype)}>
+                                        {!vtype ? <Icons.Visibility /> : <Icons.VisibilityOff />}
+                                    </IconButton>
+                                }}
+                                error={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd)}
+                                helperText={(!password.pwd || !password.newPwd) || (password.pwd !== password.newPwd) ? "Password Mismatch" : ""}
+                                fullWidth size="small" label="Confirm Password" value={password.newPwd} onChange={(e) => {
+                                    setPassword({ ...password, newPwd: e.target.value })
+                                }} />
+                        </Grid>}
 
                 </Grid>
             </Dialog>

@@ -16,6 +16,18 @@ class QueryRepository {
         return queries
     }
 
+    static async getAllQueriesByUId(id) {
+        const queries = await Queries.findAll({
+            include: [
+                { model: Users, attributes: ["name"] }
+            ],
+            where: {
+                userId: id
+            }
+        })
+        return queries
+    }
+
     static async postQuery(payload) {
         const queries = await Queries.create(payload)
         return queries

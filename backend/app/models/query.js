@@ -8,6 +8,9 @@ const Queries = sequelize.define("queries", {
         unique: true,
         primaryKey: true
     },
+    code: {
+        type: DataTypes.STRING,
+    },
     student_name: {
         type: DataTypes.STRING,
     },
