@@ -8,7 +8,7 @@ class QueryManager {
     static async getAllQueries(session, next) {
         try {
             const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
+            const paranoid = sessionData.role === 1 ? false : true
 
             const queries = await Repository.getAllQueries(paranoid)
             if (!queries) {
@@ -68,6 +68,15 @@ class QueryManager {
     static async update(id, payload, next) {
         try {
             const query = await Repository.updateEnded(id, payload)
+            throw new SUCCESS({ query: "Updated" })
+        } catch (err) {
+            next(err)
+        }
+    }
+    
+    static async updateMaturity(id, payload, next) {
+        try {
+            const query = await Repository.updateMaturity(id, payload)
             throw new SUCCESS({ query: "Updated" })
         } catch (err) {
             next(err)

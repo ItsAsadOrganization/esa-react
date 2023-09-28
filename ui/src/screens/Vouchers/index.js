@@ -308,7 +308,7 @@ const Vouchers = () => {
                                     <StyledTableCell >{v.is_paid ? <Chip label="Paid" color="success" size="small" sx={{ px: 2 }} /> : <Chip label="UnPaid" color="error" size="small" sx={{ px: 2 }} />}</StyledTableCell>
                                     <StyledTableCell sx={{}}>
                                         Mode: {v.payment_mode}<br />
-                                        {v.payment_mode !== "cash" ? "Ref: " + v.config.reference : ""}
+                                        {"Ref: " + v.config.reference}
 
                                     </StyledTableCell>
                                     <StyledTableCell>
@@ -467,7 +467,7 @@ const Vouchers = () => {
                         </TextField>
                     </Grid>}
 
-                    {(drawerUser.is_paid && drawerUser.payment_mode !== "cash") && <Grid item xs={12}>
+                    {(drawerUser.is_paid) && <Grid item xs={12}>
                         <TextField label="Reference ID" fullWidth size="small" value={drawerUser.config.reference ? drawerUser.config.reference : reference} onChange={(e) => dispatch(handleChangeVoucherPaymentReference(e.target.value))} />
                     </Grid>}
 

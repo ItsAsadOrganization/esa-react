@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Chip, Container, Fab, FormControl, FormControlLabel, Grid, Icon, IconButton, InputLabel, MenuItem, Select, TextField } from "@mui/material"
+import { Box, Button, Checkbox, Chip, Container, Fab, FormControl, FormControlLabel, Grid, Icon, IconButton, InputLabel, MenuItem, Select, TextField, Tooltip } from "@mui/material"
 import React from "react"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
 import { BREADCRUMBS, CONTACT_MEDUM } from "./constants"
@@ -7,9 +7,9 @@ import Icons from "../../common/icons"
 import { useDispatch, useSelector } from "react-redux"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 import { getQueriesList, getQueryConfig, getQueryForm, getQueryModalOpen, getQueryStudentName, getQueryStudentPhone, handleChangeQueryConfig, handleChangeQueryFormCode, handleChangeQueryFormComment, handleChangeQueryFormContactMedium, handleChangeQueryModalOpen, handleChangeQueryStudentName, handleChangeQueryStudentPhone, handleResetQueryModal, queryiesListRequested } from "./querySlice"
-import { openErrorToast } from "../../common/toast"
+import { openErrorToast, openSuccessToast } from "../../common/toast"
 import Dialog from "../../components/Dialog"
-import { delQueryApi, postQueryApi, putQueryApi } from "../../api"
+import { delQueryApi, patchQueryApi, postQueryApi, putQueryApi } from "../../api"
 import { getUserId, getUserName } from "../Login/loginSlice"
 import useCan from "../../hooks/useCan"
 
@@ -28,7 +28,7 @@ const Queries = () => {
     const [phSearch, setPhSearch] = React.useState("")
 
     const [codeSearch, setCodeSearch] = React.useState("")
-    const [medium, setMedium] = React.useState("")
+    const [isMatured, setIsMatured] = React.useState(false)
 
     const [dateSearch, setDateSearch] = React.useState(null)
     const [clSearch, setClSearch] = React.useState([])
@@ -85,6 +85,7 @@ const Queries = () => {
             dispatch(handleChangeQueryFormCode(query.code))
             dispatch(handleChangeQueryModalOpen(true))
             dispatch(handleChangeQueryConfig(query.config))
+            setIsMatured(query.is_matured)
         }
     }, {
         label: "Delete",
@@ -220,7 +221,7 @@ const Queries = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    <ExplicitTable tableSize="small" columns={[{ name: "Code" }, { name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Actions", align: "right" }]}>
+                    <ExplicitTable tableSize="small" columns={[{ name: "Code" }, { name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Maturity" }, { name: "Actions", align: "right" }]}>
                         {queriesList.length > 0 ?
                             queriesList.filter(ql => {
                                 if (codeSearch) {
@@ -262,6 +263,24 @@ const Queries = () => {
                                         <StyledTableCell>{query.phone_number}</StyledTableCell>
                                         <StyledTableCell sx={{ fontWeight: 700, color: userColor.find(c => c.user.toLowerCase() === query.user.name.toLowerCase())?.color }}>{query.user.name}</StyledTableCell>
                                         <StyledTableCell > {new Date(query.createdAt).getDate() + "-" + (new Date(query.createdAt).getMonth() + 1) + "-" + new Date(query.createdAt).getFullYear()}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <IconButton onClick={async () => {
+                                                try {
+                                                    dispatch(handleAddLoading())
+                                                    await patchQueryApi({ id: query.id, is_matured: !query.is_matured })
+                                                    openSuccessToast("Maturity Status Updated")
+                                                    loadQueries()
+                                                    dispatch(handleRemoveLoading())
+                                                } catch (err) {
+                                                    dispatch(handleRemoveLoading())
+                                                    openErrorToast(err.message ? err.message : err)
+                                                }
+                                            }}>
+                                                <Tooltip title={"Maturity"} >
+                                                    {query.is_matured ? <Icons.DoneAll /> : <Icons.RemoveDone />}
+                                                </Tooltip>
+                                            </IconButton>
+                                        </StyledTableCell>
                                         <StyledTableCell sx={{ textAlign: "right" }}>
                                             {actionButtonArray.filter(btn => btn.visibility).map(btn => (
                                                 <IconButton onClick={() => btn.action(query)} color={btn.color}>
@@ -298,6 +317,7 @@ const Queries = () => {
                     variant: "contained",
                     color: "primary",
                     size: "small",
+                    disabled: isMatured,
                     action: async () => {
                         try {
                             dispatch(handleAddLoading())
@@ -338,32 +358,32 @@ const Queries = () => {
                     }
                 }]}
             >
-                {studentId === null ? <Grid container>
+                <Grid container>
                     <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
-                        <TextField value={queryForm.code} onChange={e => {
+                        <TextField disabled={isMatured} value={queryForm.code} onChange={e => {
                             dispatch(handleChangeQueryFormCode(e.target.value))
                         }} sx={{ width: '98%' }} label="Code" fullWidth size="small" />
                     </Grid>
 
                     <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
-                        <TextField value={name} onChange={e => {
+                        <TextField disabled={isMatured} value={name} onChange={e => {
                             dispatch(handleChangeQueryStudentName(e.target.value))
                         }} sx={{ width: '98%' }} label="Student Name" fullWidth size="small" />
                     </Grid>
 
                     <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
-                        <TextField onChange={e => {
+                        <TextField disabled={isMatured} onChange={e => {
                             dispatch(handleChangeQueryStudentPhone(e.target.value))
                         }} value={phone} sx={{ width: '98%' }} label="Phone Number" fullWidth size="small" />
                     </Grid>
-                    <Grid item xs={12} sx={{ mb: 2 }}>
+                    {!isMatured && <Grid item xs={12} sx={{ mb: 2 }}>
                         <TextField value={queryForm.comment}
                             onChange={e => {
                                 dispatch(handleChangeQueryFormComment(e.target.value))
                             }}
                             sx={{ maxWidth: '98%' }} label="Comment" fullWidth size="small" />
-                    </Grid>
-                    <Grid item xs={12} sx={{ mb: 2 }}>
+                    </Grid>}
+                    {!isMatured && <Grid item xs={12} sx={{ mb: 2 }}>
                         <TextField select value={queryForm.contact_medium}
                             onChange={e => {
                                 dispatch(handleChangeQueryFormContactMedium(e.target.value))
@@ -373,53 +393,28 @@ const Queries = () => {
                             ))}
                         </TextField>
                     </Grid>
+                    }
 
-                </Grid> : <>
-                    <Grid container>
-                        <Grid item xs={12} sx={{ margin: "auto", mb: 2 }}>
-                            <TextField value={queryForm.code} onChange={e => {
-                                dispatch(handleChangeQueryFormCode(e.target.value))
-                            }} sx={{ width: '98%' }} label="Code" fullWidth size="small" />
-                        </Grid>
-                        <Grid item xs={8} sx={{ mb: 2 }}>
-                            <TextField value={queryForm.comment}
-                                onChange={e => {
-                                    dispatch(handleChangeQueryFormComment(e.target.value))
-                                }}
-                                sx={{ maxWidth: '98%' }} label="Comment" fullWidth size="small" />
-                        </Grid>
-                        <Grid item xs={4} sx={{ mb: 2 }}>
-                            <TextField select value={queryForm.contact_medium}
-                                onChange={e => {
-                                    dispatch(handleChangeQueryFormContactMedium(e.target.value))
-                                }} sx={{ maxWidth: '98%' }} label="Communication Medium" fullWidth size="small" >
-                                {CONTACT_MEDUM.map(e => (
-                                    <MenuItem key={e} value={e}>{e}</MenuItem>
-                                ))}
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Box sx={{
-                                boxShadow: theme => theme.shadows[5],
-                                p: 1,
-                                maxHeight: 250
-                            }}>
-                                <ExplicitTable tableSize="small" columns={[{ name: "Comment" }, { name: "Communication Medium" }]}>
-                                    {queryConfig.length > 0 ?
-                                        queryConfig.map(query => (
-                                            <StyledTableRow>
-                                                <StyledTableCell sx={{ width: "70%" }}>{query.comment}</StyledTableCell>
-                                                <StyledTableCell sx={{ width: "30%" }}>{query.contact_medium}</StyledTableCell>
-                                            </StyledTableRow>
-                                        ))
-                                        : ""}
-                                </ExplicitTable>
-                            </Box>
-                        </Grid>
+                    {studentId && <Grid item xs={12}>
+                        <Box sx={{
+                            boxShadow: theme => theme.shadows[5],
+                            p: 1,
+                            maxHeight: 250
+                        }}>
+                            <ExplicitTable tableSize="small" columns={[{ name: "Comment" }, { name: "Communication Medium" }]}>
+                                {queryConfig.length > 0 ?
+                                    queryConfig.map(query => (
+                                        <StyledTableRow>
+                                            <StyledTableCell sx={{ width: "70%" }}>{query.comment}</StyledTableCell>
+                                            <StyledTableCell sx={{ width: "30%" }}>{query.contact_medium}</StyledTableCell>
+                                        </StyledTableRow>
+                                    ))
+                                    : ""}
+                            </ExplicitTable>
+                        </Box>
                     </Grid>
-                </>
-                }
+                    }
+                </Grid>
             </Dialog>
         </Container>
     )

@@ -165,10 +165,11 @@ const Layout = (props) => {
                                     }
 
                                 }}>
+                                    
                                 {
-                                    APP_ROUTES.filter(route => (
-                                        Object.keys(userPermissions).includes(`${route.label.charAt(0).toUpperCase() + route.label.slice(1)}ShowInNav`)
-                                    )).map(route =>
+                                    APP_ROUTES.filter(route => {
+                                        return Object.keys(userPermissions).includes(route.permission) && route.showInNav
+                                    }).map(route =>
                                         <ListItemButton
                                             disableRipple
                                             selected={route.url.toLowerCase() === window.location.pathname.toLowerCase()}

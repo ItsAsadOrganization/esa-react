@@ -57,6 +57,15 @@ class QueryRepository {
         return queries
     }
 
+    static async updateMaturity(id, payload) {
+        const queries = await Queries.update(payload, {
+            where: {
+                id: id
+            }
+        })
+        return queries
+    }
+
     static async delete(id) {
         const queries = await Queries.destroy({
             where: {

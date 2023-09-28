@@ -1,6 +1,6 @@
 import { Button, Container, Fab, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField, Tooltip } from "@mui/material"
 import AppBreadCrumbs from "../../components/BreadCrumbs"
-import { BREADCRUMBS, TABLE_HEADS } from "./constants"
+import { BREADCRUMBS, FEE_TYPES, TABLE_HEADS } from "./constants"
 import Icons from "../../common/icons"
 import React from "react"
 import { getAllClasses, postVoucherApi } from "../../api"
@@ -48,7 +48,7 @@ const SetupVoucher = () => {
             <Grid container maxWidth="xl" sx={{
                 p: 2,
                 boxShadow: theme => theme.shadows[5],
-                background:theme => theme.palette.background.paper
+                background: theme => theme.palette.background.paper
             }} >
                 <Grid item xs={!2} md={12} sx={{ mb: 2 }} >
                     <FormControl fullWidth size="small">
@@ -102,7 +102,11 @@ const SetupVoucher = () => {
                     <ExplicitTable tableSize="small" columns={[{ name: "Fee Type" }, { name: "Fee Amount" }, { name: "Fee Description" }, { name: "" }]}>
                         <StyledTableRow>
                             <StyledTableCell>
-                                <TextField size="small" fullWidth value={fee.fee_type} onChange={e => setFee({ ...fee, fee_type: e.target.value })} />
+                                <TextField sx={{minWidth: 250}} size="small" select fullWidth value={fee.fee_type} onChange={e => setFee({ ...fee, fee_type: e.target.value })} >
+                                    {FEE_TYPES.map(f => (
+                                        <MenuItem key={f} value={f}>{f}</MenuItem>
+                                    ))}
+                                </TextField>
                             </StyledTableCell>
                             <StyledTableCell>
                                 <TextField size="small" fullWidth value={fee.fee_amount} onChange={e => setFee({ ...fee, fee_amount: e.target.value })} />
@@ -187,7 +191,7 @@ const SetupVoucher = () => {
                             dispatch(handleResetSlice())
                             dispatch(handleRemoveLoading())
                             navigate(`/${ROUTES.vouchers}`)
-                            
+
                         } catch (err) {
                             openErrorToast(err)
                             dispatch(handleRemoveLoading())

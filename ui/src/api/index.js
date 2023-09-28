@@ -180,6 +180,10 @@ export const putQueryApi = ({ student_name, phone_number, config, userId, code, 
   return put(API_ROUTE_QUERY, { student_name, phone_number, config, userId, code }, { id });
 };
 
+export const patchQueryApi = ({ is_matured, id }) => {
+  return put(API_ROUTE_QUERY, { is_matured }, { id });
+};
+
 export const delQueryApi = ({ id }) => {
   return del(API_ROUTE_QUERY, {}, { id });
 };

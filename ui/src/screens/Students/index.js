@@ -52,7 +52,9 @@ import {
     getNameSearch,
     handleChangeNameSearch,
     handleChangeCnicSearch,
-    getClassSearch
+    getClassSearch,
+    getStudentGender,
+    handleChangeStudentGender
 } from "./studentSlice"
 import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
@@ -100,6 +102,7 @@ const Students = () => {
     const cnicSearch = useSelector(getCnicSearch)
     const nameSearch = useSelector(getNameSearch)
     const classSearch = useSelector(getClassSearch)
+    const gender = useSelector(getStudentGender)
 
     const dispatch = useDispatch()
 
@@ -116,7 +119,8 @@ const Students = () => {
         setValue("classId", classId)
         setValue("father_cnic", father_cnic)
         setValue("cnic", cnic)
-    }, [setValue, id, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, father_cnic, cnic, classId])
+        setValue("gender", gender)
+    }, [setValue, id, gender, name, father_name, email_address, phone_1, phone_2, phone_3, address, avatar, father_cnic, cnic, classId])
 
     const handleChange2Base64 = (file) => {
         try {
@@ -164,7 +168,7 @@ const Students = () => {
                 dispatch(handleChangeStudentAddress(student.address))
                 dispatch(handleChangeStudentAvatar(student.avatar))
                 dispatch(handleChangeStudentClassId(student.classId))
-
+                dispatch(handleChangeStudentGender(student.gender))
                 dispatch(handleChangeStudentFatherCNIC(student.father_cnic))
                 dispatch(handleChangeStudentCNIC(student.cnic))
             },
@@ -394,6 +398,7 @@ const Students = () => {
                                 formData.append("classId", classId)
                                 formData.append("father_cnic", father_cnic)
                                 formData.append("cnic", cnic)
+                                formData.append("gender", gender)
 
 
 
@@ -741,6 +746,29 @@ const Students = () => {
                                 />
                             )}
                         />
+                    </Grid>
+
+                    <Grid item xs={12} sx={{
+                        mb: 2,
+                    }}>
+
+                        <TextField
+                            required
+                            sx={{
+                                p: 0
+                            }}
+                            value={gender}
+                            onChange={e => {
+                                dispatch(handleChangeStudentGender(e.target.value))
+                            }}
+                            size="small"
+                            label="Gender"
+                            fullWidth
+                            select
+                        >
+                            <MenuItem value="male">Male</MenuItem>
+                            <MenuItem value="female">Female</MenuItem>
+                        </TextField>
                     </Grid>
 
 

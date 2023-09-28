@@ -11,7 +11,7 @@ import React from "react"
 import { openErrorToast, openSuccessToast } from "../../common/toast"
 import { useDispatch, useSelector } from "react-redux"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
-import { getDesignationsList, getSalary, getSalaryID, getSalaryModelOpen, getTutor, getTutorId, getTutorsList, getTutorsModalOpen, handleChangeResetModel, handleChangeSalary, handleChangeSalaryModelOpen, handleChangeTutorAddress, handleChangeTutorCNIC, handleChangeTutorContact, handleChangeTutorDesignationIs, handleChangeTutorEmail, handleChangeTutorEmergencyContact, handleChangeTutorId, handleChangeTutorJoiningDate, handleChangeTutorName, handleChangeTutorsModalOpen, handleResetSalaryModel, tutorsRequested, tutorsSalaryRequested } from "./tutorSlice"
+import { getDesignationsList, getSalary, getSalaryID, getSalaryModelOpen, getTutor, getTutorId, getTutorsList, getTutorsModalOpen, handleChangeResetModel, handleChangeSalary, handleChangeSalaryModelOpen, handleChangeTutorAddress, handleChangeTutorCNIC, handleChangeTutorContact, handleChangeTutorDesignationIs, handleChangeTutorEmail, handleChangeTutorEmergencyContact, handleChangeTutorGender, handleChangeTutorId, handleChangeTutorJoiningDate, handleChangeTutorName, handleChangeTutorsModalOpen, handleResetSalaryModel, tutorsRequested, tutorsSalaryRequested } from "./tutorSlice"
 import NothingFound from "../../components/NothingFound"
 import Icons from "../../common/icons"
 import ExplicitTable, { StyledTableCell, StyledTableRow } from "../../components/ExplicitTable"
@@ -48,7 +48,8 @@ const Tutors = () => {
         setValue("address", tutor.address)
         setValue("joining_date", tutor.joining_date)
         setValue("cnic", tutor.cnic)
-        setValue("designationId", tutor.designationId)
+        setValue("designationId", tutor.designationId) 
+        setValue("gender", tutor.gender) 
     }, [setValue, tutor])
 
     React.useEffect(() => {
@@ -71,6 +72,7 @@ const Tutors = () => {
                 dispatch(handleChangeTutorJoiningDate(tutor.joining_date))
                 dispatch(handleChangeTutorCNIC(tutor.cnic))
                 dispatch(handleChangeTutorDesignationIs(tutor.designationId))
+                dispatch(handleChangeTutorGender(tutor.gender))
                 dispatch(handleChangeTutorsModalOpen(true))
             },
             icon: Icons.BorderColor,

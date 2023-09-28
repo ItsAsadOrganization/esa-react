@@ -49,7 +49,7 @@ export const PERMISSIONS = {
     previewStudent: "StudentsViewStudent",
     tutors: "TutorsShowInNav",
     payslips: "PaySlipsShowInNav",
-    designations: "DesignationsShowInNav",
+    designations: "DesignationShowInNav",
     roles: "RolesShowInNav",
     users: "UsersShowInNav",
     queries: "QueriesShowInNav",
@@ -144,7 +144,7 @@ export const APP_ROUTES = [
     },
     {
         label: ROUTES.queries,
-        icon: Icons.Group,
+        icon: Icons.QuestionAnswer,
         redirectPath: "/",
         url: `/${ROUTES.queries}`,
         isProtected: true,
@@ -195,7 +195,7 @@ export const APP_ROUTES = [
         permission: PERMISSIONS.setupRole,
         roles: [ROLES.admin, ROLES.superadmin],
         screen: SetupRole,
-        showInNav: true,
+        showInNav: false,
     },
     {
         label: ROUTES.systemLogs,

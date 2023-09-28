@@ -216,27 +216,27 @@ const PERMISSIONS_MIGRATIONS = [
                     {
                         "label": "Create",
                         "checked": true,
-                        "permission": "add-voucher"
+                        "permission": "add-class"
                     },
                     {
                         "label": "Read",
                         "checked": true,
-                        "permission": "view-voucher"
+                        "permission": "view-class"
                     },
                     {
                         "label": "Update",
                         "checked": true,
-                        "permission": "update-voucher"
+                        "permission": "update-class"
                     },
                     {
                         "label": "Delete",
                         "checked": true,
-                        "permission": "delete-voucher"
+                        "permission": "delete-class"
                     }
                 ]
             },
             {
-                "page": "Designation",
+                "page": "Designations",
                 "permissions": [
                     {
                         "label": "Show In Navigation",
@@ -291,7 +291,7 @@ const PERMISSIONS_MIGRATIONS = [
                 ]
             },
             {
-                "page": "PaySlips",
+                "page": "Roles",
                 "permissions": [
                     {
                         "label": "Show In Navigation",
@@ -299,19 +299,89 @@ const PERMISSIONS_MIGRATIONS = [
                         "permission": "show-in-nav"
                     },
                     {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-roles"
+                    },
+                    {
                         "label": "Read",
                         "checked": true,
-                        "permission": "view-payslip"
+                        "permission": "view-roles"
                     },
                     {
                         "label": "Update",
                         "checked": true,
-                        "permission": "update-payslip"
+                        "permission": "update-roles"
                     },
                     {
                         "label": "Delete",
                         "checked": true,
-                        "permission": "delete-payslip"
+                        "permission": "delete-roles"
+                    }
+                ]
+            },
+            {
+                "page": "Users",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-roles"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-roles"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-roles"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-roles"
+                    }
+                ]
+            },
+            {
+                "page": "Queries",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-queries"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-queries"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-queries"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": true,
+                        "permission": "delete-queries"
+                    },
+                    {
+                        "label": "View Others Queries",
+                        "checked": true,
+                        "permission": "all"
                     }
                 ]
             }
@@ -355,7 +425,7 @@ const PERMISSIONS_MIGRATIONS = [
                     },
                     {
                         "label": "Delete",
-                        "checked": true,
+                        "checked": false,
                         "permission": "delete-student"
                     },
                     {
@@ -405,7 +475,7 @@ const PERMISSIONS_MIGRATIONS = [
                     },
                     {
                         "label": "Delete",
-                        "checked": true,
+                        "checked": false,
                         "permission": "delete-tutor"
                     },
                     {
@@ -471,22 +541,22 @@ const PERMISSIONS_MIGRATIONS = [
                     {
                         "label": "Create",
                         "checked": true,
-                        "permission": "add-voucher"
+                        "permission": "add-class"
                     },
                     {
                         "label": "Read",
                         "checked": true,
-                        "permission": "view-voucher"
+                        "permission": "view-class"
                     },
                     {
                         "label": "Update",
                         "checked": true,
-                        "permission": "update-voucher"
+                        "permission": "update-class"
                     },
                     {
                         "label": "Delete",
-                        "checked": true,
-                        "permission": "delete-voucher"
+                        "checked": false,
+                        "permission": "delete-class"
                     }
                 ]
             },
@@ -515,7 +585,7 @@ const PERMISSIONS_MIGRATIONS = [
                     },
                     {
                         "label": "Delete",
-                        "checked": true,
+                        "checked": false,
                         "permission": "delete-designation"
                     }
                 ]
@@ -540,13 +610,13 @@ const PERMISSIONS_MIGRATIONS = [
                     },
                     {
                         "label": "Delete",
-                        "checked": true,
+                        "checked": false,
                         "permission": "delete-payslip"
                     }
                 ]
             },
             {
-                "page": "PaySlips",
+                "page": "Roles",
                 "permissions": [
                     {
                         "label": "Show In Navigation",
@@ -554,19 +624,89 @@ const PERMISSIONS_MIGRATIONS = [
                         "permission": "show-in-nav"
                     },
                     {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-roles"
+                    },
+                    {
                         "label": "Read",
                         "checked": true,
-                        "permission": "view-payslip"
+                        "permission": "view-roles"
                     },
                     {
                         "label": "Update",
                         "checked": true,
-                        "permission": "update-payslip"
+                        "permission": "update-roles"
                     },
                     {
                         "label": "Delete",
+                        "checked": false,
+                        "permission": "delete-roles"
+                    }
+                ]
+            },
+            {
+                "page": "Users",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
                         "checked": true,
-                        "permission": "delete-payslip"
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-roles"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-roles"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-roles"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": false,
+                        "permission": "delete-roles"
+                    }
+                ]
+            },
+            {
+                "page": "Queries",
+                "permissions": [
+                    {
+                        "label": "Show In Navigation",
+                        "checked": true,
+                        "permission": "show-in-nav"
+                    },
+                    {
+                        "label": "Create",
+                        "checked": true,
+                        "permission": "add-queries"
+                    },
+                    {
+                        "label": "Read",
+                        "checked": true,
+                        "permission": "view-queries"
+                    },
+                    {
+                        "label": "Update",
+                        "checked": true,
+                        "permission": "update-queries"
+                    },
+                    {
+                        "label": "Delete",
+                        "checked": false,
+                        "permission": "delete-queries"
+                    },
+                    {
+                        "label": "View Others Queries",
+                        "checked": true,
+                        "permission": "all"
                     }
                 ]
             }
