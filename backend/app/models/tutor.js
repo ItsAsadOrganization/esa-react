@@ -22,6 +22,9 @@ const Tutor = sequelize.define("tutor", {
     contact: {
         type: DataTypes.STRING,
     },
+    gender: {
+        type: DataTypes.ENUM("male","female"),
+    },
     emergency_contact: {
         type: DataTypes.STRING,
     },

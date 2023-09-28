@@ -41,7 +41,8 @@ const tutorSlice = createSlice({
             address: "",
             joining_date: "",
             cnic: "",
-            designationId: ""
+            designationId: "",
+            gender: 'male'
         },
         salaryModelOpen: false,
         salary: {
@@ -70,6 +71,7 @@ const tutorSlice = createSlice({
         handleChangeTutorJoiningDate: (state, action) => { state.tutor.joining_date = action.payload },
         handleChangeTutorCNIC: (state, action) => { state.tutor.cnic = action.payload },
         handleChangeTutorDesignationIs: (state, action) => { state.tutor.designationId = action.payload },
+        handleChangeTutorGender: (state, action) => { state.tutor.gender = action.payload },
 
         handleChangeTutorsModalOpen: (state, action) => { state.tutorsModalOpen = action.payload },
 
@@ -86,6 +88,7 @@ const tutorSlice = createSlice({
             state.tutor.joining_date = ""
             state.tutor.cnic = ""
             state.tutor.designationId = ""
+            state.tutor.gender = 'male'
             state.id = null
             state.tutorsModalOpen = false
         },
@@ -115,6 +118,7 @@ const tutorSlice = createSlice({
             state.tutorsModalOpen = false
             state.tutor.cnic = ""
             state.tutor.designationId = ""
+            state.tutor.gender = 'male'
             state.tutorsList = []
             state.designationsList = []
         }
@@ -148,7 +152,8 @@ export const {
     handleChangeSalary,
     handleChangeTutorCNIC,
     handleChangeTutorDesignationIs,
-    handleResetSalaryModel
+    handleResetSalaryModel,
+    handleChangeTutorGender
 } = tutorSlice.actions
 
 export const getTutorsList = state => state.tutors.tutorsList

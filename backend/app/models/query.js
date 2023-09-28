@@ -19,6 +19,10 @@ const Queries = sequelize.define("queries", {
     },
     config: {
         type: DataTypes.JSON
+    },
+    is_matured: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     paranoid: true,

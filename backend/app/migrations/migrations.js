@@ -541,22 +541,22 @@ const PERMISSIONS_MIGRATIONS = [
                     {
                         "label": "Create",
                         "checked": true,
-                        "permission": "add-voucher"
+                        "permission": "add-class"
                     },
                     {
                         "label": "Read",
                         "checked": true,
-                        "permission": "view-voucher"
+                        "permission": "view-class"
                     },
                     {
                         "label": "Update",
                         "checked": true,
-                        "permission": "update-voucher"
+                        "permission": "update-class"
                     },
                     {
                         "label": "Delete",
                         "checked": false,
-                        "permission": "delete-voucher"
+                        "permission": "delete-class"
                     }
                 ]
             },

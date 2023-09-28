@@ -103,3 +103,7 @@ export async function del(url, data = {}, params = {}) {
 export async function put(url, data = {}, params = {}, headers = {}) {
     return await request('put', url, data, params, headers);
 }
+
+export async function patch(url, data = {}, params = {}, headers = {}) {
+    return await request('patch', url, data, params, headers);
+}

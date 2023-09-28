@@ -14,5 +14,5 @@ RUN npm install --silent
 
 COPY . .
 
-CMD ["pm2-runtime", "index.js"]
-# CMD ["npm", "run", "start"]
+# CMD ["pm2-runtime", "index.js"]
+CMD ["npm", "run", "start"]

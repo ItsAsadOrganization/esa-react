@@ -53,6 +53,16 @@ queryRouter.post("/query", (req, res, next) => {
     }
 })
 
+queryRouter.patch("/query", (req, res, next) => {
+    try {
+        const id = req.query.id
+        const payload = req.body
+        Manager.updateMaturity(id, payload, next)
+    } catch (err) {
+        next(err)
+    }
+})
+
 
 
 module.exports = queryRouter

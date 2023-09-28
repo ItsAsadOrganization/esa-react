@@ -27,9 +27,12 @@ import CheckIcon from '@mui/icons-material/Check';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LockIcon from '@mui/icons-material/Lock'
 import SearchIcon from '@mui/icons-material/Search'
-
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 export default {
+  RemoveDone:RemoveDoneIcon,
+  DoneAll:DoneAllIcon,
   Dashboard: DashboardIcon,
   AccountCircleOutlined: AccountCircleOutlinedIcon,
   Add: AddIcon,

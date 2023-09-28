@@ -248,3 +248,83 @@ info: Group : {"timestamp":"2023-09-26T14:04:10.658Z"}
 info: Group : {"timestamp":"2023-09-26T14:04:10.659Z"}
 info: User: {"timestamp":"2023-09-26T14:04:10.659Z"}
 info: User: {"timestamp":"2023-09-26T14:04:10.661Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T06:14:40.541Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T06:14:40.559Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T06:14:40.559Z"}
+info: Group : {"timestamp":"2023-09-28T06:14:40.976Z"}
+info: Group : {"timestamp":"2023-09-28T06:14:40.978Z"}
+info: Group : {"timestamp":"2023-09-28T06:14:40.987Z"}
+info: Group : {"timestamp":"2023-09-28T06:14:40.987Z"}
+info: User: {"timestamp":"2023-09-28T06:14:40.988Z"}
+info: User: {"timestamp":"2023-09-28T06:14:40.988Z"}
+info: Group : {"timestamp":"2023-09-28T06:14:40.988Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T06:17:31.362Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T06:17:31.391Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T06:17:31.392Z"}
+info: Group : {"timestamp":"2023-09-28T06:17:31.651Z"}
+info: Group : {"timestamp":"2023-09-28T06:17:31.656Z"}
+info: Group : {"timestamp":"2023-09-28T06:17:31.657Z"}
+info: Group : {"timestamp":"2023-09-28T06:17:31.657Z"}
+info: User: {"timestamp":"2023-09-28T06:17:31.657Z"}
+info: Group : {"timestamp":"2023-09-28T06:17:31.657Z"}
+info: User: {"timestamp":"2023-09-28T06:17:31.659Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T06:21:06.581Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T06:21:06.614Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T06:21:06.614Z"}
+info: Group : {"timestamp":"2023-09-28T06:21:07.103Z"}
+info: Group : {"timestamp":"2023-09-28T06:21:07.107Z"}
+info: Group : {"timestamp":"2023-09-28T06:21:07.108Z"}
+info: Group : {"timestamp":"2023-09-28T06:21:07.109Z"}
+info: User: {"timestamp":"2023-09-28T06:21:07.110Z"}
+info: Group : {"timestamp":"2023-09-28T06:21:07.111Z"}
+info: User: {"timestamp":"2023-09-28T06:21:07.113Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T06:24:58.253Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T06:24:58.275Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T06:24:58.275Z"}
+info: Group : {"timestamp":"2023-09-28T06:24:58.622Z"}
+info: Group : {"timestamp":"2023-09-28T06:24:58.627Z"}
+info: Group : {"timestamp":"2023-09-28T06:24:58.649Z"}
+info: Group : {"timestamp":"2023-09-28T06:24:58.655Z"}
+info: User: {"timestamp":"2023-09-28T06:24:58.658Z"}
+info: Group : {"timestamp":"2023-09-28T06:24:58.660Z"}
+info: User: {"timestamp":"2023-09-28T06:24:58.665Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T06:57:49.880Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T06:57:49.902Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T06:57:49.903Z"}
+info: Group : {"timestamp":"2023-09-28T06:57:50.113Z"}
+info: Group : {"timestamp":"2023-09-28T06:57:50.113Z"}
+info: Group : {"timestamp":"2023-09-28T06:57:50.118Z"}
+info: Group : {"timestamp":"2023-09-28T06:57:50.121Z"}
+info: Group : {"timestamp":"2023-09-28T06:57:50.121Z"}
+info: User: {"timestamp":"2023-09-28T06:57:50.122Z"}
+info: User: {"timestamp":"2023-09-28T06:57:50.122Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T07:24:29.079Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T07:24:29.100Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T07:24:29.100Z"}
+info: Group : {"timestamp":"2023-09-28T07:24:29.525Z"}
+info: Group : {"timestamp":"2023-09-28T07:24:29.528Z"}
+info: Group : {"timestamp":"2023-09-28T07:24:29.534Z"}
+info: Group : {"timestamp":"2023-09-28T07:24:29.535Z"}
+info: User: {"timestamp":"2023-09-28T07:24:29.535Z"}
+info: Group : {"timestamp":"2023-09-28T07:24:29.536Z"}
+info: User: {"timestamp":"2023-09-28T07:24:29.536Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T10:16:44.837Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T10:16:44.871Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T10:16:44.871Z"}
+info: Group : {"timestamp":"2023-09-28T10:16:45.485Z"}
+info: Group : {"timestamp":"2023-09-28T10:16:45.486Z"}
+info: Group : {"timestamp":"2023-09-28T10:16:45.488Z"}
+info: User: {"timestamp":"2023-09-28T10:16:45.494Z"}
+info: User: {"timestamp":"2023-09-28T10:16:45.494Z"}
+info: Group : {"timestamp":"2023-09-28T10:16:45.495Z"}
+info: Group : {"timestamp":"2023-09-28T10:16:45.496Z"}
+info: Trying to connect to Redis {"timestamp":"2023-09-28T11:51:52.789Z"}
+info: Redis Connectin Successful {"timestamp":"2023-09-28T11:51:52.810Z"}
+info: Redis store initialized {"timestamp":"2023-09-28T11:51:52.810Z"}
+info: Group : {"timestamp":"2023-09-28T11:51:53.170Z"}
+info: Group : {"timestamp":"2023-09-28T11:51:53.176Z"}
+info: Group : {"timestamp":"2023-09-28T11:51:53.177Z"}
+info: Group : {"timestamp":"2023-09-28T11:51:53.178Z"}
+info: Group : {"timestamp":"2023-09-28T11:51:53.185Z"}
+info: User: {"timestamp":"2023-09-28T11:51:53.186Z"}
+info: User: {"timestamp":"2023-09-28T11:51:53.190Z"}
