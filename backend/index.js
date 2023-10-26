@@ -3,8 +3,6 @@ const exporess = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const session = require("express-session")
-const RedisStore = require('connect-redis').default
-const redis = require("redis")
 const helmet = require('helmet')
 var cron = require('node-cron');
 
@@ -40,12 +38,12 @@ const GroupManager = require("./app/edubiz/groups/manager")
 const GroupRepository = require("./app/edubiz/groups/repository")
 const QueryRepository = require("./app/edubiz/query/repository")
 const Roles = require("./app/models/roles")
+const { verifyToken } = require("./app/common/jwt")
 
 const app = exporess()
 
 const http = require("http").Server(app);
 
-let redisStore = null
 app.use(helmet({
     crossOriginResourcePolicy: false,
 }))
@@ -82,43 +80,13 @@ socketIO.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 3500
 
-
-const redisClient = redis.createClient({
-    // url: "redis://reids:6379"
-    socket: {
-        host: "redis",
-        port: 6379,
-        connectTimeout: 9999
-    },
-});
-
-redisStore = new RedisStore({
-    client: redisClient,
-});
-
-app.use(
-    session({
-        store: redisStore,
-        secret: process.env.APP_SECRET, // Secret key for session encryption
-        resave: false, // Whether to save the session for every request
-        saveUninitialized: false, // Whether to save uninitialized sessions
-        cookie: {
-            secure: false, // Set to true if using HTTPS
-            maxAge: 1000 * 60 * 60 * 1, // Session expiration time (in milliseconds)
-        },
-    })
-);
-
 app.use(async (req, res, next) => {
     try {
         if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads") && !req.originalUrl.includes("generate")) {
             if (req.headers.authorization) {
-                const sessionKey = `sess:${Buffer.from(req.headers.authorization, 'base64').toString('ascii')}`
-                const ttl = await redisClient.ttl(sessionKey)
-                if (ttl > 0) {
-                    const sessionData = await redisClient.get(sessionKey)
-                    req.session.user = JSON.parse(sessionData, null, 2)
-                    req.session.touch();
+                const token = `${Buffer.from(req.headers.authorization, 'base64').toString('ascii')}`
+                const decoded = verifyToken(token, next)
+                if (decoded.data.userId) {
                     next()
                 } else {
                     throw new UNAUTHORIZED({ message: "Session expired" })
@@ -139,17 +107,6 @@ app.use(async (req, res, next) => {
 
 
 
-let connectToRedisStore = async (req, res, next) => {
-    try {
-        logger.info("Trying to connect to Redis")
-        await redisClient.connect()
-        logger.info("Redis Connectin Successful")
-
-        logger.info("Redis store initialized")
-    } catch (err) {
-        logger.error("error connectibg redis ", err)
-    }
-}
 
 
 
@@ -268,7 +225,7 @@ let connect = async () => {
         await createDefaultGroups()
         await createDefaultUser()
     } catch (err) {
-       logger.error(err)
+        logger.error(err)
     }
 }
 
@@ -369,7 +326,6 @@ let scheduleJob = async () => {
     });
 }
 http.listen(PORT, (req, res, next) => {
-    connectToRedisStore(req, res, next)
     connect()
     scheduleJob()
 })

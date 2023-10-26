@@ -368,3 +368,245 @@ info: Group : {"timestamp":"2023-10-25T04:57:56.488Z"}
 info: User: {"timestamp":"2023-10-25T04:57:56.489Z"}
 info: Group : {"timestamp":"2023-10-25T04:57:56.489Z"}
 info: User: {"timestamp":"2023-10-25T04:57:56.490Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:13:58.435Z"}
+info: Redis Connectin Successful {"timestamp":"2023-10-26T12:13:58.454Z"}
+info: Redis store initialized {"timestamp":"2023-10-26T12:13:58.454Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.929Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.930Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.931Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.937Z"}
+info: User: {"timestamp":"2023-10-26T12:13:58.937Z"}
+info: User: {"timestamp":"2023-10-26T12:13:58.938Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.939Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:15:32.456Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:15:32.458Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.697Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.699Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.701Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.707Z"}
+info: User: {"timestamp":"2023-10-26T12:15:32.707Z"}
+info: User: {"timestamp":"2023-10-26T12:15:32.708Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.708Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:16:02.204Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:16:02.206Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.426Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.426Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.428Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.438Z"}
+info: User: {"timestamp":"2023-10-26T12:16:02.438Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.439Z"}
+info: User: {"timestamp":"2023-10-26T12:16:02.439Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:17:14.582Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:17:14.584Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.782Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.782Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: User: {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: User: {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.792Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:17:30.101Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:17:30.104Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.308Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.310Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.316Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.318Z"}
+info: User: {"timestamp":"2023-10-26T12:17:30.318Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.318Z"}
+info: User: {"timestamp":"2023-10-26T12:17:30.319Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:18:35.558Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:18:35.560Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.766Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.767Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.770Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.778Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.780Z"}
+info: User: {"timestamp":"2023-10-26T12:18:35.780Z"}
+info: User: {"timestamp":"2023-10-26T12:18:35.781Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:19:47.795Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:19:47.797Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.004Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.007Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.011Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.016Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.017Z"}
+info: User: {"timestamp":"2023-10-26T12:19:48.018Z"}
+info: User: {"timestamp":"2023-10-26T12:19:48.018Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:23:43.249Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:23:43.252Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.467Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.468Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.481Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.481Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.482Z"}
+info: User: {"timestamp":"2023-10-26T12:23:43.482Z"}
+info: User: {"timestamp":"2023-10-26T12:23:43.484Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:24:15.243Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:24:15.245Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.459Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.460Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.465Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.467Z"}
+info: User: {"timestamp":"2023-10-26T12:24:15.468Z"}
+info: User: {"timestamp":"2023-10-26T12:24:15.468Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.469Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:39:41.735Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:39:41.737Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.949Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.950Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.957Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.958Z"}
+info: User: {"timestamp":"2023-10-26T12:39:41.958Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.960Z"}
+info: User: {"timestamp":"2023-10-26T12:39:41.963Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:40:46.442Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:40:46.444Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.662Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.663Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.675Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.676Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.676Z"}
+info: User: {"timestamp":"2023-10-26T12:40:46.676Z"}
+info: User: {"timestamp":"2023-10-26T12:40:46.678Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:41:09.531Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:41:09.533Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.743Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.744Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.751Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.753Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.753Z"}
+info: User: {"timestamp":"2023-10-26T12:41:09.754Z"}
+info: User: {"timestamp":"2023-10-26T12:41:09.756Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:41:37.809Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:41:37.812Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.016Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.018Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.025Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.027Z"}
+info: User: {"timestamp":"2023-10-26T12:41:38.028Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.028Z"}
+info: User: {"timestamp":"2023-10-26T12:41:38.029Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:04:04.295Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:04:04.297Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.514Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.515Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.529Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.529Z"}
+info: User: {"timestamp":"2023-10-26T13:04:04.530Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.531Z"}
+info: User: {"timestamp":"2023-10-26T13:04:04.531Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:05:37.420Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:05:37.422Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.649Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.650Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.661Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.662Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.662Z"}
+info: User: {"timestamp":"2023-10-26T13:05:37.662Z"}
+info: User: {"timestamp":"2023-10-26T13:05:37.665Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:07:00.858Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:149:9)\n    at Server.<anonymous> (/app/index.js:376:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:07:00.860Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.080Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.082Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.085Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.088Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.089Z"}
+info: User: {"timestamp":"2023-10-26T13:07:01.090Z"}
+info: User: {"timestamp":"2023-10-26T13:07:01.091Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:10:36.847Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:149:9)\n    at Server.<anonymous> (/app/index.js:376:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:10:36.849Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.056Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.057Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.068Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.068Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.068Z"}
+info: User: {"timestamp":"2023-10-26T13:10:37.069Z"}
+info: User: {"timestamp":"2023-10-26T13:10:37.070Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:14:11.165Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:14:11.167Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.398Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.400Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.406Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.408Z"}
+info: User: {"timestamp":"2023-10-26T13:14:11.408Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.409Z"}
+info: User: {"timestamp":"2023-10-26T13:14:11.409Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:14:54.345Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:14:54.348Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.556Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.557Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.566Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.567Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.567Z"}
+info: User: {"timestamp":"2023-10-26T13:14:54.568Z"}
+info: User: {"timestamp":"2023-10-26T13:14:54.571Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:16:27.035Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:16:27.037Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.246Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.247Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.256Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.256Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.257Z"}
+info: User: {"timestamp":"2023-10-26T13:16:27.258Z"}
+info: User: {"timestamp":"2023-10-26T13:16:27.259Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:16:56.031Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:16:56.034Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.239Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.240Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.247Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.248Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.248Z"}
+info: User: {"timestamp":"2023-10-26T13:16:56.249Z"}
+info: User: {"timestamp":"2023-10-26T13:16:56.251Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:17:38.677Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:151:9)\n    at Server.<anonymous> (/app/index.js:378:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:17:38.679Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.886Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.889Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.892Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.897Z"}
+info: User: {"timestamp":"2023-10-26T13:17:38.897Z"}
+info: User: {"timestamp":"2023-10-26T13:17:38.897Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.898Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:18:37.369Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:151:9)\n    at Server.<anonymous> (/app/index.js:378:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:18:37.372Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.578Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.579Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.582Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.586Z"}
+info: User: {"timestamp":"2023-10-26T13:18:37.586Z"}
+info: User: {"timestamp":"2023-10-26T13:18:37.587Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.588Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:19:43.125Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:144:9)\n    at Server.<anonymous> (/app/index.js:371:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:19:43.127Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.336Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.337Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.338Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.346Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.346Z"}
+info: User: {"timestamp":"2023-10-26T13:19:43.346Z"}
+info: User: {"timestamp":"2023-10-26T13:19:43.347Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:20:40.563Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:143:9)\n    at Server.<anonymous> (/app/index.js:370:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:20:40.565Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.798Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.801Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.807Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.809Z"}
+info: User: {"timestamp":"2023-10-26T13:20:40.810Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.810Z"}
+info: User: {"timestamp":"2023-10-26T13:20:40.811Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:20:59.697Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:116:9)\n    at Server.<anonymous> (/app/index.js:343:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:20:59.699Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.905Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.906Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.917Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.917Z"}
+info: User: {"timestamp":"2023-10-26T13:20:59.918Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.920Z"}
+info: User: {"timestamp":"2023-10-26T13:20:59.920Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.861Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.864Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.868Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.874Z"}
+info: User: {"timestamp":"2023-10-26T13:21:24.874Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.874Z"}
+info: User: {"timestamp":"2023-10-26T13:21:24.875Z"}

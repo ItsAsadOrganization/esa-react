@@ -6,10 +6,9 @@ userRouter.get("/login", (req, res, next) => {
     try {
         const username = req.query.username
         const password = req.query.password
-        const sessionData = req.session
-        const sessionID = req.sessionID
-        res.setHeader("authorization", Buffer.from(sessionID).toString('base64'))
-        Manager.login(username, password, sessionData, next)
+      
+        // res.setHeader("authorization", Buffer.from(sessionID).toString('base64'))
+        Manager.login(username, password,res,  next)
     } catch (err) {
         next(err)
     }
