@@ -67,9 +67,9 @@ const Queries = () => {
 
     React.useEffect(() => {
         if (queriesList.length > 0) {
-            const queryList = [...new Set(queriesList.map(ql => ql.user.name))]
-            setUserColor(queryList.map(ql => ({ user: ql, color: "hsl(" + Math.random() * 270 + ", 30%, 50%)" })))
-            setClSearch(queryList.map(ql => ({ selected: true, name: ql })))
+           // const queryList = [...new Set(queriesList.map(ql => ql.user.name))]
+            //setUserColor(queryList.map(ql => ({ user: ql, color: "hsl(" + Math.random() * 270 + ", 30%, 50%)" })))
+            //setClSearch(queryList.map(ql => ({ selected: true, name: ql })))
         }
     }, [queriesList])
 
@@ -261,7 +261,7 @@ const Queries = () => {
                                             {query.student_name}
                                         </StyledTableCell>
                                         <StyledTableCell>{query.phone_number}</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: 700, color: userColor.find(c => c.user.toLowerCase() === query.user.name.toLowerCase())?.color }}>{query.user.name}</StyledTableCell>
+                                        <StyledTableCell sx={{ fontWeight: 700, color:theme => theme.palette.primary.main }}>{query?.user?.name}</StyledTableCell>
                                         <StyledTableCell > {new Date(query.createdAt).getDate() + "-" + (new Date(query.createdAt).getMonth() + 1) + "-" + new Date(query.createdAt).getFullYear()}</StyledTableCell>
                                         <StyledTableCell>
                                             <IconButton onClick={async () => {

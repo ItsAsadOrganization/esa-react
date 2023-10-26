@@ -40,10 +40,10 @@ const dashboardSlice = createSlice({
         usersList: [], // active users
     },
     reducers: {
-    },
+    }, 
     extraReducers: builder => {
         builder.addCase(queryiesListRequested.fulfilled, (state, action) => {
-            state.queriesList = action.payload.data.queries
+            state.queriesList = action.payload.data.queries.sort((a, b) => (a.id > b.id ? -1 : 1))
         })
         builder.addCase(studentsListRequested.fulfilled, (state, action) => {
             state.studentsList = action.payload.data.students
