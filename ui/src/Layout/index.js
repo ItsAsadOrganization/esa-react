@@ -240,35 +240,14 @@ const Layout = (props) => {
                             onClick={toggleDrawer}
                             sx={{
                                 color: theme.palette.customFontColor.main,
-                                marginRight: 2,
+                                marginRight: 1,
                             }}
                         >
                             <Icons.MenuOpen />
                         </IconButton>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleDrawer}
-                            sx={{
-                                color: theme.palette.customFontColor.main,
-                                marginRight: 2,
-                            }}
-                        >
-                            <Icons.Markunread />
-                        </IconButton>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleDrawer}
-                            sx={{
-                                color: theme.palette.customFontColor.main,
-                                marginRight: 2,
-                            }}
-                        >
-                            <Icons.Group />
-                        </IconButton>
+                        <Typography sx={{
+                            color: theme => theme.palette.customFontColor.main 
+                        }}>Students Control Panel</Typography>
 
 
                     </Box>

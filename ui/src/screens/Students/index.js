@@ -72,6 +72,7 @@ import { handleChangePreviewStudentId } from "../PreviewStudent/previewStudentSl
 import Queries from "../Queries"
 import useCan from "../../hooks/useCan"
 import { MuiFileInput } from 'mui-file-input'
+import TablePaginationActions from "../../components/TablePaginationActions"
 
 
 
@@ -136,6 +137,12 @@ const Students = () => {
     const classSearch = useSelector(getClassSearch)
     const contactSearch = useSelector(getContactSearch)
 
+
+    const [currentPage, setCurrentPage] = React.useState(0)
+    const [recordsPerPage, setRecordsPerPage] = React.useState(10)
+    const [recordsFound, setRecordsFound] = React.useState(0)
+    const [filteredRows, setFilteredRows] = React.useState([])
+
     const dateEnd = useSelector(getDateEnd)
     const dateStart = useSelector(getDateStart)
     //permission
@@ -143,15 +150,121 @@ const Students = () => {
 
     const navigate = useNavigate()
 
+    const loadStudents = () => {
+        try {
+            dispatch(handleAddLoading())
+            dispatch(classesRequested()).unwrap()
+            dispatch(studentsListRequested()).unwrap()
+            dispatch(handleRemoveLoading())
+        } catch (err) {
+            dispatch(handleRemoveLoading())
+            openErrorToast(err.message ? err.message : err)
+        }
+    }
+
     React.useEffect(() => {
-        dispatch(handleAddLoading())
-        dispatch(classesRequested()).unwrap()
-        dispatch(studentsListRequested()).unwrap()
-        dispatch(handleRemoveLoading())
+        loadStudents()
         return () => {
             dispatch(handleResetSlice())
         }
     }, [])
+
+    React.useEffect(() => {
+        if (studentsList.length > 0) {
+            setRecordsFound(studentsList.length)
+            setFilteredRows(studentsList)
+        }
+    }, [studentsList])
+
+    React.useEffect(() => {
+        if (nameSearch) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(std => std.name.toLowerCase().includes(nameSearch.toLowerCase())))
+                setRecordsFound(filteredRows.filter(std => std.name.toLowerCase().includes(nameSearch.toLowerCase())).length)
+            } else {
+                setFilteredRows(studentsList.filter(std => std.name.toLowerCase().includes(nameSearch.toLowerCase())))
+                setRecordsFound(studentsList.filter(std => std.name.toLowerCase().includes(nameSearch.toLowerCase())).length)
+            }
+        } else {
+            setFilteredRows(studentsList)
+            setRecordsFound(studentsList.length)
+        }
+    }, [nameSearch])
+
+    React.useEffect(() => {
+        if (cnicSearch) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(std => std.cnic.includes(cnicSearch)))
+                setRecordsFound(filteredRows.filter(std => std.cnic.includes(cnicSearch)).length)
+            } else {
+                setFilteredRows(studentsList.filter(std => std.cnic.includes(cnicSearch)))
+                setRecordsFound(studentsList.filter(std => std.cnic.includes(cnicSearch)).length)
+            }
+        } else {
+            setFilteredRows(studentsList)
+            setRecordsFound(studentsList.length)
+        }
+    }, [cnicSearch])
+   
+    React.useEffect(() => {
+        if (contactSearch) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(std => std.phone_1.includes(contactSearch)))
+                setRecordsFound(filteredRows.filter(std => std.phone_1.includes(contactSearch)).length)
+            } else {
+                setFilteredRows(studentsList.filter(std => std.phone_1.includes(contactSearch)))
+                setRecordsFound(studentsList.filter(std => std.phone_1.includes(contactSearch)).length)
+            }
+        } else {
+            setFilteredRows(studentsList)
+            setRecordsFound(studentsList.length)
+        }
+    }, [contactSearch])
+
+    React.useEffect(() => {
+        if (dateStart) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(std => new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()))
+                setRecordsFound(filteredRows.filter(std => new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()).length)
+            } else {
+                setFilteredRows(studentsList.filter(std => new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()))
+                setRecordsFound(studentsList.filter(std => new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()).length)
+            }
+        } else {
+            setFilteredRows(studentsList)
+            setRecordsFound(studentsList.length)
+        }
+    }, [dateStart])
+
+    React.useEffect(() => {
+        if (dateEnd) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(std => new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()))
+                setRecordsFound(filteredRows.filter(std => new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()).length)
+            } else {
+                setFilteredRows(studentsList.filter(std => new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()))
+                setRecordsFound(studentsList.filter(std => new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()).length)
+            }
+        } else {
+            setFilteredRows(studentsList)
+            setRecordsFound(studentsList.length)
+        }
+    }, [dateEnd])
+
+    React.useEffect(() => {
+        if (classSearch.length > 0) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(std => classSearch.includes(std["class.name"])))
+                setRecordsFound(filteredRows.filter(std => classSearch.includes(std["class.name"])).length)
+            } else {
+                setFilteredRows(studentsList.filter(std => classSearch.includes(std["class.name"])))
+                setRecordsFound(studentsList.filter(std => classSearch.includes(std["class.name"])).length)
+            }
+        } else {
+            setFilteredRows(studentsList)
+            setRecordsFound(studentsList.length)
+        }
+    }, [classSearch])
 
 
     const tableActionButtons = [
@@ -213,7 +326,7 @@ const Students = () => {
     ]
     return (
         <Container maxWidth="xl">
-            <AppBreadCrumbs pageTitle={"Students"} paths={BREADCRUMBS} />
+            <AppBreadCrumbs counts={recordsFound} pageTitle={"Students"} paths={BREADCRUMBS} />
             <Grid container maxWidth="xl" >
                 <Grid item container xs={12} md={12} sx={{
                     p: 2,
@@ -338,51 +451,72 @@ const Students = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    {studentsList.length > 0 ?
+                    {filteredRows.length > 0 ?
                         <ExplicitTable columns={userRole === ROLES.superadmin ? TABLE_HEADS_SA : TABLE_HEADS} tableSize="small">
-                            {studentsList.filter(std => {
-                                if (nameSearch) {
-                                    return std.name.toLowerCase().includes(nameSearch.toLowerCase())
-                                } else {
-                                    return std
-                                }
-                            }).filter(std => {
-                                if (cnicSearch) {
-                                    return std.cnic.includes(cnicSearch)
-                                } else {
-                                    return std
-                                }
-                            }).filter(std => {
-                                if (classSearch.length > 0) {
-                                    return classSearch.includes(std["class.name"])
-                                } else {
-                                    return std
-                                }
-                            }).filter(std => {
-                                if (classSearch.length > 0 && contactSearch) {
-                                    return std.phone_1.includes(contactSearch)
-                                } else {
-                                    return std
-                                }
-                            }).filter(std => {
-                                if (classSearch.length > 0 && dateStart) {
-                                    return new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()
-                                } else {
-                                    return std
-                                }
-                            }).filter(std => {
-                                if (classSearch.length > 0 && dateEnd) {
-                                    return new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()
-                                } else {
-                                    return std
-                                }
-                            }).map(student => (
-                                <StudentsTableRow tableActionButtons={tableActionButtons} student={student} key={student.id} />
-                            ))}
+                            {(
+                                filteredRows.length > 0 ? filteredRows.slice(currentPage * recordsPerPage, (currentPage * recordsPerPage) + recordsPerPage) : filteredRows
+                            )
+                                // .filter(std => {
+                                //     if (nameSearch) {
+                                //         return std.name.toLowerCase().includes(nameSearch.toLowerCase())
+                                //     } else {
+                                //         return std
+                                //     }
+                                // }).filter(std => {
+                                //     if (cnicSearch) {
+                                //         return std.cnic.includes(cnicSearch)
+                                //     } else {
+                                //         return std
+                                //     }
+                                // }).filter(std => {
+                                //     if (classSearch.length > 0) {
+                                //         return classSearch.includes(std["class.name"])
+                                //     } else {
+                                //         return std
+                                //     }
+                                // }).filter(std => {
+                                //     if (classSearch.length > 0 && contactSearch) {
+                                //         return std.phone_1.includes(contactSearch)
+                                //     } else {
+                                //         return std
+                                //     }
+                                // }).filter(std => {
+                                //     if (classSearch.length > 0 && dateStart) {
+                                //         return new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()
+                                //     } else {
+                                //         return std
+                                //     }
+                                // }).filter(std => {
+                                //     if (classSearch.length > 0 && dateEnd) {
+                                //         return new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()
+                                //     } else {
+                                //         return std
+                                //     }
+                                // })
+                                .map(student => (
+                                    <StudentsTableRow tableActionButtons={tableActionButtons} student={student} key={student.id} />
+                                ))}
                         </ExplicitTable>
                         : <NothingFound pageIcon={{
                             icon: Icons.School
                         }} pageTitle="Student" action={() => dispatch(handleChangeStudentModalOpen(true))} permission={addStudent} />}
+                </Grid>
+                <Grid item xs={!2} md={12} sx={{
+                    p: 2,
+                    boxShadow: theme => theme.shadows[5],
+                    background: theme => theme.palette.background.paper,
+                    mb: 1
+                }}>
+                    {console.log({ recordsFound })}
+                    <TablePaginationActions
+                        count={recordsFound}
+                        page={currentPage}
+                        rowsPerPage={recordsPerPage}
+                        onPageChange={(e, val) => {
+                            setCurrentPage(val)
+                        }}
+                        onRowsPerPageChange={(e) => { setRecordsPerPage(e.target.value) }}
+                    />
                 </Grid>
             </Grid>
 

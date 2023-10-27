@@ -390,7 +390,6 @@ const Queries = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    {console.log({ filteredRows })}
                     <ExplicitTable tableSize="small" columns={[{ name: "Code" }, { name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Maturity" }, { name: "Actions", align: "right" }]}>
                         {filteredRows.length > 0 ?
                             (filteredRows.length > 0
