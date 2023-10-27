@@ -75,6 +75,7 @@ const Queries = () => {
     const [dateSearch, setDateSearch] = React.useState(null)
     const [dateEndSearch, setDateEndSearch] = React.useState(null)
     const [clSearch, setClSearch] = React.useState([])
+    const [filteredRows, setFilteredRows] = React.useState(queriesList)
 
     const [currentPage, setCurrentPage] = React.useState(0)
     const [recordsPerPage, setRecordsPerPage] = React.useState(10)
@@ -119,6 +120,79 @@ const Queries = () => {
             setClSearch(queryList.map(ql => ({ selected: true, name: ql })))
         }
     }, [queriesList])
+
+    React.useEffect(() => {
+        setFilteredRows(queriesList.filter(ql => {
+            if ([...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name))].length > 0) {
+                return [...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name.toLowerCase()))].includes(ql.user.name.toLowerCase())
+            } else {
+                return ql
+            }
+        }))
+    }, [clSearch])
+
+    React.useEffect(() => {
+        setFilteredRows(queriesList.filter(ql => {
+            if (codeSearch) {
+                return ql.code.includes(codeSearch)
+            } else {
+                return ql
+            }
+        }))
+    }, [codeSearch])
+
+    React.useEffect(() => {
+        setFilteredRows(queriesList.filter(ql => {
+            if (nameSearch) {
+                return ql.code.includes(nameSearch)
+            } else {
+                return ql
+            }
+        }))
+    }, [nameSearch])
+
+    React.useEffect(() => {
+        setFilteredRows(queriesList.filter(ql => {
+            if (phSearch) {
+                return ql.code.includes(phSearch)
+            } else {
+                return ql
+            }
+        }))
+    }, [phSearch])
+
+    React.useEffect(() => {
+        if (dateSearch) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(ql => {
+                    return new Date(ql.createdAt).getTime() >= new Date(dateSearch).getTime()
+                }))
+            } else {
+                setFilteredRows(queriesList.filter(ql => {
+                    return new Date(ql.createdAt).getTime() >= new Date(dateSearch).getTime()
+                }))
+            }
+
+        }else{
+            setFilteredRows(queriesList)
+        }
+    }, [dateSearch])
+
+    React.useEffect(() => {
+        if (dateEndSearch) {
+            if (filteredRows.length > 0) {
+                setFilteredRows(filteredRows.filter(ql => {
+                    return new Date(ql.createdAt).getTime() <= new Date(dateEndSearch).getTime()
+                }))
+            } else {
+                setFilteredRows(queriesList.filter(ql => {
+                    return new Date(ql.createdAt).getTime() <= new Date(dateEndSearch).getTime()
+                }))
+            }
+        }else{
+            setFilteredRows(queriesList)
+        }
+    }, [dateEndSearch])
 
     React.useEffect(() => {
         setRecordsFound(queriesList.filter(ql => {
@@ -316,52 +390,13 @@ const Queries = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
+                    {console.log({ filteredRows })}
                     <ExplicitTable tableSize="small" columns={[{ name: "Code" }, { name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Maturity" }, { name: "Actions", align: "right" }]}>
-                        {queriesList.length > 0 ?
-                            (queriesList.length > 0
-                                ?
-                                codeSearch || nameSearch || phSearch || dateSearch || dateEndSearch ? queriesList :
-                                    queriesList.slice(currentPage * recordsPerPage, (currentPage * recordsPerPage) + recordsPerPage) :
-                                queriesList
+                        {filteredRows.length > 0 ?
+                            (filteredRows.length > 0
+                                ? filteredRows.slice(currentPage * recordsPerPage, (currentPage * recordsPerPage) + recordsPerPage) :
+                                filteredRows
                             )
-                                .filter(ql => {
-                                    if (codeSearch) {
-                                        return ql.code.includes(codeSearch)
-                                    } else {
-                                        return ql
-                                    }
-                                }).filter(ql => {
-                                    if (nameSearch) {
-                                        return ql.student_name.toLowerCase().includes(nameSearch.toLowerCase())
-                                    } else {
-                                        return ql
-                                    }
-                                }).filter(ql => {
-                                    if (phSearch) {
-                                        return ql.phone_number.toLowerCase().includes(phSearch.toLowerCase())
-                                    } else {
-                                        return ql
-                                    }
-                                }).filter(ql => {
-                                    if (dateSearch) {
-                                        return new Date(ql.createdAt).getTime() >= new Date(dateSearch).getTime()
-                                    } else {
-                                        return ql
-                                    }
-                                }).filter(ql => {
-                                    if (dateEndSearch) {
-                                        return new Date(ql.createdAt).getTime() <= new Date(dateEndSearch).getTime()
-                                    } else {
-                                        return ql
-                                    }
-                                })
-                                .filter(ql => {
-                                    if ([...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name))].length > 0) {
-                                        return [...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name.toLowerCase()))].includes(ql.user.name.toLowerCase())
-                                    } else {
-                                        return ql
-                                    }
-                                })
                                 .map(query => (
                                     <TableRow query={query} actionButtonArray={actionButtonArray} loadQueries={loadQueries} />
                                 ))
@@ -375,7 +410,7 @@ const Queries = () => {
                     mb: 1
                 }}>
                     <TablePaginationActions
-                        count={queriesList.length}
+                        count={recordsFound}
                         page={currentPage}
                         rowsPerPage={recordsPerPage}
                         onPageChange={(e, val) => {
