@@ -12,8 +12,6 @@ export const vouchersRequested = createAsyncThunk(VOUCHERs_REQUESTED, async () =
     }
 })
 
-
-
 export const classesRequested = createAsyncThunk(CLASSES_REQUESTED, async () => {
     try {
         const response = await getAllClasses()
@@ -56,8 +54,8 @@ const voucherSlice = createSlice({
         classSearch: "",
         studentSearch: "",
         paymentStatusSearch: "",
-        startDateSearch: "",
-        dueDateSearch: "",
+        startDateSearch: null,
+        dueDateSearch: null,
         showExpiring: false
     },
     reducers: {

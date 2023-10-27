@@ -3,11 +3,9 @@ const NotificationRepository = require("../notification/repository")
 const Repository = require("./repository")
 
 class StudentsManager {
-    static async getAllStudents(session, next) {
+    static async getAllStudents(next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
-            const students = await Repository.getAllStudents(paranoid)
+            const students = await Repository.getAllStudents()
             if (!students) {
                 throw new SUCCESS({ students: [] })
             } else {
@@ -30,11 +28,9 @@ class StudentsManager {
             next(err)
         }
     }
-    static async getAllStudents(session, next) {
+    static async getAllStudents(next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
-            const students = await Repository.getAllStudents(paranoid)
+            const students = await Repository.getAllStudents()
             if (!students) {
                 throw new SUCCESS({ students: [] })
             } else {
@@ -45,7 +41,7 @@ class StudentsManager {
         }
     }
 
-    static async postStudent(payload, session, next) {
+    static async postStudent(payload, next) {
         try {
             const student = await Repository.createStudent(payload)
             const _student = await Repository.getStudentById(student.dataValues.id)

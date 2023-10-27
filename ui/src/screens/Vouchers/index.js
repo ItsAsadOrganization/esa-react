@@ -11,7 +11,7 @@ import React from "react"
 import PreviewVoucher from "../PreviewVoucher"
 import Dialog from "../../components/Dialog"
 import { openErrorToast, openSuccessToast } from "../../common/toast"
-import { putVoucherApi } from "../../api"
+import { deleteVoucherApi, putVoucherApi } from "../../api"
 import EasyPaisaIcon from './media/easypaisa.png'
 import JazzCashIcon from './media/jazzcash.png'
 import BankIcon from './media/bank.png'
@@ -78,9 +78,9 @@ const Vouchers = () => {
             variant: "contained",
             action: async (student) => {
                 try {
-                    // await deleteStudentApi(student.id)
-                    // dispatch(studentsRequested()).unwrap()
-                    // openSuccessToast("Record Deleted")
+                    await deleteVoucherApi({ id: student.id })
+                    dispatch(vouchersRequested()).unwrap()
+                    openSuccessToast("Record Deleted")
                 } catch (err) {
                     openErrorToast(err.message ? err.message : err)
                 }
@@ -106,7 +106,11 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (search) {
-            setSearchArr(vouchersList.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+            if (searchArr.length > 0) {
+                setSearchArr(searchArr.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+            } else {
+                setSearchArr(vouchersList.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+            }
         } else {
             setSearchArr(vouchersList)
         }
@@ -114,7 +118,11 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (classSearch) {
-            setSearchArr(vouchersList.filter(ele => ele.classId === classSearch))
+            if (searchArr.length > 0) {
+                setSearchArr(searchArr.filter(ele => ele.classId === classSearch))
+            } else {
+                setSearchArr(vouchersList.filter(ele => ele.classId === classSearch))
+            }
         } else {
             setSearchArr(vouchersList)
         }
@@ -123,11 +131,40 @@ const Vouchers = () => {
 
     React.useEffect(() => {
         if (studentSearch) {
-            setSearchArr(vouchersList.filter(ele => ele.studentId === studentSearch))
+            if (searchArr.length > 0) {
+                setSearchArr(searchArr.filter(ele => ele.studentId === studentSearch))
+            } else {
+                setSearchArr(vouchersList.filter(ele => ele.studentId === studentSearch))
+            }
         } else {
             setSearchArr(vouchersList)
         }
     }, [studentSearch])
+
+    React.useEffect(() => {
+        if (startDateSearch) {
+            if (searchArr.length > 0) {
+                setSearchArr(searchArr.filter(ele => new Date(ele.createdAt).getTime() >= new Date(startDateSearch).getTime()))
+            } else {
+                setSearchArr(vouchersList.filter(ele => new Date(ele.createdAt).getTime() >= new Date(startDateSearch).getTime()))
+            }
+        } else {
+            setSearchArr(vouchersList)
+        }
+    }, [startDateSearch])
+
+    React.useEffect(() => {
+        if (dueDateSearch) {
+            if (searchArr.length > 0) {
+                setSearchArr(searchArr.filter(ele => new Date(ele.createdAt).getTime() <= new Date(dueDateSearch).getTime()))
+            } else {
+                setSearchArr(vouchersList.filter(ele => new Date(ele.createdAt).getTime() <= new Date(dueDateSearch).getTime()))
+            }
+
+        } else {
+            setSearchArr(vouchersList)
+        }
+    }, [dueDateSearch])
 
     React.useEffect(() => {
         if (paymentStatusSearch === "paid") {
@@ -192,7 +229,7 @@ const Vouchers = () => {
                     mb: 1,
                     pt: 1
                 }} >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={2}>
                         <TextField
                             fullWidth
                             size="small"
@@ -204,7 +241,7 @@ const Vouchers = () => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={2}>
                         <FormControl required fullWidth size="small">
                             <InputLabel>Class</InputLabel>
                             <Select
@@ -225,7 +262,7 @@ const Vouchers = () => {
                     </Grid>
 
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={2}>
                         <FormControl required fullWidth size="small">
                             <InputLabel>Student</InputLabel>
                             <Select
@@ -245,30 +282,7 @@ const Vouchers = () => {
                         </FormControl>
                     </Grid>
 
-
-                    <Grid item xs={12} md={1.5}>
-                        <FormControl required fullWidth size="small">
-                            <InputLabel>Payment Status</InputLabel>
-                            <Select
-                                label="Payment Status"
-                                value={paymentStatusSearch} onChange={e => {
-                                    dispatch(handleChangePaymentModeSearch(e.target.value))
-                                }}>
-                                <MenuItem value={""}> Please Select </MenuItem>
-                                <MenuItem value={""}>Paid</MenuItem>
-                                <MenuItem value={"unpaid"}>Unpaid</MenuItem>
-
-                            </Select>
-
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} md={1.5}>
-                        <FormControlLabel label="Show Expiring" control={<Checkbox checked={showExpiring} onChange={e => {
-                            dispatch(handleChangeShowExpiring(e.target.checked))
-                        }} icon={<Icons.Rule />} checkedIcon={<Icons.Rule />} />} />
-                    </Grid>
-
-                    {/* <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={2}>
                         <TextField
                             type="date"
                             fullWidth
@@ -284,11 +298,36 @@ const Vouchers = () => {
                             type="date"
                             fullWidth
                             size="small"
-                            label="Due Date"
+                            label="End Date"
                             value={dueDateSearch}
                             onChange={e => dispatch(handleChangeDueDateSearch(e.target.value))}
                         />
+                    </Grid>
+
+
+                    {/* <Grid item xs={12} md={1.5}>
+                        <FormControl required fullWidth size="small">
+                            <InputLabel>Payment Status</InputLabel>
+                            <Select
+                                label="Payment Status"
+                                value={paymentStatusSearch} onChange={e => {
+                                    dispatch(handleChangePaymentModeSearch(e.target.value))
+                                }}>
+                                <MenuItem value={""}> Please Select </MenuItem>
+                                <MenuItem value={""}>Paid</MenuItem>
+                                <MenuItem value={"unpaid"}>Unpaid</MenuItem>
+
+                            </Select>
+
+                        </FormControl>
                     </Grid> */}
+                    <Grid item xs={12} md={2}>
+                        <FormControlLabel label="Show Expiring" control={<Checkbox checked={showExpiring} onChange={e => {
+                            dispatch(handleChangeShowExpiring(e.target.checked))
+                        }} icon={<Icons.Rule />} checkedIcon={<Icons.Rule />} />} />
+                    </Grid>
+
+
 
                 </Grid>
                 <Grid item xs={!2} md={12} sx={{
@@ -298,7 +337,7 @@ const Vouchers = () => {
                         <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
                             {searchArr.map(v => (
                                 <StyledTableRow key={v.id} sx={{
-                                    background: theme => (new Date(v.date_expiry) <= new Date() && !v.is_paid) ? '#fab1b1' : theme.palette.background.paper
+                                    background: theme => (new Date(v.date_expiry) <= new Date() && !v.is_paid) ? theme.palette.error.light : theme.palette.background.paper,
                                 }}>
                                     <StyledTableCell >{v.voucher_id}</StyledTableCell>
                                     <StyledTableCell >{studentsList.find(std => std.id === v.studentId).name}</StyledTableCell>
@@ -308,7 +347,7 @@ const Vouchers = () => {
                                     <StyledTableCell >{v.is_paid ? <Chip label="Paid" color="success" size="small" sx={{ px: 2 }} /> : <Chip label="UnPaid" color="error" size="small" sx={{ px: 2 }} />}</StyledTableCell>
                                     <StyledTableCell sx={{}}>
                                         Mode: {v.payment_mode}<br />
-                                        {"Ref: " + v.config.reference}
+                                        {v.config.reference ? "Ref: " + v.config.reference : ""}
 
                                     </StyledTableCell>
                                     <StyledTableCell>

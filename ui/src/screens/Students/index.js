@@ -54,7 +54,13 @@ import {
     handleChangeCnicSearch,
     getClassSearch,
     getStudentGender,
-    handleChangeStudentGender
+    handleChangeStudentGender,
+    getDateEnd,
+    getDateStart,
+    handleChangeDateStart,
+    handleChangeDateEnd,
+    getContactSearch,
+    handleChangeContactSearch
 } from "./studentSlice"
 import NothingFound from "../../components/NothingFound"
 import { getUserRole } from "../Login/loginSlice"
@@ -66,6 +72,7 @@ import { handleChangePreviewStudentId } from "../PreviewStudent/previewStudentSl
 import Queries from "../Queries"
 import useCan from "../../hooks/useCan"
 import { MuiFileInput } from 'mui-file-input'
+
 
 
 const StudentsTableRow = React.memo(({ student, tableActionButtons }) => {
@@ -127,15 +134,14 @@ const Students = () => {
     const cnicSearch = useSelector(getCnicSearch)
     const nameSearch = useSelector(getNameSearch)
     const classSearch = useSelector(getClassSearch)
+    const contactSearch = useSelector(getContactSearch)
+
+    const dateEnd = useSelector(getDateEnd)
+    const dateStart = useSelector(getDateStart)
     //permission
     const addStudent = useCan('StudentsAddStudent')
 
-
-
     const navigate = useNavigate()
-
-
-
 
     React.useEffect(() => {
         dispatch(handleAddLoading())
@@ -215,7 +221,7 @@ const Students = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    <Grid item xs={12} sm={6} md={3} >
+                    <Grid item xs={12} sm={6} md={2} >
                         <TextField placeholder="Search by name" value={nameSearch}
                             sx={{ maxWidth: "98%" }}
                             onChange={e => {
@@ -225,7 +231,7 @@ const Students = () => {
                                 startAdornment: <Icons.Search sx={{ mr: 1 }} />
                             }} fullWidth size="small" />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={2}>
                         <TextField placeholder="Search by CNIC"
                             sx={{ maxWidth: "98%" }}
                             value={cnicSearch}
@@ -236,7 +242,18 @@ const Students = () => {
                                 startAdornment: <Icons.Search sx={{ mr: 1 }} />
                             }} fullWidth size="small" />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={6} >
+                    <Grid item xs={12} sm={6} md={2}>
+                        <TextField placeholder="Search by Contact Number"
+                            sx={{ maxWidth: "98%" }}
+                            value={contactSearch}
+                            onChange={e => {
+                                dispatch(handleChangeContactSearch(e.target.value))
+                            }}
+                            InputProps={{
+                                startAdornment: <Icons.Search sx={{ mr: 1 }} />
+                            }} fullWidth size="small" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} >
                         <FormControl fullWidth size="small" sx={{ maxWidth: "98%" }}>
                             <InputLabel id="demo-multiple-chip-label">Class Search</InputLabel>
                             <Select
@@ -296,6 +313,24 @@ const Students = () => {
                             </Select>
                         </FormControl>
                     </Grid>
+                    <Grid item xs={12} sm={6} md={2} >
+                        <TextField placeholder="Start Date" label="Start Date" type="date"
+                            sx={{ maxWidth: "98%" }}
+                            value={dateStart}
+                            onChange={e => {
+                                dispatch(handleChangeDateStart(e.target.value))
+                            }}
+                            fullWidth size="small" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} >
+                        <TextField placeholder="End Date" label="End Date" type="date"
+                            sx={{ maxWidth: "98%" }}
+                            value={dateEnd}
+                            onChange={e => {
+                                dispatch(handleChangeDateEnd(e.target.value))
+                            }}
+                            fullWidth size="small" />
+                    </Grid>
                 </Grid>
                 <Grid item xs={!2} md={12} sx={{
                     p: 2,
@@ -320,6 +355,24 @@ const Students = () => {
                             }).filter(std => {
                                 if (classSearch.length > 0) {
                                     return classSearch.includes(std["class.name"])
+                                } else {
+                                    return std
+                                }
+                            }).filter(std => {
+                                if (classSearch.length > 0 && contactSearch) {
+                                    return std.phone_1.includes(contactSearch)
+                                } else {
+                                    return std
+                                }
+                            }).filter(std => {
+                                if (classSearch.length > 0 && dateStart) {
+                                    return new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()
+                                } else {
+                                    return std
+                                }
+                            }).filter(std => {
+                                if (classSearch.length > 0 && dateEnd) {
+                                    return new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()
                                 } else {
                                     return std
                                 }
@@ -571,7 +624,7 @@ const AddStudentModal = () => {
                                     dispatch(handleChangeStudentFatherName(e.target.value))
                                 }}
                                 size="small"
-                                label="Father Name"
+                                label="Father / Husband / Custodian Name"
                                 fullWidth
                             />
                         )}
@@ -584,34 +637,14 @@ const AddStudentModal = () => {
                         pr: 1
                     }
                 }}>
-                    <Controller
-                        control={control}
-                        name="email_address"
-                        rules={{
-                            required: {
-                                value: true,
-                                message: "This field is required"
-                            },
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "invalid email address"
-                            }
+                    <TextField
+                        value={email_address}
+                        onChange={e => {
+                            dispatch(handleChangeStudentEmailAddress(e.target.value))
                         }}
-                        render={({ field }) => (
-                            <TextField
-                                required
-                                error={errors.email_address && !errors.email_address.touched && !errors.email_address.dirty}
-                                value={email_address}
-                                onChange={e => {
-                                    field.onChange(e)
-                                    dispatch(handleChangeStudentEmailAddress(e.target.value))
-                                }}
-                                size="small"
-                                label="Email Address"
-                                fullWidth
-                                helperText={errors.email_address && errors.email_address.message}
-                            />
-                        )}
+                        size="small"
+                        label="Email Address"
+                        fullWidth
                     />
                 </Grid>
 
@@ -666,38 +699,15 @@ const AddStudentModal = () => {
                         pr: 1
                     }
                 }}>
-                    <Controller
-                        as={InputMask}
-                        control={control}
-                        name="father_cnic"
-                        mask="xxxxx-xxxxxxx-x"
-                        alwaysShowMask={true}
-                        rules={{
-                            required: {
-                                value: true,
-                                message: "This field is required"
-                            },
-                            pattern: {
-                                value: /[0-9]{5}-[0-9]{7}-[0-9]{1}/,
-                                message: "Please enter 13 digits CNIC Number in format of xxxxx-xxxxxxxx-x"
-                            },
-                        }}
-                        render={({ field }) => (
-                            <TextField
-                                required
-                                error={errors.father_cnic && !errors.father_cnic.touched && !errors.father_cnic.dirty}
-                                helperText={errors.father_cnic && errors.father_cnic.message}
-                                value={father_cnic}
-                                onChange={e => {
-                                    field.onChange(e)
-                                    dispatch(handleChangeStudentFatherCNIC(e.target.value))
-                                }
-                                }
-                                size="small"
-                                label="Father NIC"
-                                fullWidth
-                            />
-                        )}
+                    <TextField
+                        value={father_cnic}
+                        onChange={e => {
+                            dispatch(handleChangeStudentFatherCNIC(e.target.value))
+                        }
+                        }
+                        size="small"
+                        label="Father NIC"
+                        fullWidth
                     />
                 </Grid>
 
@@ -708,38 +718,15 @@ const AddStudentModal = () => {
                         pl: 1
                     }
                 }}>
-                    <Controller
-                        as={InputMask}
-                        control={control}
-                        name="cnic"
-                        mask="xxxxx-xxxxxxx-x"
-                        alwaysShowMask={true}
-                        rules={{
-                            required: {
-                                value: true,
-                                message: "This field is required"
-                            },
-                            pattern: {
-                                value: /[0-9]{5}-[0-9]{7}-[0-9]{1}/,
-                                message: "Please enter 13 digits CNIC Number in format of xxxxx-xxxxxxxx-x"
-                            },
-                        }}
-                        render={({ field }) => (
-                            <TextField
-                                required
-                                error={errors.cnic && !errors.cnic.touched && !errors.cnic.dirty}
-                                helperText={errors.cnic && errors.cnic.message}
-                                value={cnic}
-                                onChange={e => {
-                                    field.onChange(e)
-                                    dispatch(handleChangeStudentCNIC(e.target.value))
-                                }
-                                }
-                                size="small"
-                                label="NIC / Form B"
-                                fullWidth
-                            />
-                        )}
+                    <TextField
+                        value={cnic}
+                        onChange={e => {
+                            dispatch(handleChangeStudentCNIC(e.target.value))
+                        }
+                        }
+                        size="small"
+                        label="NIC / Form B"
+                        fullWidth
                     />
                 </Grid>
 

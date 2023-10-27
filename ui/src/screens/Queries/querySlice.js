@@ -5,7 +5,7 @@ import { getQueriesApi } from "../../api";
 
 export const queryiesListRequested = createAsyncThunk(QUERIES_LIST_REQUESTED, async ({ userId = null }) => {
     try {
-        const response = await getQueriesApi({id: userId})
+        const response = await getQueriesApi({ id: userId })
         return response
     } catch (err) {
         throw err
@@ -64,7 +64,9 @@ const querySlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(queryiesListRequested.fulfilled, (state, action) => {
-            state.queriesList = action.payload.data.queries
+            state.queriesList = action.payload.data.queries.sort((a, b) => {
+                return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? -1 : 1
+            })
         })
     }
 })

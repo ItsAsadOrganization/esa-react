@@ -16,7 +16,7 @@ class UserManager {
                     name: response.email,
                     role: response["role.name"]
                 })
-                res.setHeader("authorization", Buffer.from(token).toString('base64'))
+                res.setHeader("authorization", token)
                 throw new SUCCESS({ user: response })
             }
         } catch (err) {

@@ -4,7 +4,7 @@ const Voucher = require("../../models/voucher")
 const Classes = require("../../models/classes")
 
 class StudentsRepository {
-    static async getAllStudents(paranoid) {
+    static async getAllStudents() {
         const studnets = await Students.findAll({
             raw: true,
             include: [
@@ -13,7 +13,6 @@ class StudentsRepository {
                     attributes: ["name"]
                 }
             ],
-            paranoid: paranoid
         })
         return studnets
     }

@@ -6,11 +6,10 @@ const Users = require("../../models/users")
 
 
 class QueryRepository {
-    static async getAllQueries(paranoid) {
+    static async getAllQueries() {
         const queries = await Queries.findAll({
-            paranoid: paranoid,
             include: [
-                { model: Users, attributes: ["name"] }
+                { model: Users, attributes: ["name"], paranoid: false }
             ]
         })
         return queries

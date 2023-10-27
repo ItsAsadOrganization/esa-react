@@ -3,7 +3,7 @@ const Designations = require("../../models/designation")
 
 
 class DesignationReqpository {
-    static async getAllDesignation(paranoid) {
+    static async getAllDesignation() {
         const response = await Designations.findAll({})
         return response
     }

@@ -2,10 +2,9 @@ const Groups = require("../../models/groups")
 
 
 class GroupRepository {
-    static async getAllGroups(paranoid) {
+    static async getAllGroups() {
         const studnets = await Groups.findAll({
             raw: true,
-            paranoid: paranoid,
             group: "createdAt"
         })
         return studnets

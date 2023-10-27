@@ -29,6 +29,8 @@ import LockIcon from '@mui/icons-material/Lock'
 import SearchIcon from '@mui/icons-material/Search'
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import MarkunreadIcon from '@mui/icons-material/Markunread';
 
 export default {
   RemoveDone:RemoveDoneIcon,
@@ -61,5 +63,7 @@ export default {
   Check: CheckIcon,
   QuestionAnswer: QuestionAnswerIcon,
   Lock: LockIcon,
-  Search: SearchIcon
+  Search: SearchIcon,
+  MenuOpen: MenuOpenIcon,
+  Markunread: MarkunreadIcon
 };

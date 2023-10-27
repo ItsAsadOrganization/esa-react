@@ -15,8 +15,7 @@ salaryRouter.get("/salary", (req, res, next) => {
 salaryRouter.post("/salary", (req, res, next) => {
     try {
         const paylaod = req.body
-        const session = req.session
-        Manager.postTutorSalary(paylaod, session, next)
+        Manager.postTutorSalary(paylaod, next)
     } catch (err) {
         next(err)
     }

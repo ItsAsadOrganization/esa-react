@@ -20,7 +20,7 @@ const upload = multer({ storage: storage });
 
 studentsRouter.get("/students", (req, res, next) => {
     try {
-        Manager.getAllStudents(req.session, next)
+        Manager.getAllStudents(next)
     } catch (err) {
         next(err)
     }
@@ -38,14 +38,12 @@ studentsRouter.post("/student", upload.single("avatar"), async (req, res, next) 
     try {
         if (req.files) {
             const payload = req.body
-            const session = req.session
             payload["avatar"] = 'uploads/' + req.file.originalname
-            Manager.postStudent(payload, session, next)
+            Manager.postStudent(payload, next)
         } else {
             const payload = req.body
-            const session = req.session
             payload["avatar"] = null
-            Manager.postStudent(payload, session, next)
+            Manager.postStudent(payload, next)
         }
     } catch (err) {
         next(err)

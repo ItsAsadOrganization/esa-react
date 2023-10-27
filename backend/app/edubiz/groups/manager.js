@@ -5,10 +5,7 @@ class GroupManager {
 
     static async getAllGroups(session, next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
-
-            const groups = await Repository.getAllGroups(paranoid)
+            const groups = await Repository.getAllGroups()
             if (!groups) {
                 throw new SUCCESS({ groups: [] })
             } else {

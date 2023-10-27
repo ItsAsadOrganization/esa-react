@@ -39,6 +39,7 @@ const GroupRepository = require("./app/edubiz/groups/repository")
 const QueryRepository = require("./app/edubiz/query/repository")
 const Roles = require("./app/models/roles")
 const { verifyToken } = require("./app/common/jwt")
+const { generateToken } = require("./app/common/jwt")
 
 const app = exporess()
 
@@ -84,9 +85,10 @@ app.use(async (req, res, next) => {
     try {
         if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads") && !req.originalUrl.includes("generate")) {
             if (req.headers.authorization) {
-                const token = `${Buffer.from(req.headers.authorization, 'base64').toString('ascii')}`
-                const decoded = verifyToken(token, next)
-                if (decoded.data.userId) {
+                const decoded = verifyToken(req.headers.authorization, next)
+                if (decoded.data?.userId) {
+                    const _token = generateToken(decoded.data)
+                    res.setHeader("authorization", _token)
                     next()
                 } else {
                     throw new UNAUTHORIZED({ message: "Session expired" })

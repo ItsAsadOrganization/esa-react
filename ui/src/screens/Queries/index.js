@@ -12,14 +12,55 @@ import Dialog from "../../components/Dialog"
 import { delQueryApi, patchQueryApi, postQueryApi, putQueryApi } from "../../api"
 import { getUserId, getUserName } from "../Login/loginSlice"
 import useCan from "../../hooks/useCan"
+import TablePaginationActions from "../../components/TablePaginationActions"
+
+
+
+const TableRow = React.memo(({ query, loadQueries, actionButtonArray }) => {
+    const dispatch = useDispatch()
+    return (
+        <StyledTableRow>
+            <StyledTableCell>{query.code}</StyledTableCell>
+            <StyledTableCell >
+                {query.student_name}
+            </StyledTableCell>
+            <StyledTableCell>{query.phone_number}</StyledTableCell>
+            <StyledTableCell sx={{ fontWeight: 700, color: theme => theme.palette.primary.main }}>{query?.user?.name}</StyledTableCell>
+            <StyledTableCell > {new Date(query.createdAt).getDate() + "-" + (new Date(query.createdAt).getMonth() + 1) + "-" + new Date(query.createdAt).getFullYear()}</StyledTableCell>
+            <StyledTableCell>
+                <IconButton onClick={async () => {
+                    try {
+                        dispatch(handleAddLoading())
+                        await patchQueryApi({ id: query.id, is_matured: !query.is_matured })
+                        openSuccessToast("Maturity Status Updated")
+                        loadQueries()
+                        dispatch(handleRemoveLoading())
+                    } catch (err) {
+                        dispatch(handleRemoveLoading())
+                        openErrorToast(err.message ? err.message : err)
+                    }
+                }}>
+                    <Tooltip title={"Maturity"} >
+                        {query.is_matured ? <Icons.DoneAll /> : <Icons.RemoveDone />}
+                    </Tooltip>
+                </IconButton>
+            </StyledTableCell>
+            <StyledTableCell sx={{ textAlign: "right" }}>
+                {actionButtonArray.filter(btn => btn.visibility).map(btn => (
+                    <IconButton onClick={() => btn.action(query)} color={btn.color}>
+                        <btn.icon />
+                    </IconButton>
+                ))}
+            </StyledTableCell>
+        </StyledTableRow>
+    )
+})
+
 
 const Queries = () => {
     const dispatch = useDispatch()
     const queriesList = useSelector(getQueriesList)
-    const queryModalOpen = useSelector(getQueryModalOpen)
-    const queryForm = useSelector(getQueryForm)
-    const name = useSelector(getQueryStudentName)
-    const phone = useSelector(getQueryStudentPhone)
+
     const myId = useSelector(getUserId)
     const queryConfig = useSelector(getQueryConfig)
     const [userColor, setUserColor] = React.useState([])
@@ -29,9 +70,15 @@ const Queries = () => {
 
     const [codeSearch, setCodeSearch] = React.useState("")
     const [isMatured, setIsMatured] = React.useState(false)
+    const [recordsFound, setRecordsFound] = React.useState(queriesList.length)
 
     const [dateSearch, setDateSearch] = React.useState(null)
+    const [dateEndSearch, setDateEndSearch] = React.useState(null)
     const [clSearch, setClSearch] = React.useState([])
+
+    const [currentPage, setCurrentPage] = React.useState(0)
+    const [recordsPerPage, setRecordsPerPage] = React.useState(10)
+
     const canViewAll = useCan("QueriesAll")
 
     const loadQueries = () => {
@@ -61,17 +108,61 @@ const Queries = () => {
             loadQueries()
         }
         if (canViewAll !== null && canViewAll === false) {
-            loadQueriesById()
+            loadQueries()
         }
     }, [canViewAll])
 
     React.useEffect(() => {
         if (queriesList.length > 0) {
-           // const queryList = [...new Set(queriesList.map(ql => ql.user.name))]
-            //setUserColor(queryList.map(ql => ({ user: ql, color: "hsl(" + Math.random() * 270 + ", 30%, 50%)" })))
-            //setClSearch(queryList.map(ql => ({ selected: true, name: ql })))
+            const queryList = [...new Set(queriesList.map(ql => ql.user.name))]
+            setUserColor(queryList.map(ql => ({ user: ql, color: "hsl(" + Math.random() * 270 + ", 30%, 50%)" })))
+            setClSearch(queryList.map(ql => ({ selected: true, name: ql })))
         }
     }, [queriesList])
+
+    React.useEffect(() => {
+        setRecordsFound(queriesList.filter(ql => {
+            if (codeSearch) {
+                return ql.code.includes(codeSearch)
+            } else {
+                return ql
+            }
+        }).filter(ql => {
+            if (nameSearch) {
+                return ql.student_name.toLowerCase().includes(nameSearch.toLowerCase())
+            } else {
+                return ql
+            }
+        }).filter(ql => {
+            if (phSearch) {
+                return ql.phone_number.toLowerCase().includes(phSearch.toLowerCase())
+            } else {
+                return ql
+            }
+        }).filter(ql => {
+            if (dateSearch) {
+                return new Date(ql.createdAt).getTime() >= new Date(dateSearch).getTime()
+            } else {
+                return ql
+            }
+        }).filter(ql => {
+            if (dateEndSearch) {
+                return new Date(ql.createdAt).getTime() <= new Date(dateEndSearch).getTime()
+            } else {
+                return ql
+            }
+        }).filter(ql => {
+            if ([...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name))].length > 0) {
+                return [...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name.toLowerCase()))].includes(ql.user.name.toLowerCase())
+            } else {
+                return ql
+            }
+        }).length)
+    }, [clSearch, codeSearch, nameSearch, phSearch, dateSearch, dateEndSearch])
+
+    React.useEffect(() => {
+        loadQueries()
+    }, [recordsPerPage])
 
     const actionButtonArray = [{
         label: "Edit",
@@ -107,7 +198,7 @@ const Queries = () => {
 
     return (
         <Container maxWidth="xl">
-            <AppBreadCrumbs pageTitle={"Queries"} paths={BREADCRUMBS} />
+            <AppBreadCrumbs counts={recordsFound} pageTitle={"Queries"} paths={BREADCRUMBS} />
             <Grid container maxWidth="xl" sx={{
                 p: 2,
                 boxShadow: theme => theme.shadows[5],
@@ -132,7 +223,7 @@ const Queries = () => {
                         placeholder="Search By Student Name"
                         sx={{ maxWidth: '96%' }} size="small" />
                 </Grid>
-                <Grid item xs={!2} md={3} >
+                <Grid item xs={!2} md={2} >
                     <TextField
                         value={phSearch} onChange={e => setPhSearch(e.target.value)}
                         InputProps={
@@ -141,7 +232,7 @@ const Queries = () => {
                         placeholder="Search By Phone Number" fullWidth sx={{ maxWidth: '96%' }} size="small" />
                 </Grid>
 
-                <Grid item xs={12} md={3} >
+                <Grid item xs={12} md={2} >
                     <FormControl fullWidth size="small" sx={{ maxWidth: "98%" }}>
                         <InputLabel id="demo-multiple-chip-label">Coordinated By</InputLabel>
                         <Select
@@ -213,6 +304,10 @@ const Queries = () => {
                 <Grid item xs={!2} md={2} >
                     <TextField type="date" value={dateSearch} onChange={e => setDateSearch(e.target.value)} label="Date Created" fullWidth sx={{ maxWidth: '96%' }} size="small" />
                 </Grid>
+
+                <Grid item xs={!2} md={2} >
+                    <TextField type="date" value={dateEndSearch} onChange={e => setDateEndSearch(e.target.value)} label="Date End" fullWidth sx={{ maxWidth: '96%' }} size="small" />
+                </Grid>
             </Grid>
             <Grid container maxWidth="xl" >
                 <Grid item xs={!2} md={12} sx={{
@@ -223,75 +318,71 @@ const Queries = () => {
                 }}>
                     <ExplicitTable tableSize="small" columns={[{ name: "Code" }, { name: "Student Name" }, { name: "Phone Number" }, { name: "Coordinated By" }, { name: "Date Created" }, { name: "Maturity" }, { name: "Actions", align: "right" }]}>
                         {queriesList.length > 0 ?
-                            queriesList.filter(ql => {
-                                if (codeSearch) {
-                                    return ql.code.includes(codeSearch)
-                                } else {
-                                    return ql
-                                }
-                            }).filter(ql => {
-                                if (nameSearch) {
-                                    return ql.student_name.toLowerCase().includes(nameSearch.toLowerCase())
-                                } else {
-                                    return ql
-                                }
-                            }).filter(ql => {
-                                if (phSearch) {
-                                    return ql.phone_number.toLowerCase().includes(phSearch.toLowerCase())
-                                } else {
-                                    return ql
-                                }
-                            }).filter(ql => {
-                                if (dateSearch) {
-                                    return new Date(ql.createdAt).toDateString() === new Date(dateSearch).toDateString()
-                                } else {
-                                    return ql
-                                }
-                            })
+                            (queriesList.length > 0
+                                ?
+                                codeSearch || nameSearch || phSearch || dateSearch || dateEndSearch ? queriesList :
+                                    queriesList.slice(currentPage * recordsPerPage, (currentPage * recordsPerPage) + recordsPerPage) :
+                                queriesList
+                            )
+                                .filter(ql => {
+                                    if (codeSearch) {
+                                        return ql.code.includes(codeSearch)
+                                    } else {
+                                        return ql
+                                    }
+                                }).filter(ql => {
+                                    if (nameSearch) {
+                                        return ql.student_name.toLowerCase().includes(nameSearch.toLowerCase())
+                                    } else {
+                                        return ql
+                                    }
+                                }).filter(ql => {
+                                    if (phSearch) {
+                                        return ql.phone_number.toLowerCase().includes(phSearch.toLowerCase())
+                                    } else {
+                                        return ql
+                                    }
+                                }).filter(ql => {
+                                    if (dateSearch) {
+                                        return new Date(ql.createdAt).getTime() >= new Date(dateSearch).getTime()
+                                    } else {
+                                        return ql
+                                    }
+                                }).filter(ql => {
+                                    if (dateEndSearch) {
+                                        return new Date(ql.createdAt).getTime() <= new Date(dateEndSearch).getTime()
+                                    } else {
+                                        return ql
+                                    }
+                                })
                                 .filter(ql => {
                                     if ([...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name))].length > 0) {
                                         return [...new Set(clSearch.filter(cl => cl.selected).map(cl => cl.name.toLowerCase()))].includes(ql.user.name.toLowerCase())
                                     } else {
                                         return ql
                                     }
-                                }).map(query => (
-                                    <StyledTableRow>
-                                        <StyledTableCell>{query.code}</StyledTableCell>
-                                        <StyledTableCell >
-                                            {query.student_name}
-                                        </StyledTableCell>
-                                        <StyledTableCell>{query.phone_number}</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: 700, color:theme => theme.palette.primary.main }}>{query?.user?.name}</StyledTableCell>
-                                        <StyledTableCell > {new Date(query.createdAt).getDate() + "-" + (new Date(query.createdAt).getMonth() + 1) + "-" + new Date(query.createdAt).getFullYear()}</StyledTableCell>
-                                        <StyledTableCell>
-                                            <IconButton onClick={async () => {
-                                                try {
-                                                    dispatch(handleAddLoading())
-                                                    await patchQueryApi({ id: query.id, is_matured: !query.is_matured })
-                                                    openSuccessToast("Maturity Status Updated")
-                                                    loadQueries()
-                                                    dispatch(handleRemoveLoading())
-                                                } catch (err) {
-                                                    dispatch(handleRemoveLoading())
-                                                    openErrorToast(err.message ? err.message : err)
-                                                }
-                                            }}>
-                                                <Tooltip title={"Maturity"} >
-                                                    {query.is_matured ? <Icons.DoneAll /> : <Icons.RemoveDone />}
-                                                </Tooltip>
-                                            </IconButton>
-                                        </StyledTableCell>
-                                        <StyledTableCell sx={{ textAlign: "right" }}>
-                                            {actionButtonArray.filter(btn => btn.visibility).map(btn => (
-                                                <IconButton onClick={() => btn.action(query)} color={btn.color}>
-                                                    <btn.icon />
-                                                </IconButton>
-                                            ))}
-                                        </StyledTableCell>
-                                    </StyledTableRow>
+                                })
+                                .map(query => (
+                                    <TableRow query={query} actionButtonArray={actionButtonArray} loadQueries={loadQueries} />
                                 ))
                             : ""}
                     </ExplicitTable>
+                </Grid>
+                <Grid item xs={!2} md={12} sx={{
+                    p: 2,
+                    boxShadow: theme => theme.shadows[5],
+                    background: theme => theme.palette.background.paper,
+                    mb: 1
+                }}>
+                    <TablePaginationActions
+                        count={queriesList.length}
+                        page={currentPage}
+                        rowsPerPage={recordsPerPage}
+                        onPageChange={(e, val) => {
+                            setCurrentPage(val)
+                        }}
+                        onRowsPerPageChange={(e) => { setRecordsPerPage(e.target.value) }}
+                    />
                 </Grid>
             </Grid>
             {useCan("QueriesAddQueries") &&
@@ -305,7 +396,30 @@ const Queries = () => {
                     <Icons.Add />
                 </Fab>
             }
+            <AddQueryDialog loadQueries={loadQueries} loadQueriesById={loadQueriesById} />
 
+        </Container>
+    )
+}
+
+export const AddQueryDialog = ({ loadQueries, loadQueriesById }) => {
+    const dispatch = useDispatch()
+    const queryModalOpen = useSelector(getQueryModalOpen)
+    const queryForm = useSelector(getQueryForm)
+    const name = useSelector(getQueryStudentName)
+    const phone = useSelector(getQueryStudentPhone)
+
+    const canViewAll = useCan("QueriesAll")
+
+    const queryConfig = useSelector(getQueryConfig)
+    const [userColor, setUserColor] = React.useState([])
+    const [studentId, setStudentId] = React.useState(null)
+    const [isMatured, setIsMatured] = React.useState(false)
+    const myId = useSelector(getUserId)
+
+
+    return (
+        <>
             <Dialog dailogOpen={queryModalOpen} title="Query" clickAwayListener={false} size={"md"} hasCloseIcon={true} handleClose={() => {
                 dispatch(handleResetQueryModal())
                 dispatch(handleChangeQueryStudentName(''))
@@ -416,7 +530,7 @@ const Queries = () => {
                     }
                 </Grid>
             </Dialog>
-        </Container>
+        </>
     )
 }
 

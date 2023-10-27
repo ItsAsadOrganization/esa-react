@@ -13,7 +13,7 @@ let groupRouter = Router()
 
 groupRouter.get("/groups", (req, res, next) => {
     try {
-        Manager.getAllGroups(req.session, next)
+        Manager.getAllGroups(next)
     } catch (err) {
         next(err)
     }

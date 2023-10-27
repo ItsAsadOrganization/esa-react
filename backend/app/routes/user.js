@@ -16,8 +16,7 @@ userRouter.get("/login", (req, res, next) => {
 
 userRouter.get("/logout", (req, res, next) => {
     try {
-        const sessionData = req.session
-        Manager.logout(sessionData, next)
+        Manager.logout(next)
     } catch (err) {
         next(err)
     }

@@ -5,12 +5,9 @@ const Repository = require('./repository')
 
 class QueryManager {
 
-    static async getAllQueries(session, next) {
+    static async getAllQueries(next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === 1 ? false : true
-
-            const queries = await Repository.getAllQueries(paranoid)
+            const queries = await Repository.getAllQueries()
             if (!queries) {
                 throw new SUCCESS({ queries: [] })
             } else {
@@ -73,7 +70,7 @@ class QueryManager {
             next(err)
         }
     }
-    
+
     static async updateMaturity(id, payload, next) {
         try {
             const query = await Repository.updateMaturity(id, payload)

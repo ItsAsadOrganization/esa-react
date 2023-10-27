@@ -5,7 +5,7 @@ let designationRouter = Router()
 
 designationRouter.get("/designations", (req, res, next) => {
     try {
-        Manager.getAllDesignations(req.session,next)
+        Manager.getAllDesignations(next)
     } catch (err) {
         next(err)
     }

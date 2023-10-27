@@ -78,6 +78,10 @@ export const putVoucherApi = ({ id, date_issued, date_expiry, config, payment_mo
   return put(API_ROUTE_VOUCHER, { date_issued, date_expiry, config, payment_mode, is_paid, classId, studentId }, { id });
 };
 
+export const deleteVoucherApi = ({ id }) => {
+  return del(API_ROUTE_VOUCHER, {}, { id });
+};
+
 export const deleteStudentApi = ({ id }) => {
   return del(API_ROUTE_STUDENT, {}, { id });
 };

@@ -29,6 +29,9 @@ const studentSlice = createSlice({
         classSearch: [],
         cnicSearch: '',
         nameSearch: '',
+        dateStart: null,
+        dateEnd: null,
+        contactSearch: null,
         student: {
             id: null,
             name: "",
@@ -63,6 +66,11 @@ const studentSlice = createSlice({
 
 
         handleChangeCnicSearch: (state, action) => { state.cnicSearch = action.payload },
+        handleChangeContactSearch: (state, action) => { state.contactSearch = action.payload },
+
+        handleChangeDateStart: (state, action) => { state.dateStart = action.payload },
+        handleChangeDateEnd: (state, action) => { state.dateEnd = action.payload },
+
         handleChangeNameSearch: (state, action) => { state.nameSearch = action.payload },
         handleChangeClassSearch: (state, action) => {
             if (action.payload.type === "all") {
@@ -114,6 +122,9 @@ const studentSlice = createSlice({
             state.studentList = []
             state.classList = []
             state.queryModalOpen = false
+            state.dateEnd = null
+            state.dateStart = null
+            state.contactSearch = null
         }
     },
     extraReducers: builder => {
@@ -148,7 +159,10 @@ export const {
     handleChangeCnicSearch,
     handleChangeNameSearch,
     handleChangeClassSearch,
-    handleChangeStudentGender
+    handleChangeStudentGender,
+    handleChangeDateStart,
+    handleChangeDateEnd,
+    handleChangeContactSearch
 } = studentSlice.actions
 
 
@@ -176,6 +190,9 @@ export const getQueryModalOpen = state => state.student.queryModalOpen
 export const getClassSearchList = state => state.student.classSearchList
 export const getCnicSearch = state => state.student.cnicSearch
 export const getNameSearch = state => state.student.nameSearch
-export const getClassSearch= state => state.student.classSearch
+export const getClassSearch = state => state.student.classSearch
+export const getDateStart = state => state.student.dateStart
+export const getDateEnd = state => state.student.dateEnd
+export const getContactSearch = state => state.student.contactSearch
 
 export default studentSlice.reducer 
