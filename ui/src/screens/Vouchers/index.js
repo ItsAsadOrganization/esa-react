@@ -18,6 +18,7 @@ import BankIcon from './media/bank.png'
 import NothingFound from "../../components/NothingFound"
 import { handleAddLoading, handleRemoveLoading } from "../../common/commonSlice"
 import JsPDF from 'jspdf';
+import TablePaginationActions from "../../components/TablePaginationActions"
 
 const Vouchers = () => {
     const navigate = useNavigate()
@@ -39,6 +40,10 @@ const Vouchers = () => {
     const dueDateSearch = useSelector(getDueDateSearch)
 
     const [searchArr, setSearchArr] = React.useState([])
+
+    const [currentPage, setCurrentPage] = React.useState(0)
+    const [recordsPerPage, setRecordsPerPage] = React.useState(10)
+    const [recordsFound, setRecordsFound] = React.useState(0)
 
 
     const generatePDF = () => {
@@ -108,8 +113,10 @@ const Vouchers = () => {
         if (search) {
             if (searchArr.length > 0) {
                 setSearchArr(searchArr.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+                setRecordsFound(searchArr.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())).length)
             } else {
                 setSearchArr(vouchersList.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())))
+                setRecordsFound(vouchersList.filter(ele => ele.voucher_id.toLowerCase().includes(search.toLowerCase())).length)
             }
         } else {
             setSearchArr(vouchersList)
@@ -120,8 +127,11 @@ const Vouchers = () => {
         if (classSearch) {
             if (searchArr.length > 0) {
                 setSearchArr(searchArr.filter(ele => ele.classId === classSearch))
+                setRecordsFound(searchArr.filter(ele => ele.classId === classSearch).length)
             } else {
                 setSearchArr(vouchersList.filter(ele => ele.classId === classSearch))
+                setRecordsFound(vouchersList.filter(ele => ele.classId === classSearch).length)
+
             }
         } else {
             setSearchArr(vouchersList)
@@ -133,8 +143,10 @@ const Vouchers = () => {
         if (studentSearch) {
             if (searchArr.length > 0) {
                 setSearchArr(searchArr.filter(ele => ele.studentId === studentSearch))
+                setRecordsFound(searchArr.filter(ele => ele.studentId === studentSearch).length)
             } else {
                 setSearchArr(vouchersList.filter(ele => ele.studentId === studentSearch))
+                setRecordsFound(vouchersList.filter(ele => ele.studentId === studentSearch).length)
             }
         } else {
             setSearchArr(vouchersList)
@@ -145,8 +157,10 @@ const Vouchers = () => {
         if (startDateSearch) {
             if (searchArr.length > 0) {
                 setSearchArr(searchArr.filter(ele => new Date(ele.createdAt).getTime() >= new Date(startDateSearch).getTime()))
+                setRecordsFound(searchArr.filter(ele => new Date(ele.createdAt).getTime() >= new Date(startDateSearch).getTime()).length)
             } else {
                 setSearchArr(vouchersList.filter(ele => new Date(ele.createdAt).getTime() >= new Date(startDateSearch).getTime()))
+                setRecordsFound(vouchersList.filter(ele => new Date(ele.createdAt).getTime() >= new Date(startDateSearch).getTime()).length)
             }
         } else {
             setSearchArr(vouchersList)
@@ -157,8 +171,10 @@ const Vouchers = () => {
         if (dueDateSearch) {
             if (searchArr.length > 0) {
                 setSearchArr(searchArr.filter(ele => new Date(ele.createdAt).getTime() <= new Date(dueDateSearch).getTime()))
+                setRecordsFound(searchArr.filter(ele => new Date(ele.createdAt).getTime() <= new Date(dueDateSearch).getTime()).length)
             } else {
                 setSearchArr(vouchersList.filter(ele => new Date(ele.createdAt).getTime() <= new Date(dueDateSearch).getTime()))
+                setRecordsFound(vouchersList.filter(ele => new Date(ele.createdAt).getTime() <= new Date(dueDateSearch).getTime()).length)
             }
 
         } else {
@@ -217,11 +233,16 @@ const Vouchers = () => {
         }
     }, [showExpiring])
 
+    React.useEffect(() => {
+        setRecordsFound(vouchersList.length)
+    }, [vouchersList])
+
     return (
         <Container maxWidth="xl">
-            <AppBreadCrumbs pageTitle={"Vouchers"} paths={BREADCRUMBS} />
+            <AppBreadCrumbs counts={recordsFound} pageTitle={"Vouchers"} paths={BREADCRUMBS} />
             <Grid container maxWidth="xl" sx={{
                 p: 2,
+                mb: 2,
                 boxShadow: theme => theme.shadows[5],
                 background: theme => theme.palette.background.paper,
             }}>
@@ -335,7 +356,7 @@ const Vouchers = () => {
                 }}>
                     {(searchArr.length > 0 && studentsList.length > 0 && classList.length > 0) ?
                         <ExplicitTable tableSize="small" columns={TABLE_HEADS}>
-                            {searchArr.map(v => (
+                            {(searchArr.length > 0 ? searchArr.slice(currentPage * recordsPerPage, (currentPage * recordsPerPage) + recordsPerPage) : searchArr).map(v => (
                                 <StyledTableRow key={v.id} sx={{
                                     background: theme => (new Date(v.date_expiry) <= new Date() && !v.is_paid) ? theme.palette.error.light : theme.palette.background.paper,
                                 }}>
@@ -364,6 +385,26 @@ const Vouchers = () => {
                         : <NothingFound pageIcon={{
                             icon: Icons.ReceiptLong
                         }} pageTitle="Voucher" action={() => navigate(`/${ROUTES.setupVoucher}`)} />}
+                </Grid>
+            </Grid>
+
+
+            <Grid container maxWidth="xl" sx={{
+                p: 2,
+                boxShadow: theme => theme.shadows[5],
+                background: theme => theme.palette.background.paper,
+            }}>
+
+                <Grid item xs={!2} md={12}>
+                    <TablePaginationActions
+                        count={recordsFound}
+                        page={currentPage}
+                        rowsPerPage={recordsPerPage}
+                        onPageChange={(e, val) => {
+                            setCurrentPage(val)
+                        }}
+                        onRowsPerPageChange={(e) => { setRecordsPerPage(e.target.value) }}
+                    />
                 </Grid>
             </Grid>
 

@@ -78,7 +78,6 @@ import TablePaginationActions from "../../components/TablePaginationActions"
 
 const StudentsTableRow = React.memo(({ student, tableActionButtons }) => {
     const userRole = useSelector(getUserRole)
-    console.log("In Table Row")
     return (
         <StyledTableRow key={student.id}>
             <StyledTableCell>
@@ -105,24 +104,6 @@ const StudentsTableRow = React.memo(({ student, tableActionButtons }) => {
 }, (prev, next) => {
     return prev.student.id === next.student.id
 })
-
-// const AddButtonCompoentn = React.memo(({ addStudent }) => {
-//     const dispatch = useDispatch()
-//     return (
-//         <>
-//             {addStudent &&
-//                 <Tooltip placement="top" title="Add New Student">
-//                     <Fab color="primary" onClick={() => dispatch(handleChangeStudentModalOpen(true))} sx={{
-//                         position: "absolute",
-//                         right: 50,
-//                         bottom: 50
-//                     }}>
-//                         <Icons.Add />
-//                     </Fab>
-//                 </Tooltip>
-//             }</>
-//     )
-// })
 
 const Students = () => {
 
@@ -456,43 +437,6 @@ const Students = () => {
                             {(
                                 filteredRows.length > 0 ? filteredRows.slice(currentPage * recordsPerPage, (currentPage * recordsPerPage) + recordsPerPage) : filteredRows
                             )
-                                // .filter(std => {
-                                //     if (nameSearch) {
-                                //         return std.name.toLowerCase().includes(nameSearch.toLowerCase())
-                                //     } else {
-                                //         return std
-                                //     }
-                                // }).filter(std => {
-                                //     if (cnicSearch) {
-                                //         return std.cnic.includes(cnicSearch)
-                                //     } else {
-                                //         return std
-                                //     }
-                                // }).filter(std => {
-                                //     if (classSearch.length > 0) {
-                                //         return classSearch.includes(std["class.name"])
-                                //     } else {
-                                //         return std
-                                //     }
-                                // }).filter(std => {
-                                //     if (classSearch.length > 0 && contactSearch) {
-                                //         return std.phone_1.includes(contactSearch)
-                                //     } else {
-                                //         return std
-                                //     }
-                                // }).filter(std => {
-                                //     if (classSearch.length > 0 && dateStart) {
-                                //         return new Date(std.createdAt).getTime() >= new Date(dateStart).getTime()
-                                //     } else {
-                                //         return std
-                                //     }
-                                // }).filter(std => {
-                                //     if (classSearch.length > 0 && dateEnd) {
-                                //         return new Date(std.createdAt).getTime() <= new Date(dateEnd).getTime()
-                                //     } else {
-                                //         return std
-                                //     }
-                                // })
                                 .map(student => (
                                     <StudentsTableRow tableActionButtons={tableActionButtons} student={student} key={student.id} />
                                 ))}
@@ -507,7 +451,6 @@ const Students = () => {
                     background: theme => theme.palette.background.paper,
                     mb: 1
                 }}>
-                    {console.log({ recordsFound })}
                     <TablePaginationActions
                         count={recordsFound}
                         page={currentPage}

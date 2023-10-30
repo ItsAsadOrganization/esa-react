@@ -59,25 +59,49 @@ const socketIO = require('socket.io')(http, {
     }
 });
 
-socketIO.on('connection', (socket) => {
+socketIO.on("connect", (socket) => {
+    if (socket.handshake.auth.username && socket.handshake.auth.userId ) {
+        socket.username = socket.handshake.auth.username
+        socket.userId = socket.handshake.auth.userId
+        console.log("User Connected Successfully")
+        socket.broadcast.emit("user_connected", { username: socket.username })
+    }
+})
+
+socketIO.on("get_users", (socket) => {
     const users = [];
     for (let [id, socket] of socketIO.of("/").sockets) {
         users.push({
-            userID: id,
+            userID: socket.userId,
             username: socket.username,
         });
     }
-    console.log(`⚡: ${socket.id} user just connected!`);
-
-
-    socket.on("chat-ended-opened", async () => {
-        const queries = await QueryRepository.getAllQueries()
-        socket.emit("query-update", { queries })
-    })
-    socket.on('disconnect', () => {
-        console.log('🔥: A user disconnected');
-    });
+    socket.emit("users", users);
 });
+
+// socketIO.use((socket, next) => {
+//     console.log({...socket})
+// })
+// socketIO.on('connection', (socket) => {
+//     console.log("\n\n socket => "+socket.auth+"\n\n")
+//     const users = [];
+//     for (let [id, socket] of socketIO.of("/").sockets) {
+//         users.push({
+//             userID: id,
+//             username: socket.username,
+//         });
+//     }
+//     console.log({users})
+//     console.log(`⚡: ${socket.id} user just connected!`);
+
+//     socket.on("chat-ended-opened", async () => {
+//         const queries = await QueryRepository.getAllQueries()
+//         socket.emit("query-update", { queries })
+//     })
+//     socket.on('disconnect', () => {
+//         console.log('🔥: A user disconnected');
+//     });
+// });
 
 const PORT = process.env.PORT || 3500
 
@@ -86,7 +110,7 @@ app.use(async (req, res, next) => {
         if (!req.originalUrl.includes("login") && !req.originalUrl.includes("uploads") && !req.originalUrl.includes("generate")) {
             if (req.headers.authorization) {
                 const decoded = verifyToken(req.headers.authorization, next)
-                if (decoded.data?.userId) {
+                if (decoded?.data?.userId) {
                     const _token = generateToken(decoded.data)
                     res.setHeader("authorization", _token)
                     next()
