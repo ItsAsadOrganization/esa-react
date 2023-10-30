@@ -1,5 +1,5 @@
 export const TABLE_HEADS = [
-    { name: "Avatar" },
+    { name: "Image" },
     { name: "Name" },
     { name: "Class" },
     { name: "Father Name" },
@@ -11,7 +11,7 @@ export const TABLE_HEADS = [
 
 
 export const TABLE_HEADS_SA = [
-    { name: "Avatar" },
+    { name: "Image" },
     { name: "Name" },
     { name: "Class" },
     { name: "Father Name" },

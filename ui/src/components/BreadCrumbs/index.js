@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { useTheme } from "@emotion/react"
 import Icons from "../../common/icons"
 
-const AppBreadCrumbs = ({ pageTitle, paths }) => {
+const AppBreadCrumbs = ({ pageTitle, paths, counts }) => {
     const theme = useTheme()
     const [crumbs, setCrumbs] = React.useState([
         {
@@ -16,7 +16,7 @@ const AppBreadCrumbs = ({ pageTitle, paths }) => {
         },
     ])
     React.useEffect(() => {
-       
+
         setCrumbs(curr => [...curr, ...paths])
 
         return () => setCrumbs([
@@ -42,7 +42,7 @@ const AppBreadCrumbs = ({ pageTitle, paths }) => {
                 color: theme => theme.typography.headingColor,
                 fontWeight: 700,
                 fontSize: 24
-            }}>{pageTitle}</Typography>
+            }}>{pageTitle} {counts && <span style={{ fontSize: 12 }}>{counts} Records Found</span>}</Typography>
             <Breadcrumbs sx={{
                 display: "flex",
                 alignItems: "center"

@@ -9,7 +9,7 @@ queryRouter.get("/queries", (req, res, next) => {
         if(id){
             Manager.getAllQueriesByUId(id, next)
         }else{
-            Manager.getAllQueries(req.session, next)
+            Manager.getAllQueries(next)
         }
     } catch (err) {
         next(err)

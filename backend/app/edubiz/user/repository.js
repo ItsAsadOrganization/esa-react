@@ -21,7 +21,7 @@ class UserRepository {
         return user
     }
 
-    static async getAllUsers(panaroid) {
+    static async getAllUsers() {
         const user = await Users.findAll({
             include: [
                 {
@@ -30,7 +30,6 @@ class UserRepository {
                 }
             ],
             raw: true,
-            paranoid: panaroid
         })
         return user
     }

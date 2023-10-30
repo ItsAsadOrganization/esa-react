@@ -4,9 +4,9 @@ const StudentsRepository = require("../student/repository")
 
 class ClassManager {
 
-    static async getAllClasses(paranoid, next) {
+    static async getAllClasses(next) {
         try {
-            const classes = await Repository.getAllClasses(paranoid)
+            const classes = await Repository.getAllClasses()
             if (!classes) {
                 throw new SUCCESS({ classes: [] })
             } else {

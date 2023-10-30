@@ -30,8 +30,7 @@ voucherRouter.get("/voucher/expiring", (req, res, next) => {
 
 voucherRouter.get("/vouchers", (req, res, next) => {
     try {
-        const session = req.session
-        Manager.getVouchers(session, next)
+        Manager.getVouchers(next)
     } catch (err) {
         next(err)
     }
@@ -74,6 +73,13 @@ voucherRouter.post("/voucher/print", (req, res, next) => {
     }
 })
 
-
+voucherRouter.delete("/voucher", (req, res, next) => {
+    try {
+        const id = req.query.id
+        Manager.deleteVoucher(id, next)
+    } catch (err) {
+        next(err)
+    }
+})
 
 module.exports = voucherRouter

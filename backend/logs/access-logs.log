@@ -368,3 +368,959 @@ info: Group : {"timestamp":"2023-10-25T04:57:56.488Z"}
 info: User: {"timestamp":"2023-10-25T04:57:56.489Z"}
 info: Group : {"timestamp":"2023-10-25T04:57:56.489Z"}
 info: User: {"timestamp":"2023-10-25T04:57:56.490Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:13:58.435Z"}
+info: Redis Connectin Successful {"timestamp":"2023-10-26T12:13:58.454Z"}
+info: Redis store initialized {"timestamp":"2023-10-26T12:13:58.454Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.929Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.930Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.931Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.937Z"}
+info: User: {"timestamp":"2023-10-26T12:13:58.937Z"}
+info: User: {"timestamp":"2023-10-26T12:13:58.938Z"}
+info: Group : {"timestamp":"2023-10-26T12:13:58.939Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:15:32.456Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:15:32.458Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.697Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.699Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.701Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.707Z"}
+info: User: {"timestamp":"2023-10-26T12:15:32.707Z"}
+info: User: {"timestamp":"2023-10-26T12:15:32.708Z"}
+info: Group : {"timestamp":"2023-10-26T12:15:32.708Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:16:02.204Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:16:02.206Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.426Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.426Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.428Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.438Z"}
+info: User: {"timestamp":"2023-10-26T12:16:02.438Z"}
+info: Group : {"timestamp":"2023-10-26T12:16:02.439Z"}
+info: User: {"timestamp":"2023-10-26T12:16:02.439Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:17:14.582Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:17:14.584Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.782Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.782Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: User: {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: User: {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.791Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:14.792Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:17:30.101Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:17:30.104Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.308Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.310Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.316Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.318Z"}
+info: User: {"timestamp":"2023-10-26T12:17:30.318Z"}
+info: Group : {"timestamp":"2023-10-26T12:17:30.318Z"}
+info: User: {"timestamp":"2023-10-26T12:17:30.319Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:18:35.558Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:18:35.560Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.766Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.767Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.770Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.778Z"}
+info: Group : {"timestamp":"2023-10-26T12:18:35.780Z"}
+info: User: {"timestamp":"2023-10-26T12:18:35.780Z"}
+info: User: {"timestamp":"2023-10-26T12:18:35.781Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:19:47.795Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:19:47.797Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.004Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.007Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.011Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.016Z"}
+info: Group : {"timestamp":"2023-10-26T12:19:48.017Z"}
+info: User: {"timestamp":"2023-10-26T12:19:48.018Z"}
+info: User: {"timestamp":"2023-10-26T12:19:48.018Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:23:43.249Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:23:43.252Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.467Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.468Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.481Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.481Z"}
+info: Group : {"timestamp":"2023-10-26T12:23:43.482Z"}
+info: User: {"timestamp":"2023-10-26T12:23:43.482Z"}
+info: User: {"timestamp":"2023-10-26T12:23:43.484Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:24:15.243Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:24:15.245Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.459Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.460Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.465Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.467Z"}
+info: User: {"timestamp":"2023-10-26T12:24:15.468Z"}
+info: User: {"timestamp":"2023-10-26T12:24:15.468Z"}
+info: Group : {"timestamp":"2023-10-26T12:24:15.469Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:39:41.735Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:39:41.737Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.949Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.950Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.957Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.958Z"}
+info: User: {"timestamp":"2023-10-26T12:39:41.958Z"}
+info: Group : {"timestamp":"2023-10-26T12:39:41.960Z"}
+info: User: {"timestamp":"2023-10-26T12:39:41.963Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:40:46.442Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:40:46.444Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.662Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.663Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.675Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.676Z"}
+info: Group : {"timestamp":"2023-10-26T12:40:46.676Z"}
+info: User: {"timestamp":"2023-10-26T12:40:46.676Z"}
+info: User: {"timestamp":"2023-10-26T12:40:46.678Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:41:09.531Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:41:09.533Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.743Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.744Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.751Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.753Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:09.753Z"}
+info: User: {"timestamp":"2023-10-26T12:41:09.754Z"}
+info: User: {"timestamp":"2023-10-26T12:41:09.756Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T12:41:37.809Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T12:41:37.812Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.016Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.018Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.025Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.027Z"}
+info: User: {"timestamp":"2023-10-26T12:41:38.028Z"}
+info: Group : {"timestamp":"2023-10-26T12:41:38.028Z"}
+info: User: {"timestamp":"2023-10-26T12:41:38.029Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:04:04.295Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:04:04.297Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.514Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.515Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.529Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.529Z"}
+info: User: {"timestamp":"2023-10-26T13:04:04.530Z"}
+info: Group : {"timestamp":"2023-10-26T13:04:04.531Z"}
+info: User: {"timestamp":"2023-10-26T13:04:04.531Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:05:37.420Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:145:9)\n    at Server.<anonymous> (/app/index.js:372:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:05:37.422Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.649Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.650Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.661Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.662Z"}
+info: Group : {"timestamp":"2023-10-26T13:05:37.662Z"}
+info: User: {"timestamp":"2023-10-26T13:05:37.662Z"}
+info: User: {"timestamp":"2023-10-26T13:05:37.665Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:07:00.858Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:149:9)\n    at Server.<anonymous> (/app/index.js:376:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:07:00.860Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.080Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.082Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.085Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.088Z"}
+info: Group : {"timestamp":"2023-10-26T13:07:01.089Z"}
+info: User: {"timestamp":"2023-10-26T13:07:01.090Z"}
+info: User: {"timestamp":"2023-10-26T13:07:01.091Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:10:36.847Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:149:9)\n    at Server.<anonymous> (/app/index.js:376:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:10:36.849Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.056Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.057Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.068Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.068Z"}
+info: Group : {"timestamp":"2023-10-26T13:10:37.068Z"}
+info: User: {"timestamp":"2023-10-26T13:10:37.069Z"}
+info: User: {"timestamp":"2023-10-26T13:10:37.070Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:14:11.165Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:14:11.167Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.398Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.400Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.406Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.408Z"}
+info: User: {"timestamp":"2023-10-26T13:14:11.408Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:11.409Z"}
+info: User: {"timestamp":"2023-10-26T13:14:11.409Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:14:54.345Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:14:54.348Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.556Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.557Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.566Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.567Z"}
+info: Group : {"timestamp":"2023-10-26T13:14:54.567Z"}
+info: User: {"timestamp":"2023-10-26T13:14:54.568Z"}
+info: User: {"timestamp":"2023-10-26T13:14:54.571Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:16:27.035Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:16:27.037Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.246Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.247Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.256Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.256Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:27.257Z"}
+info: User: {"timestamp":"2023-10-26T13:16:27.258Z"}
+info: User: {"timestamp":"2023-10-26T13:16:27.259Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:16:56.031Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:150:9)\n    at Server.<anonymous> (/app/index.js:377:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:16:56.034Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.239Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.240Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.247Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.248Z"}
+info: Group : {"timestamp":"2023-10-26T13:16:56.248Z"}
+info: User: {"timestamp":"2023-10-26T13:16:56.249Z"}
+info: User: {"timestamp":"2023-10-26T13:16:56.251Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:17:38.677Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:151:9)\n    at Server.<anonymous> (/app/index.js:378:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:17:38.679Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.886Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.889Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.892Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.897Z"}
+info: User: {"timestamp":"2023-10-26T13:17:38.897Z"}
+info: User: {"timestamp":"2023-10-26T13:17:38.897Z"}
+info: Group : {"timestamp":"2023-10-26T13:17:38.898Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:18:37.369Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:151:9)\n    at Server.<anonymous> (/app/index.js:378:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:18:37.372Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.578Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.579Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.582Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.586Z"}
+info: User: {"timestamp":"2023-10-26T13:18:37.586Z"}
+info: User: {"timestamp":"2023-10-26T13:18:37.587Z"}
+info: Group : {"timestamp":"2023-10-26T13:18:37.588Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:19:43.125Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:144:9)\n    at Server.<anonymous> (/app/index.js:371:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:19:43.127Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.336Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.337Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.338Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.346Z"}
+info: Group : {"timestamp":"2023-10-26T13:19:43.346Z"}
+info: User: {"timestamp":"2023-10-26T13:19:43.346Z"}
+info: User: {"timestamp":"2023-10-26T13:19:43.347Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:20:40.563Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:143:9)\n    at Server.<anonymous> (/app/index.js:370:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:20:40.565Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.798Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.801Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.807Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.809Z"}
+info: User: {"timestamp":"2023-10-26T13:20:40.810Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:40.810Z"}
+info: User: {"timestamp":"2023-10-26T13:20:40.811Z"}
+info: Trying to connect to Redis {"timestamp":"2023-10-26T13:20:59.697Z"}
+error: error connectibg redis  redisClient is not defined {"stack":"ReferenceError: redisClient is not defined\n    at connectToRedisStore (/app/index.js:116:9)\n    at Server.<anonymous> (/app/index.js:343:5)\n    at Object.onceWrapper (node:events:628:28)\n    at Server.emit (node:events:526:35)\n    at emitListeningNT (node:net:1906:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)","timestamp":"2023-10-26T13:20:59.699Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.905Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.906Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.917Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.917Z"}
+info: User: {"timestamp":"2023-10-26T13:20:59.918Z"}
+info: Group : {"timestamp":"2023-10-26T13:20:59.920Z"}
+info: User: {"timestamp":"2023-10-26T13:20:59.920Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.861Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.864Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.868Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.874Z"}
+info: User: {"timestamp":"2023-10-26T13:21:24.874Z"}
+info: Group : {"timestamp":"2023-10-26T13:21:24.874Z"}
+info: User: {"timestamp":"2023-10-26T13:21:24.875Z"}
+                                                                                                                                                                                                                                                                                                                              info: Group : {"timestamp":"2023-10-26T13:23:00.823Z"}
+info: Group : {"timestamp":"2023-10-26T13:23:00.826Z"}
+info: Group : {"timestamp":"2023-10-26T13:23:00.829Z"}
+info: Group : {"timestamp":"2023-10-26T13:23:00.837Z"}
+info: Group : {"timestamp":"2023-10-26T13:23:00.839Z"}
+info: User: {"timestamp":"2023-10-26T13:23:00.840Z"}
+info: User: {"timestamp":"2023-10-26T13:23:00.841Z"}
+info: Group : {"timestamp":"2023-10-26T13:27:10.566Z"}
+info: Group : {"timestamp":"2023-10-26T13:27:10.568Z"}
+info: Group : {"timestamp":"2023-10-26T13:27:10.579Z"}
+info: Group : {"timestamp":"2023-10-26T13:27:10.580Z"}
+info: Group : {"timestamp":"2023-10-26T13:27:10.581Z"}
+info: User: {"timestamp":"2023-10-26T13:27:10.581Z"}
+info: User: {"timestamp":"2023-10-26T13:27:10.582Z"}
+info: Group : {"timestamp":"2023-10-26T13:29:20.924Z"}
+info: Group : {"timestamp":"2023-10-26T13:29:20.926Z"}
+info: Group : {"timestamp":"2023-10-26T13:29:20.937Z"}
+info: Group : {"timestamp":"2023-10-26T13:29:20.937Z"}
+info: Group : {"timestamp":"2023-10-26T13:29:20.937Z"}
+info: User: {"timestamp":"2023-10-26T13:29:20.938Z"}
+info: User: {"timestamp":"2023-10-26T13:29:20.938Z"}
+info: Group : {"timestamp":"2023-10-26T13:30:17.955Z"}
+info: Group : {"timestamp":"2023-10-26T13:30:17.957Z"}
+info: Group : {"timestamp":"2023-10-26T13:30:17.968Z"}
+info: Group : {"timestamp":"2023-10-26T13:30:17.969Z"}
+info: Group : {"timestamp":"2023-10-26T13:30:17.970Z"}
+info: User: {"timestamp":"2023-10-26T13:30:17.970Z"}
+info: User: {"timestamp":"2023-10-26T13:30:17.971Z"}
+info: Group : {"timestamp":"2023-10-26T13:33:45.501Z"}
+info: Group : {"timestamp":"2023-10-26T13:33:45.506Z"}
+info: Group : {"timestamp":"2023-10-26T13:33:45.513Z"}
+info: Group : {"timestamp":"2023-10-26T13:33:45.514Z"}
+info: User: {"timestamp":"2023-10-26T13:33:45.515Z"}
+info: Group : {"timestamp":"2023-10-26T13:33:45.515Z"}
+info: User: {"timestamp":"2023-10-26T13:33:45.516Z"}
+info: Group : {"timestamp":"2023-10-26T13:34:09.987Z"}
+info: Group : {"timestamp":"2023-10-26T13:34:09.988Z"}
+info: Group : {"timestamp":"2023-10-26T13:34:09.999Z"}
+info: Group : {"timestamp":"2023-10-26T13:34:10.001Z"}
+info: Group : {"timestamp":"2023-10-26T13:34:10.001Z"}
+info: User: {"timestamp":"2023-10-26T13:34:10.001Z"}
+info: User: {"timestamp":"2023-10-26T13:34:10.002Z"}
+info: Group : {"timestamp":"2023-10-27T06:24:31.741Z"}
+info: Group : {"timestamp":"2023-10-27T06:24:31.744Z"}
+info: Group : {"timestamp":"2023-10-27T06:24:31.747Z"}
+info: Group : {"timestamp":"2023-10-27T06:24:31.752Z"}
+info: User: {"timestamp":"2023-10-27T06:24:31.752Z"}
+info: Group : {"timestamp":"2023-10-27T06:24:31.753Z"}
+info: User: {"timestamp":"2023-10-27T06:24:31.753Z"}
+info: Group : {"timestamp":"2023-10-27T06:28:09.645Z"}
+info: Group : {"timestamp":"2023-10-27T06:28:09.648Z"}
+info: Group : {"timestamp":"2023-10-27T06:28:09.656Z"}
+info: Group : {"timestamp":"2023-10-27T06:28:09.657Z"}
+info: User: {"timestamp":"2023-10-27T06:28:09.658Z"}
+info: Group : {"timestamp":"2023-10-27T06:28:09.658Z"}
+info: User: {"timestamp":"2023-10-27T06:28:09.659Z"}
+info: Group : {"timestamp":"2023-10-27T06:32:10.041Z"}
+info: Group : {"timestamp":"2023-10-27T06:32:10.042Z"}
+info: Group : {"timestamp":"2023-10-27T06:32:10.044Z"}
+info: Group : {"timestamp":"2023-10-27T06:32:10.046Z"}
+info: Group : {"timestamp":"2023-10-27T06:32:10.050Z"}
+info: User: {"timestamp":"2023-10-27T06:32:10.051Z"}
+info: User: {"timestamp":"2023-10-27T06:32:10.052Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:07.231Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:07.233Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:07.236Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:07.245Z"}
+info: User: {"timestamp":"2023-10-27T06:33:07.246Z"}
+info: User: {"timestamp":"2023-10-27T06:33:07.246Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:07.246Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:38.516Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:38.519Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:38.530Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:38.530Z"}
+info: Group : {"timestamp":"2023-10-27T06:33:38.531Z"}
+info: User: {"timestamp":"2023-10-27T06:33:38.531Z"}
+info: User: {"timestamp":"2023-10-27T06:33:38.531Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:21.651Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:21.653Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:21.655Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:21.661Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:21.662Z"}
+info: User: {"timestamp":"2023-10-27T06:35:21.662Z"}
+info: User: {"timestamp":"2023-10-27T06:35:21.662Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:51.041Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:51.046Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:51.049Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:51.055Z"}
+info: Group : {"timestamp":"2023-10-27T06:35:51.056Z"}
+info: User: {"timestamp":"2023-10-27T06:35:51.056Z"}
+info: User: {"timestamp":"2023-10-27T06:35:51.057Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:15.069Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:15.072Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:15.074Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:15.075Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:15.080Z"}
+info: User: {"timestamp":"2023-10-27T06:36:15.081Z"}
+info: User: {"timestamp":"2023-10-27T06:36:15.082Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:51.268Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:51.270Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:51.273Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:51.283Z"}
+info: Group : {"timestamp":"2023-10-27T06:36:51.284Z"}
+info: User: {"timestamp":"2023-10-27T06:36:51.284Z"}
+info: User: {"timestamp":"2023-10-27T06:36:51.285Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:41.833Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:41.834Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:41.846Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:41.847Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:41.847Z"}
+info: User: {"timestamp":"2023-10-27T06:37:41.848Z"}
+info: User: {"timestamp":"2023-10-27T06:37:41.848Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:52.809Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:52.812Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:52.817Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:52.824Z"}
+info: User: {"timestamp":"2023-10-27T06:37:52.825Z"}
+info: User: {"timestamp":"2023-10-27T06:37:52.825Z"}
+info: Group : {"timestamp":"2023-10-27T06:37:52.825Z"}
+info: Group : {"timestamp":"2023-10-27T06:39:31.821Z"}
+info: Group : {"timestamp":"2023-10-27T06:39:31.823Z"}
+info: Group : {"timestamp":"2023-10-27T06:39:31.824Z"}
+info: Group : {"timestamp":"2023-10-27T06:39:31.830Z"}
+info: Group : {"timestamp":"2023-10-27T06:39:31.831Z"}
+info: User: {"timestamp":"2023-10-27T06:39:31.831Z"}
+info: User: {"timestamp":"2023-10-27T06:39:31.832Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:05.588Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:05.590Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:05.592Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:05.603Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:05.604Z"}
+info: User: {"timestamp":"2023-10-27T06:40:05.604Z"}
+info: User: {"timestamp":"2023-10-27T06:40:05.604Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:22.855Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:22.856Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:22.872Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:22.874Z"}
+info: Group : {"timestamp":"2023-10-27T06:40:22.874Z"}
+info: User: {"timestamp":"2023-10-27T06:40:22.875Z"}
+info: User: {"timestamp":"2023-10-27T06:40:22.875Z"}
+info: Group : {"timestamp":"2023-10-27T06:42:48.105Z"}
+info: Group : {"timestamp":"2023-10-27T06:42:48.107Z"}
+info: Group : {"timestamp":"2023-10-27T06:42:48.121Z"}
+info: Group : {"timestamp":"2023-10-27T06:42:48.123Z"}
+info: Group : {"timestamp":"2023-10-27T06:42:48.124Z"}
+info: User: {"timestamp":"2023-10-27T06:42:48.125Z"}
+info: User: {"timestamp":"2023-10-27T06:42:48.125Z"}
+info: Group : {"timestamp":"2023-10-27T06:44:13.687Z"}
+info: Group : {"timestamp":"2023-10-27T06:44:13.691Z"}
+info: Group : {"timestamp":"2023-10-27T06:44:13.698Z"}
+info: Group : {"timestamp":"2023-10-27T06:44:13.698Z"}
+info: Group : {"timestamp":"2023-10-27T06:44:13.699Z"}
+info: User: {"timestamp":"2023-10-27T06:44:13.699Z"}
+info: User: {"timestamp":"2023-10-27T06:44:13.700Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:17.355Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:17.356Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:17.366Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:17.368Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:17.369Z"}
+info: User: {"timestamp":"2023-10-27T06:45:17.370Z"}
+info: User: {"timestamp":"2023-10-27T06:45:17.372Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:38.636Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:38.638Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:38.639Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:38.647Z"}
+info: Group : {"timestamp":"2023-10-27T06:45:38.647Z"}
+info: User: {"timestamp":"2023-10-27T06:45:38.648Z"}
+info: User: {"timestamp":"2023-10-27T06:45:38.648Z"}
+info: Group : {"timestamp":"2023-10-27T06:46:10.781Z"}
+info: Group : {"timestamp":"2023-10-27T06:46:10.783Z"}
+info: Group : {"timestamp":"2023-10-27T06:46:10.791Z"}
+info: Group : {"timestamp":"2023-10-27T06:46:10.791Z"}
+info: Group : {"timestamp":"2023-10-27T06:46:10.793Z"}
+info: User: {"timestamp":"2023-10-27T06:46:10.793Z"}
+info: User: {"timestamp":"2023-10-27T06:46:10.794Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:10.471Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:10.472Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:10.474Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:10.488Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:10.489Z"}
+info: User: {"timestamp":"2023-10-27T06:47:10.489Z"}
+info: User: {"timestamp":"2023-10-27T06:47:10.490Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:52.499Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:52.501Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:52.502Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:52.508Z"}
+info: Group : {"timestamp":"2023-10-27T06:47:52.508Z"}
+info: User: {"timestamp":"2023-10-27T06:47:52.509Z"}
+info: User: {"timestamp":"2023-10-27T06:47:52.509Z"}
+info: Group : {"timestamp":"2023-10-27T06:49:04.026Z"}
+info: Group : {"timestamp":"2023-10-27T06:49:04.029Z"}
+info: Group : {"timestamp":"2023-10-27T06:49:04.033Z"}
+info: Group : {"timestamp":"2023-10-27T06:49:04.033Z"}
+info: Group : {"timestamp":"2023-10-27T06:49:04.037Z"}
+info: User: {"timestamp":"2023-10-27T06:49:04.038Z"}
+info: User: {"timestamp":"2023-10-27T06:49:04.039Z"}
+info: Group : {"timestamp":"2023-10-27T06:50:04.988Z"}
+info: Group : {"timestamp":"2023-10-27T06:50:04.990Z"}
+info: Group : {"timestamp":"2023-10-27T06:50:04.993Z"}
+info: Group : {"timestamp":"2023-10-27T06:50:04.998Z"}
+info: Group : {"timestamp":"2023-10-27T06:50:04.999Z"}
+info: User: {"timestamp":"2023-10-27T06:50:04.999Z"}
+info: User: {"timestamp":"2023-10-27T06:50:04.999Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:10.634Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:10.636Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:10.645Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:10.645Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:10.646Z"}
+info: User: {"timestamp":"2023-10-27T06:51:10.646Z"}
+info: User: {"timestamp":"2023-10-27T06:51:10.646Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:42.361Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:42.365Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:42.368Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:42.368Z"}
+info: Group : {"timestamp":"2023-10-27T06:51:42.372Z"}
+info: User: {"timestamp":"2023-10-27T06:51:42.373Z"}
+info: User: {"timestamp":"2023-10-27T06:51:42.374Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:00.583Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:00.586Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:00.588Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:00.595Z"}
+info: User: {"timestamp":"2023-10-27T06:52:00.596Z"}
+info: User: {"timestamp":"2023-10-27T06:52:00.596Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:00.597Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:59.672Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:59.674Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:59.677Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:59.677Z"}
+info: Group : {"timestamp":"2023-10-27T06:52:59.683Z"}
+info: User: {"timestamp":"2023-10-27T06:52:59.683Z"}
+info: User: {"timestamp":"2023-10-27T06:52:59.684Z"}
+info: Group : {"timestamp":"2023-10-27T06:53:52.808Z"}
+info: Group : {"timestamp":"2023-10-27T06:53:52.810Z"}
+info: Group : {"timestamp":"2023-10-27T06:53:52.823Z"}
+info: Group : {"timestamp":"2023-10-27T06:53:52.825Z"}
+info: Group : {"timestamp":"2023-10-27T06:53:52.825Z"}
+info: User: {"timestamp":"2023-10-27T06:53:52.825Z"}
+info: User: {"timestamp":"2023-10-27T06:53:52.826Z"}
+info: Group : {"timestamp":"2023-10-27T06:54:14.287Z"}
+info: Group : {"timestamp":"2023-10-27T06:54:14.291Z"}
+info: Group : {"timestamp":"2023-10-27T06:54:14.294Z"}
+info: Group : {"timestamp":"2023-10-27T06:54:14.299Z"}
+info: Group : {"timestamp":"2023-10-27T06:54:14.300Z"}
+info: User: {"timestamp":"2023-10-27T06:54:14.301Z"}
+info: User: {"timestamp":"2023-10-27T06:54:14.301Z"}
+info: Group : {"timestamp":"2023-10-27T06:55:26.711Z"}
+info: Group : {"timestamp":"2023-10-27T06:55:26.712Z"}
+info: Group : {"timestamp":"2023-10-27T06:55:26.721Z"}
+info: Group : {"timestamp":"2023-10-27T06:55:26.723Z"}
+info: Group : {"timestamp":"2023-10-27T06:55:26.724Z"}
+info: User: {"timestamp":"2023-10-27T06:55:26.724Z"}
+info: User: {"timestamp":"2023-10-27T06:55:26.726Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:09.582Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:09.584Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:09.587Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:09.588Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:09.594Z"}
+info: User: {"timestamp":"2023-10-27T06:56:09.595Z"}
+info: User: {"timestamp":"2023-10-27T06:56:09.595Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:31.040Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:31.042Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:31.046Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:31.049Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:31.053Z"}
+info: User: {"timestamp":"2023-10-27T06:56:31.054Z"}
+info: User: {"timestamp":"2023-10-27T06:56:31.054Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:41.856Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:41.859Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:41.861Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:41.866Z"}
+info: Group : {"timestamp":"2023-10-27T06:56:41.868Z"}
+info: User: {"timestamp":"2023-10-27T06:56:41.868Z"}
+info: User: {"timestamp":"2023-10-27T06:56:41.869Z"}
+info: Group : {"timestamp":"2023-10-27T06:58:02.098Z"}
+info: Group : {"timestamp":"2023-10-27T06:58:02.100Z"}
+info: Group : {"timestamp":"2023-10-27T06:58:02.102Z"}
+info: Group : {"timestamp":"2023-10-27T06:58:02.110Z"}
+info: Group : {"timestamp":"2023-10-27T06:58:02.110Z"}
+info: User: {"timestamp":"2023-10-27T06:58:02.110Z"}
+info: User: {"timestamp":"2023-10-27T06:58:02.111Z"}
+info: Group : {"timestamp":"2023-10-27T07:10:20.981Z"}
+info: Group : {"timestamp":"2023-10-27T07:10:20.984Z"}
+info: Group : {"timestamp":"2023-10-27T07:10:20.987Z"}
+info: Group : {"timestamp":"2023-10-27T07:10:20.987Z"}
+info: Group : {"timestamp":"2023-10-27T07:10:20.992Z"}
+info: User: {"timestamp":"2023-10-27T07:10:20.993Z"}
+info: User: {"timestamp":"2023-10-27T07:10:20.994Z"}
+info: Group : {"timestamp":"2023-10-27T09:32:39.605Z"}
+info: Group : {"timestamp":"2023-10-27T09:32:39.607Z"}
+info: Group : {"timestamp":"2023-10-27T09:32:39.617Z"}
+info: Group : {"timestamp":"2023-10-27T09:32:39.617Z"}
+info: Group : {"timestamp":"2023-10-27T09:32:39.618Z"}
+info: User: {"timestamp":"2023-10-27T09:32:39.618Z"}
+info: User: {"timestamp":"2023-10-27T09:32:39.620Z"}
+info: Group : {"timestamp":"2023-10-27T10:45:57.468Z"}
+info: Group : {"timestamp":"2023-10-27T10:45:57.470Z"}
+info: Group : {"timestamp":"2023-10-27T10:45:57.482Z"}
+info: Group : {"timestamp":"2023-10-27T10:45:57.484Z"}
+info: Group : {"timestamp":"2023-10-27T10:45:57.484Z"}
+info: User: {"timestamp":"2023-10-27T10:45:57.485Z"}
+info: User: {"timestamp":"2023-10-27T10:45:57.485Z"}
+info: Group : {"timestamp":"2023-10-27T10:49:07.802Z"}
+info: Group : {"timestamp":"2023-10-27T10:49:07.804Z"}
+info: Group : {"timestamp":"2023-10-27T10:49:07.805Z"}
+info: Group : {"timestamp":"2023-10-27T10:49:07.811Z"}
+info: Group : {"timestamp":"2023-10-27T10:49:07.811Z"}
+info: User: {"timestamp":"2023-10-27T10:49:07.812Z"}
+info: User: {"timestamp":"2023-10-27T10:49:07.812Z"}
+info: Group : {"timestamp":"2023-10-27T10:50:00.187Z"}
+info: Group : {"timestamp":"2023-10-27T10:50:00.188Z"}
+info: Group : {"timestamp":"2023-10-27T10:50:00.200Z"}
+info: Group : {"timestamp":"2023-10-27T10:50:00.203Z"}
+info: Group : {"timestamp":"2023-10-27T10:50:00.203Z"}
+info: User: {"timestamp":"2023-10-27T10:50:00.204Z"}
+info: User: {"timestamp":"2023-10-27T10:50:00.207Z"}
+info: Group : {"timestamp":"2023-10-27T11:03:27.389Z"}
+info: Group : {"timestamp":"2023-10-27T11:03:27.391Z"}
+info: Group : {"timestamp":"2023-10-27T11:03:27.405Z"}
+info: Group : {"timestamp":"2023-10-27T11:03:27.406Z"}
+info: Group : {"timestamp":"2023-10-27T11:03:27.407Z"}
+info: User: {"timestamp":"2023-10-27T11:03:27.407Z"}
+info: User: {"timestamp":"2023-10-27T11:03:27.408Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:00.276Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:00.277Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:00.279Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:00.287Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:00.287Z"}
+info: User: {"timestamp":"2023-10-27T11:04:00.287Z"}
+info: User: {"timestamp":"2023-10-27T11:04:00.288Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:21.625Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:21.627Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:21.630Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:21.630Z"}
+info: Group : {"timestamp":"2023-10-27T11:04:21.635Z"}
+info: User: {"timestamp":"2023-10-27T11:04:21.635Z"}
+info: User: {"timestamp":"2023-10-27T11:04:21.636Z"}
+info: Group : {"timestamp":"2023-10-27T11:05:08.476Z"}
+info: Group : {"timestamp":"2023-10-27T11:05:08.479Z"}
+info: Group : {"timestamp":"2023-10-27T11:05:08.483Z"}
+info: Group : {"timestamp":"2023-10-27T11:05:08.484Z"}
+info: Group : {"timestamp":"2023-10-27T11:05:08.489Z"}
+info: User: {"timestamp":"2023-10-27T11:05:08.490Z"}
+info: User: {"timestamp":"2023-10-27T11:05:08.490Z"}
+info: Group : {"timestamp":"2023-10-27T11:51:41.524Z"}
+info: Group : {"timestamp":"2023-10-27T11:51:41.527Z"}
+info: Group : {"timestamp":"2023-10-27T11:51:41.531Z"}
+info: Group : {"timestamp":"2023-10-27T11:51:41.537Z"}
+info: User: {"timestamp":"2023-10-27T11:51:41.537Z"}
+info: User: {"timestamp":"2023-10-27T11:51:41.538Z"}
+info: Group : {"timestamp":"2023-10-27T11:51:41.538Z"}
+info: Group : {"timestamp":"2023-10-27T11:52:49.731Z"}
+info: Group : {"timestamp":"2023-10-27T11:52:49.733Z"}
+info: Group : {"timestamp":"2023-10-27T11:52:49.742Z"}
+info: Group : {"timestamp":"2023-10-27T11:52:49.743Z"}
+info: Group : {"timestamp":"2023-10-27T11:52:49.743Z"}
+info: User: {"timestamp":"2023-10-27T11:52:49.744Z"}
+info: User: {"timestamp":"2023-10-27T11:52:49.744Z"}
+info: Group : {"timestamp":"2023-10-27T12:06:18.456Z"}
+info: Group : {"timestamp":"2023-10-27T12:06:18.458Z"}
+info: Group : {"timestamp":"2023-10-27T12:06:18.468Z"}
+info: Group : {"timestamp":"2023-10-27T12:06:18.470Z"}
+info: Group : {"timestamp":"2023-10-27T12:06:18.470Z"}
+info: User: {"timestamp":"2023-10-27T12:06:18.470Z"}
+info: User: {"timestamp":"2023-10-27T12:06:18.471Z"}
+info: Group : {"timestamp":"2023-10-30T05:47:28.970Z"}
+info: Group : {"timestamp":"2023-10-30T05:47:28.971Z"}
+info: Group : {"timestamp":"2023-10-30T05:47:28.972Z"}
+info: Group : {"timestamp":"2023-10-30T05:47:28.978Z"}
+info: Group : {"timestamp":"2023-10-30T05:47:28.978Z"}
+info: User: {"timestamp":"2023-10-30T05:47:28.979Z"}
+info: User: {"timestamp":"2023-10-30T05:47:28.979Z"}
+info: Group : {"timestamp":"2023-10-30T05:48:50.907Z"}
+info: Group : {"timestamp":"2023-10-30T05:48:50.908Z"}
+info: Group : {"timestamp":"2023-10-30T05:48:50.917Z"}
+info: Group : {"timestamp":"2023-10-30T05:48:50.918Z"}
+info: Group : {"timestamp":"2023-10-30T05:48:50.918Z"}
+info: User: {"timestamp":"2023-10-30T05:48:50.918Z"}
+info: User: {"timestamp":"2023-10-30T05:48:50.919Z"}
+info: Group : {"timestamp":"2023-10-30T05:50:12.430Z"}
+info: Group : {"timestamp":"2023-10-30T05:50:12.431Z"}
+info: Group : {"timestamp":"2023-10-30T05:50:12.442Z"}
+info: Group : {"timestamp":"2023-10-30T05:50:12.442Z"}
+info: Group : {"timestamp":"2023-10-30T05:50:12.443Z"}
+info: User: {"timestamp":"2023-10-30T05:50:12.443Z"}
+info: User: {"timestamp":"2023-10-30T05:50:12.444Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:10.769Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:10.770Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:10.779Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:10.780Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:10.781Z"}
+info: User: {"timestamp":"2023-10-30T06:35:10.781Z"}
+info: User: {"timestamp":"2023-10-30T06:35:10.782Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:30.608Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:30.610Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:30.613Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:30.614Z"}
+info: Group : {"timestamp":"2023-10-30T06:35:30.618Z"}
+info: User: {"timestamp":"2023-10-30T06:35:30.618Z"}
+info: User: {"timestamp":"2023-10-30T06:35:30.619Z"}
+info: Group : {"timestamp":"2023-10-30T06:40:17.384Z"}
+info: Group : {"timestamp":"2023-10-30T06:40:17.386Z"}
+info: Group : {"timestamp":"2023-10-30T06:40:17.387Z"}
+info: Group : {"timestamp":"2023-10-30T06:40:17.388Z"}
+info: Group : {"timestamp":"2023-10-30T06:40:17.398Z"}
+info: User: {"timestamp":"2023-10-30T06:40:17.399Z"}
+info: User: {"timestamp":"2023-10-30T06:40:17.400Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:14.096Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:14.098Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:14.109Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:14.110Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:14.111Z"}
+info: User: {"timestamp":"2023-10-30T06:47:14.111Z"}
+info: User: {"timestamp":"2023-10-30T06:47:14.111Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:45.881Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:45.883Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:45.884Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:45.891Z"}
+info: Group : {"timestamp":"2023-10-30T06:47:45.892Z"}
+info: User: {"timestamp":"2023-10-30T06:47:45.892Z"}
+info: User: {"timestamp":"2023-10-30T06:47:45.892Z"}
+info: Group : {"timestamp":"2023-10-30T06:48:01.037Z"}
+info: Group : {"timestamp":"2023-10-30T06:48:01.041Z"}
+info: Group : {"timestamp":"2023-10-30T06:48:01.048Z"}
+info: Group : {"timestamp":"2023-10-30T06:48:01.049Z"}
+info: User: {"timestamp":"2023-10-30T06:48:01.050Z"}
+info: User: {"timestamp":"2023-10-30T06:48:01.051Z"}
+info: Group : {"timestamp":"2023-10-30T06:48:01.051Z"}
+info: Group : {"timestamp":"2023-10-30T06:50:49.660Z"}
+info: Group : {"timestamp":"2023-10-30T06:50:49.662Z"}
+info: Group : {"timestamp":"2023-10-30T06:50:49.663Z"}
+info: Group : {"timestamp":"2023-10-30T06:50:49.668Z"}
+info: Group : {"timestamp":"2023-10-30T06:50:49.672Z"}
+info: User: {"timestamp":"2023-10-30T06:50:49.672Z"}
+info: User: {"timestamp":"2023-10-30T06:50:49.673Z"}
+info: Group : {"timestamp":"2023-10-30T06:51:35.902Z"}
+info: Group : {"timestamp":"2023-10-30T06:51:35.904Z"}
+info: Group : {"timestamp":"2023-10-30T06:51:35.907Z"}
+info: Group : {"timestamp":"2023-10-30T06:51:35.908Z"}
+info: Group : {"timestamp":"2023-10-30T06:51:35.914Z"}
+info: User: {"timestamp":"2023-10-30T06:51:35.914Z"}
+info: User: {"timestamp":"2023-10-30T06:51:35.914Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:06.143Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:06.145Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:06.149Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:06.154Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:06.155Z"}
+info: User: {"timestamp":"2023-10-30T06:52:06.156Z"}
+info: User: {"timestamp":"2023-10-30T06:52:06.156Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:36.111Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:36.112Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:36.121Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:36.121Z"}
+info: Group : {"timestamp":"2023-10-30T06:52:36.122Z"}
+info: User: {"timestamp":"2023-10-30T06:52:36.122Z"}
+info: User: {"timestamp":"2023-10-30T06:52:36.123Z"}
+info: Group : {"timestamp":"2023-10-30T06:53:23.436Z"}
+info: Group : {"timestamp":"2023-10-30T06:53:23.438Z"}
+info: Group : {"timestamp":"2023-10-30T06:53:23.441Z"}
+info: Group : {"timestamp":"2023-10-30T06:53:23.447Z"}
+info: Group : {"timestamp":"2023-10-30T06:53:23.448Z"}
+info: User: {"timestamp":"2023-10-30T06:53:23.448Z"}
+info: User: {"timestamp":"2023-10-30T06:53:23.448Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:10.301Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:10.303Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:10.318Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:10.323Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:10.323Z"}
+info: User: {"timestamp":"2023-10-30T06:55:10.324Z"}
+info: User: {"timestamp":"2023-10-30T06:55:10.324Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:22.560Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:22.563Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:22.565Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:22.571Z"}
+info: User: {"timestamp":"2023-10-30T06:55:22.572Z"}
+info: Group : {"timestamp":"2023-10-30T06:55:22.572Z"}
+info: User: {"timestamp":"2023-10-30T06:55:22.573Z"}
+info: Group : {"timestamp":"2023-10-30T06:56:49.357Z"}
+info: Group : {"timestamp":"2023-10-30T06:56:49.359Z"}
+info: Group : {"timestamp":"2023-10-30T06:56:49.373Z"}
+info: Group : {"timestamp":"2023-10-30T06:56:49.373Z"}
+info: Group : {"timestamp":"2023-10-30T06:56:49.374Z"}
+info: User: {"timestamp":"2023-10-30T06:56:49.374Z"}
+info: User: {"timestamp":"2023-10-30T06:56:49.374Z"}
+info: Group : {"timestamp":"2023-10-30T07:00:09.297Z"}
+info: Group : {"timestamp":"2023-10-30T07:00:09.300Z"}
+info: Group : {"timestamp":"2023-10-30T07:00:09.303Z"}
+info: Group : {"timestamp":"2023-10-30T07:00:09.304Z"}
+info: Group : {"timestamp":"2023-10-30T07:00:09.309Z"}
+info: User: {"timestamp":"2023-10-30T07:00:09.309Z"}
+info: User: {"timestamp":"2023-10-30T07:00:09.310Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:18.372Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:18.377Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:18.395Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:18.398Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:18.399Z"}
+info: User: {"timestamp":"2023-10-30T07:02:18.399Z"}
+info: User: {"timestamp":"2023-10-30T07:02:18.400Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:29.835Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:29.839Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:29.842Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:29.845Z"}
+info: Group : {"timestamp":"2023-10-30T07:02:29.846Z"}
+info: User: {"timestamp":"2023-10-30T07:02:29.846Z"}
+info: User: {"timestamp":"2023-10-30T07:02:29.847Z"}
+info: Group : {"timestamp":"2023-10-30T07:03:46.954Z"}
+info: Group : {"timestamp":"2023-10-30T07:03:46.956Z"}
+info: Group : {"timestamp":"2023-10-30T07:03:46.959Z"}
+info: Group : {"timestamp":"2023-10-30T07:03:46.962Z"}
+info: Group : {"timestamp":"2023-10-30T07:03:46.968Z"}
+info: User: {"timestamp":"2023-10-30T07:03:46.969Z"}
+info: User: {"timestamp":"2023-10-30T07:03:46.969Z"}
+info: Group : {"timestamp":"2023-10-30T07:05:02.012Z"}
+info: Group : {"timestamp":"2023-10-30T07:05:02.013Z"}
+info: Group : {"timestamp":"2023-10-30T07:05:02.017Z"}
+info: Group : {"timestamp":"2023-10-30T07:05:02.023Z"}
+info: Group : {"timestamp":"2023-10-30T07:05:02.024Z"}
+info: User: {"timestamp":"2023-10-30T07:05:02.024Z"}
+info: User: {"timestamp":"2023-10-30T07:05:02.025Z"}
+info: Group : {"timestamp":"2023-10-30T07:07:37.947Z"}
+info: Group : {"timestamp":"2023-10-30T07:07:37.949Z"}
+info: Group : {"timestamp":"2023-10-30T07:07:37.957Z"}
+info: Group : {"timestamp":"2023-10-30T07:07:37.959Z"}
+info: Group : {"timestamp":"2023-10-30T07:07:37.959Z"}
+info: User: {"timestamp":"2023-10-30T07:07:37.960Z"}
+info: User: {"timestamp":"2023-10-30T07:07:37.960Z"}
+info: Group : {"timestamp":"2023-10-30T07:13:33.647Z"}
+info: Group : {"timestamp":"2023-10-30T07:13:33.650Z"}
+info: Group : {"timestamp":"2023-10-30T07:13:33.653Z"}
+info: Group : {"timestamp":"2023-10-30T07:13:33.657Z"}
+info: Group : {"timestamp":"2023-10-30T07:13:33.658Z"}
+info: User: {"timestamp":"2023-10-30T07:13:33.658Z"}
+info: User: {"timestamp":"2023-10-30T07:13:33.659Z"}
+info: Group : {"timestamp":"2023-10-30T07:16:52.253Z"}
+info: Group : {"timestamp":"2023-10-30T07:16:52.255Z"}
+info: Group : {"timestamp":"2023-10-30T07:16:52.258Z"}
+info: Group : {"timestamp":"2023-10-30T07:16:52.262Z"}
+info: Group : {"timestamp":"2023-10-30T07:16:52.267Z"}
+info: User: {"timestamp":"2023-10-30T07:16:52.267Z"}
+info: User: {"timestamp":"2023-10-30T07:16:52.268Z"}
+info: Group : {"timestamp":"2023-10-30T07:18:08.189Z"}
+info: Group : {"timestamp":"2023-10-30T07:18:08.191Z"}
+info: Group : {"timestamp":"2023-10-30T07:18:08.201Z"}
+info: Group : {"timestamp":"2023-10-30T07:18:08.202Z"}
+info: User: {"timestamp":"2023-10-30T07:18:08.202Z"}
+info: User: {"timestamp":"2023-10-30T07:18:08.203Z"}
+info: Group : {"timestamp":"2023-10-30T07:18:08.203Z"}
+info: Group : {"timestamp":"2023-10-30T07:20:34.078Z"}
+info: Group : {"timestamp":"2023-10-30T07:20:34.080Z"}
+info: Group : {"timestamp":"2023-10-30T07:20:34.081Z"}
+info: Group : {"timestamp":"2023-10-30T07:20:34.089Z"}
+info: User: {"timestamp":"2023-10-30T07:20:34.089Z"}
+info: User: {"timestamp":"2023-10-30T07:20:34.090Z"}
+info: Group : {"timestamp":"2023-10-30T07:20:34.090Z"}
+info: Group : {"timestamp":"2023-10-30T07:21:11.148Z"}
+info: Group : {"timestamp":"2023-10-30T07:21:11.151Z"}
+info: Group : {"timestamp":"2023-10-30T07:21:11.154Z"}
+info: Group : {"timestamp":"2023-10-30T07:21:11.159Z"}
+info: Group : {"timestamp":"2023-10-30T07:21:11.160Z"}
+info: User: {"timestamp":"2023-10-30T07:21:11.161Z"}
+info: User: {"timestamp":"2023-10-30T07:21:11.161Z"}
+info: Group : {"timestamp":"2023-10-30T07:27:57.431Z"}
+info: Group : {"timestamp":"2023-10-30T07:27:57.434Z"}
+info: Group : {"timestamp":"2023-10-30T07:27:57.437Z"}
+info: Group : {"timestamp":"2023-10-30T07:27:57.443Z"}
+info: User: {"timestamp":"2023-10-30T07:27:57.443Z"}
+info: Group : {"timestamp":"2023-10-30T07:27:57.443Z"}
+info: User: {"timestamp":"2023-10-30T07:27:57.444Z"}
+info: Group : {"timestamp":"2023-10-30T07:29:23.659Z"}
+info: Group : {"timestamp":"2023-10-30T07:29:23.660Z"}
+info: Group : {"timestamp":"2023-10-30T07:29:23.670Z"}
+info: Group : {"timestamp":"2023-10-30T07:29:23.671Z"}
+info: Group : {"timestamp":"2023-10-30T07:29:23.671Z"}
+info: User: {"timestamp":"2023-10-30T07:29:23.671Z"}
+info: User: {"timestamp":"2023-10-30T07:29:23.672Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:08.253Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:08.255Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:08.257Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:08.258Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:08.261Z"}
+info: User: {"timestamp":"2023-10-30T07:31:08.262Z"}
+info: User: {"timestamp":"2023-10-30T07:31:08.262Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:50.865Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:50.867Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:50.880Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:50.880Z"}
+info: Group : {"timestamp":"2023-10-30T07:31:50.881Z"}
+info: User: {"timestamp":"2023-10-30T07:31:50.881Z"}
+info: User: {"timestamp":"2023-10-30T07:31:50.881Z"}
+info: Group : {"timestamp":"2023-10-30T07:32:42.477Z"}
+info: Group : {"timestamp":"2023-10-30T07:32:42.480Z"}
+info: Group : {"timestamp":"2023-10-30T07:32:42.483Z"}
+info: Group : {"timestamp":"2023-10-30T07:32:42.486Z"}
+info: Group : {"timestamp":"2023-10-30T07:32:42.490Z"}
+info: User: {"timestamp":"2023-10-30T07:32:42.491Z"}
+info: User: {"timestamp":"2023-10-30T07:32:42.491Z"}
+info: Group : {"timestamp":"2023-10-30T07:33:41.242Z"}
+info: Group : {"timestamp":"2023-10-30T07:33:41.245Z"}
+info: Group : {"timestamp":"2023-10-30T07:33:41.249Z"}
+info: Group : {"timestamp":"2023-10-30T07:33:41.255Z"}
+info: Group : {"timestamp":"2023-10-30T07:33:41.256Z"}
+info: User: {"timestamp":"2023-10-30T07:33:41.257Z"}
+info: User: {"timestamp":"2023-10-30T07:33:41.257Z"}
+info: Group : {"timestamp":"2023-10-30T07:34:16.127Z"}
+info: Group : {"timestamp":"2023-10-30T07:34:16.133Z"}
+info: Group : {"timestamp":"2023-10-30T07:34:16.134Z"}
+info: Group : {"timestamp":"2023-10-30T07:34:16.134Z"}
+info: Group : {"timestamp":"2023-10-30T07:34:16.138Z"}
+info: User: {"timestamp":"2023-10-30T07:34:16.144Z"}
+info: User: {"timestamp":"2023-10-30T07:34:16.145Z"}
+info: Group : {"timestamp":"2023-10-30T07:37:29.838Z"}
+info: Group : {"timestamp":"2023-10-30T07:37:29.840Z"}
+info: Group : {"timestamp":"2023-10-30T07:37:29.843Z"}
+info: Group : {"timestamp":"2023-10-30T07:37:29.850Z"}
+info: User: {"timestamp":"2023-10-30T07:37:29.851Z"}
+info: User: {"timestamp":"2023-10-30T07:37:29.851Z"}
+info: Group : {"timestamp":"2023-10-30T07:37:29.851Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:05.114Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:05.117Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:05.120Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:05.126Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:05.127Z"}
+info: User: {"timestamp":"2023-10-30T07:54:05.127Z"}
+info: User: {"timestamp":"2023-10-30T07:54:05.127Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:40.753Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:40.756Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:40.758Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:40.766Z"}
+info: Group : {"timestamp":"2023-10-30T07:54:40.766Z"}
+info: User: {"timestamp":"2023-10-30T07:54:40.767Z"}
+info: User: {"timestamp":"2023-10-30T07:54:40.767Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:35.449Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:35.451Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:35.466Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:35.467Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:35.468Z"}
+info: User: {"timestamp":"2023-10-30T07:56:35.468Z"}
+info: User: {"timestamp":"2023-10-30T07:56:35.469Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:51.472Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:51.474Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:51.479Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:51.488Z"}
+info: Group : {"timestamp":"2023-10-30T07:56:51.488Z"}
+info: User: {"timestamp":"2023-10-30T07:56:51.489Z"}
+info: User: {"timestamp":"2023-10-30T07:56:51.489Z"}
+info: Group : {"timestamp":"2023-10-30T07:57:22.414Z"}
+info: Group : {"timestamp":"2023-10-30T07:57:22.420Z"}
+info: Group : {"timestamp":"2023-10-30T07:57:22.425Z"}
+info: Group : {"timestamp":"2023-10-30T07:57:22.426Z"}
+info: Group : {"timestamp":"2023-10-30T07:57:22.426Z"}
+info: User: {"timestamp":"2023-10-30T07:57:22.426Z"}
+info: User: {"timestamp":"2023-10-30T07:57:22.428Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:11.675Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:11.677Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:11.681Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:11.686Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:11.689Z"}
+info: User: {"timestamp":"2023-10-30T07:58:11.690Z"}
+info: User: {"timestamp":"2023-10-30T07:58:11.691Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:38.348Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:38.350Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:38.364Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:38.365Z"}
+info: Group : {"timestamp":"2023-10-30T07:58:38.365Z"}
+info: User: {"timestamp":"2023-10-30T07:58:38.365Z"}
+info: User: {"timestamp":"2023-10-30T07:58:38.367Z"}
+info: Group : {"timestamp":"2023-10-30T11:11:36.405Z"}
+info: Group : {"timestamp":"2023-10-30T11:11:36.407Z"}
+info: Group : {"timestamp":"2023-10-30T11:11:36.411Z"}
+info: Group : {"timestamp":"2023-10-30T11:11:36.414Z"}
+info: Group : {"timestamp":"2023-10-30T11:11:36.416Z"}
+info: User: {"timestamp":"2023-10-30T11:11:36.417Z"}
+info: User: {"timestamp":"2023-10-30T11:11:36.417Z"}
+info: Group : {"timestamp":"2023-10-30T11:15:53.240Z"}
+info: Group : {"timestamp":"2023-10-30T11:15:53.241Z"}
+info: Group : {"timestamp":"2023-10-30T11:15:53.252Z"}
+info: Group : {"timestamp":"2023-10-30T11:15:53.253Z"}
+info: Group : {"timestamp":"2023-10-30T11:15:53.254Z"}
+info: User: {"timestamp":"2023-10-30T11:15:53.254Z"}
+info: User: {"timestamp":"2023-10-30T11:15:53.254Z"}
+info: Group : {"timestamp":"2023-10-30T11:46:50.596Z"}
+info: Group : {"timestamp":"2023-10-30T11:46:50.598Z"}
+info: Group : {"timestamp":"2023-10-30T11:46:50.606Z"}
+info: Group : {"timestamp":"2023-10-30T11:46:50.607Z"}
+info: User: {"timestamp":"2023-10-30T11:46:50.607Z"}
+info: User: {"timestamp":"2023-10-30T11:46:50.607Z"}
+info: Group : {"timestamp":"2023-10-30T11:46:50.608Z"}
+info: Group : {"timestamp":"2023-10-30T11:49:33.131Z"}
+info: Group : {"timestamp":"2023-10-30T11:49:33.135Z"}
+info: Group : {"timestamp":"2023-10-30T11:49:33.138Z"}
+info: Group : {"timestamp":"2023-10-30T11:49:33.142Z"}
+info: Group : {"timestamp":"2023-10-30T11:49:33.143Z"}
+info: User: {"timestamp":"2023-10-30T11:49:33.143Z"}
+info: User: {"timestamp":"2023-10-30T11:49:33.144Z"}
+info: Group : {"timestamp":"2023-10-30T11:50:16.773Z"}
+info: Group : {"timestamp":"2023-10-30T11:50:16.774Z"}
+info: Group : {"timestamp":"2023-10-30T11:50:16.776Z"}
+info: Group : {"timestamp":"2023-10-30T11:50:16.781Z"}
+info: Group : {"timestamp":"2023-10-30T11:50:16.782Z"}
+info: User: {"timestamp":"2023-10-30T11:50:16.782Z"}
+info: User: {"timestamp":"2023-10-30T11:50:16.782Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:01.592Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:01.595Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:01.604Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:01.605Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:01.605Z"}
+info: User: {"timestamp":"2023-10-30T11:51:01.606Z"}
+info: User: {"timestamp":"2023-10-30T11:51:01.609Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:46.711Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:46.714Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:46.724Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:46.725Z"}
+info: Group : {"timestamp":"2023-10-30T11:51:46.725Z"}
+info: User: {"timestamp":"2023-10-30T11:51:46.725Z"}
+info: User: {"timestamp":"2023-10-30T11:51:46.726Z"}

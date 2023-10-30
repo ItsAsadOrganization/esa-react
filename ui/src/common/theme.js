@@ -7,7 +7,7 @@ export const darkTheme = {
         },
         primary: {
             // main: '#e21949'
-            main: '#FA5C7C'
+            main: '#7367f0'
         },
         secondary: {
             // main: 'rgb(0, 128, 0)'
@@ -29,8 +29,8 @@ export const darkTheme = {
             light: "#ff3d7114"
         },
         background: {
-            paper: "#3a444e",
-            default: "#343a40"
+            paper: "#2b3044",
+            default: "#191d30"
         },
         success: {
             main: "#0acf97"
@@ -45,22 +45,22 @@ export const darkTheme = {
         },
     },
     typography: {
-        body1: { fontFamily: "'Open Sans', sans-serif" },
-        body2: { fontFamily: "'Open Sans', sans-serif" },
-        button: { fontFamily: "'Open Sans', sans-serif" },
-        caption: { fontFamily: "'Open Sans', sans-serif" },
-        h1: { fontFamily: "'Open Sans', sans-serif" },
-        h2: { fontFamily: "'Open Sans', sans-serif" },
-        h3: { fontFamily: "'Open Sans', sans-serif" },
-        h4: { fontFamily: "'Open Sans', sans-serif" },
-        h5: { fontFamily: "'Open Sans', sans-serif" },
-        h6: { fontFamily: "'Open Sans', sans-serif" },
-        overline: { fontFamily: "'Open Sans', sans-serif" },
-        subtitle1: { fontFamily: "'Open Sans', sans-serif" },
-        subtitle2: { fontFamily: "'Open Sans', sans-serif" },
-        fontFamily: "'Open Sans', sans-serif",
-        headingColor: "#aab8c5",
-        activeBreadCrumbColor: "#8391a2"
+        body1: { fontFamily: " 'Montserrat', sans-serif" },
+        body2: { fontFamily: " 'Montserrat', sans-serif" },
+        button: { fontFamily: " 'Montserrat', sans-serif" },
+        caption: { fontFamily: " 'Montserrat', sans-serif" },
+        h1: { fontFamily: "'Urbanist', sans-serif" },
+        h2: { fontFamily: "'Urbanist', sans-serif" },
+        h3: { fontFamily: "'Urbanist', sans-serif" },
+        h4: { fontFamily: "'Urbanist', sans-serif" },
+        h5: { fontFamily: "'Urbanist', sans-serif" },
+        h6: { fontFamily: "'Urbanist', sans-serif" },
+        overline: { fontFamily: " 'Montserrat', sans-serif" },
+        subtitle1: { fontFamily: " 'Montserrat', sans-serif" },
+        subtitle2: { fontFamily: " 'Montserrat', sans-serif" },
+        fontFamily: " 'Montserrat', sans-serif",
+        headingColor: "#d0d2d6",
+        activeBreadCrumbColor: "#d0d2d6"
     }
 }
 

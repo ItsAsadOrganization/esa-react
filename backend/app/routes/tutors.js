@@ -4,7 +4,7 @@ let tutorRouter = Router()
 
 tutorRouter.get("/tutors", (req, res, next) => {
     try {
-        Manager.getAllTutors(req.session, next)
+        Manager.getAllTutors(next)
     } catch (err) {
         next(err)
     }
@@ -13,8 +13,7 @@ tutorRouter.get("/tutors", (req, res, next) => {
 tutorRouter.post("/tutor", (req, res, next) => {
     try {
         const payload = req.body
-        const session = req.session
-        Manager.postTutor(payload, session, next)
+        Manager.postTutor(payload, next)
     } catch (err) {
         next(err)
     }

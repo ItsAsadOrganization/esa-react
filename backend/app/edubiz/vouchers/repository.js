@@ -22,8 +22,8 @@ class VouchersRepository {
         return voucher
     }
 
-    static async getAllVouchers(paranoid) {
-        const voucher = await Voucher.findAll({ paranoid: paranoid })
+    static async getAllVouchers() {
+        const voucher = await Voucher.findAll({})
         return voucher
     }
 
@@ -52,6 +52,17 @@ class VouchersRepository {
 
     static async updateVoucher(id, paylaod) {
         const voucher = await Voucher.update(paylaod, {
+            where: {
+                id: {
+                    [Op.eq]: id
+                }
+            }
+        })
+        return voucher
+    }
+
+    static async deleteVoucher(id) {
+        const voucher = await Voucher.destroy({
             where: {
                 id: {
                     [Op.eq]: id

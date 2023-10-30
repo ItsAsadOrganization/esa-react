@@ -1,19 +1,22 @@
 const { SUCCESS, NOTFOUND, UNAUTHORIZED } = require("../../common/exceptions")
+const { generateToken } = require("../../common/jwt")
 const VoucherManager = require("../vouchers/manager")
 const Repository = require("./repository")
 
 
 class UserManager {
-    static async login(username, password, sessionData, next) {
+    static async login(username, password, res, next) {
         try {
             const response = await Repository.getLoginDetails(username, password)
             if (!response) {
                 throw new UNAUTHORIZED("User not found with provided credentials")
             } else {
-                sessionData.username = username
-                sessionData.password = password
-                sessionData.role = response.roleId
-                sessionData.userid = response.id
+                const token = generateToken({
+                    userId: response.id,
+                    name: response.email,
+                    role: response["role.name"]
+                })
+                res.setHeader("authorization", token)
                 throw new SUCCESS({ user: response })
             }
         } catch (err) {

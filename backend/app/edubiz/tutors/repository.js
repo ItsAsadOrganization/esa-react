@@ -3,9 +3,8 @@ const Tutor = require("../../models/tutor")
 
 
 class TutorsRepository {
-    static async getAllTutors(paranoid) {
+    static async getAllTutors() {
         const tutorz = await Tutor.findAll({
-            paranoid: paranoid
         })
         return tutorz
     }

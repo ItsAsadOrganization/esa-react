@@ -47,7 +47,6 @@ const Dashboard = () => {
 
     React.useEffect(() => {
         if (queriesList.length > 0) {
-            console.log(queriesList.length)
             let setOfDates = [...new Set(queriesList.map(q => new Date(q.createdAt).toISOString().split('T')[0]))]
             let __data = setOfDates.map(dt => {
                 return {
@@ -97,7 +96,6 @@ const Dashboard = () => {
 
                 }
             </Grid>
-            {console.log(process.env)}
 
             <Grid container sx={{ mb: 1.5 }}>
                 <Grid item xs={12} sm={8} >
@@ -163,7 +161,6 @@ const Dashboard = () => {
 
                                 {queriesList.length > 0 && queriesList.filter((item, idx) => (idx < 5)).map(std => (
                                     <Card sx={{ mb: 1.25 }} >
-                                        {console.log({ std })}
                                         <CardHeader
                                             avatar={
                                                 <Avatar aria-label="recipe">

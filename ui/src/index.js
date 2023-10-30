@@ -14,8 +14,9 @@ import "./index.css"
 import { darkTheme, lightTheme } from './common/theme';
 // Add with other imports
 import io from "socket.io-client";
-import { handleChangeNotificaiton } from './common/commonSlice';
+import { handleChangeActiveUsers, handleChangeNotificaiton } from './common/commonSlice';
 import { getItem } from './utils/storage';
+import { openErrorToast } from './common/toast';
 
 const theme = createTheme(lightTheme);
 
@@ -24,21 +25,34 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 let persistor = persistStore(store);
 
 
-export const socket = io.connect(`${window.location.protocol}//${window.location.hostname}:3502`,{
+export const socket = io.connect(`${window.location.protocol}//${window.location.hostname}:3502`, {
   extraHeaders: {
-    authorization: getItem('secret') 
+    authorization: getItem('secret')
   }
 });
 
 
 const App = () => {
   const dispatch = useDispatch()
+
+  const refreshSocket = async () => {
+    try {
+      await socket.on("noty", (data) => {
+        dispatch(handleChangeNotificaiton(data))
+      });
+
+      await socket.on("users", (user) => {
+        dispatch(handleChangeActiveUsers(user))
+      })
+    } catch (err) {
+      openErrorToast(err)
+    }
+  }
   useEffect(() => {
     //listens for the event list from the backend
-    socket.on("noty", (data) => {
-      dispatch(handleChangeNotificaiton(data))
-    });
-  }, [socket]);
+    refreshSocket()
+
+  }, []);
 
   return (
 

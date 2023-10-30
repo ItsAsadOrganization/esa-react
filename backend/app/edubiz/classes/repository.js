@@ -2,10 +2,8 @@ const { Op } = require("sequelize")
 const Classes = require("../../models/classes")
 
 class ClassesRepository {
-    static async getAllClasses(paranoid) {
-        const classes = await Classes.findAll({
-            paranoid: paranoid
-        })
+    static async getAllClasses() {
+        const classes = await Classes.findAll({})
         return classes
     }
 

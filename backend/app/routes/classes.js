@@ -4,9 +4,7 @@ let classesRouter = Router()
 
 classesRouter.get("/classes", (req, res, next) => {
     try {
-        const sessionData = req.session.user
-        const paranoid = sessionData.role === "superadmin" ? false : true
-        Manager.getAllClasses(paranoid, next)
+        Manager.getAllClasses(next)
     } catch (err) {
         next(err)
     }

@@ -304,7 +304,7 @@ const PreviewVoucher = ({ title, drawerUser, studentsList, classList }) => {
                         <TableBody>
                             <TableRow sx={{ verticalAlign: "top" }}>
                                 <TableCell sx={{ padding: 0, fontSize: 8, p: 0 }}>1</TableCell>
-                                <TableCell sx={{ padding: 0, fontSize: 8, p: 0 }} width={"95%"} >Tuition Fee is payable in advance and once paid is<b> Non-Refundable</b></TableCell>
+                                <TableCell sx={{ padding: 0, fontSize: 8, p: 0 }} width={"95%"} >There is no refund or transfer of submitted fee in any case </TableCell>
                             </TableRow>
                             <TableRow sx={{ verticalAlign: "top" }}>
                                 <TableCell sx={{ padding: 0, fontSize: 8, p: 0 }}>2</TableCell>

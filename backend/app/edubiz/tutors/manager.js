@@ -3,11 +3,9 @@ const { CREATESUCCESS, INTERNAL_SERVER_ERROR, SUCCESS } = require('../../common/
 const Repository = require('./repository')
 
 class TutorsManager {
-    static async getAllTutors(session, next) {
+    static async getAllTutors(next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
-            const tutors = await Repository.getAllTutors(paranoid)
+            const tutors = await Repository.getAllTutors()
             if (!tutors) {
                 throw new SUCCESS({ tutors: [] })
             } else {

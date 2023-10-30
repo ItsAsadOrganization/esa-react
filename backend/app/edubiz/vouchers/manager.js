@@ -63,11 +63,9 @@ class VoucherManager {
         }
     }
 
-    static async getVouchers(session, next) {
+    static async getVouchers(next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
-            const voucher = await Repository.getAllVouchers(paranoid)
+            const voucher = await Repository.getAllVouchers()
             if (!voucher) {
                 throw new SUCCESS({ voucher: [] })
             } else {
@@ -109,6 +107,15 @@ class VoucherManager {
         try {
             const voucher = await Repository.getExpiringVouchers()
             throw new SUCCESS({voucher})
+        } catch (err) {
+            next(err)
+        }
+    }
+    
+    static async deleteVoucher(id, next) {
+        try {
+            const voucher = await Repository.deleteVoucher(id)
+            throw new SUCCESS({message: "Voucher Deleted Successfully"})
         } catch (err) {
             next(err)
         }

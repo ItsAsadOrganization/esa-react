@@ -1,11 +1,11 @@
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Navigation from './Navigation';
-import { handleLogout, isUserLoggedIn, getUserPermissions, getUserRole } from '../screens/Login/loginSlice';
+import { handleLogout, isUserLoggedIn, getUserPermissions, getUserRole, getUserName, getUserId } from '../screens/Login/loginSlice';
 import { APP_ROUTES, ROUTES } from './Navigation/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getLoadings, getTheme, handleChangeTheme, getNotifications } from '../common/commonSlice';
+import { getLoadings, getTheme, handleChangeTheme, getNotifications, getActiveUsers } from '../common/commonSlice';
 import Icons from '../common/icons'
 
 import * as React from 'react';
@@ -25,10 +25,11 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useTheme } from '@emotion/react';
-import { Alert, Avatar, Backdrop, Badge, Button, CircularProgress, Icon, Snackbar, Tooltip } from '@mui/material';
-import { openErrorToast } from '../common/toast';
+import { Alert, Avatar, Backdrop, Badge, Button, Chip, CircularProgress, Container, Icon, ListItem, ListItemAvatar, Snackbar, Tooltip } from '@mui/material';
+import { openErrorToast, openSuccessToast } from '../common/toast';
 import { updateNotyApi } from '../api';
 import { getItem, setItem } from '../utils/storage';
+import { socket } from '..';
 
 const drawerWidth = 240;
 
@@ -68,6 +69,9 @@ const Layout = (props) => {
     const userRole = useSelector(getUserRole);
     const loadings = useSelector(getLoadings);
     const notificaiotns = useSelector(getNotifications);
+    const username = useSelector(getUserName);
+    const userId = useSelector(getUserId);
+    const activeUsers = useSelector(getActiveUsers);
     const location = useLocation()
 
     // const selectedTheme = useSelector(getTheme)
@@ -77,6 +81,7 @@ const Layout = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const [anchorElNoty, setAnchorElNoty] = React.useState(null);
+    const [anchorElActiveUsers, setAnchorElActiveUsers] = React.useState(null);
 
 
 
@@ -107,6 +112,21 @@ const Layout = (props) => {
             setSnackOpen(true)
         }
     }, [notificaiotns])
+
+    React.useEffect(() => {
+        if (isLoggedIn && username && userId) {
+            socket.auth = { username, userId }
+            socket.connect()
+            socket.on("user_connected", user => openSuccessToast("A new user has logged In. " + user.username))
+            socket.emit("get_users", () => { })
+        }
+    }, [isLoggedIn, username, userId])
+
+    // React.useEffect(() => {
+    //     socket.on("users", (user) => {
+    //         console.log({ user })
+    //     })
+    // }, [socket])
 
 
     return (
@@ -165,7 +185,7 @@ const Layout = (props) => {
                                     }
 
                                 }}>
-                                    
+
                                 {
                                     APP_ROUTES.filter(route => {
                                         return Object.keys(userPermissions).includes(route.permission) && route.showInNav
@@ -201,60 +221,6 @@ const Layout = (props) => {
 
                                 }
                             </List>
-                            <List component="nav" sx={{
-                                color: theme.palette.error.main,
-                                '&& .Mui-selected, && .Mui-selected:hover': {
-                                    background: "none",
-                                    '&, & .MuiListItemIcon-root': {
-                                        color: theme.palette.action.active,
-                                    },
-                                    '&, & .MuiListItemText-root .MuiListItemText-primary': {
-                                        color: theme.palette.action.active,
-                                    },
-                                },
-                                '& .MuiListItemButton-root:hover': {
-                                    transition: ".3s all ease_in-out",
-                                    bgcolor: 'none',
-                                    background: "none",
-                                    '&, & .MuiListItemIcon-root': {
-                                        color: theme.palette.customFontColor.light,
-
-                                    },
-                                    '&, & .MuiListItemText-root .MuiListItemText-primary': {
-                                        color: theme.palette.customFontColor.light,
-                                    },
-                                },
-                                "& .MuiListItemButton-root": {
-                                    transition: ".3s all ease_in-out",
-                                    "&, & .MuiListItemText-root .MuiListItemText-primary": {
-                                        color: theme.palette.customFontColor.main,
-                                    },
-                                    "&, & .MuiListItemIcon-root": {
-                                        color: theme.palette.customFontColor.main,
-                                    }
-                                }
-
-                            }}>
-                                <ListItemButton
-                                    disableRipple
-                                    onClick={() => {
-                                        dispatch(handleLogout());
-                                    }}
-                                >
-                                    <ListItemIcon sx={{
-                                        minWidth: "30px",
-                                    }}> <Icons.AccountCircleOutlined sx={{
-                                        fontSize: "1.25rem",
-                                    }} /> </ListItemIcon>
-
-                                    {open && <ListItemText
-                                        primaryTypographyProps={{
-                                            fontSize: '0.8125rem',
-                                            fontWeight: 600
-                                        }}
-                                        primary={"Log Out"} />}
-                                </ListItemButton>
-                            </List>
                         </Box>
                     </Drawer>
                 </>
@@ -272,7 +238,7 @@ const Layout = (props) => {
                     overflow: 'auto',
                 }}
             >
-                {(isLoggedIn) && <Toolbar
+                {(isLoggedIn) && <Toolbar component={Container} maxWidth="xl"
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
                         display: "flex",
@@ -293,16 +259,26 @@ const Layout = (props) => {
                             onClick={toggleDrawer}
                             sx={{
                                 color: theme.palette.customFontColor.main,
-                                marginRight: 2,
+                                marginRight: 1,
                             }}
                         >
-                            <MenuIcon />
+                            <Icons.MenuOpen />
                         </IconButton>
+                        <Typography sx={{
+                            color: theme => theme.palette.customFontColor.main
+                        }}>Students Control Panel</Typography>
 
 
                     </Box>
 
                     <Box>
+                        <IconButton onClick={(e) => {
+                            setAnchorElActiveUsers(e.currentTarget);
+                        }}>
+                            <Badge size="small" badgeContent={activeUsers.filter(u => u.username !== username).length} color="success">
+                                <Icons.Group />
+                            </Badge>
+                        </IconButton>
                         <IconButton onClick={(e) => {
                             setAnchorElNoty(e.currentTarget);
                         }}>
@@ -310,11 +286,76 @@ const Layout = (props) => {
                                 {notificaiotns.filter(n => !n.is_read).length > 0 ? <Icons.NotificationsActive /> : <Icons.NotificationsActiveOutlined />}
                             </Badge>
                         </IconButton>
+                        <Button endIcon={<Icons.AccountCircleOutlined sx={{
+                            width: 38,
+                            height: 38,
+                        }} />}
+
+                            onClick={(e) => handleOpenUserMenu(e)}>
+                            <Box sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "flex-end",
+                                alignItems: "flex-end"
+                            }}
+
+                            >
+                                <Typography sx={{
+                                    fontSize: 16,
+                                    fontWeight: 700,
+                                    lineHeight: 1.3
+                                }}>{username}</Typography>
+                                <Typography sx={{
+                                    fontSize: 10,
+                                    lineHeight: 1.0
+                                }}>{userRole}</Typography>
+                            </Box>
+                        </Button>
+
+                        <Menu
+                            id="lock-menu"
+                            anchorEl={anchorElUser}
+                            open={Boolean(anchorElUser)}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            onClose={() => {
+                                handleCloseUserMenu()
+                            }}
+                            sx={{
+                                '& .MuiPaper-root': {
+                                    // minWidth: 400,
+                                    // width: 400,
+                                    // maxWidth: 400,
+                                    // maxHeight: 500,
+                                    // overflow: "auto",
+                                    // p: 5,
+                                },
+                                '& .MuiList-root': {
+                                    padding: 0,
+                                    position: "relative"
+                                }
+                            }}
+                            MenuListProps={{
+                                'aria-labelledby': 'lock-button',
+                                role: 'listbox',
+                            }}
+                        >
+                            {/* <MenuItem>Profile</MenuItem>
+                            <MenuItem>Change Password</MenuItem>
+                            <Divider sx={{ m: "0 !important" }} /> */}
+                            <MenuItem onClick={e => {
+                                handleCloseUserMenu()
+                                dispatch(handleLogout())
+                            }}>Log Out</MenuItem>
+
+                        </Menu>
 
                         <Menu
                             id="lock-menu"
                             anchorEl={anchorElNoty}
                             open={Boolean(anchorElNoty)}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                             onClose={() => {
                                 setAnchorElNoty(null)
                             }}
@@ -416,6 +457,57 @@ const Layout = (props) => {
                             </Box>}
 
                         </Menu>
+
+                        <Menu
+                            id="lock-menu"
+                            anchorEl={anchorElActiveUsers}
+                            open={Boolean(anchorElActiveUsers)}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            onClose={() => {
+                                setAnchorElActiveUsers(null);
+                            }}
+                            sx={{
+                                '& .MuiPaper-root': {
+
+                                },
+                                '& .MuiList-root': {
+                                    minWidth: 200
+                                }
+                            }}
+                            MenuListProps={{
+                                'aria-labelledby': 'lock-button',
+                                role: 'listbox',
+                            }}
+                        >
+                            {activeUsers.filter(u => u.username !== username).map(u => (
+                                <ListItem sx={{
+                                    px: 1.5,
+                                    py: 0.25
+                                }}>
+                                    <ListItemAvatar sx={{
+                                        minWidth: 30
+                                    }}>
+                                        <Avatar sx={{
+                                            width: 20,
+                                            height: 20,
+                                            fontSize: 12,
+                                            background: theme => theme.palette.success.main
+                                        }} alt={u?.username?.charAt(0)?.toUpperCase()} src="/static/images/avatar/1.jpg" />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={u?.username?.charAt(0)?.toUpperCase() + u?.username?.slice(1)}
+                                        primaryTypographyProps={{
+                                            sx: {
+                                                fontSize: 12
+                                            }
+                                        }}
+                                    />
+                                </ListItem>
+                            ))}
+
+                        </Menu>
+
                     </Box>
                 </Toolbar>}
                 <Navigation />

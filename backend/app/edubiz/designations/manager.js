@@ -5,12 +5,9 @@ const Reqpository = require("./repository")
 
 
 class DesignationManager {
-    static async getAllDesignations(session, next) {
+    static async getAllDesignations(next) {
         try {
-            const sessionData = session.user
-            const paranoid = sessionData.role === "superadmin" ? false : true
-
-            const designations = await Reqpository.getAllDesignation(paranoid)
+            const designations = await Reqpository.getAllDesignation()
             if (!designations) {
                 throw new SUCCESS({ designations: [] })
             } else {
