@@ -98,7 +98,7 @@ const Dashboard = () => {
             </Grid>
 
             <Grid container sx={{ mb: 1.5 }}>
-                <Grid item xs={12} sm={8} >
+                <Grid item xs={12} sm={8} md={7} >
                     <Box sx={{
                         maxWidth: '93%', boxShadow: theme => theme.shadows[5],
                         background: theme => theme.palette.background.paper,
@@ -138,7 +138,7 @@ const Dashboard = () => {
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={4} sx={{ mb: 1 }} >
+                <Grid item xs={12} sm={4} md={5} sx={{ mb: 1 }} >
                     <Box sx={{
                         boxShadow: theme => theme.shadows[5],
                         background: theme => theme.palette.background.paper,
@@ -185,7 +185,7 @@ const Dashboard = () => {
 
 
             <Grid container spacing={2} sx={{ mb: 3 }}>
-                <Grid item xs={12} sm={4} >
+                <Grid item xs={12} sm={4} md={5} >
                     <Box sx={{
                         boxShadow: theme => theme.shadows[5],
                         background: theme => theme.palette.background.paper,
@@ -210,7 +210,7 @@ const Dashboard = () => {
                             ]}>
                                 {
                                     queriesList.filter(q => q.is_matured).length > 0 ?
-                                        queriesList.filter(q => q.is_matured).map(exp => (
+                                        queriesList.filter(q => q.is_matured).filter((q,id) => (id < 10)).map(exp => (
                                             <StyledTableRow key={exp.id}>
                                                 <StyledTableCell >{exp.code}</StyledTableCell>
                                                 <StyledTableCell >{exp.student_name}</StyledTableCell>
@@ -225,7 +225,7 @@ const Dashboard = () => {
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={8} >
+                <Grid item xs={12} sm={8} md={7} >
                     <Box sx={{
                         boxShadow: theme => theme.shadows[5],
                         background: theme => theme.palette.background.paper,
@@ -250,7 +250,7 @@ const Dashboard = () => {
                                 { name: "Date Expiry" },
                             ]}>
                                 {
-                                    expiringVouchersList.map(exp => (
+                                    expiringVouchersList.filter((q,id) => (id < 10)).map(exp => (
                                         <StyledTableRow key={exp.id}>
                                             <StyledTableCell >{exp.voucher_id}</StyledTableCell>
                                             <StyledTableCell >{studentsList.find(std => std.id === exp.studentId).name}</StyledTableCell>

@@ -55,14 +55,7 @@ class DesignationManager {
 
     static async removeDesignation(id, next) {
         try {
-            const designation = await Reqpository.remove(id)
-            if (!designation) {
-                throw new INTERNAL_SERVER_ERROR("Error inserting user record")
-            }
-            await NotificationRepository.saveNotifications({
-                title: "Designation Deleted",
-                description: `Designation dispersed with name ${payload.name}`,
-            })
+            await Reqpository.remove(id)
             throw new SUCCESS({ message: "Deleted Successfully" })
         } catch (err) {
             next(err)

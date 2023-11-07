@@ -32,7 +32,9 @@ class DesignationReqpository {
     static async remove(id) {
         const response = await Designations.destroy({
             where: {
-                [Op.eq]: id
+                id: {
+                    [Op.eq]: id
+                }
             }
         })
         return response

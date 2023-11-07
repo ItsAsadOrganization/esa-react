@@ -49,7 +49,7 @@ export const PERMISSIONS = {
     previewStudent: "StudentsViewStudent",
     tutors: "TutorsShowInNav",
     payslips: "PaySlipsShowInNav",
-    designations: "DesignationShowInNav",
+    designations: "DesignationsShowInNav",
     roles: "RolesShowInNav",
     users: "UsersShowInNav",
     queries: "QueriesShowInNav",

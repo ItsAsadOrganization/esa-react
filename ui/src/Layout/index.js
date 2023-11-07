@@ -118,7 +118,7 @@ const Layout = (props) => {
             socket.auth = { username, userId }
             socket.connect()
             socket.on("user_connected", user => openSuccessToast("A new user has logged In. " + user.username))
-            socket.emit("get_users", () => { })
+            // socket.emit("get_users", () => { })
         }
     }, [isLoggedIn, username, userId])
 
@@ -272,13 +272,13 @@ const Layout = (props) => {
                     </Box>
 
                     <Box>
-                        <IconButton onClick={(e) => {
+                        {/* <IconButton onClick={(e) => {
                             setAnchorElActiveUsers(e.currentTarget);
                         }}>
                             <Badge size="small" badgeContent={activeUsers.filter(u => u.username !== username).length} color="success">
                                 <Icons.Group />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton onClick={(e) => {
                             setAnchorElNoty(e.currentTarget);
                         }}>

@@ -46,10 +46,10 @@ const dashboardSlice = createSlice({
             state.queriesList = action.payload.data.queries.sort((a, b) => (a.id > b.id ? -1 : 1))
         })
         builder.addCase(studentsListRequested.fulfilled, (state, action) => {
-            state.studentsList = action.payload.data.students
+            state.studentsList = action.payload.data.students.sort((a, b) => (a.id > b.id ? -1 : 1))
         })
         builder.addCase(expiringVouchersRequested.fulfilled, (state, action) => {
-            state.expiringVouchersList = action.payload.data.voucher.map(v => ({ ...v, voucher_id: `EGC-${v.id}` }))
+            state.expiringVouchersList = action.payload.data.voucher.map(v => ({ ...v, voucher_id: `EGC-${v.id}` })).sort((a, b) => (a.id > b.id ? -1 : 1))
         })
     }
 });

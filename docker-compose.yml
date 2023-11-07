@@ -17,36 +17,6 @@ services:
     networks:
       - egc
 
-  redis:
-    image: redis
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-    ports:
-      - 6389:6379
-    volumes:
-      - redis:/data
-    restart: always
-    entrypoint: redis-server --appendonly yes
-    networks:
-      - egc
-      
-  redis-commander:
-    image: rediscommander/redis-commander:latest
-    restart: always
-    environment:
-      REDIS_HOSTS: redis
-      REDIS_HOST: redis
-      REDIS_PORT: redis:6379
-      REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-      HTTP_USER: root
-      HTTP_PASSWORD: root
-    ports:
-      - 3503:8081
-    networks:
-      - egc
-
   phpmyadmin:
     container_name: phpmyadmin-esa
     image: phpmyadmin
@@ -72,7 +42,6 @@ services:
       - engine
     networks:
       - egc
-    
 
   engine:
     build: ${BACKEND_DIR}
@@ -93,17 +62,11 @@ services:
       REDIS_PORT: 6379
       LOG_PATH: ${LOGS_PATH}
       APP_SECRET: E-n!c@h%o^r&e*S(t)a_r+G_r)o(u*p&O^f%C$o@l!l~e.g,e>s<
-    depends_on:
-      - redis
-    links:
-      - redis
     networks:
       - egc
    
-   
 volumes:
   mysql-db-volume:
-  redis:
 
 networks:
   egc:

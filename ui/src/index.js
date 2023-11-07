@@ -41,9 +41,9 @@ const App = () => {
         dispatch(handleChangeNotificaiton(data))
       });
 
-      await socket.on("users", (user) => {
-        dispatch(handleChangeActiveUsers(user))
-      })
+      // await socket.on("users", (user) => {
+      //   dispatch(handleChangeActiveUsers(user))
+      // })
     } catch (err) {
       openErrorToast(err)
     }
